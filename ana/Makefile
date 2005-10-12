@@ -1,8 +1,6 @@
 .PHONY: setup distribution all clean mrproper psall
 
-all: ana1.dvi ana2.dvi ana3.dvi
-
-psall: ana1.ps ana2.ps ana3.ps
+all: ana1.pdf ana2.pdf ana3.pdf
 
 distribution: ana1.dist.tar ana2.dist.tar ana3.dist.tar
 

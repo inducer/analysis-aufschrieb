@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PUB_LOCATION="$HOME/own/dev/web/homepage/aufschrieb/"
+PUB_LOCATION="$HOME/work/tiker.net/webserver/site-codes/tiker.net/aufschrieb/"
 
 function dist() {
   cd $1
@@ -8,6 +8,8 @@ function dist() {
   echo -n "[setup]"
   make setup &> /dev/null
   echo -n "[distrib]"
+  make all &> /dev/null
+  make all &> /dev/null
   make distribution &> /dev/null
   echo "[copying]"
   scp *.dist.tar $PUB_LOCATION
@@ -15,7 +17,6 @@ function dist() {
   }
 
 if test $# == 0; then
-  dist algebra
   dist ana
   dist info
 else

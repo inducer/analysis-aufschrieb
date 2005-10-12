@@ -1,8 +1,6 @@
 .PHONY: setup distribution all clean mrproper psall
 
-all: info1.dvi info2.dvi info3.dvi
-
-psall: info1.ps info2.ps info3.ps
+all: info1.pdf info2.pdf info3.pdf
 
 distribution: info1.dist.tar info2.dist.tar info3.dist.tar
 

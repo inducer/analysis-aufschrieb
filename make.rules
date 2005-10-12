@@ -53,19 +53,18 @@ mrproper: clean
 	tar cvhfz $*-source.tar.gz $*-source
 	rm -Rf $*-source
 
-%.dist.tar: %.ps %-source.tar.gz 
-	rm -f $*.dvi.gz
-	rm -f $*.ps.gz
-	gzip $*.dvi
-	gzip $*.ps
-	tar cvhf $*.dist.tar $*-source.tar.gz $*.ps.gz $*.dvi.gz $(dist_add)
+%.dist.tar: %.pdf %-source.tar.gz 
+	tar cvhf $*.dist.tar $*-source.tar.gz $*.pdf $(dist_add)
 
 %.pstex %.pstex_t: %.fig
 	fig2dev -L pstex -m $(FIG_MAGNIFICATION) $*.fig > $*.pstex
 	fig2dev -L pstex_t -p $*.pstex -m $(FIG_MAGNIFICATION) $*.fig > $*.pstex_t
 
 %.ps: %.dvi
-	dvips $*.dvi -o $*.ps
+	dvips -z $*.dvi -o $*.ps
+
+%.pdf: %.ps
+	ps2pdf $*.ps $*.pdf
 
 %.bib: %.bbl
 	bibtex $*
