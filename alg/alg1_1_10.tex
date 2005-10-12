@@ -1,0 +1,872 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\para{Notation}
+% -----------------------------------------------------------------------------
+\definition Schreibweisen:{
+  Bezeichnen $M,N,P$ Mengen. Dann sind
+  \begin{itemize}
+    \item $\bigcupd$ zeigt an, dass die entsprechende Vereinigung disjunkt ist.
+    \item $\cal P(M)$ die Potenzmenge von $M$
+    \item $S_M$ die Gruppe der Bijektionen auf $M$
+      \index{Gruppe>symmetrische}
+      \index{Symmetrische Gruppe}
+    \item $N^M$ die Menge der Abbildungen von $M\to N$
+    \item $K\subseteq M\times N$ der Graph der \indexthis{Korrespondenz}
+      \index{Korrespondenz>Graph einer}
+      $(M,N,K)$
+    \item Die Komposition der Korrespondenzen $L$ und $K$
+      \index{Korrespondenz>Komposition von}
+      \[L\circ K:=\{ (m,p)\mid (\exists n\in N)((m,n)\in K, (n,p)\in L)\}
+        \]
+      (Bemerkung: ``$\circ$'' ist assoziativ)
+    \item Die transponierte Korrespondenz $K$
+      \index{Korrespondenz>transponierte}
+      \[\transpose K:=\{ (n,m) \mid (m,n)\in K \}
+        \]
+      (Falls $K$ bij, gilt $\transpose K = K^{-1}$)
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\para{Algebraische Grundbegriffe}
+% -----------------------------------------------------------------------------
+\definition Verkn"upfung:{
+  Sei $M$ eine Menge. Eine Verkn"upfung $v$ ist dann eine (partielle) Abbildung
+  $M\times M\to M$ mit $(x,y)\mapsto v(x,y)$, Schreibweise oft $v(x,y)=xy$, bzw.
+  \[x^n \text{ f"ur } \underbrace{x\cdot x\cdots x}_{\text{$n$-mal}}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Gruppe:{
+  Sei $M$ eine Menge mit einer multiplikativ geschriebenen Verkn"upfung $v$.
+  \begin{stmts}
+    \item \indexthis{Assoziativit"at} $(\forall x,y,z)(x(yz)=(xy)z)$
+    \item Existenz des neutralen Elements
+      \index{Neutrales Element}
+      \index{Element>neutrales}
+      $(\exists e\in M)(\forall x\in M)(ex=xe=x)$
+    \item Existenz des inversen Elements
+      \index{Inverses Element}
+      \index{Element>inverses}
+      $(\forall x\in M)(\exists y\in M)(xy=yx=e)$
+    \item \indexthis{Kommutativit"at} $xy=yx$
+    \end{stmts}
+  
+  Dann hei"st $(M,v)$
+  \begin{itemize}
+    \item \indexthis{Halbgruppe}, falls (1) gilt
+    \item \indexthis{Monoid}, falls (1),(2) gelten
+    \item \indexthis{Gruppe}, falls (1)-(3) gelten
+    \item \indexthis{abelsch} bzw. \indexthis{kommutativ}, falls (4) gilt
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\example Beispiele f"ur Gruppen:{
+  $(\SetN,+)$ ist Halbgruppe, $(\SetNN,+)$ Monoid, $S_3$ Gruppe und 
+  $(\SetZ,+)$ abelsche Gruppe.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M$ Monoid=>{
+  Dann ist das neutrale Element eindeutig bestimmt. Man bezeichnet es daher
+  mit $1$ bzw. $1_M$.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M$ Gruppe=>{
+  Dann ist das jeweilige inverse Element eindeutig bestimmt. Man bezeichnet es
+  daher mit $x^{-1}$.
+  }
+% -----------------------------------------------------------------------------
+\definition Unterstrukturen:{
+  Sei $(M,v)$ ein Monoid/eine Gruppe, $N\subseteq V$. Dann ist
+  $(N,v|_{N\times N})$ ein Untermonoid/eine Untergruppe, wenn die 
+  dazugeh"origen Bedingungen erf"ullt sind, insbesondere muss gelten
+  \[v|_{N\times N} \subseteq N
+    \]
+  
+  Schreibweise: $N\le M$
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M$ Monoid/Gruppe=>{
+  \label{theo-schnittunter}
+  $U_i\subseteq M$ ($i\in I$) seien Untergruppen/Untermonoide von $M$.
+  Dann ist 
+  \[D:=\bigcap_{i\in I}U_i
+    \] 
+  wieder eine Untergruppe/ein Untermonoid von $M$.
+  }
+% -----------------------------------------------------------------------------
+\definition Erzeugnis:{
+  Sei $M$ ein Monoid/eine Gruppe. Wegen \ref{theo-schnittunter} kann man 
+  zu $X\subseteq M$ auch 
+  \[D:=\product X:=\bigcap\{ U\subseteq M\mid U \text{ Untergruppe/Untermonoid}, 
+      X\subseteq U\}
+    \]
+  bilden, so dass $D$ ebenfalls wieder Gruppe/Monoid ist.
+  }
+% -----------------------------------------------------------------------------
+\definition Morphismus:{
+  Seien $(G,*)$ und $(H,\circ)$ Gruppen. Eine Abbildung $f:G\to H$ hei"st
+  \indexthis{Gruppenmorphismus}, falls
+  \[f(x*y)=f(x)\circ f(y)
+    \]
+  gilt. Sind $G\xrightarrow{f}H\xrightarrow{g}K$ Morphismen, so ist $g\circ f$
+  ebenfalls ein Morphismus.
+  }
+% -----------------------------------------------------------------------------
+\definition Normalteiler:{
+  Sei $K$ eine Untergruppe von $G$. Dann hei"st $K$ Normalteiler von $G$, falls
+  \[(\forall x\in G)(xK=Kx)
+    \]
+  Schreibweise: $K\normdiv G$
+  }
+% -----------------------------------------------------------------------------
+\theorem: $f:G\to H$ Morphismus=>{
+  Dann gelten:
+  \begin{stmts}
+    \item $f(1_G)=1_H$
+    \item $f(G)$ ist Untergruppe von $H$.
+    \item $f(x^{-1})=f(x)^{-1}$
+    \item $f^{-1}(\{1_H\})$ ist Normalteiler von $G$
+  \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Operation:{
+  \label{def-operation}
+  Sei $(G,\circ)$ eine Gruppe, $M$ eine Menge. Eine Verkn"upfung $*$ mit
+  $*:G\times M\to M$ und $(x,m)\mapsto x*m$ hei"st eine Operation von links
+  von $G$ auf $M$, falls
+  \begin{stmts}
+    \item $(\forall m\in M)(1_G*m=m)$
+    \item $(\forall x,y\in G)(\forall m\in M)((x \circ y)*m = x*(y*m))$
+  \end{stmts}
+  Analog wird die Operation von rechts definiert. 
+  \begin{itemize}
+    \item $m\in M$ hei"st \indexthis{Fixpunkt} von $x\in G$, falls $x*m=m$ ist.
+    \item $G_m=\{x\in G\mid x*m=m\}$ hei"st 
+      \indexthis{Fixgruppe}/\indexthis{Stabilisator} von $m\in M$.      
+    \item $Gm$ hei"st \indexthis{Bahn}/\indexthis{Transitivit"atsgebiet} von
+      $m\in M$
+    \item Die Menge aller Bahnen wird $\lcoset M G$ bzw. $\rcoset M G$ 
+      geschrieben. Es sind
+      \begin{align*}
+        \lcoset M G&:=\{Gm\mid m\in M\} \\
+        \rcoset M G&:=\{mG\mid m\in M\}
+        \end{align*}
+    \item Falls $|\lcoset M G|=1$, so hei"st die Operation von $G$ auf $M$
+      transitiv.
+  \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Die Fixgruppe einer Operation bzgl. eines Elements $m$ ist tats"achlich
+  eine Gruppe.
+  }
+% -----------------------------------------------------------------------------
+\lemma:$(G,\cdot)$ Gruppe, $*$ Operation auf von $G$ auf $M$=>{
+  Zwei Bahnen $Gm$, $Gn$ ($m,n\in M$) sind entweder gleich oder disjunkt.
+  }
+% -----------------------------------------------------------------------------
+\example Schreibweise f"ur Permutationen:{
+  $S_m$ operiert nach Def. auf $\{1,\ldots,m\}=:M$, also auch die
+  Untergruppe 
+  \[H:=\product\sigma=\{1,\sigma,\sigma^2,\ldots,\sigma^{k-1}\}\]
+  mit $\sigma\in S_m$.
+  Seien $B_1,B_2,\ldots,B_l$ die Bahnen von $M$ unter $H$.
+  \[B_i=\{b_{i_1},\ldots,{b_{i_{k_i}}}\}
+    \]
+  Weil jede Operation aus $H$ auf $B_i$ transitiv ist, kann man 
+  o.B.d.A festlegen $\sigma(b_{i_j})=b_{i_{j+1}}$.
+  
+  Damit kann man Permutationem als Produkt von Zyklen schreiben, so z.B.
+  \begin{align*}
+    \begin{pmatrix}
+      1&2&3&4\\
+      2&3&4&1
+      \end{pmatrix}&=
+    \begin{pmatrix}
+      1&2&3&4
+      \end{pmatrix}\\
+    \begin{pmatrix}
+      1&2&3&4\\
+      2&1&4&3
+      \end{pmatrix}&=
+    \begin{pmatrix}1&2\end{pmatrix}
+    \begin{pmatrix}3&4\end{pmatrix}      
+    \end{align*}
+  Fixpunkte werden nicht notiert.
+  }
+% -----------------------------------------------------------------------------
+\definition Ordnung:{
+  Sei $G$ eine Gruppe. Dann ist die Ordnung eines Elementes folgenderma"sen 
+  definiert:
+  \[\ord x:=|\product x|
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Lagrange:
+  \index{Lagrange>Satz von}
+  $G$ endliche Gruppe=>{
+  Dann gelten:
+  \begin{stmts}
+    \item $H\le G\implies |H|\divides|G|$
+    \item $ord(x)\divides|G|$ f"ur alle $x\in G$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Restklasse:{
+  Sei $G$ Gruppe, $H\le G$ und $g\in G$. Dann hei"sen die Bahnen $Hg$ bzw.
+  $gH$ Rechts- bzw. Linksrestklassen.
+  }
+% -----------------------------------------------------------------------------
+\lemma:
+  $G$ Gruppe, $H\le G$,$g\in G$=>{
+  Dann ist die Abbildung $f:\lcoset G H\to\rcoset G H$ mit $gH\mapsto Hg^{-1}$ 
+  wohldefiniert und bijektiv.
+  }
+% -----------------------------------------------------------------------------
+\definition Index:{
+  Sei $G$ Gruppe, $H\le G$. Die Zahl
+  \[|\lcoset G H|=|\rcoset G H|=(G:H)
+    \]
+  hei"st dann der Index von H in G.
+  }
+% -----------------------------------------------------------------------------
+\definition Konjugation:{
+  Sei $G$ Gruppe, $H\le G$ und $g\in G$.
+  Eine Abbildung $f_g:G\times G\to G$ der Form $(g,h)\mapsto ghg^{-1}$ hei"st
+  Konjugation. Die Konjugation erf"ullt die Voraussetzungen einer Operation.
+  }
+% -----------------------------------------------------------------------------
+\definition Zentrum:{
+  Sei $G$ Gruppe. Dann hei"st die Menge
+  \[Z(G):=\{h\in G\mid (\forall g\in G)(gh=hg)\}
+    \]
+  das Zentrum von $G$.
+  }
+% -----------------------------------------------------------------------------
+\lemma:$\cdot$ Operation von $G$ auf $M$=> {
+  \label{lem-index-bahn}
+  Dann ist die Abbildung $f_m$ mit
+  \[f_m:\stack(\rcoset G {G_m}\to Gm;xG_m\mapsto xm)
+    \]
+  bijektiv. (D.h. $(G:G_m)=|Gm|$)
+  }
+% -----------------------------------------------------------------------------
+\proof\ref{lem-index-bahn}:{
+  Die Surjektivit"at von $f_m$ ist unmittelbar einleuchtend.
+  Wir zeigen $xG_m=yG_m\equiv xm=ym$. Die Injektivit"at ergibt sich aus 
+  ``$\Leftarrow$'' der "Aquivalenz, die Wohldefiniertheit aus ``$\implies$''.
+  \begin{align*}
+    xG_m=yG_m &\equiv y^{-1}xG_m=G_m \\
+    &\equiv y^{-1}x\in G_m \\
+    &\equiv y^{-1}xm=m \\
+    &\equiv xm=ym
+  \end{align*}\qed
+  }
+% -----------------------------------------------------------------------------
+\definition Vertretersystem:{
+  Sei $\cdot$ Operation von $G$ auf $M$. Dann hei"st $V\subseteq M$ ein
+  Vertretersystem der Bahnen, falls $|V\cap B|=1$ f"ur jede Bahn $B$.
+  
+  Man erh"alt somit eine Zerlegung von $M$ in Bahnen:
+  \[M=\bigcupd_{v\in V} Gv
+    \]
+  Im Falle endlicher Mengen gilt (``\indexthis{Bahnenbilanz}''):
+  \[|M|=\sum_{v\in V} |Gv|=\sum_{v\in V} (G:G_v)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Sei $p$ Primzahl, $G$ eine Gruppe, $|G|=p^n$. ``$G$ ist $p$-Gruppe.''
+  Beh.: $|Z(G)|>1$.
+  
+  Betrachte Konjugation von $G$ auf $G$ und ihre Bahnenbilanz.
+  \[|G|=p^n=\sum_{v\in V} (G:G_v)
+    \]
+  wobei alle $(G:G_v)$ $p^n$ teilen m"ussen, denn wie oben gezeigt, gilt ja
+  $(G:G_v)=|G|/|G_v|=p^n/|G_v|\natural$ (also insbesondere ganzzahlig!).
+  Mindestens ein $(G:G_v)$ ist $1$, n"amlich $(G:G_1)$. Wegen 
+  $p\divides\sum_{v\in V} (G:G_v)$ muss es weitere Summanden 1 geben. 
+  Diese geh"oren zu Bahnen der L"ange 1, also Elementen von $Z(G)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Homomorphiesatz f"ur Gruppen: $G$ Gruppe, $K\normdiv G$=>{
+  \index{Gruppe>Homomorphiesatz f"ur}
+  Die Menge $\rcoset G K$ wird durch die folgende wohldefinierte
+  Verkn"upfung zu einer Gruppe:
+  \[xK\cdot yK:=xyK
+    \]
+  Die Abbildung $p:x\to xK$ ist surjektiv mit Kern $K$.
+  }
+% -----------------------------------------------------------------------------
+\para{Ringe}
+% -----------------------------------------------------------------------------
+\definition Ring:{
+  Eine algebraische Struktur $(R,+,\cdot)$ hei"st Ring mit 1, falls gilt
+  \begin{stmts}
+    \item $(R,+)$ abelsche Gruppe
+    \item $(R,\cdot)$ Monoid
+    \item $(\forall x,y,z\in R)(x(y+z)=xy+xz,(x+y)z=xz+yz)$ 
+      \indexthis{Distributitit"at}
+    \item $R$ hei"st kommutativ, falls das Monoid $(R,\cdot)$ kommutativ ist.
+  \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Einheitengruppe:{
+  Sei $R$ ein Ring. Dann hei"st 
+  \[\unitgroup R:=\{e\in R\mid (\exists y\in R)(ey=ye=1)\}
+    \]
+  Einheitengruppe von $R$.
+  }
+% -----------------------------------------------------------------------------
+\definition Nullteiler:{
+  \label{def-nullteiler}
+  Sei $R$ ein Ring. Ein Element $n\in R$ hei"st Nullteiler, wenn gilt
+  \[(\exists v\in R)(v\ne 0,nv=0)
+    \]
+  \index{Integrit"at}
+  Ein Ring hei"st integer, wenn er kommutativ ist und nur $0$ als Nullteiler
+  besitzt. \index{Integrit"at}\index{Ring>Integrit"at eines}
+  }
+% -----------------------------------------------------------------------------
+\annotation\ref{def-nullteiler}:{
+  F"ur endliche Ringe impliziert die Integrit"at die Injektivit"at der
+  Multiplikation, d.h. man kann z.B. k"urzen. Daher ergbit sich
+  }
+% -----------------------------------------------------------------------------
+\subsection{Ideale}
+% -----------------------------------------------------------------------------
+\definition Ideal:{
+  Sei $R$ ein kommutativer Ring. Eine Untergruppe $\mathfrak a$ von $(R,+)$
+  hei"st Ideal, falls $x\mathfrak a\subseteq \mathfrak a$ f"ur alle $x\in R$.
+  
+  $\mathfrak a$ hei"st zweiseitiges Ideal, falls die obige Beziehung von
+  zwei Seiten gilt.
+  \index{Ideal>zweiseitiges}
+  
+  }
+% -----------------------------------------------------------------------------
+\definition Hauptideal:{
+  Ein Ideal $\mathfrak a\subseteq R$ hei"st Hauptideal, falls 
+  gilt $\mathfrak a=aR$ mit einem $a\in R$.
+
+  Ein Ring, in dem jedes Ideal ein Hauptideal ist, hei"st Hauptidealring.
+  }
+% -----------------------------------------------------------------------------
+\definition Komaximalit"at von Idealen:{
+  \index{Ideal>Komaximalit"at von}
+  Sei $R$ ein kommutativer Ring. Zwei Ideale 
+  $\mathfrak a,\mathfrak b\subseteq R$ hei"sen 
+  komaximal, falls $R=\mathfrak a+\mathfrak b$. 
+  ("Aquivalent dazu: $1\in\mathfrak a+\mathfrak b$)
+  }
+% -----------------------------------------------------------------------------
+\definition Maximales Ideal:{
+  \index{Ideal>maximales}
+  Sei $R$ ein kommutativer Ring mit Eins.
+  Ein Ideal $\mathfrak m$ hei"st maximal $:\equiv$ $\mathfrak m\ne R$ und
+  f"ur jedes Ideal $\mathfrak a\subseteq R$ mit 
+  $\mathfrak m\subseteq \mathfrak a\subseteq R$ gilt $\mathfrak a=R$ oder
+  $\mathfrak a=\mathfrak m$.
+  }
+% -----------------------------------------------------------------------------
+\definition Primideal:{
+  Sei $R$ ein kommutativer Ring. Dann hei"st ein Ideal $\mathfrak p\ne R$ 
+  ein Primideal, falls f"ur jedes $ab\in\mathfrak p$ gilt 
+  $a\not\in\mathfrak p\implies b\in\mathfrak p$
+  }
+% -----------------------------------------------------------------------------
+\definition Produkt von Idealen:{
+  \index{Ideal>Produkt von}
+  Sei $R$ kommutativer Ring, $\mathfrak a,\mathfrak b\subseteq R$ seien 
+  Ideale in $R$. Dann hei"st
+  \[\mathfrak a\cdot\mathfrak b:=\{\sum_i a_ib_i\mid a_i\in\mathfrak a,b_i\in\mathfrak b\}
+    \]
+  das Produkt von $\mathfrak a$ und $\mathfrak b$. Das Produkt von zwei
+  Idealen ist das kleinste Ideal, das alle Produkte von Elementen von beiden
+  enth"alt.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $\mathfrak a,\mathfrak b$ und $\mathfrak b,\mathfrak c$ jeweils 
+  komaximal=>{
+  Dann sind auch $\mathfrak a,\mathfrak b\cdot\mathfrak c$ komaximal.
+  }
+% -----------------------------------------------------------------------------
+\definition Kongruenz:{
+  Sei $\mathfrak a$ ein Ideal im Ring $R$. Dann definiert man
+  \[x\ident y \; (\mathfrak a):\equiv x+\mathfrak a=y+\mathfrak a
+    \]
+  und sagt ``$x$ ist kongruent $y$ modulo $\mathfrak a$''.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Teilbarkeit in Ringen}
+% -----------------------------------------------------------------------------
+\theorem: $R\ne\{0\}$ Ring mit $|R|<\infty$, $R$ integer=>{
+  Dann ist $R$ ein K"orper.
+  
+  Schreibweise: Falls $|R|=p$ eine Primzahl ist, schreibt man 
+  $\MBSet F_q:=\rcoset \SetZ {p \SetZ}$. Ebenso
+  \[a\ident b \bmod p:\equiv a+p\SetZ=b+p\SetZ
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Teilbarkeit in Ringen:{
+  \label{def-teilbar}
+  \index{Ring>Teilbarkeit im}
+  Sei $R$ ein integrer Ring.
+  \begin{stmts}
+    \item $x\divides y:\equiv (\exists z\in R)(xz=y)$. ``$x$ teilt $y$''
+    \item $x\approx y:\equiv x\divides y \land y\divides x$. ``$x$ und $y$
+      sind teilergleich''
+    \item $\tilde x:=\{y\in R\mid x\approx y\}$ ``Teilbarkeitsklassen''
+    \item $\tilde 1=\unitgroup R$
+    \end{stmts}
+  Die Relation ``$\divides$'' ist transitiv. Weiterhin sei 
+  $x\in R\setminus(\unitgroup R\cup \{0\})$. Dann hei"st $x$
+  \begin{itemize}
+    \item \index{Unzerlegbarkeit} unzerlegbar 
+      $:\equiv x=uv\implies u\in\unitgroup R\lor v\in\unitgroup R$
+    \item \index{Prim} prim 
+      $:\equiv x\divides uv\implies x\divides u\lor x\divides v$
+    \end{itemize}
+  Der Ring $R$ hei"st \indexthis{faktoriell}\index{Ring>faktorieller},
+  falls f"ur jedes Element aus $R\setminus(\unitgroup R\cup \{0\})$
+  eine \indexthis{Primfaktorzerlegung} existiert.
+  }
+% -----------------------------------------------------------------------------
+\annotation\ref{def-teilbar}:{
+  Beachte:
+  \begin{itemize}
+    \item Die Definition der Primzahleigenschaft deckt sich insofern mit der 
+      ``bekannten'', als Primzahlen in $\SetZ$ die ``unteilbaren Teiler''
+      anderer Zahlen sind. 
+    \item Prime Elemente sind unzerlegbar, denn sei $x$
+      prim, $x=uv$. Dann gilt o.B.d.A. $x|u$, d.h. ex. $a\in R$ mit
+      $u=xa$ $\implies$ $x=xav$ $\implies$ $1=av$, also $v\in\unitgroup R$.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark Teilbarkeitsklassen in integren Ringen:{
+  Sei $R$ ein integrer Ring. Dann gilt $\tilde x=x\unitgroup R$.
+  \begin{description}
+    \item[``$\subseteq$'':] F"ur $x=0$ ist der Satz klar, f"ur $x\ne0$: 
+      Sei $y\in \tilde x$, also $x\divides y,y\divides x$.
+      Dann existieren $u,v\in R$ mit $xu=y$, $yv=x$, also $xuv=x$, 
+      daher $x(uv-1)=0$, wegen $x\ne 0$ also $uv=1\implies u,v\in\unitgroup R$,
+      deswegen $y=xu\in x\unitgroup R$.
+    \item[``$\supseteq$'':] Sei $y\in x\unitgroup R$. Dann existieren 
+      $u,v\in\unitgroup R$ mit $y=xu$ bzw. $y=xv^{-1}$, woraus sich
+      sofort die Behauptung ergibt.
+    \end{description}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  $Z[\sqrt{-6}]:=\{a+b\sqrt{-6}\mid a,b\in\SetZ\}\subset\SetC$
+  
+  $\sqrt{-6}$ ist zwar unzerlegbar, aber nicht prim: 
+  $\sqrt{-6}\divides 6=2\cdot 3$, aber
+  $\sqrt{-6}\not\divides 2$ und $\sqrt{-6}\not\divides 3$. Demnach existieren in 
+  $Z[\sqrt{-6}]$ auch nicht f"ur jedes Element Primfaktorzerlegungen.
+  }
+% -----------------------------------------------------------------------------
+\definition ggT:{
+  \index{gr"o"ster gemeinsamer Teiler}
+  \index{Teiler>gr"o"ster gemeinsamer}
+  Sei $R$ ein integrer Ring, $a,b\in R$. Ein Element $c\in R$ hei"st ein
+  ggT von $a$ und $b$, falls
+  \begin{stmts}
+    \item $c\divides a$,$c\divides b$
+    \item $d\divides a,d\divides b\implies d\divides c$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Euklidischer Ring:{
+  \index{Ring>euklidischer}
+  Sei $R$ integer, $\phi:R\to\SetN$ eine Abbildung. Dann hei"st $R$ euklidisch
+  (mit Gr"o"senfunktion $\phi$), falls gilt:
+  
+  Zu $a,b\in R,b\ne 0$ exisitieren $q,r\in R$ mit $a=qb+r$ und $r=0$ oder 
+  $\phi(r)<\phi(b)$.
+  }
+% -----------------------------------------------------------------------------
+\remark Minimierung der Gr"o"senfunktion:{
+  Eine Gr"o"senfunktion $\phi$ eines euklidischen Rings $R$ l"asst sich 
+  dahingehend zu einer Gr"o"senfunktion $\tilde\phi$ ver"andern, dass gilt
+  \[x\divides y,y\not\divides x\implies \phi(y)>\phi(x)
+    \]
+  Denn falls $\phi$ diese Eigenschaft nicht schon hat, setze
+  \begin{align*}
+    \tilde\phi(x)&:=\inf\{\phi(z)\mid z\in\tilde x\} \\
+      &=\inf\{\phi(ex)\mid e\in\unitgroup R\}
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $(R,\phi)$ euklidischer Ring, $a,b\in R$=>{
+  \label{theo-existggt}
+  Dann existiert $c=\ggT(a,b)$. Au"serdem gibt es $x,y\in R$ so, dass 
+  $c=xa+yb$ ist.
+  }
+% -----------------------------------------------------------------------------
+\proof\ref{theo-existggt}:{
+  Durch Angabe des (euklidischen) Algorithmus. 
+  \index{Algorithmus>Euklidischer}
+  \index{Euklidischer Algorithmus}
+  \begin{itemize}
+    \item Seien $x_i,y_i,g_i,a_i\in R$ mit $i\in\SetNN$.
+    \item Setze $a_0:=a,a_1:=b$ und $x_0:=1,y_0:=0,x_1:=0,y_1:=1$.
+    \item Solange $a_i\ne 0$
+    \begin{itemize}
+      \item Setze $q_i,a_{i+1}$ durch die folgende Beziehung:
+        \[a_{i-1}=q_ia_i+a_{i+1}
+          \]
+      \item Setze $x_{i+1}:=x_{i-1}-q_ix_i$
+      \item Setze $y_{i+1}:=y_{i-1}-q_iy_i$
+      \end{itemize}
+    \end{itemize}
+  Dann  gilt stets $a_i=x_ia+y_ib$, der Algorithmus bricht nach endlich
+  vielen Schritten mit $a_{i+1}=0$ ab, und $a_i$ ist ein $\ggT(a,b)$.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Berechnung von Inversen in $\rcoset \SetZ {m\SetZ}$:{
+  Zun"achst gilt: $a+m\SetZ\in\unitgroup R \equiv \ggT(a,m)=1$. 
+  Da $\SetZ$ euklidisch ist, ex $x,y\in\SetZ$ mit
+  \begin{align*}
+    1=xa+ym&\equiv 1+m\SetZ=xa+ym+m\SetZ \\
+    &\implies x+m\SetZ = (a+m\SetZ)^{-1}
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $(R,\phi)$ euklidischer Ring, $\mathfrak a$ Ideal=>{
+  \label{theo-hauptideal}
+  $\mathfrak a$ ist ein Hauptideal im Ring $R$.
+  }
+% -----------------------------------------------------------------------------
+\proof\ref{theo-hauptideal}:{
+  Ist $\mathfrak a=\{0\}$, so ist $\mathfrak a=0R$, also Hauptideal.
+  
+  Sei nun $\mathfrak a\ne\{0\}$ und $\phi$ minimiert. 
+  Z.z. $\mathfrak a=bR$. Angenommen, dies sei nicht der Fall. W"ahle
+  $a\in\mathfrak a\setminus bR$ so, dass $\phi(a)$ minimal ist.
+  Betrachte 
+  \[\underbrace{a}_{\in \mathfrak a}=\underbrace{qb}_{\in \mathfrak a}+r
+    \]
+  Also ist auch $r\in\mathfrak a$. Da aber $\phi(b)>\phi(r)$ minimal war, 
+  ist $r=0$, also $a\in bR$.\qed
+  }
+% -----------------------------------------------------------------------------
+\lemma:
+  $R$ euklidischer Ring, $u\in R\setminus(\unitgroup R\cup\{0\})$ unzerlegbar=>{
+  \label{lem:unzerlegbar-prim}
+  Dann ist $u$ prim.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{lem:unzerlegbar-prim}:{
+  Gelte $u\divides xy$, $u\not\divides x$. Dann ist $\ggT(u,x)=1$, daher
+  erh"alt man durch den euklidischen Algorithmus $x,y$ so, dass
+  $1=au+bx$, also $y=auy+bxy$. Nun teilt $u$ beide Summanden der rechten Seite,
+  daher $u\divides y$.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gelten:
+  \begin{itemize}
+    \item In jedem euklidischen Ring $R$ hat jedes 
+      $x\in R\setminus(\unitgroup R\cup\{0\})$ eine endliche 
+      Primfaktorzerlegung.
+    \item In einem integren Ring $R$ sind Darstellungen als
+      Primfaktorzerlegungen im Wesentlichen eindeutig, d.h. gilt
+      \begin{align*}
+        x&=p_1\cdots p_n \\
+        x&=q_1\cdots q_m \\
+        \end{align*}
+      so ist $n=m$ und es existiert ein $\pi\in S_n$ mit 
+      $\tilde p_i=\tilde q_{\pi(i)}$ ($1\le i\le n$)
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\definition Vertretersystem der Primelemente:{
+  Sei $R$ ein faktorieller Ring. Dann bezeichnet man mit $\MBSet P_R$
+  ein Vertretersystem der Teilbarkeitsklassen der Primelemente.
+  }
+% -----------------------------------------------------------------------------
+\remark ggT und kgV "uber die Primfaktorzerlegung:{
+  Man kann in einem faktoriellen Ring $R$ also jedes $x\in R\setminus\{0\}$
+  in der Form
+  \begin{align*}
+    x&=e\prod_{p\in\MBSet P_R} p^{v_p} \\
+  \intertext{mit $v_p\in\SetNN$, wobei nur endlich viele $v_p>0$ und 
+    $e\in\unitgroup R$ sind. Sei nun weiterhin}
+    y&=e'\prod_{p\in\MBSet P_R} p^{w_p} \\
+  \intertext{mit ebensolchen Bedingungen. Dann gilt}
+    \ggT(x,y)&\approx\prod_{p\in\MBSet P_R} p^{\min(v_p,w_p)} \\
+    \kgV(x,y)&\approx\prod_{p\in\MBSet P_R} p^{\max(v_p,w_p)} \\
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Ringhomomorphismen}
+% -----------------------------------------------------------------------------
+\definition Ringhomomorphismus:{
+  Seien $R,R'$ Ringe.
+  Eine Abbildung $f:R\to R'$ hei"st Ringhomomorphismus $:\equiv$
+  \begin{stmts}
+    \item $(\forall x,y\in R)(f(x+y)=f(x)+f(y))$
+    \item $(\forall x,y\in R)(f(x\cdot y)=f(x)\cdot f(y))$
+    \item $f(1)=1$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Homomorphiesatz f"ur Ringe:
+  $R$ Ring, $\mathfrak a$ ein zweiseitiges Ideal=>{
+  Dann ist $\rcoset R {\mathfrak a}$ mit den naheliegenden Verkn"upfungen
+  wieder ein Ring. 
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Polynomring}
+% -----------------------------------------------------------------------------
+\definition Polynom:{
+  Sei $R$ ein kommutativer Ring. Die Menge $R^\SetN$ wird ein Ring, wenn man
+  f"ur $f=(f_0,f_1,\ldots)$, $g=(g_0,g_1,\ldots)\in R^\SetN$ Verkn"upfungen 
+  $+,\cdot$ folgenderma"sen erkl"art:
+  \begin{itemize}
+    \item $f+g:=(f_0+g_0,f_1+g_1,\ldots)$
+    \item $(f\cdot g)_k:=\sum_{i+j=k} f_ig_j$
+    \end{itemize}
+  Dieser Ring wird dann als $R[[x]]$ bzw. als der \indexthis{Potenzreihenring}
+  "uber $R$ bezeichnet.
+  
+  Dann ist $R[x]:=R^\SetN_{fin}=\{f\in R[[x]]\mid f_i=0 \ffa i\in\SetN\}$ 
+  ebenfalls ein Ring, der \indexthis{Polynomring} "uber $R$. F"ur $f\in R[x]$
+  hei"st $\degree f:=\max\{i\mid f_i\ne0\}$ der \indexthis{Grad} von $f$.
+  \index{Polynom>Grad eines} Zus"atzlich definiert man $\degree 0:=-1$.
+  
+  Es gelten:
+  \begin{stmts}
+    \item $\degree(f+g)\le \max(\degree f,\degree g)$
+    \item $\degree(f\cdot g)=\degree f+\degree g$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $K$ ein K"orper, $R=K[x]$, $f,g\in R$, $g\ne 0$.
+  Sei $f=qg+r$ (Division mit Rest), sei weiterhin $\lambda\in K$ so, dass
+  $g(\lambda)=0$. Dann gilt $f(\lambda)=r(\lambda)$.
+  }
+% -----------------------------------------------------------------------------
+\corollary:$K$ K"orper, $R=K[x]$, $f\in R$=>{
+  Dann hat $f$ h"ochstens $\degree f$ Nullstellen.
+  }
+% -----------------------------------------------------------------------------
+\definition Inhalt:{
+  Sei $R$ integer, $f=\sum_{i=0}^n f_iX^i\in R[x]$.
+  Dann hei"st $i(f):=\ggT(f_0,\ldots,f_n)$ der Inhalt von $f$.
+  Ein $f$ mit $i(f)=1$ hei"st \indexthis{primitiv}.
+  \index{Polynom>primitives}
+  }
+% -----------------------------------------------------------------------------
+\theorem Lemma von Gau"s:
+  $R$ integrer Ring, $f,g\in R[x]$=>{
+  Dann ist $i(fg)=i(f)\cdot i(g)$
+  }
+% -----------------------------------------------------------------------------
+\theorem:$R$ faktorieller Ring=>{
+  Dann ist auch $R[x]$, bzw. durch Induktion auch $R[x_1,x_2,\ldots,x_n]$
+  faktoriell.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Quotientenring}
+% -----------------------------------------------------------------------------
+\definition Quotientenring:{
+  Sei $R$ kommutativer Ring, $S$ ein Untermonoid von $(R,\cdot)$.
+  
+  Definiere eine Relation ``$\sim$'' auf $R\times S$:
+  \[(r,s)\sim (r',s') :\equiv (\exists t\in S)(trs'=tr's)
+    \]
+  Diese Relation ist eine "Aquivalenzrelation,
+  die "Aquivalenzklasse $[(r,s)]_\sim$ wird $\frac r s$ geschrieben. F"ur
+  die Menge der $\frac r s$ schreibt man $S^{-1}R$.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $R$ kommutativer Ring, $S$ Untermonoid von $(R,\cdot)$=>{
+  Dann wird $S^{-1}R$ mit den "ublichen Bruchverkn"upfungen zum Ring.
+  Die Abbildung $f:R\to S^{-1}R$ mit $r\mapsto \frac r 1$ ist wohldefinierter 
+  Ringhomomorphismus, desweiteren ist sie injektiv $\equiv$ 
+  in $S$ existieren keine Nullteiler.
+  
+  $S^{-1}R$ hei"st dann der Quotientenring mit \indexthis{Nennermenge} $S$.
+  }
+% -----------------------------------------------------------------------------
+\definition Quotientenk"orper:{
+  Wenn $R$ ein integrer Ring ist, kann man $S=R\setminus\{0\}$ w"ahlen.
+  Dann hei"st $Quot(R):=S^{-1}R$ der Quotientenk"orper des Rings, es gilt
+  \[\left(\frac r s \right)^{-1} =\frac s r
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerung:{
+  Integre Ringe sind genau diejenigen Ringe, die Unterringe eines
+  K"orpers sein k"onnen. Sei nun $R$ faktoriell und 
+ \begin{align*}
+   x&=e\prod_{p\in\MBSet P_R} p^{v_p} \\
+   y&=e'\prod_{p\in\MBSet P_R} p^{w_p} \\
+ \intertext{Dann ist}
+   \frac x y=e (e')^{-1}\prod_{p\in\MBSet P_R} p^{v_p-w_p}
+   \end{align*}
+ }
+% -----------------------------------------------------------------------------
+\subsection{Kongruenzen}
+% -----------------------------------------------------------------------------
+\theorem Hauptsatz "uber simultane Kongruenzen:
+  $R$ kommutativer Ring, $\mathfrak a_1,\ldots,\mathfrak a_k\subseteq R$ 
+  paarweise komaximale Ideale=>{
+\index{Chinesischer Restsatz}%
+\index{Restsatz>Chinesischer}%
+\index{Kongruenzen>Hauptsatz "uber simultane}%
+\index{simultane Kongruenzen>Hauptsatz "uber}%
+  Dann ist die Abbildung $f$ mit
+  \begin{align*}
+    \rcoset R {\prod_i \mathfrak a_i}&\to \prod_i (\rcoset R {\mathfrak a_i}) \\
+    x+\prod_i \mathfrak a_i &\mapsto (x+\mathfrak a_1,\ldots,x+\mathfrak a_n) 
+    \end{align*}
+  wohldefiniert und ein Ringisomorphismus.
+  }
+% -----------------------------------------------------------------------------
+\remark Anwendungen:{
+  \begin{itemize}
+    \item Rechnen mit gro"sen Zahlen ($+,\cdot$)
+    \item Interpolation mit Hilfe von Polynomen
+    \item FFT, damit auch Polynommultiplikation und Multiplikation gro"ser 
+      Zahlen.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\para{Moduln}
+% -----------------------------------------------------------------------------
+\definition Modul:{
+  Sei $R$ Ring, $(M,+)$ abelsche Gruppe. $M$ hei"st $R$-Linksmodul, wenn
+  eine Operation $R\times M \to M$, $(r,m)\mapsto rm$ gegeben ist, die 
+  folgenden Bedingungen gen"ugt:
+  \begin{stmts}
+    \item $1m=m$ f"ur alle $m\in M$
+    \item $(r+s)m=rm+sm$ und $r(m+n)=rm+rn$ f"ur alle $\in R,m,n\in M$
+    \item $(rs)m=r(sm)$ f"ur alle $r,s\in R,m\in M$
+    \end{stmts}  
+  Rechtsmoduln werden analog definiert. Im Allgemeinen sind Vektorr"aume
+  auch Moduln.
+  
+  Moduln, die die Bedingung $(1)$ erf"ullen, hei"sen im Allgmeinen 
+  unit"ar. Dies sei hier jedoch stets vorausgesetzt. 
+  \index{Modul>unit"arer}
+  
+  Sei $M$ $R$-Modul, $N\le M$ hei"st \indexthis{Untermodul} 
+  $:\equiv$ $RN\subseteq N$
+
+  *** FIXME: hei"st es ``der'' oder ``das'' Modul?
+  }
+% -----------------------------------------------------------------------------
+\example $\SetZ$-Moduln:{
+  Sei $M$ beliebige abelsche Gruppe. $M$ wird $\SetZ$-Modul, wenn man
+  f"ur $z\in\SetZ,m\in M$ festsetzt
+  \[ z\cdot m:=\begin{cases} 
+      \sum_{i=1}^z m & z\ge 0 \\ \sum_{i=1}^{|z|} m & z<0 
+      \end{cases}
+    \]
+  Daher sind $\SetZ$-Moduln und abelsche Gruppen i.A. das Gleiche.
+  }
+% -----------------------------------------------------------------------------
+\definition Modul-Morphismus:{
+  Seien $M,N$ $R$-Moduln, $f:M\to N$ ein Gruppenhomomorphismus der beiden.
+  Dann hei"st $f$ Modul-Morphismus $:\equiv$ $f(rm)=rf(m)$ f"ur alle
+  $r\in R,m\in M$.
+  }
+% -----------------------------------------------------------------------------
+\remark Faktorisierung von Moduln:{
+  Sei $M$ $R$-Modul, $N\le M$ ein Untermodul. Dann wird die
+  Faktorgruppe $\rcoset M N$ zu einem $R$-Modul mit der naheliegenden 
+  Verkn"upfung
+  \[r(m+N):=rm+N
+    \]
+  zu einem $R$-Modul.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $f:M\to N$ Modul-Morphismus=>{
+  Dann gelten:
+  \begin{itemize}
+    \item $f(M)\le N$, $\Kern f\le M$
+    \item $\tilde f:\rcoset M {\Kern f}\to f(M)$ mit $f(m+\Kern f):=f(m)$
+      ist ein Isomorphismus.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Lineare Gleichungssysteme "uber euklidischen Ringen}
+% -----------------------------------------------------------------------------
+\theorem:
+  $R$ euklidischer Ring, $e,f\in R$=>{
+  Sei $g:=\ggT(e,f)$, $h:=ef/g$ (bzw. $n=0$, falls $g=0$).
+  Dann gibt es $a,b,c,d$ mit $ad-bc=1$ und
+  \[\begin{pmatrix}
+      a & b \\ c & d
+      \end{pmatrix}
+    \begin{pmatrix}
+      e \\ f
+      \end{pmatrix}=
+    \begin{pmatrix}
+      g \\ 0
+      \end{pmatrix}
+    \]
+  und es gibt $a,b,c,d,a',b',c',d'$ mit $ad-bc=1$, $a'd'-b'c'=1$ und
+  \[\begin{pmatrix}
+      a & b \\ c & d
+      \end{pmatrix}
+    \begin{pmatrix}
+      e & 0 \\ 0 & f
+      \end{pmatrix}
+    \begin{pmatrix}
+      a' & b' \\ c' & d'
+      \end{pmatrix}=
+    \begin{pmatrix}
+      g & 0 \\ 0 & h
+      \end{pmatrix}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Elementarteilersatz:
+  $R$ euklidischer Ring, $A\in R^{m\times n}$=>{ 
+  Dann gibt es 
+  $P\in GL_m(R),Q\in GL_n(R)$ so, dass $D=PAQ=Diag(d_1,\ldots,d_n)$
+  und $d_1\divides d_2\ldots \divides d_n$. Dabei sind die $d_i$ 
+  durch $A$ eindeutig bestimmt.
+  }
+% -----------------------------------------------------------------------------
+\remark L"osung von LGSen "uber Ringen:{
+  Mit Hilfe des Elementarteilersatzes erh"alt man aus einem linearen
+  Gleichungssystem $Ax=b$ mit $A\in R^{m\times n},x\in R^m,b\in R^n$
+  $P\in GL_m(R),Q\in GL_n(R)$ so, dass $D:=PAQ$ diagonal ist.
+  Dies nutzt man folgendermassen aus:
+  \[Ax=b\equiv \underbrace{PAQ}_D \cdot \underbrace{Q^{-1}x}_y=\underbrace{Pb}_c
+    \]
+  Gilt nun $d_i\divides c_i$, so ist das LGS l"osbar, denn ein $x:=Qy$ ist
+  offensichtlich L"osung von $Ax=b$
+  }
+% -----------------------------------------------------------------------------
+\subsection{Ein Struktursatz f"ur endlich erzeugte Moduln}
+% -----------------------------------------------------------------------------
+\theorem Struktursatz f"ur endlich erzeugte Moduln:
+  $R$ euklidischer Ring, $M$ R-Modul=>{
+  Dann ist 
+  \[M\tilde =
+    (\rcoset R {d_1 R}) \times \cdots \times (\rcoset R {d_r R})\times R^s
+    \]
+  wobei $d_i\in R$ mit $d_1\divides d_2\divides \ldots \divides d_r$ und
+  $d_1\not\in\unitgroup R$ und $d_r\ne 0$. Dabei sind $r,s$ und die
+  Teilbarkeitsklassen $d_i\unitgroup R$ eindeutig bestimmt.
+  }
+% -----------------------------------------------------------------------------
+\remark Prim"arzerlegung:{
+  Die obige Zerlegung l"asst sich weiterhin dahingehend verfeinern, dass
+  f"ur jedes $d_i=d_{i,1}d_{i,2}$ mit $\ggT(d_{i,1},d_{i,2})=1$ 
+  gilt
+  \[\rcoset R{d_iR}\tilde = (\rcoset R{d_{i,1}})\times (\rcoset R{d_{i,2}})
+    \]
+  Folge: Mit primen $d_i$ ergibt sich eine sogenannte 
+  ``\indexthis{Prim"arzerlegung}''.
+  }
+ 

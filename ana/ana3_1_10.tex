@@ -1,0 +1,1002 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\section{Integrals"atze}
+% -----------------------------------------------------------------------------
+\example:{
+  Sei z.B. $f\in\SetCont^1([a,b],\SetR)$. Dann gilt
+  \[f(b)-f(a)=\int_a^b f'(x)dx
+    \]
+  Ziel ist es, dieses eindimensionale Ergebnis ins mehrdimensionale 
+  zu "ubertragen.
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $D\subseteq\SetR^p$ offen, $f\in\SetCont^1(D,\SetR^p)$, 
+  $f=(f_1,\ldots,f_p)$.
+  }
+% -----------------------------------------------------------------------------
+\definition Divergenz:{
+  F"ur eine Funktion $f\in\SetCont^1(\SetR^k,\SetR^p)$ wird die Divergenz 
+  $\div f$ wie folgt festgelegt:
+  \[\div f:=D_1f_1+\ldots+D_pf_p
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Rotation:{
+  F"ur eine Funktion $f\in\SetCont^1(\SetR^k,\SetR^3)$ wird die Rotation
+  $\rot f$ wie folgt festgelegt:
+  \[\rot f:=\begin{pmatrix}
+      D_2f_3-D_3f_2 \\
+      D_3f_1-D_1f_3 \\
+      D_1f_2-D_2f_1
+      \end{pmatrix}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der zweidimensionale Integralsatz von Gau"s}
+% -----------------------------------------------------------------------------
+\definition Zul"assigkeit:{
+  Sei $(x_0,y_0)\in\SetR^2$ fest und $R:[0,2\pi]\to(0,\infty)$ st"uckweise
+  stetig db mit $R(0)=R(2\pi)$. Der Weg $\gamma:[0,2\pi]\to\SetR^2$ sei
+  gegeben durch
+  \[\gamma(t)=\begin{pmatrix}
+      \gamma_1(t)\\
+      \gamma_2(t)
+    \end{pmatrix}:=\begin{pmatrix}
+      x_0+R(t)\cos t \\
+      y_0+R(t)\sin t 
+      \end{pmatrix}
+    \]
+  Dann ist $\gamma$ st"uckweise stetig db mit $\gamma(0)=\gamma(2\pi)$.
+  Weiter sei
+  \[B:=\{(x_0+r\cos t,y_0+r\sin t)\mid t\in[0,2\pi],0\leq r\leq R(t)\}
+    \]
+  Es gilt: B ist kompakt und $\rim B=\Gamma$.
+  
+  Eine Menge $B$, die auf diese Art und Weise erzeugt werden kann, hei"st
+  zul"assig. Zul"assig sind z.B. Kreise, Ellipsen, konvexe Vielecke.
+  Sei $(x,y)=\gamma(t)\in\rim B$ mit geeignetem $t\in[0,2\pi]$. Dann l"asst
+  sich die "au"sere Normale von $B$ folgendermassen darstellen:
+  \[n(x,y):=\frac {(\gamma_2'(t),-\gamma_1'(t))} 
+            {\norm{(\gamma_2'(t),-\gamma_1'(t))}}
+    \] 
+  (es gilt stets $\norm{(\gamma_2'(t),-\gamma_1'(t))}\neq 0$).
+  }
+% -----------------------------------------------------------------------------
+\theorem Integralsatz von Gau"s in der Ebene:
+  $B\subseteq\SetR^2$ zul"assig, $U\supseteq B$ offen, 
+  $f\in\SetCont^1(U,\SetR^2)$=>{
+  \label{the:gauss2dim}
+  \index{Integralsatz}
+  \index{Gau"s >Integralsatz von}
+  Dann gilt
+  \[\int_B \div f(x,y) d(x,y)=
+      \underbrace{ \int_{\rim B} f(x,y)\cdot n(x,y) ds }
+      _{\text{Wegintegral}}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \ref{the:gauss2dim} gilt allgemeiner f"ur Bereiche $B$, deren Rand 
+  durch einen rektifizierbaren Weg im math. pos Sinn einmal umlaufen werden
+  kann.
+  }
+% -----------------------------------------------------------------------------
+\remark Berechnung von Fl"acheninhalten:{
+  Sei $\gamma\in\SetCont^1$ eine Parametrisierung von $\rim B$ mit 
+  $\norm{\gamma'}\ident 1$. Dann erh"alt man:
+  \begin{align*}
+    \lambda(B) &= \int_B 1\,d(x,y) 
+               = \frac 1 2 \int_B \id_x(x,y)+\id_y(x,y)d(x,y) \\
+               &= \frac 1 2 \int_B \div \id(x,y) d(x,y) 
+               = \frac 1 2 \int_{\partial B} \mat{x\\y}\cdot n(x,y) d(x,y) \\
+               &= \frac 1 2 \int_\gamma \mat{\gamma_1(t)\\\gamma_2(t)}\cdot
+	          \mat{-\gamma_2'(t)\\ \gamma_1'(t)} dt 
+               = \frac 1 2 \int_\gamma \mat{-\gamma_2(t)\\\gamma_1(t)}\cdot
+	          \gamma'(t) dt \\
+               &= \frac 1 2 \int_{\rim B} x\,dy - y\,dx
+    \end{align*}
+  Analog ergibt sich:
+  \[\lambda(B)=\int_{\rim B} x\,dy=-\int_{\rim B} y\,dx
+    \]
+  Den Fl"acheninhalt der Ellipse mit Randweg
+  \[\gamma(t)=\begin{pmatrix}
+      a \cos t \\ b \sin t
+      \end{pmatrix}
+    \]
+  erh"alt man so einfach zu $ab\pi$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Fl"achen im $\SetR^3$}
+% -----------------------------------------------------------------------------
+\definition Parameterdarstellung:{
+  \index{Tangentialebene}
+  \index{Normalenvektor}
+  Sei $D\subseteq\SetR^2$ offen, $K\subseteq D$ kompakt und $\Phi=(\Phi_1,\Phi_2,
+  \Phi_3)\in\SetCont^1(D,\SetR^3)$ und $\rank\Phi'=2$ auf $D$. Dann 
+  hei"st $\Phi$ Parameterdarstellung der glatten Fl"ache 
+  $\cal F:=\Phi(D)$ und $\Phi|_K$ Parameterdarstellung des glatten 
+  Fl"achenst"ucks $\cal F_K:=\Phi(K)$.
+
+  Es gilt:
+  \[\Phi'=\begin{pmatrix}
+             D_1\Phi_1 & D_2\Phi_1 \\
+             D_1\Phi_2 & D_2\Phi_2 \\
+             D_1\Phi_3 & D_2\Phi_3 \\
+	     \end{pmatrix}
+    \]
+  Die Spaltenvektoren von $\Phi'$ sind linear unabh"angig und bestimmen die 
+  Tangentialebene
+  \[
+    (u,v,w)=\Phi(x_0,y_0)+[\Phi_x(x_0,y_0),\Phi_y(x_0,y_0)]
+    \]
+  im Punkt $\Phi(x_0,y_0)$. Senkrecht auf dieser Ebene steht der Normalenvektor
+  \[
+    n(x_0,y_0):=\frac{\Phi_x(x_0,y_0)\times\Phi_y(x_0,y_0)}{\norm{\Phi_x(x_0,y_0)
+    \times\Phi_y(x_0,y_0)}}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark Wichtiger Spezialfall:{
+  $\phi\in\SetCont(D,\SetR),((x,y)\in D),\Phi(x,y)=(x,y,\phi(x,y))$.
+  Hier ist
+  \[\Phi_x(x,y)=\begin{pmatrix}1 \\ 0 \\ \phi_x(x,y)\end{pmatrix} \qquad
+    \Phi_y(x,y)=\begin{pmatrix}0 \\ 1 \\ \phi_y(x,y)\end{pmatrix}
+    \]
+  und damit $n=\frac{(-\phi_x,-\phi_y,1)}{\sqrt{1+(\phi_x)^2+(\phi_y)^2}}$ 
+  ($n$ zeigt nach oben).
+  }
+% -----------------------------------------------------------------------------
+\definition Fl"acheninhalt:{
+  Ist $\cal F_k$ ein glattes Fl"achenst"uck, so ist dessen Fl"acheninhalt 
+  definiert als
+  \[I(\cal F_K):=\int_K\norm{\Phi_x(x,y)\times\Phi_y(x,y)}d(x,y)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Integralsatz von Stokes}
+% -----------------------------------------------------------------------------
+\definition:{
+  Sei $\Phi_K$ Parameterdarstellung eines glatten Fl"achenst"ucks, 
+  $f\in\SetCont(\cal F_K,\SetR)$ so definiert man
+  \[\int_{\Phi|_K} f\, do:=
+    \int_K f(\Phi(x,y))\norm{\Phi_x(x,y)\times\Phi_y(x,y)}d(x,y)
+    \]
+  Dieses Integral bleibt bei geeigneter Umparametrisierung erhalten, daher
+  schreibt man auch
+  \[\int_{\cal F_K}f\,do:=\int_{\Phi|_K} f\, do
+    \]
+  F"ur Fl"achen, die aus glatten Fl"achenst"ucken zusammengesetzt sind, 
+  definiert man die entsprechenden Integrale als Summe der Integrale der
+  einzelnen Fl"achenst"ucke.
+  }
+% -----------------------------------------------------------------------------
+\theorem Integralsatz von Stokes:
+  $B\subseteq\SetR^2$ kompakt und zul"assig, 
+  $U\supseteq B$ offen, $\Phi\in\SetCont(U,\SetR^3)$ 
+  $\gamma:[a,b]\to\SetR^2$ Parameterisierung von $\rim B$,
+  $A\supseteq\Phi(B)$ offen, $f\in\SetCont^1(A,\SetR^3)$=>{
+  \index{Stokes>Integralsatz von}
+  Sei $\cal F_B=\Phi(B)$.
+  Dann ist $\Phi\circ\gamma:[a,b]\to\SetR^3$ Parametrisierung von 
+  $\rim{\cal F_B}$ und es gilt:
+  \[\int_{\Phi|_B} \rot f\cdot n\,do=\int_{\Phi\circ\gamma}f(x,y,z)d(x,y,z)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Integralsatz von Gau"s im Raum}
+% -----------------------------------------------------------------------------
+\definition Normalbereich:{
+  Sei $B\subseteq\SetR^2$ kompakt und zul"assig, $U\supseteq B$ offen,
+  $\gamma:[a,b]\to\SetR^2$ glatt und Parametrisierung von $\rim B$,
+  $\phi_1,\phi_2\in\SetCont^1(U,\SetR)$. Es sei $\phi_1<\phi_2$ auf $B$.
+  Weiter sei
+  \[\Phi_i(x,y)=\begin{pmatrix} x \\ y \\ \phi_i(x,y) \end{pmatrix}
+    \qquad (i=1,2)
+    \]
+  Dann hei"st die Menge
+  \[V:=\{(x,y,z)\mid (x,y)\in B,z\in[\phi_1(x),\phi_2(x)]\}
+    \]
+  ein Normalbereich bez"uglich der $z$-Achse. (Definition bez"uglich 
+  $x$,$y$-Achsen analog) Die \indexthis{Mantelfl"ache} $\cal M$ von $V$
+  hat die Parametrisierung
+  \[\Phi_3(t,z)=(\gamma(t),z)\qquad 
+    (a\leq t\leq b,\phi_1(\gamma(t))\leq z\leq \phi_2(\gamma(t)))
+    \]
+  Wir nennen den ins "Au"sere von $V$ zeigenden Normaleneinheitsvektor
+  $n=(n_1,n_2,n_3)$ auf $\rim V$ die \indexthis{"au"sere Normale}
+  \index{Normale>"au"sere} und erhalten
+  \begin{align*}
+    n&=\frac{(\phi_{1x},\phi_{1y},-1)}{\norm{(\phi_{1x},\phi_{1y},-1)}} 
+        \qquad \text{ auf $\cal F_1$} \\
+    n&=\frac{(-\phi_{2x},-\phi_{2y},1)}{\norm{(-\phi_{2x},-\phi_{2y},1)}} 
+        \qquad \text{ auf $\cal F_2$} \\
+    n&=\frac{(\gamma_2',-\gamma_1',0)}{\norm{(\gamma_2',-\gamma_1',0)}} 
+        \qquad \text{ auf $\cal M$}
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem Integralsatz von Gau"s im Raum:
+  $V$ Normalbereich bzgl. aller drei Achsen, $U\supseteq V$ offen,
+  $f\in\SetCont^1(U,\SetR^3)$=>{
+  \label{the:int-gauss-3d}
+  \index{Gau"s>Integralsatz im Raum}
+  Dann gilt
+  \[\int_V \div f(x,y,z)d(x,y,z)=\int_{\rim V} f\cdot n\,do
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Durch Approximationsargumente kann \ref{the:int-gauss-3d} auf Kugeln,
+  Ellipsoide u.v.a. Teilmengen des $\SetR^3$ erweitert werden.
+  }
+% -----------------------------------------------------------------------------
+\section{Gew"ohnliche Differentialgleichungen}
+% -----------------------------------------------------------------------------
+\convention{
+  $I$ sei ein Intervall positiver L"ange.
+  }
+% -----------------------------------------------------------------------------
+\definition Gew"ohnliche Differentialgleichung:{
+  \index{Differentialgleichung>gew"ohnliche}
+  Sei $k\natural$, $y\in\SetCont^k(I,\SetR^p)$, $D\subseteq\SetR^{(k+1)p+1}$, 
+  $F:D\to\SetR^p$.
+  Eine Gleichung der Form
+  \begin{equation*}
+    F(x,y(x),y'(x),\ldots,y^{(k)}(x))=0 \tag{*}
+    \end{equation*}
+  hei"st gew"ohnliche Differentialgleichung/Dgl. Sei $I$ ein Intervall, 
+  $y:I\to\SetR^p$ eine Funktion. $y$ hei"st L"osung von $(*)$ auf $I$,
+  falls gilt:
+  \begin{stmts}
+    \item $y$ ist auf $I$ $k$-mal db
+    \item $(x,y(x),\ldots,y^{(k)})\in D)$ f"ur alle $x\in I$.
+    \item $(*)$ ist erf"ullt.
+    \end{stmts}
+  L"osungen "uber verschiedenen Intervallen werden als verschieden angesehen,
+  selbst wenn sie in $y$ "ubereinstimmen.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Hier einige Differentialgleichungen mit L"osung:
+  \begin{itemize}
+    \item $y^2(x)+(y'(x))^2=1$ $\to$ $y(x)=\cos x$
+    \item $x+y(x)/y'(x)=0$ $\to$ $y:(-\infty,0)\to\SetR$, $y(x)=c/x$
+    \item $f\in\SetCont([a,b],\SetR)$, $y'(x)-f(x)=0$ $\equiv$ $y'(x)=f(x)$
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\definition Explizite Differentialgleichung:{
+  \index{Differentialgleichung>explizite}
+  Hat $(*)$ die Form
+  \[y^{(k)}=F(x,y(x),y'(x),\ldots,y^{(k-1)}(x))
+    \]
+  so spricht man von einer expliziten Dgl $k$-ter \indexthis{Ordnung}.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $y:I\to\SetR^p$ eine L"osung einer expliziten Dgl mit stetigem $F$, so 
+  ist $y\in\SetCont^k(I,\SetR^p)$. 
+  In dieser Vorlesung werden vorwiegend solche Dgl'en betrachtet. 
+  }
+% -----------------------------------------------------------------------------
+\definition Anfangswertproblem:{
+  Sei nun weiterhin $(x_0,y_0,\ldots,y_{k-1})\in D$, so hei"st das 
+  Gleichungssystem
+  \begin{align*}
+    y^{(k)}(x)&=F(x,y(x),y'(x),\ldots,y^{(k-1)}(x)) \tag{***}\\
+    y(x_0)&=y_0\\
+    y'(x_0)&=y_1 \tag{**} \\
+    &\vdots\\
+    y^{(k-1)}(x_0)&=y_{k-1} 
+    \end{align*}
+  ein Anfangswertproblem/AWP. Eine L"osung des AWP ist eine L"osung der
+  Dgl $(***)$ und der Gleichungen $(**)$.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Hier einige Anfangswertprobleme mit L"osung:
+  \begin{stmts}
+    \item $y'(x)=2y(x)$ mit $y(0)=4$ $\to$ $y(x)=4e^{2x}$
+    \item $y'(x)=2\sqrt{2y(x)}$, $y(0)=0$ $\to$ 
+      $y(x)\in\{\max\{0,x-a\}\mid a>0\}$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Eindeutigkeit einer L"osung:{
+  Ein AWP $(**)$ hei"st eindeutig l"osbar, falls gilt
+  \begin{stmts}
+    \item Es existiert eine L"osung $y:I\to\SetR^p$
+    \item Sind $y_1:I_1\to\SetR^p$, $y_2:I_2\to\SetR^p$ L"osungen, so
+      gilt $y_1=y_2$ auf $I_1\cap I_2$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark Bezeichnungsweisen in der Literatur:{
+  Die Variablenbezeichnungen von Dgl'en sind in der Literatur nicht
+  einheitlich.
+  }
+% -----------------------------------------------------------------------------
+\section{Explizit l"osbare Differentialgleichungen}
+% -----------------------------------------------------------------------------
+\convention{
+  Wir betrachten stets $\SetR$, also $p=1$.
+  }
+% -----------------------------------------------------------------------------
+\definition Lineare Differentialgleichung (I):{
+\index{Differentialgleichung>lineare}%
+\index{Differentialgleichung>homogene}%
+\index{Differentialgleichung>inhomogene}%
+\index{Lineare Differentialgleichung}%
+\index{Homogene Differentialgleichung}%
+\index{Inhomogene Differentialgleichung}%
+  Sei $J\subseteq\SetR$ ein Intervall, $a,g\in\SetCont(J,\SetR)$.
+  Eine Differentialgleichung der Form
+  \[y'(x)=a(x)y(x)+g(x)
+    \]
+  hei"st linear. Sie hei"st au"serdem homogen, falls $g=0$, ansonsten 
+  inhomogen.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Homogene lineare Dgl'en}
+% -----------------------------------------------------------------------------
+\lessertheorem:$y'(x)=a(x)y(x)$ Dgl, $a\in\SetCont(J,\SetR)$, 
+  $A:J\to\SetR$, $A'=a$, $y:I\to\SetR$ ($I\subseteq J$) L"osung=>{
+  F"ur $x\in I$ gilt
+  \[e^{-A(x)}(y'(x)-a(x)y(x))=0\implies \frac d {dx}(e^{-A}y)(x)=0
+    \]
+  d.h. der letzte Term ist konstant, also gilt f"ur alle $c\in\SetR$, dass
+  $y(x)=ce^{A(x)}$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist also in diesem Fall $y(x)=0$ f"ur ein $x\in J$, so gilt $y=0$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Inhomogene lineare Dgl'en}
+% -----------------------------------------------------------------------------
+\lessertheorem:$y'(x)=a(x)y(x)+g(x)$ Dgl, $a,g\in\SetCont(J,\SetR)$,
+  $A:J\to\SetR$, $A'=a$=>{
+  Mit dem Ansatz $y(x)=e^{A(x)}c(x)$ soll nun $c(x)$ so bestimmt werden, dass
+  $y$ L"osung der Dgl wird.
+  \begin{align*}
+    y'(x)&=c(x)a(x)e^{A(x)}+c'(x)e^{A(x)} \\
+         &\overset{!}{=}c(x)a(x)e^{A(x)}+g(x) \\
+	 &\equiv c'(x)=e^{-A(x)}g(x)
+    \end{align*}
+  W"ahle $x_0\in J$ fest und setze
+  \[c(x):=\int_{x_0}^x g(\xi)e^{-A(\xi)}d\xi
+    \]
+  Damit gilt
+  \begin{align*}
+    y(x)&=e^{A(x)}\int_{x_0}^x g(\xi) e^{-A(\xi)} d\xi \\
+        &=\int_{x_0}^x e^{\int_\xi^x a(\eta)d\eta} g(\xi) d\xi
+    \end{align*}
+  Sind nun $y_1,y_2:I\to\SetR$ ($I\subseteq J$) L"osungen der inhomogenen
+  Gleichung, so ist $y:=y_1-y_2$ L"osung der zugeh. homogenen Gleichung.
+  Umgekehrt kann man auf diese Art und Weise auch aus einer inh. und einer 
+  hom. L"osung eine weitere inh. L"osung erzeugen.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Lineare AWPe}
+% -----------------------------------------------------------------------------
+\theorem: $J\subseteq$ Intervall, $x_0\in J$, $y_0\real$, 
+  $y'(x)=a(x)y(x)+g(x)$, $y(x_0)=y_0$ AWP mit $a,g\in\SetCont(J,\SetR)$ =>{
+  Dann sind genau die Funktionen
+  \[y(x)=\int_{x_0}^x e^{\int_\xi^x a(\eta)d\eta} g(\xi) d\xi
+    +y_0e^{\int_{x_0}^x a(\xi)d\xi}
+    \]
+  L"osung des AWP auf $J$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Dgl'en mit getrennten Ver"anderlichen}
+% -----------------------------------------------------------------------------
+\definition Differentialgleichung mit getrennten Ver"anderlichen:{
+  \index{Ver"anderliche>Differentialgleichung mit getrennten}
+  \index{Getrennte Ver"anderliche>Differentialgleichung mit}
+  Seien $J_1,J_2$ Intervalle, $g\in\SetCont(J_1,\SetR)$, 
+  $f\in\SetCont(J_2,\SetR)$. Eine Differentialgleichung der Form
+  \[y'(x)=g(x)f(y(x))
+    \]
+  hei"st Differentialgleichung mit getrennten Ver"anderlichen.
+  Im Spezialfall $g\ident 1$ hei"st die Dgl. autonom.
+  \index{Autonome Differentialgleichung}
+  \index{Differentialgleichung>autonome}
+  }
+% -----------------------------------------------------------------------------
+\remark Eine spezielle L"osung:{
+  Seien $(x_0,y_0)\in J_1\times J_2$. Ist $f(y_0)=0$, so ist
+  $y:J_1\to\SetR$ mit $y(x)=y_0$ eine L"osung der obigen Dgl, oft
+  sind aber noch weitere L"osungen vorhanden.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $J_1,J_2$ Intervalle, $g\in\SetCont(J_1,\SetR)$, 
+  $f\in\SetCont(J_2,\SetR)$. $(x_0,y_0)\in \inner{J_1}\times\inner{J_2}$,
+  $f(y_0)\neq 0$=>{
+  Ist $y:I\to\SetR$ L"osung der Dgl $y'(x)=g(x)f(y(x))$ mit 
+  $y(x_0)=y_0$ und $f(y(x))\neq 0$ ($x\in I$), so gilt:
+  
+  F"ur jedes $x\in I$ besitzt $f$ keine Nullstellen zwischen 
+  $y_0=y(x_0)$ und $y(x)$, und damit
+  \[\int_{x_0}^x g(\xi)d\xi=\int_{y_0}^{y(x)} \frac 1 {f(\eta)} d\eta
+    \qquad (x\in I)
+    \]
+  denn es ist (abgelitten)
+  \begin{equation}
+    g(x)=\frac{y'(x)}{f(y(x))}
+    \tag{$*$}
+    \end{equation}
+  Somit ist $z\mapsto\int_{y_0}^{y(z)} 1/f(\eta) d\eta$ streng monoton, also
+  umkehrbar, $(*)$ kann also nach $y$ aufgel"ost werden. Insgesamt gilt:
+  
+  Es existiert ein $\epsilon>0$ so, dass f"ur $I:=(x_0-\epsilon,x_0+\epsilon)$ 
+  gilt:
+  \begin{stmts}
+    \item Das AWP $y'(x)=g(x)f(y(x)),y(x_0)=y_0$ hat eine L"osung
+      $y:I\to\SetR$ mit $f(y(x))\neq 0$ ($x\in I$)
+    \item Sind $y_1:I_1\to\SetR$, $y_2:I_2\to\SetR$ L"osungen, so stimmen diese
+      punktweise auf $I_1\cap I_2$ "uberein.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark Zum Autonomen Fall:{
+  Sei $f\in\SetCont(J,\SetR)$. Betrachte $y'(x)=f(y(x))$ Ist $y:\SetR\to\SetR$
+  L"osung, so ist $y_a:\SetR\to\SetR$ mit $y_a(x):=y(x+a)$ und $a\in\SetR$
+  ebenfalls eine L"osung auf $\SetR$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $J\subseteq\SetR$ Intervall, $f\in\SetCont(J,\SetR)$, $y:I\to\SetR$
+  L"osung von $y'(x)=f(y(x))$=>{
+  Dann ist $y$ monoton auf $I$.
+  }
+% -----------------------------------------------------------------------------
+\section{Einige Substitutionen}
+% -----------------------------------------------------------------------------
+\lessertheorem N"utzliche Substitutionen:=>{
+  F"ur die folgenden Dgl'en von spezieller Gestalt existieren Tricks:
+  \begin{stmts}
+    \item Die \indexthis{Homogene Differentialgleichung} 
+      (Vorsicht: Homogene Dgl $\neq$ homogene lineare Dgl)
+      \index{Differentialgleichung>homogene}
+      \[y'(x)=f\left(\frac {y(x)} x\right)
+        \]
+      Substituiere $u(x)=y(x)/x$. Dann ist $y'(x)=u(x)+xu'(x)$ (Bew: Definition
+      von $u$ ableiten, aufl"osen)
+      Dann ergibt sich (einsetzen in Dgl)
+      \[u'(x)=\frac{f(u(x))-u(x)} x
+        \]
+      also eine Dgl mit getrennten Ver"anderlichen.
+    \item Betrachte
+      \[y'(x)=f(ax+by(x))
+        \]
+      Setze $u(x):=ax+by(x)$. Dann ist $u'(x)=a+bf(u(x))$ (linear)
+    \item Die \indexthis{Bernoulli'sche Dgl}
+      \index{Differentialgleichung>Bernoulli'sche}
+      \[y'(x)=g(x)y(x)+h(x)y^\alpha(x)\qquad \alpha\neq 1
+        \]
+      Setze $u(x):=y^{1-\alpha}(x)$. Es ergibt sich:
+      \begin{align*}
+        u'(x) &= (1-\alpha)y^{-\alpha}(x)y'(x) \\
+              &= (1-\alpha)\left[g(x)y^{1-\alpha}(x)+h(x)\right] \\
+	      &= (1-\alpha)g(x)u(x)+(1-\alpha)h(x)
+        \end{align*}
+      also eine lineare Dgl in $u$.
+    \item Die \indexthis{Riccati'sche Differentialgleichung}
+      \index{Differentialgleichung>Riccati'sche}
+      \[y'(x)=k(x)+g(x)y(x)+h(x)y^2(x)
+        \]
+      Sind $y,\tilde y$ L"osungen dieser Dgl, so gen"ugt $u=y-\tilde y$
+      einer Bernoulli'schen Dgl mit $\alpha=2$, n"amlich
+      \[u'(x)=\left[g(x)+2\tilde y(x)h(x)\right]u(x)+h(x)u^2(x)
+        \]
+      die mit $v:=1/u$ in eine lineare Dgl "uberf"uhrt werden kann.
+      Kennt man also eine L"osung $\tilde y$ der Riccati'schen
+      Dgl, so k"onnen weitere L"osungen durch L"osen einer linearen
+      Dgl berechnet werden.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Bis jetzt ist kein ``Rechenverfahren'' bekannt, das eine ausreichend gro"se
+  Kategorie von Dgl'en l"ost.
+  }
+% -----------------------------------------------------------------------------
+\section{Ein Eindeutigkeitssatz}
+% -----------------------------------------------------------------------------
+\theorem:$J\subseteq\SetR$ Intervall, $x_0\in J$, 
+  $a,g,v\in\SetCont(J,\SetR)$, $v$ db auf $\inner J$ mit
+  $v'(x)\leq a(x)v(x)+g(x)$ f"ur $x\in\inner J$=>{
+  Dann gilt f"ur $x\in J$
+  \[y(x)\stack(\leq;\geq) v(x)
+    e^{\int_{x_0}^x a(\xi)d\xi}+\int_{x_0}^x e^{\int_\xi^x a(\eta)d\eta}g(\xi)d\xi
+     \qquad\stack(\text{f"ur $x\geq x_0$};\text{f"ur $x\leq x_0$})
+    \]
+  % *** FIXME stimmt so?
+  }
+% -----------------------------------------------------------------------------
+\definition Lokale Lipschitz-Stetigkeit:{
+  \index{Stetigkeit>Lokale Lipschitz-}
+  \index{Lipschitz-Stetigkeit>Lokale}  
+  Sei $D\subseteq\SetR\times\SetR^p$, $f:D\to\SetR^p$.
+  Dann hei"st $f$ lokal Lipschitz-stetig bzgl. $y$, falls gilt:
+  \begin{multline*}
+    (\forall (x_0,y_0)\in D)(\exists L,\delta >0)(\forall (x,y),(x,\tilde y)\in D) \\
+      (|x-x_0|,\norm{y-y_0},\norm{\tilde y-y_0}<\delta\implies
+      \norm{f(x,y)-f(x,\tilde y)}\leq L\norm{y-\tilde y})
+    \end{multline*}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Diese Definition ist unabh"angig von der gew"ahlten Norm, nicht jedoch
+  die Gr"o"se von $L$ und $\delta$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR\times\SetR^p$, $f:D\to\SetR^p$ lokal Lipschitz-stetig
+  bzgl. $y$=>{
+  \label{the:eindeutig}
+  Seien $y_1:I_1\to\SetR^p$, $y_2:I_2\to\SetR^p$ L"osungen von
+  \[y'(x)=f(x,y(x))\qquad y(x_0)=y_0
+    \]
+  so stimmen $y_1$ und $y_2$ auf $I_1\cap I_2$ punktweise "uberein.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  F"ur Eindeutigkeit nach rechts ($x\geq x_0$) gen"ugt eine lokale
+  Bedingung, n"amlich
+  \[(y-\tilde y)(f(x,y)-f(x,\tilde y))\leq L\norm{y-\tilde y}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark Ableitung der Euklidnorm:{
+  Sei $\norm \cdot$ die Euklidnorm. Dann gilt 
+  $\norm\cdot\in\SetCont^\infty(\SetR^p\setminus\{0\},\SetR)$. Sei nun 
+  $u:I\to\SetR^p$ db auf $I$. Dann gilt
+  \[\frac d {dx} \norm{u(x)}=\frac 1{\norm{u(x)}} u(x)u'(x)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $D\subseteq\SetR\times\SetR$ offen, $f\in\SetCont(D,\SetR)$ und partiell
+  stetig differenzierbar nach $y$. 
+  Dann ist $f$ lokal Lipschitz-stetig bzgl. $y$.
+  }
+% -----------------------------------------------------------------------------
+\section{Der Satz von Picard-Lindel"of}
+% -----------------------------------------------------------------------------
+\definition Lipschitz-Stetigkeit:{
+   \index{Stetigkeit>Lipschitz-}
+   Sei $D=[a,b]\times\SetR^p$ (man nennt $D$ dann einen \indexthis{Streifen}),
+   $f:D\to\SetR^p$. Weiter existiere ein $L>0$ so, dass
+   \[(\forall (x,y),(x,\tilde y)\in D)(\norm{f(x,y)-f(x,\tilde y)}\leq L\norm{y-\tilde y})
+     \]
+   Dann nennt man $f$ Lipschitz-stetig bzgl. $y$ auf $D$.
+   }
+% -----------------------------------------------------------------------------
+\remark:{
+  Vorsicht! Die Lipschitz-Stetigkeit bzgl. $y$ impliziert nicht die
+  Stetigkeit einer Funktion.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Picard-Lindel"of:
+  $D=[a,b]\times\SetR^p$ ein \indexthis{Streifen}, $f\in\SetCont(D,\SetR^p)$
+  Lipschitz-stetig bzgl. $y$, $(x_0,y_0)\in D$=>{
+  \label{the:picard}
+  Dann ist das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ eindeutig l"osbar.
+  
+  Weiterhin konvergiert jede Folge ``sukzessiver Approximationen'',
+  gegeben durch ein $z_0\in\SetCont([a,b],\SetR^p)$ beliebig und
+  die Rekursionsformel
+  \[z_{n+1}':=f(x,z_n(x))\qquad z_{n+1}(x_0)=y_0
+    \]
+  ($n\nnatural$) gleichm"a"sig gegen diese eine L"osung.
+  }
+% -----------------------------------------------------------------------------
+\definition Lineare Differentialgleichung (II):{
+\index{Differentialgleichung>lineare}%
+\index{Differentialgleichung>homogene}%
+\index{Differentialgleichung>inhomogene}%
+\index{Lineare Differentialgleichung}%
+\index{Homogene Differentialgleichung}%
+\index{Inhomogene Differentialgleichung}%
+  Sei $A\in\SetCont([a,b],\SetR^{p\times p})$, $g\in\SetCont([a,b],\SetR^p)$,
+  $f:[a,b]\times \SetR^p$ definiert durch $f(x,y)=A(x)y(x)+g(x)$ und
+  $(x_0,y_0)\in[a,b]\times\SetR^p$.
+  
+  Das zugeh"orige AWP
+  \[y'(x)=A(x)y(x)+g(x)\qquad y(x_0)=y_0
+    \]
+  hei"st linear und die Dgl hei"st homogen, falls $g=0$, ansonsten inhomogen.
+  
+  Sei $\fnorm \cdot$ eine Matrixnorm auf $\SetR^{p\times p}$ mit
+  $\norm{By}\leq\fnorm B\,\norm y$. Es ist $f\in\SetCont([a,b]\times\SetR^p)$,
+  und da $A$ stetig auf $[a,b]$, ist auch $x\mapsto\fnorm{A(x)}$ stetig auf
+  $[a,b]$, somit beschr"ankt, somit Lipschitz-stetig.
+  Damit ergibt sich die eindeutige L"osbarkeit des AWP.
+  }
+% -----------------------------------------------------------------------------
+\section{Der Existenzsatz von Peano}
+% -----------------------------------------------------------------------------
+\theorem Existenzsatz von Peano:
+  $f\in\SetCont([a,b]\times\SetR^p,\SetR^p)$ beschr"ankt=>{
+  \label{the:peano}
+  \index{Peano>Existenzsatz von}
+  Dann besitzt das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ mit 
+  $(x_0,y_0)\in[a,b]\times\SetR^p$ eine L"osung auf $[a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\definition Gleichgradige Stetigkeit:{
+  \index{Stetigkeit>gleichgradige}
+  $\cal F\subseteq\SetCont([a,b]\times\SetR^p,\SetR^p)$ hei"st 
+  gleichgradig stetig $:\equiv$
+  \[\epsn(\exists \delta>0)(\forall x,\tilde x\in[a,b])(\forall \phi\in\cal F)
+    (|x-\tilde x|<\delta \implies \norm{\phi(x)-\phi(\tilde x)}<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es gilt:
+  \begin{itemize}
+    \item Gleichgradige Stetigkeit ist eine Eigenschaft von Funktionenmengen,
+      nicht von Funktionen.
+    \item Ist $\cal F\subseteq\SetCont([a,b],\SetR^p)$ und ex. ein $c>0$ so,
+      dass jede Funktion $\phi\in\cal F$ Lipschitz-stetig mit der Konstanten
+      $c$ ist, so ist $\cal F$ gleichgradig stetig.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Ascoli-Arcel{\`a}:
+  $\cal F\subseteq\SetCont([a,b],\SetR^p)$ gleichgradig stetig, ex. $k>0$ mit
+  $(\forall \phi\in\cal F)(\forall x\in[a,b])(\norm{\phi(x)}\leq k)$=>{
+  \label{the:ascoli}
+  \index{Ascoli-Arcel{\`a}>Satz von}
+  Dann besitzt jede Folge $(\phi_n)\subseteq\cal F$ eine glm. konvergente
+  Teilfolge.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \ref{the:ascoli} ist ein Kompaktheitskriterium im Raum 
+  $\SetCont([a,b],\SetR^p)$, versehen mit der Maximumsnorm.
+  
+  Genauer gilt: $\cal F \subseteq\SetCont([a,b],\SetR^p)$ kompakt $\equiv$
+  $\cal F$ ist beschr"ankt, abgeschlossen und gleichgradig stetig.
+  }
+% -----------------------------------------------------------------------------
+\remark Eine Absch"atzung:{
+  Ist $f\in\SetCont([a,b]\times\SetR^p,\SetR^p)$ beschr"ankt durch $M$ und
+  $y:[a,b]\to\SetR^p$ L"osung des AWP $y'(x)=f(x,y(x))$, so gilt 
+  offensichtlich:
+  \[\norm{y(x)-y_0}\leq M|x-x_0|
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark AWPe auf Rechtecken:{
+  Sei $c>0$, $y_0\in\SetR$, $D:=[a,b]\times[y_0-c,y_0+c]$, 
+  $f\in\SetCont(D,\SetR^p)$. Betrachte das AWP $y'(x)=f(x,y(x)), y(a)=y_0$.
+  Weil $D$ kompakt und $f$ stetig ist, existiert $M:=\underset D \max f(x,y)$.
+  Definiere eine neue Funktion
+  \[\tilde f(x,y):=\begin{cases}
+      f(x,y_0+c) & (x,y)\in[a,b]\times(y_0+c,\infty) \\
+      f(x,y) & (x,y)\in[a,b]\times[y_0-c,y_0+c] \\
+      f(x,y_0-c) & (x,y)\in[a,b]\times(-\infty,y_0-c)
+      \end{cases}
+    \]
+  Wegen des Satzes von Peano ist das AWP $y'(x)=\tilde f(x,y(x)),y(a)=y_0$ 
+  l"osbar, und eine L"osung von $y$ l"asst sich auf $[a,\min\{a,a+\frac c M\}]$
+  auf $y'(x)=f(x,y(x))$ "ubertragen. 
+  
+  Eine analoge "Uberlegung l"asst sich f"ur die G"ultigkeit von 
+  \ref{the:picard} anstellen.
+  }
+% -----------------------------------------------------------------------------
+\section{Nicht fortsetzbare L"osungen}
+% -----------------------------------------------------------------------------
+\definition Nicht fortsetzbare L"osung:{
+  \index{L"osung>nicht fortsetzbare}
+  Sei $D:=\SetR^{p+1}$, $f:D\to\SetR^p$, $(x_0,y_0)\in D$. Eine L"osung
+  $y:I\to\SetR^p$ des AWP $y'(x)=f(x,y(x))$ hei"st nicht fortsetzbar, wenn
+  es keine L"osung $\tilde y:J\to\SetR^p$ mit $J\underset \neq \supset I$ und
+  $y=\tilde y$ auf $I$ gibt.
+  
+  Auf naheliegende analoge Weise werden definiert: Nicht nach rechts/links 
+  fortsetzbar.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $D\subseteq\SetR^{p+1}$, $f:D\to\SetR^p$, $(x_0,y_0)\in D$,
+  $u:I\to\SetR^p$ L"osung von $y'(x)=f(x,y(x)),y(x_0)=y_0$=>{
+  \label{the:fortsetzbar}
+  Dann gibt es eine nicht fortsetzbare L"osung dieses AWP.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $D\subseteq\SetR\times\SetR^p$ offen, $f\in\SetCont(D,\SetR^p)$,
+  $(x_0,y_0)\in D$=>{
+  \label{the:exist-open}
+  Dann besitzt das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ eine L"osung 
+  $y:I\to\SetR^p$ mit $x_0\in \inner I$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Dazu folgende Bemerkungen:
+  \begin{itemize}
+    \item \ref{the:exist-open} ist im Grunde eine Erweiterung des
+      Satzes von Peano auf beliebige offene Teilmengen des $\SetR^p$,
+      wobei jetzt nicht mehr wie vormals ein Existenzintervall garantiert
+      wird, sondern lediglich die Existenz einer L"osung auf irgendeinem
+      Intervall gefolgert werden kann.
+    \item Unter den Voraussetzungen von \ref{the:exist-open} gibt es zu
+      jeder L"osung $y:I\to\SetR^p$ eine nicht fortsetzbare L"osung
+      $\tilde y:J\to\SetR^p$ mit $J\supseteq I$, $\tilde y|_I=y$. 
+      Da $D$ offen ist, ist $J$ offen, also von der Form 
+      $(\omega_-,\omega_+)$, wobei 
+      $\omega_-\in\SetR\cup\{-\infty\},\omega_+\in\SetR\cup\{+\infty\}$.
+      $J$ muss offen sein, da man sonst nach \ref{the:exist-open} in
+      die Richtung der Abgeschlossenheit fortsetzen k"onnte.
+    \item Ist das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ in obigem Satz 
+      eindeutig l"osbar, so gibt es genau eine nicht fortsetzbare
+      L"osung $y:(\omega_-,\omega_+)\to\SetR^p$. Diese L"osung bezeichnet
+      man dann als \emph{die} L"osung des AWP. \index{L"osung eines AWP}
+      \index{AWP>L"osung eines}\index{Anfangswertproblem>L"osung eines}
+      (Analog: \emph{die} L"osung nach rechts/links).
+    \item Unter den Voraussetzungen von \ref{the:exist-open} ist z.B.
+      eine L"osung $y:[x_0,\omega_+)\to\SetR^p$ nach rechts fortsetzbar
+      $\equiv$ es ex. keine kompakte Menge $K\subseteq D$ mit
+      $\{(x,y(x))\mid x\in[x_0,\omega_+)\}\subseteq K$.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\section{Beispiele}
+% -----------------------------------------------------------------------------
+\remark Die logistische Gleichung:{
+  Seien $a,b>0$. Durch
+  \begin{equation*}
+    y'(x)=ay(x)-by^2(x),y(0)=y_0\geq 0     \tag{*}
+    \end{equation*}
+  ist eine Differentialgleichung gegeben. Nach \ref{the:eindeutig},
+  \ref{the:peano} und \ref{the:fortsetzbar} besitzt das AWP $(*)$ eine 
+  eindeutig bestimmte nicht fortsetzbare L"osung:
+  \begin{itemize}
+    \item Bei entsprechendem $y_0$ sind L"osungen: $y=0,y=\frac a b$.
+    \item Sei nun $y_0\not\in\{0,\frac a b\}$. Mit der Methode f"ur Dgl'en
+      mit getrennten Ver"anderlichen erh"alt man:
+      \[y(x)=\frac{ay_0}{by_0+(a-by_0)e^{-ax}}
+        \]
+      Falls $0<y_0<\frac a b$ ergibt sich als L"osungsintervall
+      $(\omega_-,\omega_+)=(-\infty,\infty)$. Ansonsten, also mit 
+      $\frac a b<y_0$ ergibt sich
+      \[(\omega_-,\omega_+)=(\frac 1 a \log 1-\frac a {by_0},\infty)
+        \]
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $D:=\{(x,y)\in\SetR^2\mid x^2+y^2<1\}$, $f:D\to\SetR$ mit
+  \[f(x,y):=\sin\frac 1 {1-(x^2+y^2)}
+    \]
+  Das AWP $y'(x)=f(x,y(x)),y(0)=0$ ist, da 
+  $f$ stetig und lokal Lipschitz-stetig ist, auf $D$ eindeutig l"osbar.
+  Sei $y:(\omega_-,\omega_+)\to\SetR$ L"osung des AWP. Dann gelten:
+  \begin{itemize}
+    \item $\omega_-=-\omega_+$. Es ergibt sich weiterhin, dass jede
+      L"osung der Dgl punktsymmetrisch zum Ursrpung ist.
+    \item $\omega_+\geq 1/\sqrt{2}$
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Betrachte
+  \begin{align*}
+    y_1'(x)&=y_1(x)+y_2(x)+e^{-x}y_1^2(x)&y_1(0)=0 \\
+    y_2'(x)&=y_2(x)&y_2(0)=1
+    \end{align*}
+  Das AWP besitzt eine eindeutige L"osung, sie ist
+  \[y(x)=\begin{pmatrix} e^x\tan x \\ e^x \end{pmatrix}
+    \]
+  auf dem Intervall $(-\frac \pi 2,\frac \pi 2)$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $f\in\SetCont([a,b]\times\SetR,\SetR)$, beschr"ankt und 
+  $y:I\to\SetR$ eine nicht fortsetzbare L"osung des AWP's 
+  $y'(x)=f(x,y(x)),y(x_0)=y_0$. Dann ist $I=[a,b]$, insbesondere
+  hat also jede L"osung des AWP's eine Fortsetzung auf $[a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\section{Lineare Systeme von Dgl'en}
+% -----------------------------------------------------------------------------
+\definition Lineares System:{
+\index{System>lineares}%
+\index{Differentialgleichung>lineare}%
+\index{Differentialgleichung>homogene}%
+\index{Differentialgleichung>inhomogene}%
+\index{Lineare Differentialgleichung}%
+\index{Homogene Differentialgleichung}%
+\index{Inhomogene Differentialgleichung}%
+  Sei nun stets $A\in\SetCont([a,b],\SetR^{p\times p})$. Die 
+  Differentialgleichung
+  \begin{equation*}
+    y'(x)=A(x)y(x)+g(x) \tag{L}
+    \end{equation*}
+  mit einem $g\in\SetCont([a,b],\SetR^p)$ hei"st lineare Dgl im $\SetR^p$,
+  bzw. lineares System von $p$ Dgl'en. Die Dgl.
+  \begin{equation*}
+    y'(x)=A(x)y(x) \tag{H}
+    \end{equation*}
+  hei"st zugeh"orige homogene Gleichung, w"ahrend $(L)$ wie im Fall $p=1$
+  inhomogen hei"st.
+  
+  Gelegentlich wird o.B.d.A. auch der Fall $I\subseteq\SetR$ statt $I=[a,b]$ 
+  betrachtet.
+  }
+% -----------------------------------------------------------------------------
+\remark L"osbarkeit von linearen Systemen:{
+  Nach Definition sind alle linearen AWPe eindeutig mit einer nicht
+  fortsetzbaren L"osung l"osbar. Weiterhin ist jede L"osung
+  $y:[a,b]\to\SetR^p$ der Dgl von der Form $y\ident y_h+y_s$, dabei
+  ist $y_h$ die L"osung des homogenen Problems $y'(x)=A(x)y(x),y(x_0)=0$
+  und $y_s$ die L"osung des inhomogenen Problems
+  $y'(x)=A(x)y(x),y(x_0)=y_0$.
+  }
+% -----------------------------------------------------------------------------
+\remark Lineare Unabh"angigkeit von Funktionen:{
+  Seien $y_1,\ldots,y_k\in\SetCont([a,b],\SetR)$ und $x\in[a,b]$ beliebig.
+  Dann gilt
+  \[y_1,\ldots,y_k \text{ linear unabh"angig}\stack(\not\implies;\Leftarrow)
+    y_1(x),\ldots,y_k(x)\text{ linear unabh"angig} 
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Sei $V:=\{y\in\SetCont^1([a,b],\SetR^p)\mid y \text{ l"ost } (H)\}$.
+  Dann gilt: $V$ ist ein Vektorraum mit $\dim V=p$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Fundamentalsysteme}
+% -----------------------------------------------------------------------------
+\definition Fundamentalsystem:{
+  Jede Basis des L"osungsraumes $V$ eines homogenen linearen Systems $(H)$
+  hei"st ein Fundamentalsystem/FS von $(H)$. Ist nun
+  $\{y_1,\ldots,y_p\}$ ein Fundamentalsystem von $(H)$, so fasst man diese
+  Funktionen zu einer Matrixfunktion $Y:[a,b]\to\SetR^{p\times p}$ zusammen
+  durch
+  \[Y(x):=\begin{pmatrix}
+    y_1(x)|\ldots|y_p(x)
+    \end{pmatrix}
+    \]
+  Diese Funktion hei"st dann \indexthis{Fundamentalmatrix} von $(H)$. 
+  }
+% -----------------------------------------------------------------------------
+\remark L"osungen und Linearit"at:{
+  Gilt $Y(x_0)=I$, so ist $y(x)=Y(x)y(x_0)=Y(x)y_0$ L"osung des 
+  linearen Systems $(H)$. Ist weiterhin eine L"osung $y_s:[a,b]\to\SetR^p$
+  als L"osung von $(L)$ mit $y_s(x_0)=0$ bekannt, so ist die
+  L"osung des AWPs $y'(x)=A(x)y(x)+g(x),y(x_0)=y_0$ die Funktion
+  $y(x)=Y(x)y_0+y_s(x)$.
+  
+  Eine Fundamentalmatrix $Y:[a,b]\to\SetR^{p\times p}$ von $(H)$ kann auch
+  aufgefasst werden als L"osung der Matrixgleichung $Y'(x)=A(x)Y(x)$
+  }
+% -----------------------------------------------------------------------------
+\theorem: V L"osungsraum von $(H)$, $y_1,\ldots,y_k\in V$=>{
+  Dann gilt
+  \begin{multline*}
+    y_1,\ldots,y_k\text{ linear unabh"angig} \equiv \\
+    (\forall x\in[a,b])(y_1(x),\ldots,y_k(x)\text{ linear unabh"angig})
+    \end{multline*}
+  Insbesondere gilt: Ist $Y:[a,b]\to\SetR^{p\times p}$ ein Fundamentalsystem
+  von $(H)$, so ist $\det Y(x)\neq 0$.
+  Hierbei ist ``$\implies$'' die interessante Richtung, die andere ist trivial.
+  }
+% -----------------------------------------------------------------------------
+\remark L"osung von $(L)$ durch Variation der Konstanten:{
+  Ist zu einer Gleichung $(H)$ ein FS $Y:[a,b]\to\SetR^{p\times p}$ bekannt,
+  so f"uhrt der Ansatz $y_s(x)=Y(x)c(x)$ (Variation der Konstanten) f"ur
+  eine L"osung von $(L)$ auf
+  \begin{align*}
+    & y_s'(x)=\underbrace{Y'(x)}_{A(x)Y(x)}c(x)+Y(x)c'(x)\overset !=A(x)Y(x)c(x)+g(x) \\
+    \equiv & Y(x)c'(x)=g(x)\equiv c'(x)=Y^{-1}(x)g(x)
+    \end{align*}
+  Setzt man also \footnote{hier koordinatenweise integrieren}
+  \[c(x):=\int_{x_0}^x Y^{-1}(\xi)g(\xi)d\xi
+    \qquad(x_0\in[a,b]\text{ fest})
+    \]
+  dann ist $y^*(x):=Y(x)c(x)$ die L"osung des AWP's 
+  $y'(x)=A(x)Y(x)+g(x),y(x_0)=y_0$. Ist $Y:[a,b]\to\SetR^{p\times p}$
+  irgendein Fundamentalsystem, so sind die L"osungen einer Gleichung der Art
+  $(L)$ genau die Funktionen 
+  \[y(x)=Y(x)c+Y(x)\int_{x_0}^x Y^{-1}(\xi)g(\xi)d\xi \qquad c\in\SetR^p
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Die Wronski-Determinante}
+% -----------------------------------------------------------------------------
+\definition Wronski-Determinante:{
+  \index{Determinante>Wronski-}
+  Sind $y_1,\ldots,y_p$ $p$ L"osungen von $(H)$ (nicht notwendigerweise
+  l.u.), so nennt man $\Phi(x):=\det(y_1|\ldots|y_p)(x)$ ihre 
+  Wronski-Determinante.
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenschaften der Wronski-Determinante:{
+  Da $p$ L"osungen von $(H)$ genau dann l.u. sind, wenn $y_1(x),\ldots,y_p(x)$
+  f"ur alle $x\in[a,b]$ l.u. sind, gilt entweder $\Phi(x)=0$ oder 
+  $\Phi(x)\neq 0$, jeweils f"ur $x\in[a,b]$.
+  
+  Weiterhin ist $\Phi(x)$ differenzierbar und es gilt f"ur $x\in[a,b]$
+  \[\Phi'(x)=(\Spur A(x))\cdot \Phi(x)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Das Reduktionsverfahren von d'Alembert}
+% -----------------------------------------------------------------------------
+\lessertheorem Reduktionsverfahren von d'Alembert:$y:[a,b]\to\SetR^p$ L"osung
+  von $y'(x)=A(x)y(x)$,$j\in\{1,\ldots,p\}$ beliebig gew"ahlt=>{
+  Dann erh"alt man mit dem Ansatz $z(x):=h(x)y(x)+g(x)$, 
+  $h$ reellwertig (unbekannt), $g\cdot e_j=0$:
+  \begin{align*}
+    &z'(x)=h'(x)\cdot y(x)+\underbrace{h(x)y'(x)}_{h(x)A(x)y(x)}+g'(x)
+    \overset !=A(x)h(x)y(x)+A(x)g(x)\\
+    \equiv &h'(x)y(x)+g'(x)=A(x)g(x)
+    \end{align*}
+  Ist nun $y\cdot e_j\neq 0$ auf einem Intervall $I\subseteq[a,b]$, so
+  erh"alt man wegen $g\cdot e_j=0$ ein lineares Dgl.system mit $p-1$ 
+  Gleichungen f"ur alle Komponentenfunktionen von $g$ au"ser der $j$-ten,
+  in welchem ebendiese $j$-te Koordinate durch $h$ ersetzt werden kann.
+  }
+% -----------------------------------------------------------------------------
+\example Reduktionsverfahren von d'Alembert:{
+  Betrachte $A:(0,\infty)\to\SetR^{2\times 2}$ mit
+  \[A(x)=\begin{pmatrix}
+      \frac 1x & -1 \\ \frac 1 {x^2} & \frac 2 x
+      \end{pmatrix}
+      \text{ und }
+      y_1(x):=\begin{pmatrix}
+      x^2\\-x
+      \end{pmatrix}
+    \]
+  $y_1(x)$ ist L"osung von $y'(x)=A(x)y(x)$ und z.B. durch einen Polynomansatz 
+  zu ermitteln.
+  Ziel: Gewinnung einer weiteren, linear unabh"angigen L"osung.
+  W"ahle $j:=1$ f"ur die Reduktion. Ansatz:
+  \begin{align*}
+    &y_2(x)=h(x)y_1(x)+
+    \underbrace{\begin{pmatrix}0\\ \eta(x)\end{pmatrix}}_{g(x):=}\\
+    \underset{\text{oben}}\implies &h'(x)\begin{pmatrix}
+      x^2\\-x
+      \end{pmatrix}+\begin{pmatrix}0\\ \eta'(x)\end{pmatrix}=
+      \begin{pmatrix}
+      \frac 1x & -1 \\ \frac 1 {x^2} & \frac 2 x
+      \end{pmatrix}g(x)\\
+    \equiv&\left\{\begin{gathered}
+       h'(x)x^2=-\eta(x)\\
+       h'(x)x+\eta'(x)=\frac 2 x \eta(x)\end{gathered}\right.
+       \implies h'(x)=-\frac{\eta(x)}{x^2}\\
+    \implies &-\frac{\eta(x)}{x^2}'(x)x+\eta'(x)=\frac 2 x \eta(x)\\
+    \equiv &\eta'(x)=\frac 1 x \eta(x) 
+    \end{align*}
+  Daher erkennt man: $\eta(x)=x$ ist eine L"osung dieser Dgl.
+  Dann ist $h'(x)=-\frac 1 x$, also $h(x)=-\log x$.
+  Damit ist ein Fundamentalsystem bestimmt:
+  \[
+    Y(x):=\begin{pmatrix}
+      x^2 & x^2\log x \\
+      -x & x+x\log x
+      \end{pmatrix}
+    \]
+  ist Fundamentalsystem, denn $\det Y(x)\neq 0$ f"ur $x\in(0,\infty)$.
+  Um nun das AWP $y'(x)=A(x)y(x),y(1)=\begin{pmatrix}1\\1\end{pmatrix}$
+  zu l"osen, betrachte man das LGS
+  \[Y(1)c=\begin{pmatrix}1\\1\end{pmatrix}
+    \equiv c=\begin{pmatrix}1\\2\end{pmatrix}
+    \]
+  Die L"osung des obigen AWP ist somit
+  \[y(x):=Y(x)\begin{pmatrix}1\\2\end{pmatrix}=
+    \begin{pmatrix}
+      x^2+2x^2\log x\\ 
+      x+2x\log x
+      \end{pmatrix}
+    \qquad x\in(0,\infty)
+    \]
+  }
+% -----------------------------------------------------------------------------

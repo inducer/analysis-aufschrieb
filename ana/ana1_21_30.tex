@@ -1,0 +1,643 @@
+% -----------------------------------------------------------------------------
+\para{Differenzierbarkeit}
+% -----------------------------------------------------------------------------
+\convention{$I\subseteq\SetR$ Intervall}
+% -----------------------------------------------------------------------------
+\definition Differenzierbarkeit:{
+  $f:I\to\SetR$ hei"st in $x_0$ differenzierbar/db $:\equiv$
+  \[\limx \xnull \frac{f(x)-f(x_0)}{x-x_0}=
+    \limes h->0 \frac{f(x_0+h)-f(x_0)}h
+    \]
+  existiert.
+  }
+% -----------------------------------------------------------------------------
+\definition Ableitung:{
+  Ist $f$ db, so hei"st $f'(x):=\limx \xnull \frac{f(x)-f(x_0)}{x-x_0}$
+  die (erste) Ableitung von $f$ in $x_0$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $f$ in jedem $x\in I$ db, so hei"st $f$ db auf I. In diesem
+  Fall wird durch $f':I\to\SetR$ eine Funktion definiert.
+  Diese Funktion hei"st die (erste) Ableitung von $f$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f:I\to\SetR$ db in $x_0\in I$=>{
+  Dann ist $f$ stetig in $x_0$.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Seien $c,x\real,n\natural$. Dann gilt 
+  \[(c)'=0 \qquad
+    (x^n)'=nx^{n-1} \qquad
+    (e^x)'=e^x
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f,g:I\to\SetR$, beide db in $x_0\in I$=>{
+  Sei $f:=f(x_0) \quad g:=g(x_0)$, $f':=f'(x_0) \quad g':=g'(x_0)$.
+  Dann gelten:
+  \begin{stmts}
+    \item $(\forall \alpha,\beta\real)((\alpha f+\beta g)'=\alpha f'+\beta g')$
+    \item $(f\cdot g)'=fg'+f'g$
+    \item $\left(\frac f g\right)'=\frac{f'g-fg'}{g^2}$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Kettenregel:
+  $I,J$ Intervalle,
+  $g: I\to\SetR$ sei db in $x_0\in I$,
+  $g( I)\subseteq J$,
+  $f: J\to\SetR$ sei db in $y_0:=g(x_0)$=>{
+  Dann gilt
+  \[(f\after g)'=f'(g(x))\cdot g'(x)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Seien $a,x\real$. Dann gilt 
+  \[(a^x)'=\log a\cdot a^x
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $I$ Intervall, $f\in\SetCont(I)$ streng monoton, in $x_0$ db,
+  $f'(x_0)\ne 0$=>{
+  Dann ist $f^{-1}:f(I)\to\SetR$ db in $y_0:=f(x_0)$ und es gilt
+  \[(f^{-1})'(y_0)=\frac 1{f'(x_0)}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Seien $x,\alpha\real,y>0$. Dann gilt 
+  \[(\log x)'=\frac 1 x \qquad
+    (x^\alpha)'=\alpha x^{\alpha-1}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Innerer Punkt:{
+  \index{Punkt>innerer}
+  Sei $M\subseteq\SetR$. $x_0\in M$ hei"st innerer Punkt von $M$ $:\equiv$
+  \[(\exists \delta>0)(U_\delta(x_0)\subseteq M)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Man beobachtet
+  \begin{stmts}
+    \item $ M\subseteq\SetR$ ist offen $\equiv$
+      $(\forall x\in M)(\text{$x$ ist innerer Punkt})$
+    \item $\SetQ$ hat keine inneren Punkte.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Relatives Extremum:{
+  \index{Extremum>relatives}
+  Sei $D\subseteq\SetR$. $f:D\to\SetR$ hat in $x_0\in D$ ein relatives
+  \tstack(Minimum;Maximum) $:\equiv$
+  
+  \[(\exists \delta>0)(\forall x\in D \cap U_\delta(x_0))
+    (\stack({f(x)\le f(x_0)};{f(x)\ge f(x_0)}))
+    \]
+  Relatives Extremum $:=$ relatives \indexthis{Maximum} oder \indexthis{Minimum}.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $I\subseteq\SetR$ Intervall, $f:I\to\SetR$ in $x_0$ db, $x_0$ rel.
+  Extremum von $f$, $x_0$ innerer Punkt von $I$=>{
+  Dann gilt notwendigerweise $f'(x)=0$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Mittelwertsatz der Differentialrechnung:
+  $f\in\SetCont([a,b])$ db auf $[a,b]$=>{
+  \index{MWS}
+  Dann gilt
+  \[(\exists \xi\in(a;b))(f'(\xi)=\frac{f(b)-f(a)}{b-a})
+    \]
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Satz von Rolle:
+  $f\in\SetCont([a,b])$ db auf $[a,b]$,$f(a)=f(b)$=>{
+  Dann gilt
+  \[(\exists z\in [a,b])(f'(z)=0)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b])$ db auf $[a,b]$, $I\subseteq\SetR$ Intervall=>{
+  Folgende Monotonieeigenschaften kann man an der Ableitung ablesen:
+  \begin{stmts}
+    \item $(\forall x\in I)(f'(x)=0)$ $\equiv$ $f$ ist konstant auf $I$
+    \item $(\forall x\in I)(f'(x)>0)$ $\implies$ $f$ ist streng monoton wachsend auf $I$
+    \item $(\forall x\in I)(f'(x)<0)$ $\implies$ $f$ ist streng monoton fallend auf $I$
+    \item $(\forall x\in I)(f'(x)\le 0)$ $\equiv$ $f$ ist monoton wachsend auf $I$
+    \item $(\forall x\in I)(f'(x)\ge 0)$ $\equiv$ $f$ ist monoton fallend auf $I$
+    \item $(\forall x\in I)(f'(x)=g'(x))$ $\equiv$ $(\exists c\real)(f=g+c)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Verallgemeinerter Mittelwertsatz:
+  $f,g\in\SetCont([a,b])$ db auf $(a;b)$ und $(\forall x\in(a;b))(g'(x)\ne 0)$=>{
+  \index{Mittelwertsatz>verallgemeinerter}
+  Dann ist $g(a)\ne g(b)$ und es gilt
+  \[(\exists z\in(a;b))\left(\frac{f(b)-f(a)}{g(b)-g(a)}=\frac{f'(z)}{g'(z)}\right)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{Die Regel von de L'Hospital}
+% -----------------------------------------------------------------------------
+\def\limxab{\limx{\hbox{$\scriptscriptstyle\stack(a;b)$}}}
+\theorem:
+  $f,g:(a;b)\to\SetR$ diffbar auf $(a;b)$ ($a,b=\pm\infty$ zugelassen), $g'(x)\ne 0$=>{
+  Ist (I) $\limxab f(x)=\limxab g(x)=0$ oder
+  (II) $\limxab g(x)=\pm\infty$ und 
+  existiert 
+  \[L:=\limxab \frac{f'(x)}{g'(x)}
+    \] 
+  (dabei ist $L=\pm\infty$ zugelassen), so gilt:
+  \[\limxab \frac{f(x)}{g(x)}=L 
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{Ableitungen von Potenzreihen, Sinus, Cosinus}
+% -----------------------------------------------------------------------------
+\theorem Ableiten einer Potenzreihe:=>{
+  \index{Potenzreihe>Ableiten einer}
+  Es gilt
+  \[\left( \sumn 0 a_n x^n \right)'=\sumn 1 (a_n x^n)'=\sumn 1 n a_n x^{n-1}
+    \]
+  Die beiden PR haben den gleichen KR. (Wichtig: $(a_0 x^0)'=0$!)
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Sei $x\real$. Dann gilt
+  \[(\sin x)'=\cos x \qquad (\cos x)'=-\sin x 
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz des Pythagoras:
+  $x\real$=>{
+  Es gilt
+  \[\sin^2 x+\cos^2 x=1
+    \]
+  Daher auch insbesondere $|\sin x|\le 1$ und $|\cos x|\le 1$
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $x\real$=>{
+  Dann ist $|\sin x| \le |x|$.
+  }
+% ---------------------------------------------------------------------------------
+\theorem:
+  $x\in(0;2)$=>{
+  Dann ist $\sin x > x-\frac{x^3}{3!}$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Additionstheoreme:$x,y\real$=>{
+  Es gilt:
+  \begin{align*}
+    \sin (x+y)&=\sin x \cos y+ \cos x \sin y\\
+    \cos (x+y)&=\cos x \cos y- \sin x \sin y\\
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition Pi:{
+  Ein f"ur allemal:
+  \[\pi:=\text{$2\cdot$ die erste Nullstelle der $\cos$-Funktion}=3,14159...
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$x\real$=>{
+  \begin{stmts}
+    \item $\cos \frac \pi 2=0$ und $\sin \frac \pi 2=1$
+    \item $\sin (-x)=-\sin x$ und $\cos (-x)=\cos x$
+    \item $\sin (x+\frac \pi 2)=\cos x$ und $\cos (x-\frac \pi 2)=\sin x$
+    \item $\sin (x+\pi)=-\sin x$ und $\cos (x+\pi)=-\cos x$
+    \item $\sin (x+2\pi)=\sin x$ und $\cos (x+2\pi)=\cos x$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  $\cos x$ hat in $[0;\pi]$ genau eine Nullstelle, n"amlich $\frac \pi 2$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$x\real$=>{
+  Dann gelten
+  \begin{align*}
+    \sin x=0 &\equiv (\exists k\integer)(x=k\pi) \\
+    \cos x=0 &\equiv (\exists k\integer)(x=\frac \pi 2+k\pi)
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\para{Potenzreihen II}
+% -----------------------------------------------------------------------------
+\definition Allgemeine Potenzreihe:{
+  \index{Potenzreihe>allgemeine}
+  Eine Reihe der Gestalt $\sumn 0 a_n(x-x_0)^n$ hei"st Potenzreihe/PR mit
+  \indexthis{Entwicklungspunkt} $x_0$.\par
+  \index{Konvergenzradius} und -bereich von 
+  $\sumn 0 a_n x^n$ und $\sumn 0 a_n (x-x_0)^n$
+  stimmen bis auf Verschiebung um $x_0$ in positiver Richtung "uberein.
+  \index{Konvergenzbereich}
+  }
+% -----------------------------------------------------------------------------
+\remark:{ 
+  Alle bisherigen S"atze "uber Potenzreihen lassen sich auf
+  die allg. PR "ubertragen.
+  }
+% -----------------------------------------------------------------------------
+\definition Darstellung durch PR:{
+  Sei $I\subseteq\SetR$ ein beliebiges Intervall, $f:I\to\SetR$ eine Funktion und
+  $x_1\in I$.
+  
+  $f$ wird in einer Umgebung von $x_1$ durch eine PR dargestellt $:\equiv$
+  \begin{multline*}
+    (\exists \delta>0)
+    (\exists \sumn 0 a_n (x-x_1)^n\text{ mit KR $r>\delta$ })\\
+    (\forall x\in I\cap U_\delta(x_1))
+    (f(x)=\sumn 0 a_n (x-x_1)^n)
+    \end{multline*}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:$f(x):=\sumn 0 a_n (x-x_0)^n$ Potenzreihe mit KR $r>0$, 
+  $I=(x_0-r;x_0+r),x_1\in I$ =>{
+  Dann sei $\delta:=r-|x_1-x_0|$ und 
+  $ J:=(x_1-\delta;x_1+\delta)$. Dann gilt: Es ex. eine PR 
+  $\sumn 0 b_n (x-x_1)^n$ mit KR $r'>\delta$ und 
+  \[(\forall x\in J)(f(x)=\sumn 0 b_n (x-x_1)^n)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{H"ohere Ableitungen}
+% -----------------------------------------------------------------------------
+\definition Zweite, $n$-te Ableitung:{
+  \index{Ableitung>h"ohere}  
+  \index{Ableitung>zweite}
+  Sei $I\subseteq\SetR$ und $f:I\to\SetR$ db auf $I$. f hei"st in 
+  $x_0\in I$ zweimal db $:\equiv$ $f'$ db in $x_0$. In diesem Fall hei"st
+  $f''(x_0):=(f')'(x_0)$ die zweite Ableitung von $f(x_0)$. Die Definition l"asst
+  sich analog auf Intervalle und h"ohere Ableitungen "ubertragen:
+  \[f=f^{(0)},\ldots,f''',f^{(4)},f^{(5)},\ldots,f^{(n)}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Stetige Differenzierbarkeit:{
+  \index{Differenzierbarkeit>stetige}
+  $f$ hei"st stetig db $:\equiv$ $f'$ existiert und ist stetig.
+  
+  Bezeichnung: $f\in \SetCont^n(I)$. Dabei ist $\SetCont^0(I)=\SetCont(I),
+  \SetCont^\infty(I):=\bigcap\limits_{n\nnatural}\SetCont^n(I)$.
+  }
+% -----------------------------------------------------------------------------
+\remark $f$ differenzierbar $\not\implies$ $f\in\SetCont^1$:{
+  Betrachte hierzu z.B.
+  \[f(x):=x^2\sin\left(\frac 1 x\right)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $I\subseteq\SetR$ Intervall, $f:I\to\SetR$ Funktion, $x_0$ innerer Pkt. von $I$.
+  Weiterhin: $f$ lasse sich in einer Umgebung von $x_0$ als PR darstellen:
+  \begin{multline*}
+    (\exists \delta>0)(\exists \sumn 0 a_n(x-x_0)^n 
+    \text{ mit KR $r\ge\delta$ }) \\
+    (U_\delta(x_0)\subseteq I\land 
+    (\forall x\in U_\delta(x_0))(f(x)=\sumn 0 a_n(x-x_0)^n))
+    \end{multline*}
+  Dann gilt: 
+  \begin{stmts}
+    \item $f\in \SetCont^\infty(U_\delta(x_0))$ 
+    \item $f(x)=\sumn 0 \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n$ 
+    \end{stmts}
+}
+% -----------------------------------------------------------------------------
+\definition Taylorreihe:{
+  Sei $\epsilon>0,f\in\SetCont^\infty(U_\epsilon(x_0))$. Dann hei"st die PR
+  \[\sumn 0 \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n
+    \]
+  die zu $f$ geh"orige Taylorreihe.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Im Allgemeinen ist die Taylorreihe keine Darstellung f"ur die Funktion $f$.
+  Beispiel: 
+  \[f(x)=\begin{cases}
+      e^{-\frac 1 {x^2}} 	& \text{f"ur $x\ne 0$} \\ 
+      0 			& \text{f"ur $x=0$}
+      \end{cases}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Taylor:
+  $I\subseteq\SetR$,$n\nnatural$,$f\in\SetCont^n(I)$,$f^{(n+1)}$ ex. auf $I$=>{
+  Seien $a,b\in I,a\ne b$. Dann existiert $\xi\in(\min\{a,b\},\max\{a,b\})$ mit    
+  \[f(b)=\sum_{k=0}^n \frac{f^{(k)}(a)}{k!}(b-a)^k+
+         \frac{f^{(n+1)}(\xi)}{(n+1)!}(b-a)^{n+1}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  F"ur $n=0$ ist der Satz von Taylor "aquivalent zum Mittelwertsatz. 
+  Das vom Satz von Taylor versprochene $\xi$ ist von $a$, $b$ und $n$ 
+  abh"angig.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Mit dem Satz von Taylor l"a"st sich u.a. zeigen, da\ss\ $e\not\in\SetQ$ 
+  oder $\sumn 1 \frac{(-1)^{n+1}}n=\log 2$.
+  }
+% -----------------------------------------------------------------------------
+\definition Taylorpolynom:{
+  Sei $I\subseteq\SetR$ Intervall, $f\in\SetCont^n(I)$,$n\nnatural$,$x_0\in I$.
+  Dann hei"st
+  \[T_n(x;x_0):=\sum_{k=0}^n \frac{f^{(k)}(x_0)}{k!}(x-x_0)^k
+    \]
+  das $n$-te Taylorpolynom von $f$ in $x_0$.
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenschaften des Taylorpolynoms:{
+  Man beobachtet
+  \begin{stmts}
+    \item $T_n(x;x_0)$ ist Polynom vom Grad $n$.
+    \item $T_n^{(k)}(x_0;x_0)=f^{(k)}(x_0)$ f"ur alle $k\in\{0,\ldots,n\}$
+    \item Die beiden obigen Eigenschaften bestimmen das Taylorpolynom eindeutig.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark Andere Formulierung des Satzes von Taylor:{
+  Es existiere $f^{(n+1)}$ auf I. Dann gilt:
+  \begin{multline*}
+    (\forall n\nnatural)(\exists \xi(x,n)\in(\min\{x,x_0\},\max\{x,x_0\}))\\
+    (f(x)=T_n(x;x_0)+\frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1})
+    \end{multline*}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:=>{
+  Ist $f\in\SetCont^\infty(I)$, so sind die folgenden Aussagen "aquivalent:
+  \begin{stmts}
+    \item $f$ l"a"st sich in einer Umgebung $U_\delta(x_0)$ als
+      Potenzreihe darstellen.
+    \item $(\forall x\in U_\delta(x_0))(\limn T_n(x;x_0)=f(x))$
+    \item $(\forall x\in U_\delta(x_0))
+           (\limn \frac{f^{(n+1)}(x)}{n!}(x-x_0)^{n+1}=0)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $I=(a;b)$ mit $a,b=\pm\infty$ zugelassen, $f\in\SetCont^\infty(I),x_0\in I$=>{
+  Existiert ein $c>0$ mit
+  \[(\forall x\in I)(\forall n\nnatural)
+      (\left|\frac{f^{(n)}(x)}{n!}\right|\le c^n)
+    \]
+  so gilt
+  \[(\forall x\in (x_0-\frac 1 c;x_0-\frac 1 c))
+      (f(x)=\sumn 0 \frac{f^{(n)}(x)}{n!}(x-x_0)^n)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{Extremwerte}
+% -----------------------------------------------------------------------------
+\theorem:
+  $I\subseteq\SetR$ Intervall, $n\ge 2$, $f\in\SetCont^n(I)$, 
+  $x_0$ innerer Punkt von $I$=>{
+  Gilt $f'(x_0)=f''(x_0)=\ldots=f^{(n-1)}(x_0)=0$ und $f^{(n)}(x_0)\ne 0$,
+  so l"a"st sich "uber $f$ folgendes aussagen:
+  \begin{stmts}
+    \item Ist $n$ ungerade, so hat $f$ in $x_0$ kein lok. Extremum.
+    \item Ist $n$ gerade und $f^{(n)}(x_0)\stack(<0;>0)$, so hat
+      $f$ in $x_0$ ein lokales \tstack(Maximum;Minimum)
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{Das Riemann-Integral}
+% -----------------------------------------------------------------------------
+\convention{
+  In diesem Kapitel sei stets $a<b$, $f:[a,b]\to\SetR$ beschr"ankt. 
+  Setze "uberdies $m:=\inf f([a,b])$, $M:=\sup f([a,b])$.
+  }
+% -----------------------------------------------------------------------------
+\definition Zerlegung:{
+  \label{def:zerlegung}
+  Eine Menge 
+  $z=\{ a=x_0,x_1,\ldots,x_n=b\}$ hei"st Zerlegung von $[a,b]$ $:\equiv$
+  $a=x_0<x_1<x_2<\ldots<x_n=b,n\ge 1$.
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $z$ eine Zerlegung von $[a,b]$ Dann sei f"ur $j=1\ldots n$
+  \begin{align*}
+    I_j & :=[x_{j-1},x_j], |I_j|=x_j-x_{j-1} \\
+    m_j & :=\inf I_j, M_j:=\sup I_j \\
+    \lsum(z) & :=\sum_{j=1}^n m_j|I_j| \\ 
+    \usum(z) & :=\sum_{j=1}^n M_j|I_j|
+  \end{align*}
+  Dabei hei"sen hei"st $\lsum(z)$ \indexthis{Untersumme} und 
+  $\usum(z)$ \indexthis{Obersumme} f"ur $f$ und $z$.
+  }
+% -----------------------------------------------------------------------------
+\remark Verschiedene Absch"atzungen:{
+  Es gilt
+  \begin{align*}
+    &m\le m_j\le M_j\le M, m|I_j|\le m_j|I_j|\le M_j|I_j|\le M|I_j| \\
+    &\sum_{j=1}^n |I_j|=b-a \\
+    &m(b-a)\le \lsum(z) \le \usum(z) \le M(b-a)
+    \end{align*}
+  f"ur alle Zerlegungen $z$ von $[a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $z_1,z_2$ Zerlegungen von $[a,b]$=>{
+  \begin{stmts}
+    \item $z_1\subseteq z_2 \implies \lsum(z_1)\le\lsum(z_2)$ und 
+          $\usum(z_2) \le \usum(z_1)$ 
+    \item $\lsum(z_1)\le\usum(z_2)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Oberes/unteres Integral:{
+  \index{Oberintegral}\index{Unterintegral}
+  \index{Integral>oberes}\index{Integral>unteres}
+  F"ur eine Funktion $f$ mit den obigen Eigenschaften definiert man:
+  \begin{align*}
+    \lint_a^b f(x)dx &:= \sup \{\lsum(z)\mid \text{ $z$ Zerlegung von $[a,b]$}\}\\
+    \uint_a^b f(x)dx &:= \inf \{\usum(z)\mid \text{ $z$ Zerlegung von $[a,b]$}\}
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\remark Eine Absch"atzung:{
+  Es gilt 
+  \[m|b-a|\le\lint_a^b f(x)dx\le\uint_a^b f(x) dx\le M(b-a)
+    \]
+}
+% -----------------------------------------------------------------------------
+\definition Riemann-Integral:{
+  $f$ hei"st Riemann-integrierbar (ib) "uber $[a,b]$ $:\equiv$
+  \[
+    \int_a^b f(x)dx:= \lint_a^b f(x)dx = \uint_a^b f(x)dx
+  \]
+
+  Dieser Ausdruck hei"st dann das Riemann-Integral von $f$ "uber $[a,b]$.
+  Die Menge $\SetRInt([a,b])$ ist dann die Menge aller auf dem Intervall
+  $[a,b]$ ib'en Funktionen.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $f,g:[a,b]\to\SetR$ seien beschr.=>{
+  Dann gelten
+  \begin{stmts}
+    \item $f\le g$ auf $[a,b]$ $\implies$ $\lint_a^b f(x)dx\le\lint_a^b g(x)dx$ und
+      $\uint_a^b f(x)dx\le\uint_a^b g(x)dx$.
+    \item Sei $\alpha\ge 0$. Dann gilt:
+      $\lint_a^b \alpha f(x)dx=\alpha \lint_a^b f(x)dx$ und 
+      $\uint_a^b \alpha f(x)dx=\alpha \uint_a^b f(x)dx$.
+    \item $\lint_a^b - f(x)dx=- \uint_a^b f(x)dx$ und 
+      $\uint_a^b - f(x)dx=- \lint_a^b f(x)dx$.
+    \item $\lint_a^b f(x)+g(x)dx\ge \lint_a^b f(x)dx+\lint_a^b g(x)dx$
+      $\uint_a^b f(x)+g(x)dx\le \uint_a^b f(x)dx+\uint_a^b g(x)dx$.
+    \item $\SetRInt([a,b])$ ist $\SetR$-Vektorraum  
+      und $f\to\int_a^b f(x)dx$ ist linear.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Riemann'sches Integrabilit"atskriterium:=>{
+  \index{Integrabilit"atskriterium>Riemann'sches}
+  Es gilt
+  \[f\in\SetRInt([a,b])\equiv\epsn(\exists z(a,b) \text{ Zerlegung})
+    (\usum(z)-\lsum(z)<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f:[a,b]\to\SetR$ monoton=>{
+  Dann ist $f\in\SetRInt([a,b])$
+  }
+% -----------------------------------------------------------------------------
+\definition Stammfunktion:{
+  Sei $I\subseteq\SetR$ Intervall, $G,g:I\to\SetR$ Funktionen.
+  Dann hei"st $G$ Stammfunktion/SF von $g$ auf $I$ $:\equiv$
+  $G$ ist auf $I$ db und $G'=g$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sind $G,H$ Stammfunktionen von $g$ auf $I\ne\emptyset$, so folgt
+  $(\exists c\in\SetR)(G=H+c)$
+  }
+% -----------------------------------------------------------------------------
+\theorem 1. Hauptsatz der Differential- und Integralrechnung:
+  Sei $f\in\SetRInt([a,b])$ und $F\in\SetCont([a,b])$ eine SF von $f$ auf
+  $(a,b)$=>{
+  Dann gilt
+  \[\int_a^b f(x)dx=F(b)-F(a)=:[F]_a^b
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Man beobachtet
+  \begin{itemize}
+    \item Es gibt Funktionen, die eine Stammfunktion besitzen, aber nicht 
+      integrierbar sind.
+    \item Eine integrierbare Funktion mu"s keine Stammfunktion besitzen.
+    \end{itemize}
+  }    
+% -----------------------------------------------------------------------------
+\theorem:$f_n$ Funktionenfolge in $\SetRInt([a,b])$, 
+  $f_n/\sumn 1 f_n$ glm konv. auf $[a,b]$ gegen $f/s:[a,b]\to\SetR$=>{
+  Dann ist $f,s\in\SetRInt([a,b])$ und 
+  \begin{align*}
+    \limn \int_a^b f_n(x)dx &= \int_a^b f(x) dx\\
+    \sumn 1 \int_a^b f_n(x)dx &= \int_a^b \sumn 1 f_n(x) dx\\
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\para{Mehr zu Integralen}
+% -----------------------------------------------------------------------------
+\theorem:$f\in\SetRInt([a,b]), D:=f([a,b])$ und $h: D\to\SetR$
+  Lipschitz-stetig=>{
+  Dann ist $h\circ f\in\SetRInt([a,b])$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Folgerung: $f\in\SetRInt([a,b])\implies f^2=f\cdot f\in\SetRInt([a,b])$
+  }
+% -----------------------------------------------------------------------------
+\theorem: $f,g\in\SetRInt([a,b])$=>{
+  Dann gilt auch 
+  \begin{stmts}
+    \item $|f|\in\SetRInt([a,b])$ und $\left|\int_a^b f(x)dx\right|\le \int_a^b |f(x)|dx$ 
+    \item $f\cdot g\in\SetRInt([a,b])$
+    \item $(\exists\delta>0)(\forall x\in[a,b])(g(x)\ge\delta)
+         \implies\frac f g\in\SetRInt([a,b])$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{Stetige Funktionen und Mittelwerts"atze}
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  $\SetCont([a,b])\subset\SetRInt([a,b])$
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f:[a,b]\to\SetR$ beschr"ankt, $c\in(a;b)$=>{
+  Dann ist 
+  \[f\in\SetRInt([a,b])\equiv f\in\SetRInt([a;c])\cap\SetRInt([c;b])
+    \]
+  und es gilt
+  \[\int_a^b f(x) dx=\int_a^c f(x) dx+\int_c^b f(x) dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f:[a,b]\to\SetR$ beschr"ankt, 
+  $M:=\{x\in[a,b]|\text{ $f$ ist unstetig in $x$}\}$=>{
+  Ist $M$ endlich, so ist $f\in\SetRInt([a,b])$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetRInt([a,b])$, $g:[a,b]\to\SetR$=>{
+  \begin{stmts}
+    \item Ist $M:=\{x\in[a,b]|f(x)\ne g(x)\}$ endlich, so gilt 
+      $g\in\SetRInt([a,b])$ und $\int_a^b f(x)dx=\int_a^b g(x)dx$.
+    \item $f=g$ auf $(a;b)$ $\implies$ $g\in\SetRInt([a,b])$ und 
+      $\int_a^b f(x)dx=\int_a^b g(x)dx$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Erster und erweiterter Mittelwertsatz der Integralrechnung:
+  $f,g\in\SetRInt[a,b],g\ge 0$ auf $[a,b]$, $m:=\inf f([a,b])$, $M:=\sup f([a,b])$=>{
+  \index{Mittelwertsatz>erster der Integralrechnung}
+  \begin{stmts}
+    \item $(\exists \mu\in[m,M])(\int_a^b f(x)dx=\mu(b-a))$ 
+      Au"serdem
+      \[f\in\SetCont([a,b])\implies (\exists\xi\in[a,b])(\mu=f(\xi))
+        \]
+    \item $(\exists \mu\in[m,M])(\int_a^b f(x)g(x) dx=\mu\int_a^b g(x)dx)$ 
+      Au"serdem
+      \[f\in\SetCont([a,b])\implies (\exists\xi\in[a,b])(\mu=f(\xi))
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{Der Riemann'sche Zugang zum Integral}
+% -----------------------------------------------------------------------------
+\convention{
+  $f:[a,b]\to\SetR$ beschr"ankt. Sei $z:=\{x_0,\ldots,x_n\}$ Zerlegung von
+  $[a,b]$ $m_j,M_j,I_j$ wie in \ref{def:zerlegung}.
+  }
+% -----------------------------------------------------------------------------
+\definition Zwischenvektor:{
+  W"ahle in jedem Intervall $I_j$ ein $\xi_j$ $(j=(1,\ldots,n))$ und setze 
+  $\xi=(\xi_1,\ldots,\xi_n)$. Dann hei"st $\xi$ ein zu $z$ passender
+  Zwischenvektor (ZV) und $\sigma_f(z,\xi)=\sum_{j=1}^n f(\xi_j)|I_j|$ 
+  eine Riemann'sche Zwischensumme.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es gilt $m_j\le\xi_j\le M_j$ und 
+  deswegen $\lsum(z)\le\sigma_f(z,\xi)\le\usum(z)$.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:=>{
+  Es gilt 
+  \[f\in\SetRInt([a,b])\equiv(\exists s\real)\epsn(\exists \text{ Zerlegung von $[a,b]$})
+    (\forall \;\text{ZV}\;\xi)(|\sigma_f(z;\xi)-s|<\epsilon)
+    \]
+  In diesem Fall $\int_a^b f(x)=s$.
+  }
+% -----------------------------------------------------------------------------

@@ -1,0 +1,1073 @@
+% -----------------------------------------------------------------------
+\para{Algorithmen f"ur Graphen}
+% -----------------------------------------------------------------------
+\definition Graph:{
+  Ein {\itshape Graph} $G=(V,E)$ besteht aus einer Menge $V$ von 
+  \indexthis{Knoten} (\indexthis{vertices}) und einer Menge $E$ von 
+  \indexthis{Kanten} (\indexthis{edges}). Es gibt 
+  {\itshape gerichtete} und {\itshape ungerichtete} Graphen. Bei ersteren
+  besteht die Menge $V$ aus geordneten, bei letzterem aus ungeordneten Paaren
+  von Knoten.
+  \index{Graph>gerichteter}\index{Graph>ungerichteter}
+  
+  Ein Graph hei"st \textit{gewichtet}, falls seine Kanten mit skalaren 
+  Gewichten versehen sind.
+  \index{Graph>gewichteter}
+  
+  Der {\itshape \indexthis{Grad}} eines Knotens $v\in V$ ist die Anzahl an 
+  Kanten, die an $v$ enden. (analog: \indexthis{Eingangsgrad}/
+  \indexthis{Ausgangsgrad})
+  \index{Knoten>Grad eines}
+  
+  Ein {\itshape \indexthis{Pfad}} ist eine Folge von Knoten $v_1,v_2,...,v_n$, 
+  f"ur die eine Folge von Kanten $(v_1,v_2),(v_2,v_3),...,(v_{n-1},v_n)$ 
+  existiert. Ein Pfad hei"st \textit{einfach}  oder \textit{elementar}, falls 
+  kein Knoten in ihm zweimal vorkommt.
+  \index{Weg}
+  \index{Kantenzug}
+  \index{Pfad>einfacher}
+  
+  Ein Graph hei"st \textit{zusammenh"angend}, wenn in seiner ungerichteten Form
+  zwischen allen Knoten Pfade existieren.Ein Graph hei"st 
+  \textit{zweifach/$n$-fach zusammenh"angend} (biconnected/$n$-connected), wenn zwischen 
+  je zwei Knoten mindestens zwei/$n$ knotendisjunkte Pfade existieren.
+  Ein Graph hei"st stark zusammenh"angend, wenn zwischen je zwei Knoten 
+  $v_1,v_2\in V$ Pfade von $v_1$ nach $v_2$ und umgekehrt existieren.
+  Ein Graph hei"st \textit{vollst"andig}, wenn zwischen je zwei verschiedenen
+  Knoten in $G$ eine Kante existiert.
+  \index{Graph>zusammenh"angender}
+  \index{Graph>stark zusammenh"angender}
+  \index{Graph>vollst"andiger}
+
+  Ein Knoten $v_2$ hei"st {\itshape erreichbar} von $v_1$ genau dann, wenn 
+  ein Pfad zwischen $v_1$ und $v_2$ existiert.
+  \index{erreichbar}
+  \index{Knoten>Erreichbarkeit von}
+  
+  Gilt f"ur einen Graphen $G=(V,E)$ und einen zweiten Graphen $G'=(V',E')$
+  $V'\subseteq V$ und $E'\subseteq E$, so hei"st $G'$ Unter- oder Teilgraph
+  von $G$.
+  \index{Teilgraph}
+  \index{Subgraph}
+  \index{Untergraph}
+  
+  Sei $U\subseteq V$ eine Menge von Knoten. Dann hei"st $H=(U,F)$ der
+  {\itshape von $U$ induzierte Subgraph}, wenn $F$ alle zu $U$ geh"origen 
+  Kanten beinhaltet.
+  \index{Subgraph>induzierter}
+  \index{Untergraph>induzierter}
+  
+  Eine {\itshape unabh"angige Menge $S$ in $G$} ist eine Menge von Knoten,
+  die paarweise nicht durch Kanten verbunden werden.
+  \index{Menge>unabh"angige}
+  
+  Ein {\itshape \indexthis{Zyklus}} in $G$ ist ein Pfad $P$ mit 
+  dem gleichen Anfangs- und Endpunkt. Von einem {\itshape \indexthis{Kreis}} 
+  spricht man, falls der Zyklus elementar ist. Ein Kreis mit $|P|=1$ hei"st auch
+  {\itshape \indexthis{Schlinge}}.
+  (circuit: Zyklus, cycle: Kreis)
+  
+  Ein Graph hei"st \textit{\indexthis{Wald}}, falls er keine Kreise enth"alt. 
+  Ein zusammenh"angender Wald hei"st \textit{\indexthis{Baum}}.
+  Ist ein Knoten in ihm besonders ausgezeichnet, so hei"st der Graph ein 
+  \textit{Baum mit Wurzel}.
+  \index{Wurzel>Baum mit}
+  
+  Ein \textit{aufspannender Wald} eines Graphen ist ein Wald, der alle
+  Knoten des Graphen enth"alt. Analog: aufspannender Baum (``spanning tree'')
+  \index{Wald>aufspannender}
+  \index{Baum>aufspannender}
+  
+  Ein ungerichteter Graph hei"st bipartit genau dann, wenn seine Knoten 
+  in zwei Mengen aufgeteilt werden k"onnen, so dass jeder Knoten nur mit 
+  Knoten aus der jeweils anderen Menge verbunden ist.
+  \index{Graph>bipartiter}
+  
+  Ein Graph hei"st \textit{eulersch}, wenn er zusammenh"angend ist und seine 
+  Knoten von geradem Grad sind.
+  \index{Graph>eulerscher}
+  
+  Ein Graph ist ein \textit{einfacher Graph}, falls keine zwei Knoten
+  in ihm von mehr als einer Kante verbunden werden. Ein Graph, der
+  diese Eigenschaft nicht hat, hei"st Multigraph.
+  \index{Graph>einfacher}
+  \index{Multigraph}
+  
+  Eine {\itshape \indexthis{Clique}} in $G$ ist ein vollst"andiger Untergraph.
+  
+  {\itshape Fl"ache}: Keine Definition gefunden.
+}
+% -----------------------------------------------------------------------
+\problem Darstellung von Graphen im Rechner:{
+  \index{Graphen>Darstellung im Rechner}
+  \begin{itemize}
+    \item Graphisch: naja
+    \item Mengen: Zwei Felder, eins mit Knoten (die wiederum mit 
+      zugeh"origen Informationen) und Kanten (von Knoten-Index $a$ nach
+      Knotenindex $b$).
+    \item Adjazenzliste: Jeder Knoten schleppt eine Liste von verbundenen
+      Knoten mit sich.
+    \item Adjazenzliste in einem Feld: Erste $n$ Felder repr"asentieren Knoten,
+      tragen jeweils Beginn Ihrer Adjazenzliste in diesem Feld in sich.
+    \item Adjazenzmatrix: Tabelle mit Knoten-Indizes entlang Zeile (``von'')
+      und Spalte (``nach''), Gewichte (bzw. 1 f"ur verbunden, 0 f"ur nicht 
+      verbunden) werden bei der entsprechenden ``von''--``nach''-Zelle
+      eingetragen.
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\algorithm Tiefensuche:{
+  (auch \indexthis{DFS}: \indexthis{Depth first search})
+  Gehe zu einem Knoten, markiere ihn, klappere rekursiv alle benachbarten 
+  Knoten ab, vermeide dabei bereits markierte Knoten. DFS kann gewisse
+  Arbeiten ``vor'', ``nach'' und ``w"ahrend'' des Abstiegs vornehmen, z.B.
+
+  \begin{itemize}
+  \item
+    Versieht man jeden Knoten in der Reihenfolge der Abarbeitung bei der
+    DFS mit einer Nummer, so nennt man diese Nummer die \textit{DFS-Nummer}.
+  \item
+    Mittels DFS l"asst sich aus einem ungerichteten Graphen in einem
+    Anlauf ein DFS-Baum erzeugen, der folgenden Eigenschaft hat: Entweder 
+    ist eine Kante Teil des Baumes, oder sie ist eine Querkante (``cross edge''), 
+    d.h. sie verbindet im DFS-Baum einen Knoten mit einem seiner Vorg"anger.
+  \item
+    Ebenso lassen sich mittels DFS aus gerichteten Graphen DFS-B"aume erzeugen.
+    (daf"ur sind gegebenenfalls im Gegensatz zu ungerichteten Graphen mehrere
+    Anl"aufe n"otig. Es kann ja schlie"slich mehrere ``H"ugel'' im Graphen
+    geben, von denen man hinunter, aber nicht mehr hinauf kommt.)
+    Hier gibt es f"ur eine Kante die folgenden M"oglichkeiten:
+    \begin{itemize}
+      \item im Baum enthalten
+      \item \indexthis{Querkante} (cross edge)
+      \item \indexthis{Vorw"artskante} (forward edge)
+      \item \indexthis{R"uckw"artskante} (back edge)
+    \end{itemize}
+    Haupteigenschaft von gerichteten DFS-B"aumen ist, dass der DFS-Baum
+    bez"uglich der DFS-Numerierung ein Heap ist. (Eltern-Knoten hat 
+    kleinere Zahl als Kind-Knoten)
+  \end{itemize}  
+  
+  Bei unzusammenh"angenden Graphen muss evtl. noch gepr"uft werden, ob alle
+  Knoten besucht worden sind.
+
+  \cpx zusammenh"angend, ungerichtet $O(|V|)$, 
+    unzusammenh"angend oder gerichtet $O(|V|+|E|)$.
+}
+% -----------------------------------------------------------------------
+\algorithm Breitensuche:{
+  (auch \indexthis{BFS}: \indexthis{Breadth first search})
+  Beginne bei einem Knoten. Markiere ihn, markiere alle seine Kinder und setze 
+  Verweise auf sie in einen FIFO. Nimm den n"achsten so zu bearbeitenden Knoten
+  aus dem FIFO.
+
+  Versieht man jeden Knoten in der Reihenfolge der Abarbeitung bei der
+  BFS mit einer Nummer, so nennt man diese Nummer die \textit{BFS-Nummer}.
+  
+  \cpx $O(|V|+|E|)$.
+}
+% -----------------------------------------------------------------------
+\algorithm Topologisches Sortieren:{
+  \given endlicher Baum $G=(V,E)$
+  
+  \aim ``Reihenfolge''
+  
+  \begin{proc}
+    \item 
+      entferne sukzessive alle Knoten mit Eingangsgrad $0$, merke die Reihenfolge
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\algorithm Alle k"urzesten Pfade von einem Ausgangspunkt:{
+  \given Graph $G=(V,E)$, Gewicht $Wt(x,y)$ der Kante $(x,y)$, Startknoten $v$
+  
+  \aim Gewichtesumme des jeweils k"urzesten Pfades von einem Ausgangspunkt 
+    zu jedem Knoten eines Graphen.
+  
+  \begin{proc}
+    \item Ordne jedem Knoten die gegenw"artige Pfadl"ange $L(v)$ zu 
+      (anfangs $\infty$)
+    \item $L(v):=0$
+    \item Markiere alle Knoten  (inklusive $v$) als unbesucht
+    \item Solange unbesuchte Knoten existieren:
+      \begin{itemize}
+        \item W"ahle unbesuchten Knoten $w$ mit dem geringsten $L(w)$
+        \item Markiere $w$ als besucht
+        \item F"ur jeden Nachbarn $x$ von $w$: 
+          $L(x):=\min\{ L(w)+Wt(w,x),L(x) \}$
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O((|V|+|E|)\log |V|)$
+  
+  Um den k"urzesten Pfad jeweils herauszufinden, vermerke die Herkunft
+  des Minimums am Knoten.
+}
+% -----------------------------------------------------------------------
+\algorithm Algorithmus von Prim:{
+  \index{Prim>Algorithmus von}\index{Spannbaum>minimaler}
+  \index{Minimaler Spannbaum}
+  (Minimaler Spannbaum, auch: minimum cost spanning tree (\indexthis{MCST}))
+  
+  \given Graph $G=(V,E)$, Gewicht $Wt(x,y)$ der Kante $(x,y)$
+  
+  \aim Menge von Kanten, so dass diese einen Spannbaum bilden und ihre
+    Gewichtesumme minimal ist.
+  
+  \begin{proc}
+    \item Lege Knoteneigenschaften fest: $C(x),x\in V$ gibt die minimalen Kosten 
+      wieder, die gebraucht werden, um diesen Knoten vom Restbaum aus zu erreichen,
+      $E_m(x),x\in V$ gibt an, "uber welche Kante diese minimalen Kosten erreicht 
+      werden, jeder Knoten erh"alt eine Besuchsmarkierung.
+    \item $\forall x\in V: C(x):=\infty$, alle Knoten sind anfangs unbesucht
+    \item Suche die Kante mit minimalen Gewicht. Sei diese $(m_1,m_2)$
+    \item Markiere $m_1$ als besucht
+    \item $\forall (m_1,x)\in E: C(x):=Wt(m_1,x), E_m(x):=(m_1,x)$
+     \item Solange unbesuchte Knoten existieren:
+      \begin{itemize}
+        \item W"ahle Knoten $w$ mit dem geringsten $C(w)$
+        \item Markiere $w$ als besucht, f"uge $E_m(w)$ zu Spannbaum hinzu
+        \item $\forall (w,x)\in E:$ Ist $C(x)>Wt(w,x)$, so setze 
+          $C(x):=Wt(w,x)$ und $E_m(x):=(w,x)$
+      \end{itemize}
+ \end{proc}
+
+ \cpx $O((|V|+|E|)\log |V|)$
+}
+% -----------------------------------------------------------------------
+\algorithm Algorithmus von Kruskal:{
+  \index{Kruskal>Algorithmus von}
+  \given ungerichteter Graph $G=(V,E)$, Gewicht $Wt(x,y)$ der Kante $(x,y)$
+  
+  \aim Menge von Kanten, so dass diese einen Spannbaum bilden und ihre
+    Gewichtesumme minimal ist.
+  
+  \begin{proc}
+    \item F"uge $|V|-1$ mal die k"urzeste noch nicht hinzugef"ugte Kante
+      zum Spannbaum hinzu, die keinen Zyklus entstehen l"asst.
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\algorithm Transitive H"ulle:{
+  \given Graph $G=(V,E)$
+  
+  \aim Menge von Kanten, so dass zwischen je zwei voneinander erreichbaren
+    Knoten eine Kante existiert.
+  
+  Zwei verschiedene M"oglichkeiten: 
+  \begin{itemize} 
+    \item $|V|-1$ mal f"ur jede Kante alle angrenzenden Kanten dazuf"ugen
+    \item (Voraussetzung: Graph liegt in Form einer Adjazenzmatrix $A$
+    vor) Bestimme $H=\sum_{i=0}^{n-1} A^i$. Ist $H_{ij}\ne 0$, so existiert
+    eine Abk"urzung von $i$ nach $j$.
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\definition Matching:{
+  Zwei Kanten $(u,v)$ und $(x,y)$ hei"sen \textit{unabh"angig}, wenn $u,v,x,y$ 
+  paarweise verschieden sind. Ansonsten hei"sen die beiden Kanten benachbart.
+  \index{Kanten>Unabh"angigkeit von}
+  \index{Kanten>Nachbarschaft von}
+  
+  Eine Kantenmenge hei"st \textit{Matching/unabh"angig} $:\equiv$ 
+  alle ihre Elemente sind paarweise unabh"angig.
+  
+  Ein Knoten hei"st \textit{frei} bez"uglich eines Matchings, wenn er von 
+  keiner Kante ber"uhrt wird. Andernfalls hei"st er gematcht.
+  \index{Knoten>Freiheit eines}
+  
+  Ein Matching hei"st \textit{(fast) perfekt} $:\equiv$ alle (bis auf einen) 
+  Knoten des Graphen werden gematcht.
+  \index{Matching>perfektes}
+  
+  Ein um keine Kante erweiterbares Matching hei"st \textit{maximal}.
+  \index{Matching>maximales}
+  
+  Ein Matching hei"st maximum $:\equiv$ jedes andere Matching hat weniger
+  oder gleich viele Kanten.
+  \index{Matching>Maximum-}
+}
+% -----------------------------------------------------------------------
+\theorem:=>{
+  Sei $G=(V,E)$ ein Graph. Eine Menge $M\subseteq E$ ist genau dann ein 
+  Matching, wenn der Grad jedes Knotens bez"uglich $M$ 0 oder 1 ist.
+}
+% -----------------------------------------------------------------------
+\definition Alternierender Pfad:{
+  Sei $G=(V,E)$ ein Graph, $M\subseteq E$ ein Matching, $v,w\in V$ zwei 
+  ungematchte Knoten. Dann ist ein alternierender Pfad $P\subset E$ von 
+  $v$ nach $w$ ein Pfad in $G$, so dass genau jede zweite Kante 
+  von $P$ in $M$ liegt.
+}
+% -----------------------------------------------------------------------
+\theorem Satz von Berge:
+  $G=(V,E)$ ein Graph, $M\subseteq E$ ein Matching=>
+{
+  Es gibt in $G$ keinen alternierenden Pfad bez"uglich $M$ 
+  $\equiv$ $M$ ist Maximum-Matching
+}
+% -----------------------------------------------------------------------
+\algorithm Bipartites Matching:{
+  \given bipartiter Graph $G=(V\cup U,E)$
+  
+  \aim Ein Maximum-Matching $M\subset E$
+  
+  \begin{proc}
+    \item Markiere alle Kanten als unbesucht
+    \item Solange es eine unbesuchte Kante $(u,v)$ gibt:
+      \begin{itemize}
+        \item Nimm Kante in $M$ auf
+        \item Markiere $(u,v)$ und alle zu $(u,v)$ benachbarten Kanten
+      \end{itemize}
+    \item Betrachte $G$ nun als gerichtet: Ist eine Kante $e\in M$,
+      so richte sie von $V$ nach $U$, ansonsten umgekehrt.
+    \item Suche f"ur jeden ungematchten Knoten $v$ einen
+      gerichteten Pfad (der jetzt genau einem alternierenden Pfad entspricht)
+      zu einem ebenfalls ungematchten Knoten $u$.
+      
+      Existiert ein solcher alternierender Pfad $P$, vertausche entlang $P$
+      die Matchings-Zugeh"origkeit. Dann ist $M$ immer noch Matching, aber
+      gr"o"ser als vorher.
+  \end{proc}
+  
+  \cpx $O(|V|(|V|+|E|))$
+}
+% -----------------------------------------------------------------------
+\theorem Satz von K"onig:
+  $G=(V,E)$ Graph=>
+{
+  $G$ bipartit $\equiv$ Es existieren keine ungeraden Zyklen in $G$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Aus dem Satz von K"onig folgt u.a., dass alle B"aume und alle 
+  Hyperw"urfel bipartit sind.
+}
+% -----------------------------------------------------------------------
+\definition Netzwerk:{
+  Ein gerichteter Graph $G=(V,E,s,t)$ mit Gewichten (``Kapazit"aten'') 
+  $Cap((x,y)),(x,y)\in E$ und zwei Knoten $s$ (Quelle) und $t$ (Senke) 
+  hei"st ein \textit{Netzwerk}. Dabei muss die Quelle Eingangsgrad 0 und
+  die Senke Ausgangsgrad 0 haben.
+  \index{Quelle}
+  \index{Senke}
+  \index{Kapazit"at}
+  
+  Ein \textit{\indexthis{Fluss}} ist eine Funktion $f:E\to\SetR$, die
+  den folgenden Forderungen gen"ugt:
+  \begin{itemize}
+    \item $0\le f(e) \le Cap(e)$
+    \item $\forall v\in V\setminus\{s,t\}: \sum_u f((u,v)) = \sum_u f((v,u))$
+  \end{itemize}
+  Mit dem Wert eines Flusses bezeichnet man die Summe aller von 
+  $s$ ausgehenden/bei $t$ eintreffenden Str"ome. Der Fluss mit
+  maximalem Wert hei"st maximaler Fluss.
+  \index{Fluss>Wert eines}
+  \index{Fluss>maximaler}
+}
+% -----------------------------------------------------------------------
+\remark Aufstockbarkeit von Matching- zu Netzwerkproblemen:{
+  Gegeben sei ein bipartiter Graph $G=(V\cup U,E)$. Dann konstruiert
+  man das zugeh"orige Netzwerkproblem durch hinzuf"ugen einer Quelle,
+  einer Senke, Verbinden der Quelle mit allen Knoten aus $V$, bzw.
+  aller Knoten aus $U$ mit der Senke und Zuweisen der Kapazit"at 1 an 
+  alle Kanten.
+}
+% -----------------------------------------------------------------------
+\definition Augmentierender Pfad:{
+  Sei $G=(V,E,s,t)$ mit $Cap((x,y))$ ein Netzwerk. Dann ist ein 
+  \textit{augmentierender Pfad} ein Pfad von $s$ nach $t$ aus 
+  Kanten $(v,u)$, die je genau eine der folgenden zwei Bedingungen erf"ullen:
+  \begin{itemize}
+    \item $(v,u)\in E$, $f((v,u))<Cap((v,u))$ (``\indexthis{Vorw"artskante}'')
+    
+      Die Differenz $Cap((v,u))-f((v,u))>0$ nennt sich ``Flaute'' (slack) der
+      Kante.
+    \item $(u,v)\in E$, $f((u,v))>0$ (``\indexthis{R"uckw"artskante}'')
+  \end{itemize}
+  \index{Pfad>augmentierender}  
+}
+% -----------------------------------------------------------------------
+\remark Wie man mit Hilfe eines augmentierenden Pfades den Fluss vergr"o"sert:{
+  Sei $P$ augmentierender Pfad in $G=(V,E,s,t)$.
+  Sei $F\subseteq P$ die Menge der Vorw"artskanten, $B\subseteq P$
+  die Menge der R"uckw"artskanten.
+  Dann nimm 
+  \[ m_F:=\min \{ Cap((v,u))-f((v,u)) \mid (v,u)\in F \} \]
+  und
+  \[ m_B:=\min \{ f((u,v)) \mid (u,v)\in B \} \]
+  Dann kann der Fluss um $m:=\min\{m_F,m_B\}>0$ vergr"o"sert werden, indem man:
+  \begin{itemize}
+    \item Bei Vorw"artskanten $m$ zum Fluss dazuaddiert
+    \item Bei R"uckw"artskanten $m$ vom Fluss abzieht
+  \end{itemize}
+  Die Anforderungen an Erhaltung und Kapazit"at werden erf"ullt, und der 
+  gesamte Fluss wird vergr"o"sert, weil nur Vorw"artskanten $s$ verlassen
+  und nur Vorw"artskanten bei $t$ eintreffen (und bei beiden der Fluss 
+  vergr"ossert wurde).
+}
+% -----------------------------------------------------------------------
+\definition Schnitt:{
+  Sei $G=(V,E,s,t)$ mit $Cap((x,y))$ ein Netzwerk. Sei $A\subset E$
+  eine Teilmenge mit $(s,x)\in A,(x,t)\not\in A$ ($x\in V$).  
+  Dann ist der Schnitt von $A$ $:=$ 
+  $\{(u,v)\mid (u,v)\in E,u\in A, v\in E\setminus A\}$. Die Kapazit"at 
+  eines Schnittes ist die Summe der Kapazit"aten der Kanten im Schnitt.
+  \index{Schnitt>Kapazit"at eines}
+}
+% -----------------------------------------------------------------------
+\theorem Satz vom augmentierenden Pfad:
+  $G=(V,E,s,t)$ mit $Cap((x,y))$ Netzwerk, $f$ ein Fluss darin=>
+{
+  $f$ maximal $\equiv$ Es existiert kein augmentierender Pfad bezgl. $f$ in $G$.
+}
+% -----------------------------------------------------------------------
+\theorem Max-Flow-Min-Cut:
+  $G=(V,E,s,t)$ mit $Cap((x,y))$ Netzwerk=>
+{
+  Der Wert des maximalen Flusses in $G$ entspricht der geringsten Kapazit"at
+  eines Schnittes in $G$.
+}
+% -----------------------------------------------------------------------
+\theorem Satz vom ganzzahligen Fluss:
+    $G=(V,E,s,t)$ mit $Cap((x,y))\in\SetN$ Netzwerk, 
+    $f_{max}$ maximaler Fluss in $G$=>
+{
+  F"ur alle Kanten $e\in E$ gilt: $f_{max}(e)\in\SetN$.
+}
+% -----------------------------------------------------------------------
+\algorithm Suche eines augmentierenden Pfades:{
+  \given $G=(V,E,s,t)$ mit $Cap((x,y))$ Netzwerk, $f$ ein Fluss darin
+  
+  \aim Ein augmentierender Pfad $P$.
+  
+  \begin{proc}
+    \item Erstelle aus dem ``alten'' Netzwerk ein neues 
+    (``\indexthis{Residualnetzwerk}'') nach den folgenden Regeln: Betrachte 
+    jede Kante $e=(v,w)\in E$.
+      \begin{itemize}
+        \item Ist $f(v)=Cap(v)$, so "ubernimm $v$ in umgekehrter Richtung
+          mit gleicher Kapazit"at.
+        \item Ist $0\ne f(v)<Cap(v)$, so "ubernimm $v$ in umgekehrter Richtung
+          mit gleicher und in gleicher Richtung mit umgekehrter ($Cap(v)-f(v)$)
+          Kapazit"at.
+        \item Ist $f(v)=0$, so "ubernimm $v$ in gleicher Richtung mit 
+	  umgekehrter ($Cap(v)-f(v)$) Kapazit"at.
+      \end{itemize}
+    \item Suche nun mittels des bereits erw"ahnten Algorithmus einen
+      (am besten den k"urzesten) Pfad zwischen $s$ und $t$.
+  \end{proc}
+  
+  \cpx $O(|V|+|E|)$
+}
+% -----------------------------------------------------------------------
+\definition Hamilton'scher Pfad:{
+  Sei $G=(V,E)$ ein Graph. Dann ist ein \textit{Hamilton'scher Pfad} ein 
+  Kreis, der alle Knoten von $G$ enth"alt.
+  \index{Pfad>hamiltonscher}
+  
+  Zu finden ist ein/der k"urzeste Hamilton'sche(r) Pfad mit derzeit bekannten
+  Algorithmen nicht in polynomialer Zeit.
+}
+% -----------------------------------------------------------------------
+\algorithm Minimale Editierdistanz:{
+  \index{Editierdistanz>Minimale}
+  \given Zwei Zeichenketten $a_1,\ldots,a_n/b_1,\ldots,b_m$, $c_i,c_s,c_d$
+    Kosten der Editierschritte \textit{insert}, \textit{substitute},
+    \textit{delete}.
+
+  \aim Editiersequenz mit minimaler Kostensumme, die $(a_i)$ in $(b_i)$ umformt
+  
+  \begin{proc}
+    \item Erstelle Matrix $C(i,j)$, die die minimale Zahl an Editierschritten 
+      angibt, um $a_1,\ldots, a_i$ in $b_1,\ldots, b_j$ umzuformen.
+      Betrachte hilfsweise $a_{n+1}=b_{m+1}=\emptyset$
+    \item Initialisiere $C(0\ldots n+1,0)=0\ldots (n+1)\cdot c_d$, 
+      $C(0,0\ldots m+1)=0\ldots (m+1)\cdot c_i$
+    \item Berechne nach folgender Vorschrift von links oben nach rechts unten
+      jede Zelle $C(i,j)$ der Matrix als Minimum von:
+      \begin{itemize}
+        \item Wenn $a_i=b_j$: $C(i-1,j-1)$
+        \item Wenn $a_i\ne b_j$: $C(i-1,j-1)+c_s$
+        \item $C(i-1,j)+c_d$
+        \item $C(j,i-1)+c_i$
+      \end{itemize}
+    \item Die minimale Editierdistanz findet sich in $C(n+1,m+1)$
+  \end{proc}
+  
+  Indem man sich in jedem Schritt merkt, welche Art Schritt das Minimum
+  erbracht hat, kann man den minimalen Editierpfad rekonstruieren.
+}
+% -----------------------------------------------------------------------
+\definition Markov-Modell:{
+  \input info2_markov.epic
+  
+  Eine Hypothese/ein Modell f"ur ein zu erkennendes Muster wird dargestellt in
+  einem Graphen wie dem obigen. Jeder der $n$ Knoten im Graphen
+  hei"st ein Zustand. In jedem Zustand gibt es "Ubergangswahrscheinlichkeiten
+  $p_0(i)$ (Wiederholung/"Ubergang zum gleichen Knoten), 
+  $p_1(i)$ ("Ubergang zum n"achstfolgenden Knoten), 
+  $p_2(i)$ ("Ubergang zum "ubern"achsten Knoten). 
+  Man definiert: $p(i,j):=$ Wahrscheinlichkeit f"ur $i$ im Zustand $j$
+  \[
+    p(i,j)=\begin{cases}
+      p_0(j) & i=j \\
+      p_1(j) & i=j+1 \\
+      p_2(j) & i=j+2 \\
+      0 & \text{sonst} 
+    \end{cases}
+  \]
+
+  Zus"atzlich gibt es eine Tabelle von ``Emissionswahrscheinlichkeiten'' 
+  \[ p_E(<\textit{Zeichen}>,<\textit{Zustand}>) \]
+  zu jedem Zustand im Graphen, die angibt, welches Zeichen mit welcher 
+  Wahrscheinlichkeit statt dem im Graph (ohnehin nur symbolisch) vermerkten 
+  erkannt wird.
+  
+  Mit Hilfe eines solchen Modells kann unter Zuhilfenahme eines geeigneten
+  Algorithmus die (maximale) Wahrscheinlichkeit des Zutreffens der Hypothese
+  auf eine Beobachtung ermittelt werden.
+}
+% -----------------------------------------------------------------------
+\algorithm Forward-Algorithmus:{
+  \given Markov-Modell $(p,p_E)$, Beobachtung $a_1,\ldots,a_m$. O.B.d.A sei
+    Zustand $1$ der Startzustand, Zustand $n$ der Endzustand.
+  
+  \aim Bestimmung der Wahrscheinlichkeit des Zutreffens der von $(p,p_E)$
+    dargestellten Hypothese auf die Beobachtung.
+    
+  \begin{proc}
+    \item Erstelle Matrix $\alpha(1\ldots n,0\ldots m)$, wobei $\alpha(i,j)$ die
+      Wahrscheinlichkeit angibt, nach Beobachtung von $a_1,\ldots,a_j$ im 
+      Zustand $i$ zu sein.
+    \item Initialisiere Matrix $\alpha(2\ldots n,0):=0$ und 
+      $\alpha(1,0):=1$
+    \item Berechne Matrix spaltenweise (durch die Beobachtung fortschreitend).
+      Dabei ist f"ur festes $j=1\ldots m$ und $i=1\ldots n$
+      \[
+        \alpha(i,j)=\sum_{k=1}^{n}
+          \alpha(k,j-1)\cdot p(i,k)\cdot p_E(a_j,i)
+      \]
+    \item Dann findet sich die Wahrscheinlichkeit, dass diese Hypothese
+      auf die Beobachtung passt, in $\alpha(n,m)$
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\algorithm Viterbi-Algorithmus:{
+  \given Markov-Modell $(p,p_E)$, Beobachtung $a_1,\ldots,a_m$. O.B.d.A sei
+    Zustand $1$ der Startzustand, Zustand $n$ der Endzustand.
+  
+  \aim Bestimmung der wahrscheinlichsten Zuordnung von Symbolen
+    der Beobachtung zu den Zust"anden
+    
+  \begin{proc}
+    \item Erstelle Matrix $\alpha(1\ldots n,0\ldots m)$, wobei $\alpha(i,j)$
+      die maximale Wahrscheinlichkeit eines Pfades zum Zustand $i$ 
+      nach Beobachtung von $a_1,\ldots,a_j$ angibt.
+    \item Initialisiere Matrix $\alpha(2\ldots n,0):=0$ und 
+      $\alpha(1,0):=1$
+    \item Berechne Matrix spaltenweise (durch die Beobachtung fortschreitend).
+      Dabei ist f"ur festes $j=1\ldots m$ und $i=1\ldots n$
+      \[
+        \alpha(i,j)=\max
+          \{ \alpha(k,j-1)\cdot p(i,k)\cdot p_E(a_j,i) \mid k\in\{1,\ldots,n\}\}
+      \]
+    \item Den wahrscheinlichsten Pfad durch die Matrix findet man dann durch
+      Zur"uckverfolgen der Maxima ausgehend von $\alpha(n,m)$
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\para{Geometrische Algorithmen}
+% -----------------------------------------------------------------------
+\definition Punkt:{
+  Ein Punkt $p$ im $n$-dimensionalen Raum wird dargestellt durch 
+  ein $n$-Tupel: $p=(\ntuple x)$
+}
+% -----------------------------------------------------------------------
+\definition Gerade:{
+  Eine \textit{Gerade} wird durch zwei Punkte auf ihr festgelegt.
+}
+% -----------------------------------------------------------------------
+\definition Strecke:{
+  Eine \textit{Strecke} wird durch zwei Punkte, ihre \textit{Endpunkte}
+  festgelegt.
+}
+% -----------------------------------------------------------------------
+\definition Streckenzug:{
+  Ein \textit{Streckenzug} ist eine Folge von Strecken (\textit{Kanten}), 
+  wobei der Endpunkt (\textit{Knoten}) einer Strecke der Anfangspunkt der 
+  n"achsten ist.
+}
+% -----------------------------------------------------------------------
+\definition Polygon:{
+  \index{Streckenzug>geschlossener}
+  Ein \textit{Polygon} ist ein Streckenzug, dessen erster und letzter Punkt
+  identisch sind.
+}
+% -----------------------------------------------------------------------
+\definition Inneres:{
+  Ein Polygon, dessen Kanten sich nicht schneiden, umrahmt eine Region, 
+  deren Punkte \textit{innen} sind.
+}
+% -----------------------------------------------------------------------
+\definition Konvexit"at:{
+  Ein Polygon ist \textit{konvex}, wenn jede Strecke zwischen zwei 
+  Punkten in seinem Inneren komplett im Inneren liegt.
+}
+% -----------------------------------------------------------------------
+\algorithm Punkt in Polygon:{
+  \given Punkt $p$, $P=\{u_1-u_2,\ldots u_n-u_1\}$ Polygon
+  
+  \aim Liegt $p$ in $P$?
+  
+  \begin{proc}
+    \item Z"ahle Kanten, die sich mit einer Halbgerade von $p$ nach $\infty$ in
+      beliebiger Richtung schneiden (Findet der Schnitt in einem Endpunkt einer
+      Kante statt, h"angt das Verfahren vom weiteren Verlauf des Streckenzuges ab)
+    \item Ist diese Zahl gerade, liegt $p$ au"sen, ist sie ungerade, innen.
+  \end{proc}
+  
+  \cpx $O(n)$
+}
+% -----------------------------------------------------------------------
+\algorithm Konstruktion eines kreuzungsfreien Polygons:{
+  \given Punkte $p_1,\ldots,p_n$ im $2$-dimensionalen Raum
+  
+  \aim Kreuzungsfreies Polygon, das alle Punkte als Knoten enth"alt
+  
+  \begin{proc}
+    \item W"ahle Punkt $p$, der garantiert sp"ater im Inneren des Polygons liegt
+    \item Sortiere Punkte nach dem Winkel, den sie mit dem gew"ahlten Punkt 
+      und der $x$-Achsen-Parallele durch den gew"ahlten Punkt einschlie"sen
+    \item Sortiere Punkte, die den gleichen Winkel einschlie"sen, nach Ihrem 
+      Abstand zu $p$
+    \item Verbinde Punkte in dieser Reihenfolge
+  \end{proc}
+  
+  \cpx $O(n\log n)$
+}
+% -----------------------------------------------------------------------
+\algorithm Stretching algorithm:{
+  \given Punkte $p_1,\ldots,p_n$ im $2$-dimensionalen Raum
+  
+  \aim Konvexes Polygon, das alle Punkte enth"alt
+  
+  \begin{proc}
+    \item Beginne mit einem Dreieck aus drei beliebigen Punkten
+    \item Solange noch ein nicht bearbeiteter $p$ Punkt au"serhalb der 
+      bisher erzeugten H"ulle existiert
+      \begin{itemize}
+        \item Suche Punkt $o$ in bisheriger H"ulle, der mit $x$-Achsen-Parallele
+          durch $p$ gr"o"stm"oglichen Winkel einschlie"st
+        \item Suche Punkt $u$ in bisheriger H"ulle, der mit $x$-Achsen-Parallele
+          durch $p$ gr"o"stm"oglichen Winkel einschlie"st
+        \item Wirf alle Punkte zwischen $o$ und $u$ aus der H"ulle
+        \item F"uge $p$ statt ihrer ein
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O(n^2)$
+}
+% -----------------------------------------------------------------------
+\algorithm Gift wrapping algorithm:{
+  \given Punkte $p_1,\ldots,p_n$ im $2$-dimensionalen Raum
+  
+  \aim Konvexes Polygon, das alle Punkte enth"alt
+  
+  \begin{proc}
+    \item Erzeuge nacheinander Strecken nach dem Schema des Einpackens
+      eines kantigen Geschenks (maximiere Innenwinkel)
+  \end{proc}
+
+  \cpx $O(n^2)$
+}
+% -----------------------------------------------------------------------
+\algorithm Graham's scan:{
+  \given Punkte $p_1,\ldots,p_n$ im $2$-dimensionalen Raum
+  
+  \aim Konvexes Polygon $q_1,\ldots q_m$, das alle Punkte enth"alt
+  
+  \begin{proc}
+    \item Bestimme den "au"serst rechten Punkt $p$, falls mehrere "au"serst
+      rechte existieren, nimm den untersten.
+    \item Bestimme f"ur alle Punkte $q$ den Winkel von $pq$ mit der $x$-Achse.
+      (es treten Winkel zwischen $\pi/2$ und $3\pi/2$ auf)
+    \item Sortiere diese Liste, sei diese sortierte Liste nun $r_1,\ldots,r_n$
+    \item L"ange der  bisher gebauten H"ulle $l:=2$, $q_i:=r_i$ ($i=1\ldots l$)
+    \item Gehe die Liste der Reihe nach durch, f"ur jeden Punkt $r_i$ 
+      ($i=3\ldots n$) f"uhre folgende Schritte durch:
+      \begin{itemize}
+        \item Bestimme Innenwinkel $\alpha:=\angle r_i q_l q_{l-1}$
+        \item Ist $\alpha > \pi$, dekrementiere $l$ solange, bis 
+          $\angle r_i q_l q_{l-1}\le \pi$
+        \item Inkrementiere $l$, $q_l:=r_i$
+      \end{itemize}
+  \end{proc}
+
+  \cpx $O(n \log n)$
+}
+% -----------------------------------------------------------------------
+\definition Ballung:{
+  Das Zusammenfassen einer Mengen von Punkten $P=\{P_1,\ldots,P_n\}$ zu
+  paarweise disjunkten Teilmengen (\textit{Klassen}) 
+  $Q_1,\ldots,Q_m\subseteq P$ nennt man
+  \textit{Ballen}, das Ergebnis eine \textit{Ballung}.
+  
+  Man unterscheidet \textit{"uberwachtes} und \textit{un"uberwachtes} Ballen.
+  Beim "uberwachten Ballen sind von vornherein Kriterien f"ur jede Klasse 
+  $Q_i$ bekannt, die die Zugeh"origkeit eines Elementes bestimmen. 
+  Beim un"uberwachten Ballen ist dies nicht der Fall.
+  
+  Au"serdem unterscheidet man zwischen \textit{agglomerativem} und 
+  \textit{divisivem} Vorgehen beim Ballen. 
+  Agglomeratives Ballen arbeitet in einer Weise, bei der jeweils mehrere 
+  existierende Klassen zu einer einzigen zusammengefasst werden, w"ahrend
+  divisives Ballen mit nur einer Klasse beginnt und diese dann jeweils
+  in mehrere Klassen zerteilt.
+  
+  Die (agglomerative) Klassifizierung kann (u.a.) durch die folgenden zwei 
+  Kriterien geschehen:
+  \begin{itemize}
+    \item nach dem n"achsten Nachbarn (Punkt wird der Klasse zugeordnet,
+      in der sich auch sein n"achster Nachbar befindet).
+    \item nach den $k$ n"achsten Nachbarn (Punkt wird der Klasse zugeordnet,
+      in der sich die meisten der $k$ ihm n"achstliegenden Punkte befinden)
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\algorithm N"achstes Paar:{
+  \given Eine Menge $P=\{P_1,\ldots P_n\}$ von Punkten $P_i=\{x_i,y_i\}$
+  im 2-dimensionalen Raum
+  
+  \aim Bestimmen des kleinsten Abstands zweier Punkte
+  
+  \begin{proc}
+    \item Besteht Raum aus zwei Punkten? Dann gib als Ergebnis den
+      Abstand dieser Punkte voneinander aus und beende (Basisfall)
+    \item Trenne Raum entlang einer $y$-Achsen-Parallele mit der Koordinate 
+      $x_h$ in zwei H"alften $Q_1$ und $Q_2$ mit $|Q_1| = |Q_2|\pm 1$
+      (z.B. anhand einer Sortierung nach $x$-Koordinaten)
+    \item Rekursion "uber $Q_1$ und $Q_2$, Ergebnis: 
+      Sei $d_1$ geringster Abstand in $Q_1$, $d_2$ geringster Abstand in $Q_2$
+    \item Setze $d:=\min\{d_1,d_2\}$
+    \item Eliminiere alle Punkte $P_i$ in $Q_1$ und $Q_2$, f"ur die 
+      gilt $|x_h-x_i|\ge d$
+    \item Sortiere verbleibende Punkte nach $y$-Koordinate
+    \item Pr"ufe f"ur jeden Punkt drei Punkte ``aufw"arts'' und
+      drei Punkte abw"arts in der Liste auf geringere Abst"ande,
+      falls dem so ist, setze $d$ neu
+    \item Ergebnis: $d$
+  \end{proc}
+  
+  \cpx $O(n \log^2 n)$. Es existiert auch ein Algorithmus mit $O(n\log n)$
+}
+% -----------------------------------------------------------------------
+\algorithm Linienschnitt:{
+  \given Eine Menge $H=\{h_1,\ldots,h_m\}$ von horizontalen und
+    eine Menge $V=\{v_1,\ldots, v_n\}$ von vertikalen Linien
+  
+  \aim Menge aller Schnitte $C\subseteq H\times V$ von horizontalen und
+    vertikalen Linien
+    
+  \begin{proc}
+    \item Erstelle nach $x$-Koordinaten sortierte Liste $Q$ aller Endpunkte 
+      der Linien in $V$ und $H$
+    \item Erstelle eine nach $y$-Koordinaten sortierte Liste $H'\subseteq H$ 
+      der gerade betrachteten horizontalen Linien
+    \item F"ur jeden Punkt $P$ aus $Q$
+      \begin{itemize}
+        \item Ist $P$ linker Punkt einer horizontalen Linie $h$? 
+          F"uge $h$ zu $H'$ hinzu.
+        \item Ist $P$ rechter Punkt einer horizontalen Linie $h$? 
+          Entferne $h$ aus $H'$. 
+        \item Ist $x(P)$ Koordinate einer vertikalen Linie $v$?
+          Pr"ufe auf Schnitt mit jeder Linie $h$ aus $H'$, falls gegeben, 
+          f"uge $(h,v)$ zu $C$ hinzu.
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O((m+n)\log(m+n)+R)$, wobei $R$ die Anzahl der Schnitte angibt
+}
+% -----------------------------------------------------------------------
+\para{Probabilistische Algorithmen}
+% -----------------------------------------------------------------------
+\definition Monte-Carlo-Algorithmus:{
+  Einen \textit{Monte-Carlo-Algorithmus} nennt man einen Algorithmus, der
+  mit einer gewissen (hohen) Wahrscheinlichkeit ein richtiges
+  Ergebnis liefert. (Beispiel: Element in der oberen H"alfte)
+}
+% -----------------------------------------------------------------------
+\definition Las-Vegas-Algorithmus:{
+  Einen \textit{Las-Vegas-Algorithmus} nennt man einen Algorithmus, der
+  zwar mit Sicherheit ein richtiges Ergebnis liefert, dessen Laufzeit aber
+  unbestimmt ist. (Beispiel: Erstelle solange zuf"allige Dinge, bis ein
+  gesuchtes dabei herauskommt)
+}
+% -----------------------------------------------------------------------
+\algorithm Pseudozufallszahlengenerator:{
+  \given $r_1\nnatural$ seed, $b,t\natural$ Konstanten
+  
+  \aim $(r_n)\subseteq\SetN_0$ Zufallszahlen
+  
+  \begin{proc}
+    \item $r_n:=(r_{n-1}b+1) \bmod t$
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\para{Algebraische Algorithmen}
+% -----------------------------------------------------------------------
+\algorithm Verfahren des fortgesetztes Quadrierens:{
+  \given $n,k\in\SetN$
+  
+  \aim $n^k$
+  
+  \begin{proc}
+    \item Ist $k=2$? Ergebnis: $n\cdot n$
+    \item Bestimme (rekursiv) $h:=n^{\lfloor k/2\rfloor}$
+    \item Ist $k$ gerade? Ergebnis: $h\cdot h$
+    \item Ist $k$ ungerade? Ergebnis: $h\cdot h\cdot n$
+  \end{proc}
+  
+  \cpx $O(\log k)$
+}
+% -----------------------------------------------------------------------
+\algorithm Euklidischer Algorithmus:{
+  \given $m,n\in\SetN$
+  
+  \aim Gr"o"ster gemeinsamer Teiler von $m$ und $n$
+  
+  \begin{proc}
+    \item Setze $d:=m$, $v:=n$
+    \item Solange $v \ne 0$
+      \begin{itemize}
+        \item Bestimme $r:=d \bmod v$ (Es gilt $d=kv+r$, $k\in\SetN$)
+        \item Setze $d:=v$, $v:=r$
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O(\log(n+m))$
+}
+% -----------------------------------------------------------------------
+\algorithm Polynommultiplikation:{
+  \given Zwei Polynome $p,q\in\SetR[x]$ mit $\grad p=\grad q=n$, $n\in\SetN$
+  
+  \aim $p\cdot q$
+  
+  \begin{proc}
+     \item Zerteile $p$ in $p_1,p_2$, so dass 
+       $p=p_1\cdot x^{\lfloor n/2 \rfloor}+p_2$
+     \item Zerteile $q$ in $q_1,q_2$, so dass 
+       $p=q_1\cdot x^{\lfloor n/2 \rfloor}+q_2$
+     \item Basisfall: $\grad p,q=1$. 
+       Ergebnis: $p_1q_1x^2+(p_1q_2+p_2q_1)x+p_2q_2$
+     \item Bestimme rekursiv: $a:=p_1q_1$, $c:=p_2q_2$,
+       $b:=(p_1+p_2)(q_1+q_2)-a-b$
+     \item Ergebnis: $ax^n+bx^{\lfloor n/2 \rfloor}+c$
+  \end{proc}
+  
+  \cpx $O(n^{1,59})$
+}
+% -----------------------------------------------------------------------
+\algorithm Matrizenmultiplikation nach Winograd:{
+  \index{Winograd>Matrizenmultiplikation nach}
+  \given $A,B\in\SetR^{n\times n}$, $A=((a_{ij})),B=((b_{ij}))$,
+    $n=2m$, $m\natural$
+  
+  \aim $C:=A\cdot B=((c_{ij}))$
+  
+  \begin{proc}
+    \item Berechne f"ur jede Zeile $A_i:=\sum_{k=1}^{n/2} a_{i,2k-1}a_{i,2k}$
+    \item Berechne f"ur jede Spalte $B_i:=\sum_{k=1}^{n/2} b_{2k-1,i}b_{2k,i}$
+    \item Berechne f"ur $i,j=1\ldots n$ 
+      \[
+        c_{ij}=\sum_{k=1}^{n/2} (a_{i,2k_-1}+b_{2k-1,i})\cdot (a_{i,2k}+b_{2k,i})-A_i-B_j
+      \]
+  \end{proc}
+  
+  \cpx $\frac{n^3}2+n^2$
+}
+% -----------------------------------------------------------------------
+\algorithm Matrizenmultiplikation nach Strassen:{
+  \index{Strassen>Matrizenmultiplikation nach}
+  ... (kann sich kein Schwein merken, kommt daher auch nicht in der Klausur dran)
+    
+  \cpx $O(n^{2,81})$
+}
+% -----------------------------------------------------------------------
+\algorithm RSA-Verschl"usselung:{
+  \textbf{Schl"usselerzeugung:}
+
+  \aim $n,e,d\in\SetN$, wobei $e\cdot d = k\cdot\phi(n)+1$ 
+   
+    $\phi(n)$ ist die Anzahl der zu $n$ teilerfremden Zahlen $<n$
+    
+    Erl"auterung: Unter der Voraussetzung, dass $a$ und $n$ teilerfremd sind,
+    gilt $a^{\phi(n)}\bmod n=1$ 
+  
+  \begin{proc}
+    \item W"ahle zwei gro"se Primzahlen $p,q$, $n:=pq$
+    \item Bestimme $\phi(n)=n-(p-1+q-1+1)=(p-1)(q-1)$
+    \item Zerlege $k\phi(n)+1$ in zwei Teiler $e$ und $d$
+  \end{proc}
+  %------------------
+  
+  \textbf{Verschl"usselung:}
+  
+  \given $n,e,m\in\SetN$ ($m$ ist zu verschl"usselnde Nachricht)
+  
+  \aim $c\in\SetN$ (Code)
+
+  \begin{proc}
+    \item $c=m^e \bmod n$
+  \end{proc}
+  %------------------
+
+  \textbf{Entschl"usselung:}
+
+  \given $n,d,c\in\SetN$ ($c$ ist der Code)
+  
+  \aim $m\in\SetN$ (entschl"usselte Nachricht)
+
+  \begin{proc}
+    \item $m=c^d\bmod n$
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\algorithm Algorithmus der vier Russen:{
+  \given $A,B\in\{0,1\}^{n\times n}$
+  
+  \aim $C:=A\cdot B$
+  
+  Schreibweise:
+  \begin{itemize}
+    \item $A_C(i\ldots j)$ $n\times (j-i+1)$-Matrix, bestehend aus den Spalten 
+      $i\ldots j$ von $A$.
+    \item $B_R(i\ldots j)$ $(j-i+1)\times n$-Matrix, bestehend aus den Zeilen
+      $i\ldots j$ von $A$.
+  \end{itemize}
+  
+  \begin{proc}
+    \item Bestimme ein $k<n$ mit $n=mk, m\in\SetN$
+    \item Lege Matrix $C\in\{0,1\}^{n\times n}$, gef"ullt mit Nullen, an
+    \item F"ur $i=1$ bis $m$
+      \begin{itemize}
+        \item Berechne eine Tabelle f"ur alle m"oglichen Ergebnisse von
+          $\vec a B_R((i-1)\cdot k +1\ldots ik)$ mit $a\in\{0,1\}^k$
+        \item Bestimme mit Hilfe dieser Tabelle 
+          $D:=A_C((i-1)\cdot k +1\ldots ik)\cdot 
+              B_R((i-1)\cdot k +1\ldots ik)\in \{0,1\}^{n\times n}$
+        \item $C:=C+D$
+      \end{itemize}
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\definition Einheitswurzel:{
+  Der Ausdruck
+  \[
+    \sqrt[n]1:=e^{i\frac{2\pi}n}
+  \]
+  hei"st komplexe $n$-te Einheitswurzel.
+}
+% -----------------------------------------------------------------------
+\definition DFT-Matrix:{
+  Sei $n\in\SetN$ und $\eta:=\sqrt[n]1$. Dann nennt man
+  \[
+    \DFT:=((d_{ij}))\in\SetC^{n\times n}=((\eta^{(i-1)\cdot(j-1)}))
+  \]
+  die Matrix der diskreten Fouriertransformation (DFT).
+}
+% -----------------------------------------------------------------------
+\remark Inverse der DFT:{
+  Die DFT-Matrix ist regul"ar und es ist
+  \[
+    \DFT^{-1}=((t_{ij}))\in\SetC^{n\times n}=\frac 1 n (( \eta^{-(i-1)\cdot(j-1)}))
+  \]
+}
+% -----------------------------------------------------------------------
+\algorithm FFT:{
+  \index{Fast Fourier Transform}
+  \given $m,n\in\SetN,n=2^m$,$x\in\SetC^n=(x_0,\ldots,x_{n-1})$
+  
+  \aim $\DFT \cdot x$
+  
+  \begin{proc}
+    \item Basisfall: Ist $n=1$, so gib $x_0$ zur"uck
+    \item Setze $x_g:=(x_0,x_2,x_4,\ldots,x_{n-2})$
+    \item Setze $x_u:=(x_1,x_3,x_5,\ldots,x_{n-1})$
+    \item Berechne $y_g:=\DFT\cdot x_g$ und $y_u:=\DFT\cdot x_u$ 
+      (Rekursion mit Problemgr"o"se $n/2$)
+    \item Setze $\eta:=\sqrt[n]1$
+    \item Ergebnisvektor:
+      \[
+        \begin{pmatrix}
+          r_0 \\ r_1 \\ r_2 \\ \vdots \\ r_{n/2} \\ r_{n/2+1} \\ \vdots \\ r_{n-1}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+          y_g^{(0)}+\eta^0 y_u^{(0)} \\
+          y_g^{(1)}+\eta^1 y_u^{(1)} \\
+          y_g^{(2)}+\eta^2 y_u^{(2)} \\
+          \vdots \\
+          y_g^{(0)}-\eta^0 y_u^{(0)} \\
+          y_g^{(1)}-\eta^1 y_u^{(1)} \\
+          \vdots \\
+          y_g^{(n/2-1)}-\eta^{n/2-1} y_u^{(n/2-1)} 
+        \end{pmatrix}
+      \]
+  \end{proc}
+  
+  \cpx $O(n\log n)$
+
+  Rechtfertigung:
+  
+  Sei 
+  \begin{align*}
+    P(x)  &:=a_{n-1}x^{n-1}+a_{n-2}x^{n-2}+\cdots+a_1x+a_0 \\
+    P_u(x)&:=a_{n-1}x^{(n-2)/2}+a_{n-3}x^{(n-4)/2}+\cdots+a_3x+a_1 \\
+    P_g(x)&:=a_{n-2}x^{(n-2)/2}+a_{n-4}x^{(n-4)/2}+\cdots+a_2x+a_0 \\
+  \end{align*}
+  Dann gilt
+  \[
+    \begin{pmatrix}
+      1 & 1 & \hdots & 1 \\
+      1 & \eta & \hdots & \eta^{n-1} \\
+      1 & \eta^2 & \hdots & \eta^{2(n-1)} \\
+      1 & \vdots & \ddots & \vdots \\
+      1 & \eta^{n/2} & \hdots \\
+      1 & \eta^{n/2+1} & \hdots & \vdots \\
+      1 & \vdots & \ddots & \vdots \\
+      1 & \eta^{n-1} & \hdots & \eta^{(n-1)(n-1)}
+    \end{pmatrix}
+    \begin{pmatrix}
+      a_0 \\ a_1 \\ a_2 \\ \vdots \\ a_{n/2} \\ a_{n/2+1} \\\vdots \\ a_{n-1} 
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+      P(1)=P_g(1^2)+1\cdot P_u(1^2) \\
+      P(\eta)=P_g(\eta^2)+\eta\cdot P_u(\eta^2) \\
+      P(\eta^2)=P_g(\eta^4)+\eta^2\cdot P_u(\eta^4) \\
+      \vdots \\
+      P(\eta^{n/2})=P(-1)=P_g(1^2)-1\cdot P_u(1^2) \\
+      P(\eta^{n/2+1})=P(-\eta)=P_g(\eta^2)-\eta\cdot P_u(\eta^2) \\
+      \vdots \\
+      \otimes 
+    \end{pmatrix}
+  \]
+}
+% -----------------------------------------------------------------------
+\algorithm Polynommultiplikation mit FFT:{
+  \given $p,q\in\SetR[x]$,$\grad p=\grad q\le n/2$, 
+    $p=p_{n-1}x^{n-1}+\cdots+p_0$,
+    $q=q_{n-1}x^{n-1}+\cdots+q_0$, $n=2^k$, $k\natural$
+  
+  \aim $p\cdot q$
+  
+  \begin{proc}
+    \item Werte $p$ und $q$ mittels FFT an den gleichen $n$ Stellen aus, also
+      $\vec p:=(p_0,\ldots,p_{n-1})$, $\vec q:=(q_0,\ldots,q_{n-1})$,
+      $\vec s:=\DFT \vec p$, $\vec t:=\DFT \vec q$
+    \item $\vec r:=(s_0\cdot t_0,\ldots, s_{n-1}\cdot t_{n-1})$
+    \item Wende inverse FFT auf $r$ an: $\DFT^{-1}\vec r$
+    \item Interpretiere $\vec r$ wie oben
+  \end{proc}
+}

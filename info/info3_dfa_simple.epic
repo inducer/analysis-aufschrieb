@@ -1,0 +1,24 @@
+\setlength{\unitlength}{1mm}
+\begin{center}
+  \begin{picture}(80,10)
+    \put(0,5){\vector(1,0){19}}
+    
+    \put(25,5){\circle{10}}
+    \put(25,5){\circle{12}}
+    \put(25,5){\makebox(0,0){$q_0$}}
+    
+    \put(55,5){\circle{10}}
+    \put(55,5){\makebox(0,0){$q_1$}}
+    
+    \put(31,6){\vector(1,0){19}}
+    \put(31,7){\makebox(19,0)[b]{$0, 1$}}
+    
+    \put(50,4){\vector(-1,0){19}}
+    \put(31,3){\makebox(19,0)[t]{$1$}}
+    
+    \put(59,8){\line(1,0){5}}
+    \put(62.6,5){\oval(12,6)[r]}
+    \put(64,2){\vector(-1,0){5}}
+    \put(71,5){\makebox(0,0)[l]{$0$}}
+  \end{picture}
+\end{center}

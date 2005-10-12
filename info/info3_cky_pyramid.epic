@@ -1,0 +1,19 @@
+\begin{center}
+  \setlength{\unitlength}{1mm}
+  \begin{picture}(80,45)
+    \put(0,0){\makebox(20,5){$a$}}
+    \put(20,0){\makebox(20,5){$a$}}
+    \put(40,0){\makebox(20,5){$b$}}
+    \put(60,0){\makebox(20,5){$b$}}
+    \put(0,5){\framebox(20,10){$A$}}
+    \put(20,5){\framebox(20,10){$A$}}
+    \put(40,5){\framebox(20,10){$B, C$}}
+    \put(60,5){\framebox(20,10){$B, C$}}
+    \put(10,15){\framebox(20,10){$C$}}
+    \put(30,15){\framebox(20,10){$S, A$}}
+    \put(50,15){\framebox(20,10){$S, B, A$}}
+    \put(20,25){\framebox(20,10){$A, C$}}
+    \put(40,25){\framebox(20,10){$S, A, C$}}
+    \put(30,35){\framebox(20,10){$S, A, B, C$}}
+  \end{picture}
+\end{center}

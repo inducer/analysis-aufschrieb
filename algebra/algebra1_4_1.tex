@@ -1,0 +1,356 @@
+\para{Einf"uhrung in die K"orpertheorie}
+%------------------------------------------------
+\subsection{Grundbegriffe}
+%------------------------------------------------
+\subsubsection{Teilk"orper, K"orpererweiterung, Primk"orper}
+%------------------------------------------------
+\remind{}:{
+$K$ K"orper $\iff$ $K$ kommutativer Ring, $K^{\times}=K\setminus\{0\}$.
+
+${Kp}_p$ ist die Kategorie der K"orper der Charakteristik $p=\chi(K)$
+(mit unit"aren Ringhomomorphismen als Pfeilen).
+
+klar:
+
+In ${Kp}_p$ ist jeder Pfeil $K\longrightarrow L$ injektiv. (Und macht
+$L$ zu $K$-Algebra, erst recht $K$-Vektorraum)
+
+Grund: $K$ ist einfach, $\ker \phi=K$ geht nicht, wegen $\phi(1)=1$, verbleibt $\ker \phi=0=\{0\}$. 
+}
+%------------------------------------------------
+\names{}:{
+ \begin{enumerate}
+ \item Ist $\phi: K \longrightarrow L$ Inklusion, so heisst $K$ \indexthis{Teilk"orper} von $L$
+ oder $L$ \indexthis{Erweiterungsk"orper} von $K$.
+ Bezeichnung: $L/K$ (lies: ``$L$ "uber $K$'')
+ \item Die Vektorraumdimension $\operatorname{dim}_K(L)$ von $L$ als $K$-Vektorraum 
+ heisst \indexthis{Grad} der K"orpererweiterung $L/K$, Standardbezeichnung: $(L:K)$.
+ \item $L/K$ heisst endlich $:\iff$ $(L:K)<\infty$
+ \end{enumerate}
+ }
+%------------------------------------------------
+\example{}:{$(\SetC:\SetR)=2 \Rightarrow \SetC/\SetR$ ist endlich\\
+ $(\SetR:\SetQ)$ ist "uberabz"ahlbare Kardinalit"at (ohne Bew.)\\
+ $(K[X]:K)=|\SetN|$ abz"ahlbar unendlich\\
+ $(1,X,X^2,\ldots$ sind $K$-linear unabh"angiges System)}
+%------------------------------------------------
+\theorem{}:{$K$ K"orper}=>{
+ \label{the:identifiziere-primkoerper}
+ Dann gibt es einen eindeutig bestimmten kleinsten 
+ Teilk"orper $K_0$ (genannt ``Primk"orper''). Die Charakteristik $\chi(K)=p$ ist $0$
+ oder eine Primzahl, es ist dann
+ \[K_0 \cong \mathbb{F}_p=\begin{cases}
+                         \SetQ & p=0\\
+						 \SetZ/\SetZ p & p \operatorname{Primzahl}\\
+						 \end{cases} \]
+ $K$ kann als Erweiterung des Primk"orpers aufgefasst werden.}
+%------------------------------------------------
+\proof \ref{the:identifiziere-primkoerper}:{
+ $K$ ist $\SetZ$-Algebra $\phi:\SetZ \longrightarrow K$,
+ $z\mapsto z \cdot 1_K$
+ \begin{enumerate}
+ \item[Fall (1)] char $K=0 \iff$ $\ker \phi=\{0\} \iff \phi$ injektiv $\Rightarrow$ 
+ Man hat den Pfeil $\phi:\SetQ \longrightarrow K$, $\frac{z}{n}\mapsto \frac{z\cdot 1_K}{n\cdot 1_K}$
+ $(z \in \SetZ, n\in \SetN_{>0}), \SetQ \cong \phi(\SetQ)$,
+ $\phi(\SetQ)$ ist der kleinste Teilk"orper (also Primk"orper)
+ \item[Fall (2)] $p=\operatorname{char}(K)>0 \Rightarrow \ker \phi \neq \{0\}$,
+ $\phi(\SetZ)$ integer als Unterring von $K$, $\phi(\SetZ) \cong \SetZ/\ker\phi \Rightarrow$
+ $\ker \phi$ Primideal von $\SetZ \Rightarrow \ker \phi=\SetZ p$,
+ $p$ Primzahl
+ 
+ Homomorphiesatz liefert: $\SetZ/\SetZ p \cong \phi(\SetZ)=\{z\cdot 1_K \mid z\in \SetZ\}$,
+ $\phi(\SetZ)$ also K"orper (offenbar der kleinste in $K$ enthaltene K"orper $K_0$, da $1\in$ 
+ K"orper und alle Summen.)
+ Oft wird $K_0$ mit $\SetQ$ oder $\SetZ/\SetZ p$ identifiziert.
+ $(\frac{z\cdot 1_K}{n\cdot 1_K}=:\frac{z}{n}\in K$, $\bar{z}=z\cdot 1_K)$
+ \end{enumerate}
+ }
+%------------------------------------------------
+\definition K"orpererzeugnis:{
+ Sei $M\subseteq L$, $L/K$ K"orpererweiterung
+ \begin{enumerate}
+ \item[(i)] \[\product{M}_{Kp}=\bigcap_{\substack{F \text{Teilk"orper von} L,\\ M\subseteq F}} F\]
+ ($\hat=$ kleinster Teilk"orper, der $M$ enth"alt.) heisst \emph{K"orpererzeugnis}.
+ \item[(ii)] \[\product{K\cup M}_{Kp}=:K(M)\]
+ (lies: ''$K$ adjungiert $M$'')\\
+ klar: $\product{M}_{Kp}=\operatorname{Primk"orper}(M)$.
+ \end{enumerate} } 
+%--------------------------------------------------
+\remark{}:{\begin{enumerate}
+ \item $K(M)=\{\frac{z}{n}\mid z,n\in K[M],n\neq 0\}$, denn $K(M)\supseteq K,M$ (rechts steht 
+   Teilk"orper, offenbar der kleinste, der $K,M$ enth"alt)
+ \item \[K[M]=\bigcup_{\substack{E\subseteq M,\\ E \operatorname{endl.}}} K[E]\]
+ 
+ ebenso: \[K(M)=\bigcup_{\substack{E\subseteq M,\\ E\operatorname{endl.}}} K(E)\]
+ 
+ $E=\{u_1, \ldots, u_n \}$, dann $K(E)=\{\frac{f(u_1,\ldots, u_n)}{g(u_1,\ldots, u_n)};
+ f,g\in K[X_1,\ldots, X_n], g(u_1, \ldots, u_n)\neq 0\}$
+ 
+ $K(u_1, \ldots, u_n):= K(\{u_1, \ldots, u_n\})=(K(u_1, \ldots, u_{n-1}))(u_n)$
+ 
+ Fundamental ist also der Fall $L=K(u), u\in L$
+ \end{enumerate}}
+%--------------------------------------------------------
+\remark{Benennungen}:{\begin{enumerate}
+ \item[(i)] $L=K(u)$ heisst \emph{\indexthis{Stammk"orper}} (oder manchmal auch ''primitive Erweiterung'')
+ \item[(ii)] $u$ heisst \emph{\indexthis{algebraisch}} "uber $K$ (schreibe auch $u/K$ algebraisch)\\
+ $:\iff (K(u):K)<\infty$
+ \item[(iii)] $L/K$ heisst \emph{algebraisch} $:\iff \forall u\in L: u/K$ algebraisch
+ \item[(iv)] Endliche Erweiterungen von $\SetQ$ heissen 
+   \emph{\indexthis{algebraische Zahlk"orper}}.
+   \index{Zahlk"orper>algebraische}
+ \item[(v)] Falls $u/K$ nicht algebraisch, so heisst $u$ 
+   \emph{\indexthis{transzendent}} "uber $K$.
+ \end{enumerate}
+ }
+%----------------------------------------------------------
+\example{}:{\begin{enumerate}
+ \item $\SetQ(i):=\SetQ + \SetQ\cdot i$ ist Teilk"orper von $\SetC$, $i^2=-1$
+ (genannt: K"orper der Gauss'schen Zahlen). Es ist $(\SetQ(i):\SetQ)=(\underbrace{\SetR(i)}_{\SetC}:\SetR)=2$
+ $\Rightarrow i/\SetQ$ und $i/\SetR$ ist algebraisch.
+ \item Die Zahl $\pi$ ($\frac{1}{2}$ Umfang des Einheitskreises) ist "uber $\SetQ$ transzendent.
+ (ohne Bew., ber"uhmter Satz, Bew nicht leicht.)
+ \end{enumerate}
+ }  
+%----------------------------------------------------------
+\remark{}:{Betrachte die Erweiterung $K(u)/K$
+
+ Man hat den Einsetzungshomomorphismus $\sigma:K[X]\longrightarrow K[u]\subseteq K(u)$,
+ $f \mapsto \sigma_u(f):=f(u)$
+
+ \begin{enumerate}
+ \item[Fall 1:] $\ker \phi=0$ (Nullideal) $\iff \sigma_u$ injektiv $\iff u/K$ transzendent.
+ 
+ $\sigma_u: K[X]\longrightarrow K[u]$ Isomorphismus, setzt sich fort zu Isomorphismus
+ $\sigma_u:K(X)=\operatorname{Quot}K[X]\longrightarrow K(u)$, 
+ $\frac{f}{g}\mapsto \frac{f(u)}{g(u)}$, $(g\neq 0)$.
+ 
+ Man rechnet in $K(u)$ also wie in $K(X)$.
+ \item[Fall 2:] $\ker \phi \neq 0$, $\ker \phi$ ist ein Primideal, da $K[u]=\operatorname{Bild}\sigma_u$
+ integer, $\Rightarrow \exists$ (normiertes) irreduzibles Polynom $g=g_{u/K}\in K[X]$ 
+ mit $\ker \sigma_u=K[X]\cdot g$.
+ 
+ Aber $L:=K[X]/ \ker \sigma_u \cong K[u]$ laut Homomorphiesatz. In Hauptidealringen sind 
+ Primideale maximal $\Rightarrow$ $L$ ist K"orper. $\Rightarrow$ $K[u]$ ist K"orper $\Rightarrow K[u]=K(u)$
+ ($\Rightarrow u/K$ ist algebraisch).
+ $g_{u/K}$ ist also das Polynom kleinsten Grades ($\neq 0$) mit Nullstelle $u$.
+ (Sozusagen eine definierende Relation f"ur $u$)  
+ \end{enumerate}
+}  
+%---------------------------------------------------------------
+\example{}:{$i^2=-1$, $i\in \SetC$, $g_{i/\SetQ}=X^2+1$, $g_{i/\SetR}=X^2+1$,
+ $g_{i/\SetC}=X-1$
+
+ Isomorphismus $\SetR(i)=\SetC\cong \SetR[X]/\SetR[X]\cdot(X^2+1)$
+}
+%-----------------------------------------------------------
+\theorem{}:{Sei $L/K$ K"orpererweiterung, $u\in L$}=>{
+ Dann gelten:\begin{enumerate}
+ \item[(i)] $u/K$ transzendent $\iff$ $K(u)\cong K(X)$ (rationaler Funktionenk"orper)
+ \item[(ii)] $u/K$ algebraisch $\iff$ $K(u)\cong K[X]/K[X]\cdot g$, $g$ irreduzibel in
+ $K[X]$, ($g=g_{u/K}$ Minimalpolynom von $u$)
+ \end{enumerate}
+}
+%-----------------------------------------------------------------
+\remark{}:{Rechnen in $K(u)$
+
+ ($g_{u/K}$ gegeben, in $K$ und damit $K[X]$ kann der Computer rechnen.)
+ $L=K[X]/K[X]\cdot g$ ist $K$-Algebra, also $K$-Vektorraum mit Basis $1,\bar{X}, \ldots \bar{X}^{n-1}$,
+ wo $n=\operatorname{Grad}g$.
+ $\hat\sigma_u(\hat{X})=\sigma_u(X)=u \Rightarrow K(u)$ hat $K$-Basis $1, u, u^2, \ldots,u^{n-1}$.
+ 
+ Isomorphismus von VR:
+ 
+ $x:=\alpha_0+\alpha_1 u+ \ldots +\alpha_{n-1} u^{n-1}\mapsto K(x)=(\alpha_0, \ldots, \alpha_{n-1})\in K^n$,\\
+ $\kappa:K(u)\longrightarrow (K^n,+,\cdot_{u})$ K"orperisomorphismus, wenn definiert wird:
+ \[(\alpha_0, \ldots, \alpha_{n-1})\cdot_{u}(\beta_0, \ldots, \beta_{n-1})=(\gamma_0,\ldots, \gamma_{n-1})\]
+ wobei $\gamma_i$ wie folgt berechnet:
+ \[(\sum_{i=0}^{n-1}\alpha_i x^i)(\sum_{i=0}^{n-1}\beta_i x^i)=\sum_{i=0}^{n-1}\gamma_i x^i \operatorname{mod} g\]
+ Also gilt:
+ \[K(u):K=\operatorname{Grad}g_{u/K}\]
+ }
+%-----------------------------------------------------------------
+\theorem{Multiplikativit"at des Grades}:{$L/F$ und $F/K$ seien K"orpererweiterungen}=>{
+ Dann gilt:
+ \[(L:K)=(L:F)\cdot (F:K)\]
+ \insertfig{algebra1_4_1_gradmult}
+ }
+%-----------------------------------------------------------------
+\proof{}:{Sei $B$ eine $K$-Basis von $F$ und $C$ eine $F$-Basis von $L$.
+ Beh.:\begin{enumerate}
+ \item[(i)] $\{bc\mid b\in B, c\in C\}$ ist $K$-Basis von $L$
+ \item[(ii)] $B\times C\longrightarrow BC$, $(b,c)\mapsto bc$ ist bijektiv (also $\operatorname{dim}_KL$
+ $=|BC|=|B\times C|=|B|\cdot |C|=\operatorname{dim}_K F\cdot \operatorname{dim}_K L=(F:K)\cdot(L:F)$)
+ \end{enumerate}
+ Nachpr"ufen: $x\in L \Rightarrow$
+ $x=\fsum_{c\in C} u_c c, u_c\in F$\\
+ dann $u_c=\fsum_{b\in B}a_{b,c}b$,
+ mit $a_{b,c}\in K$.
+ 
+ \[\Rightarrow x=\fsum_{\substack{b\in B\\ c\in C}}a_{b,c}bc\]
+ d.h. $BC$ ist Vektorraumerzeugendensystem.
+ 
+ linear unabh"angig: $0=\fsum_{b,c}a_{b,c}bc$, $a_{b,c}\in K$
+ $\iff 0=\sum_{c}(\sum_{b}a_{b,c}b)c$\\
+ $\Rightarrow \forall c: \sum_{b}a_{b,c}b=0$ (da $C$ "uber $F$ linear unabh.)\\
+ $\Rightarrow \forall b \forall c: a_{b,c}=0$ (da $B$ "uber $K$ linear unabh.)
+ 
+ $B\times C\longrightarrow BC$, $(b,c)\mapsto bc$ injektiv, da:
+ 
+ w"are $bc=b'c'$, $b,b'\in B$; $c,c'\in C$. Da $C$ Basis , $b\in F \Rightarrow c,c'\neq 0$ mit 
+ $c=c' \Rightarrow b=b'$
+ \qed
+ }
+%--------------------------------------------------------------------
+\example{Standardbeispiel}:{$K=\SetQ$, $F=\SetQ(\sqrt{2})$, $L=\SetQ(\sqrt{2},\sqrt{3})=F(\sqrt{3})$
+
+ $B=\{1,\sqrt{2}\}$ ist $\SetQ$-Basis von $F$, $g_{\sqrt{2}/\SetQ}=X^2-2$
+
+ $\sqrt{3} \not\in \SetQ(\sqrt{2})$, denn $\sqrt{3}=a+b\sqrt{2}$, $a,b\in \SetQ$\\
+ $\Rightarrow 3=a^2 + 2ab\sqrt{2}+2b^2$, $\sqrt{2}\not\in \SetQ$\\
+ $\Rightarrow ab=0$, falls $a=0 \Rightarrow 3=2b^2$ W! zur Primzerlegung, da
+ $1=v_3(3)=v_3(2)+v_3(b^2)\equiv 0 \operatorname{mod} 2$\\
+ falls $b=0 \Rightarrow 3=a^2$ W! zur Primzerlegung\\
+ $C=\{1,\sqrt{3}\}$ ist eine $F$-Basis von $L$. $BC=\{1\cdot 1, 1\cdot \sqrt{2}, 1\cdot \sqrt{3},
+ \sqrt{3}\cdot \sqrt{2}\}=\{ 1,\sqrt{2}, \sqrt{3},\sqrt{6}\}$ ist $\SetQ$-Basis von $L$.
+}
+%-------------------------------------------------------------------------
+\remark{Folgerungen}:{\label{rem_folgerung} 
+ \begin{enumerate}
+ \item[(i)] $F/K$ und $L/F$ endlich $\Rightarrow$ $L/K$ endlich
+ \item[(ii)] $M\subseteq L$, dann gilt:
+ 
+ $K(M)/K$ algebraisch $\iff \forall u\in M: u/K$ algebraisch, dann gilt:
+ 
+ $(K(M):K)$ endlich $\Leftarrow M$ endlich
+ \end{enumerate}
+}
+%-------------------------------------------------------------------------
+\proof \ref{rem_folgerung}:{\begin{enumerate}
+ \item[zu (i)] Gradformel
+ \item[zu (iii)] $M=\{u_1,\ldots, u_n\}$, $u_i/K$ algebraisch,
+ $K(u_1,\ldots, u_n)/K(u_1,\ldots,u_{n-1})$ ist endlich, da 
+ $u_i$ Nullstelle eines $0\neq g\in K[X]$, also $u_i$ auch "uber
+ $K(u_1, \ldots, u_{i-1})$ algebraisch.
+ 
+ Gradformel (induktiv) $\Rightarrow K(u_1, \ldots u_n):K<\infty$,
+ $F=K(u_1,\ldots,u_n)/K$ algebraisch
+ 
+ f"ur $u\in K(u_1,\ldots, u_n)$ ist $(K(u):K)\leq(F:K)<\infty$.
+ Falls $M$ nicht endlich, $u\in K(M)\Rightarrow u\in K(M_0)$ mit endlicher Teilmenge
+ $M_0 \Rightarrow u/K$ algebraisch
+ \item[zu (ii)] $u\in L\Rightarrow u/F$ algebraisch, 
+ $g_{u/F}=v_0+v_1x+\ldots+v_{n-1}x^{n-1}+x^{n}$ (Minimalpolynom vorhanden)
+ 
+ $\Rightarrow u/K(v_0, \ldots v_{n-1})$ algebraisch 
+ $v_0, \ldots, v_{n-1}$ nach Vor. algebraisch "uber $F$
+ $\Rightarrow K(v_0, \ldots, v_{n-1},u):K<\infty \Rightarrow u/K$ algebraisch.
+ \end{enumerate}
+ }
+%----------------------------------------------------------------------------
+\example{wieder Standardbeispiel}:{$u=\sqrt{2}+\sqrt{3}$ ist also algebraisch $/\SetQ$.
+Frage: $g_{u/\SetQ}$?
+
+$u^2=5+2\sqrt{6}\Rightarrow (u^2-5)^2=24 \Rightarrow g_{u/\SetQ}=X^4-10X^2+1$.
+(falls irreduzibel, gilt: vgl. "Ubung)
+
+Andere Idee: $\SetQ(u)\ni \sqrt{6}\Rightarrow \SetQ\supseteq \SetQ(\sqrt{6})$, 
+da $u \not\in \SetQ(\sqrt{6})\Rightarrow \SetQ(u)=L$. 
+wegen $2\mid (\SetQ(u):\SetQ)\mid 4$, also ''$=4$'' 
+$\Rightarrow \operatorname{Grad}g_{u/K}=4$.
+}
+%----------------------------------------------------------------------------
+\lemma{systematische Methode zur Bestimmung von $g_{u/K}$}:{$L/K$ sei endlich, Basis $B=\{b_1,\ldots, b_n\}$
+bekannt}=>{Man hat injektiven, $K$-linearen Ringhomomorphismus, $\phi:L\longrightarrow \operatorname{End}_K(L)$,
+$u\mapsto \phi(u):=lu$, wobei $\operatorname{End}_K(L)$
+$=$ Ring der $K$-VR-Endomorphismen des $K$-VRs $L$.
+
+Kennt man die Basis, so kann man mit Darstellungsmatrizen arbeiten. Insbesondere ist $g_{u/K}$
+dann das Minimalpolynom der linearen Abb. $lu$.
+
+Wende nun bekannte Verfahren aus der LA an, um es auszurechnen. Man kann so auch in $L$ rechnen.
+
+$X\stack(+;\cdot)Y=\phi^{-1}(\phi(X)\stack(+;\cdot)\phi(Y))$
+}
+%-------------------------------------------------------------------------------
+\example wieder Standardbeispiel:{
+  $u=\sqrt{2}+\sqrt{3}$, $B=\{1,\sqrt{2},\sqrt{3},\sqrt{6}\}$
+
+  $l_u(1)=u\cdot 1=0+1\cdot\sqrt{2}+1\cdot\sqrt{3}+0\cdot\sqrt{6}$\\
+  $l_u(\sqrt{2})=\sqrt{2}\cdot u=2+0+0+1\cdot\sqrt{6}$\\
+  $l_u(\sqrt{3})=3+0+0+\sqrt{6}$\\
+  $l_u(\sqrt{6})=0+3\cdot\sqrt{2}+2\cdot\sqrt{3}+0$\\
+  Darstellungsmatrix: 
+  \begin{align*}
+    U&=D(u)=
+    \mat{
+      0&2&3&0\\
+      1&0&0&3\\
+      1&0&0&2\\
+      0&1&1&0\\
+      }\\
+    U^2&=D(u^2)=
+    \mat{
+      5&0&0&12\\
+      0&5&6&0\\
+      0&4&5&0\\
+      2&0&0&5\\
+      }
+  \end{align*}
+  char. Polynom: $\operatorname{det}(X\cdot I-U)=X^4-10X^2+1$
+  }
+%----------------------------------------------------------------
+\subsection{Endliche Untergruppen der multiplikativen Gruppe eines K"orpers}
+%----------------------------------------------------------------
+\theorem:$K$ K"orper=>{
+  Dann ist jede endliche Untergruppe 
+  der multiplikativen Gruppe von $K^{\times}$ zyklisch.
+  }
+%----------------------------------------------------------------
+\proof {}:{\begin{enumerate}
+ \item Spezialfall $\mu$ $p$-Gruppe, $\mu$ Untergruppe von $K^{\times}$ ($p$ hier nicht mehr Charakteristik;
+ $p\in \mathbb{P}$), $|\mu|=p^n$, o.B.d.A $n>0$.
+ 
+ Ann.: $\mu$ nicht zyklisch.
+ 
+ $\forall x\in \mu:\operatorname{ord}(x)<p^n\Rightarrow x^{p^{n-1}}=1 \Rightarrow x$ ist 
+ Nullstelle von $X^{p^{n-1}}-1\in K[X] \Rightarrow |\mu|\leq$ Grad$(X^{p^{n-1}}-1)=p^{n-1}$
+ W!
+ \item allgemeiner Fall:
+ 
+ bekanntlich $\mu=P_{p_1}\times \ldots \times P_{p_r}$, wo $P_{p_i}$ die $p_i$-Sylowgruppe
+ von $\mu$. (Endliche abelsche Gruppen sind das Produkt ihrer Sylowgruppen)
+ 
+ $\Rightarrow \mu=\product{\xi_1}\times \ldots \times \product{\xi_r}$ lt. Spezialfall.
+ $\operatorname{ord}(\xi_1\cdot \ldots \cdot \xi_r)=\prod_{j=1}^{r}\operatorname{ord}\xi_j$
+ $=|\mu|\Rightarrow \mu$ zyklisch. (da die Ordungen relativ prim sind)
+ \qed
+  
+ \end{enumerate}}
+%----------------------------------------------------------------
+\example{}:{\begin{enumerate}
+ \item $\xi \in \SetC^{\times}$, $\xi^m=1$, $(m\in \SetN_{>0})$, dann $|\xi|^m=1 \Rightarrow |\xi|=1$
+ 
+ \insertfig{algebra1_4_1_einheitskreis}
+ $\Rightarrow e^{2\pi \frac{k}{m}}$, $k\in \SetN$
+ 
+ $\xi_m=e^{\frac{2\pi i}{m}}=\operatorname{cos}\frac{2\pi}{m}+i\operatorname{sin}\frac{2\pi}{m}$
+ heisst analytisch normierte $m$-te Einheitswurzel
+ 
+ $\mu \subseteq \SetC^{\times}$, $|\mu|=m$, $\stackrel{\operatorname{Theorem}}{\Rightarrow}$
+ $\mu=\product{\xi_m}$ Punkte entstehen, indem der Einheitskreis in $m$ gleiche Teile geteilt wird.
+ 
+ $\SetQ(\xi_m)$ heisst $m$-ter \indexthis{Kreisteilungsk"orper}.
+ \item $F$ sei endlicher K"orper $\Rightarrow p=\operatorname{char}F>0 \Rightarrow$
+ $\mathbb{F}_p=\SetZ/ \SetZ p$ ist Teilk"orper, $F\cong \mathbb{F}_p^n$ (als Vektorraum)
+ $n=(F:\mathbb{F}_p)\Rightarrow |F|=p^n=:q$
+ 
+ Theorem: $F^{\times}=\product{\xi}$, $\xi^{q-1}=1$. So ein $\xi$ heisst \indexthis{primitives Element}.
+ 
+ F"ur $F=\mathbb{F}_p$ hat man $\xi=\bar{\omega}=\omega+p\SetZ$ mit:
+ 
+ zu $u\in \SetZ$, $p\nmid u$, $\exists k\in \SetN:\xi^k=\hat u$, d.h. $u\equiv \omega^k \operatorname{mod} p$.
+ \end{enumerate}
+ }
+%---------------------------------------------------------------------
+

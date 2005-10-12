@@ -1,0 +1,373 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+% Various helpful definitions
+% -----------------------------------------------------------------------------
+% (c) iXiONmedia 98/99 ak
+% -----------------------------------------------------------------------------
+
+\usepackage{ifthen}
+\usepackage{color}
+
+\nonstopmode
+\parindent=0pt
+\raggedbottom
+\parskip=\medskipamount
+\makeatletter
+
+% Register definitions --------------------------------------------------------
+
+\newcounter{nochap}
+\newcounter{notheorem}
+\newcounter{nodefinition}
+\newcounter{stmtid}
+
+\newboolean{annotate}
+\newboolean{prove}
+
+\setboolean{annotate}{true}
+\setboolean{prove}{true}
+
+% Abbreviations ---------------------------------------------------------------
+
+\let\phi=\varphi
+\let\epsilon=\varepsilon
+\let\rho=\varrho
+\let\theta=\vartheta
+
+\def\stack(#1;#2){\genfrac{.}{.}{0pt}{}{\scriptstyle #1}{\scriptstyle #2}}
+\def\tstack(#1;#2){$\stack(\text{#1};\text{#2})$}
+\def\arcsinh{\operatorname{arcsinh}}
+\def\arccosh{\operatorname{arccosh}}
+\def\arccot{\operatorname{arccot}}
+\def\id{\operatorname{id}}
+\def\det{\operatorname{det}}
+\def\grad{\operatorname{grad}}
+\def\rot{\operatorname{rot}}
+\def\exp{\operatorname{exp}}
+\def\rank{\operatorname{rank}}
+\def\Spur{\operatorname{Spur}}
+\def\Kern{\operatorname{Ker}}
+\def\Bild{\operatorname{Bild}}
+\def\sinc{\operatorname{sinc}}
+\def\DFT{\operatorname{DFT}}
+\def\ord{\operatorname{ord}}
+\def\ggT{\operatorname{ggT}}
+\def\kgV{\operatorname{kgV}}
+\def\degree#1{\operatorname{deg} #1}
+\def\FT{\mathcal{F}}
+\def\mat#1{\begin{pmatrix}#1\end{pmatrix}}
+
+% Import from T. Dussa: Info 3 Skript -----------------------------------------
+\def\GL{\operatorname{GL}}
+\def\Aut{\operatorname{Aut}}
+\def\bij{\operatorname{bij.}}
+\def\rg{\operatorname{rg}}
+\def\diag{\operatorname{diag}}
+\def\kopf{\operatorname{kopf}}
+\def\first{\operatorname{first}}
+\def\follow{\operatorname{follow}}
+\def\Anf{\operatorname{Anf}}
+\def\SLL{\operatorname{SLL}}
+\def\LL{\operatorname{LL}}
+\def\SLR{\operatorname{SLR}}
+\def\LR{\operatorname{LR}}
+\def\LK{\operatorname{LK}}
+\def\korrekt{\operatorname{korrekt}}
+\def\kompakt{\operatorname{kompakt}}
+\def\halt{\operatorname{halt}}
+\def\total{\operatorname{total}}
+\def\Quad{\operatorname{quad}}
+\def\anw{\operatorname{anw}}
+\def\naechste{\operatorname{naechste}}
+\def\Dom{\operatorname{Dom}}
+
+\def\injto{\hookrightarrow}
+\def\surto{\twoheadrightarrow}
+\def\bijto{\overset{\sim}{\longrightarrow}}
+\def\ot{\gets}
+
+\def\NP{\textit{NP}}
+\def\SAT{\textit{SAT}}
+% End of import from T. Dussa: Info 3 Skript ----------------------------------
+
+\def\SetN{\mathbb N}
+\def\SetZ{\mathbb Z}
+\def\SetQ{\mathbb Q}
+\def\SetR{\mathbb R}
+\def\SetC{\mathbb C}
+
+\def\limes#1->#2{\lim\limits_{\raise1.5pt\hbox{$\scriptscriptstyle #1\to #2$}}}
+\def\limesinf#1->#2{\liminf\limits_{\raise1.5pt\hbox{$\scriptscriptstyle #1\to #2$}}}
+\def\limessup#1->#2{\limsup\limits_{\raise1.5pt\hbox{$\scriptscriptstyle #1\to #2$}}}
+
+\def\limn{\limes n->\infty}
+\def\liminfn{\limesinf n->\infty}
+\def\limsupn{\limessup n->\infty}
+\def\sumn#1{\sum_{n=#1}^\infty}
+\def\limx#1{\limes x->{#1}}
+
+\def\fsum{{\sum\nolimits'}}
+\def\norm#1{{\left\| #1\right\|}}
+\def\fnorm#1{{\left|\left|\left|#1\right|\right|\right|}}
+\def\product#1{{\left\langle#1\right\rangle}}
+\def\iprod#1#2{{\left\langle #1,#2 \right\rangle}}
+\def\rim#1{\partial{#1}}
+\def\inner#1{{#1}^\circ}
+\def\closure#1{\overline{#1}}
+\def\qed{\hfill$\Box$}
+
+\long\def\ifnotempty#1#2{{%
+\setbox9=\hbox{#1}%
+\ifdim\wd9>1pt #2\fi%
+}}
+\def\insertpic#1{
+  \begin{center}\input #1.epic \end{center}
+  }
+\def\insertfig#1{
+  \begin{center}\input #1.pstex_t \end{center}
+  }
+\def\indexthis#1{\index{#1}#1}
+
+\def\lint{\mathchoice
+    {\rlap{\hskip0.2em$\underline{\phantom{A}}$}}
+    {\rlap{\hskip0.1em$\underline{\phantom{\scriptstyle A}}$}}
+    {OH-SORRY.}
+    {OH-SORRY.}
+    \int
+  }
+\def\uint{\mathchoice
+    {\rlap{\hskip0.5em$\overline{\phantom{A}}$}}
+    {\rlap{\hskip0.2em$\overline{\phantom{\scriptstyle A}}$}}
+    {OH-SORRY.}
+    {OH-SORRY.}
+    \int
+  }
+
+
+
+
+% sections and numbering ------------------------------------------------------
+\def\resetcounters{
+  \setcounter{notheorem}{0}
+  \setcounter{nodefinition}{0}
+  }
+\def\para#1{
+  \section{#1}
+  \resetcounters
+  }
+\def\thepara{\thesection}
+
+
+
+
+% special frames --------------------------------------------------------------
+\long\def\mathtitle#1#2{
+  \pagestyle{fancy}
+  \def\headrulewidth{0pt}
+  \cfoot{}
+  {
+    \vskip5cm
+    \hrule height 1pt width 17 cm
+    \vskip0.5mm
+    \hrule height 0.25pt width 17 cm
+    \vskip.25cm
+    {\Huge \bfseries\hfill #1}\\
+    \hrule height 0.25pt width 17 cm
+    \vskip0.5mm
+    \hrule height 1pt width 17 cm
+    \vskip 2cm
+    \hfill\begin{minipage}{8cm}
+      #2
+    \end{minipage}
+    }
+  \newpage
+  }
+
+
+
+
+\def\framedmsg#1{
+  \hrule height 0.25pt 
+  \hfil #1\hfil\break
+  \hrule height 0.25pt 
+  }
+
+
+
+
+% mathpar ----------------------------------------------------------------
+% #1    Heading
+% #2	Caption
+% #3    Text
+
+\definecolor{mathgray}{gray}{0.8}
+\definecolor{mathbgray}{gray}{0.9}
+\newlength{\ix@temp@boxwidth}
+\newlength{\ix@temp@boxwidtha}
+
+\hbadness 11000
+
+\long\def\mathpar#1#2#3{
+\settowidth{\ix@temp@boxwidth}{\strut\sffamily #1}%
+\setlength{\ix@temp@boxwidtha}{\textwidth}%
+\addtolength{\ix@temp@boxwidtha}{-\ix@temp@boxwidth}%
+\addtolength{\ix@temp@boxwidtha}{-12pt}%
+\colorbox{mathgray}{\strut\sffamily #1}%
+\colorbox{mathbgray}{\strut\makebox[\ix@temp@boxwidtha][l]{\sffamily #2}}%
+{\protected@edef\@currentlabel{#1}
+    \nobreak\par\nobreak #3\par\vspace{5pt}
+    }
+  }
+
+
+
+
+% convention ------------------------------------------------------------------
+% #1    Text
+
+\long\def\convention#1{
+  \mathpar{Konvention f{\"u}r Kapitel \thepara}{}{#1}
+  }
+
+
+
+
+% simple mathpars -------------------------------------------------------------
+% #1    Name 
+% #2    Text 
+
+\long\def\trick#1:#2{
+  \mathpar{Trick}{#1}{#2}
+  }
+\long\def\remark#1:#2{
+  \mathpar{Bemerkung}{#1}{#2}
+  }
+\long\def\deduction#1:#2{
+  \mathpar{Herleitung}{#1}{#2}
+  }
+\long\def\example#1:#2{
+  \mathpar{Beispiel}{#1}{#2}
+  }
+\long\def\problem#1:#2{
+  \mathpar{Problem}{#1}{#2}
+  }
+\long\def\auxiliary#1:#2{
+  \mathpar{Hilfsmittel}{#1}{#2}
+  }
+\long\def\motivation#1:#2{
+  \mathpar{Motivation}{#1}{#2}
+  }
+\long\def\proof#1:#2{
+  \ifprove
+    \mathpar{Beweis zu #1}{}{#2}
+  \fi
+  }
+\long\def\annotation#1:#2{
+  \ifannotate
+    \mathpar{Anmerkung zu #1}{}{#2}
+  \fi
+  }
+
+
+
+
+% algorithm -------------------------------------------------------------------
+% #1    Name 
+% #2    Text 
+
+\long\def\algorithm#1:#2{
+  \ifnotempty{#1}{
+    \index{#1}
+    }
+  \mathpar{Algorithmus}{#1}{#2}
+  }
+
+% definition ------------------------------------------------------------------
+% #1    Name
+% #2    Text 
+
+\long\def\definition#1:#2{
+  \addtocounter{nodefinition}{1}
+  \ifnotempty{#1}{
+    \index{#1}
+    \index{[Def~\thepara.\thenodefinition] #1}
+    }
+  \mathpar{Definition \thepara.\thenodefinition}{#1}{#2}
+  }
+
+\long\def\lesserdefinition#1:#2{
+  \ifnotempty{#1}{
+    \index{#1}
+    }
+  \mathpar{Definition}{#1}{#2}
+  }
+
+
+
+
+% theorem / lemma -------------------------------------------------------------
+% #1    Name
+% #2    Prerequisites
+% #3    Claim
+
+\newlength{\preconlabelwidth}
+\setlength{\preconlabelwidth}{2.5cm}
+\newlength{\preconwidth}
+\setlength{\preconwidth}{\textwidth}
+\addtolength{\preconwidth}{-\preconlabelwidth}
+
+\def\precondition#1{
+  \ifnotempty{#1}{
+    \parbox[t]{\preconlabelwidth}{\emph{Voraussetzung:}}
+    \begin{minipage}[t]{\preconwidth}#1\end{minipage}
+  }\par\nobreak%
+}
+
+\long\def\theorem#1:#2=>#3{
+  \addtocounter{notheorem}{1}
+  \ifnotempty{#1}{
+    \index{#1}
+    \index{[Satz~\thepara.\thenotheorem] #1}
+    }
+  \mathpar{Satz \thepara.\thenotheorem}{#1}{
+    \precondition{#2}
+    #3
+    }
+  }
+
+\long\def\lemma#1:#2=>#3{
+  \addtocounter{notheorem}{1}
+  \ifnotempty{#1}{
+    \index{#1}
+    \index{[Lemma ~\thepara.\thenotheorem] #1}
+    }
+  \mathpar{Lemma \thepara.\thenotheorem}{#1}{
+    \precondition{#2}
+    #3
+    }
+  }
+
+\long\def\corollary#1:#2=>#3{
+  \addtocounter{notheorem}{1}
+  \ifnotempty{#1}{
+    \index{#1}
+    \index{[Korollar ~\thepara.\thenotheorem] #1}
+    }
+  \mathpar{Korollar \thepara.\thenotheorem}{#1}{
+    \precondition{#2}
+    #3
+    }
+  }
+
+\long\def\lessertheorem#1:#2=>#3{
+  \ifnotempty{#1}{\index{#1}}
+  \mathpar{Hilfssatz}{#1}{
+    \precondition{#2}
+    #3
+    }
+  }
+
+
+
+
+\makeatother

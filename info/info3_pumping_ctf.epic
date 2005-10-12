@@ -1,0 +1,32 @@
+\setlength{\unitlength}{0.00083333in}
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+{\renewcommand{\dashlinestretch}{30}
+\begin{picture}(2124,2325)(0,-10)
+\drawline(912,2100)(12,1650)(762,1650)
+	(912,2100)(912,2100)
+\drawline(1212,2100)(1362,1650)(2112,1650)(1212,2100)
+\drawline(537,1275)(537,1275)
+\drawline(1062,2100)(1062,1650)
+\drawline(1032.000,1770.000)(1062.000,1650.000)(1092.000,1770.000)(1032.000,1770.000)
+\drawline(1062,1350)(1062,900)
+\drawline(1032.000,1020.000)(1062.000,900.000)(1092.000,1020.000)(1032.000,1020.000)
+\drawline(912,1350)(12,900)(762,900)
+	(912,1350)(912,1350)
+\drawline(1212,1350)(1362,900)(2112,900)(1212,1350)
+\drawline(1062,600)(762,150)(1362,150)(1062,600)
+\put(987,2175){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}S}}}}}
+\put(1662,1500){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}y}}}}}
+\put(987,1425){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}A}}}}}
+\put(1662,750){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}x}}}}}
+\put(987,675){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}A}}}}}
+\put(312,750){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}v}}}}}
+\put(312,1500){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}u}}}}}
+\put(987,0){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}w}}}}}
+\end{picture}
+}

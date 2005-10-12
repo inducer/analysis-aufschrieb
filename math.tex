@@ -1,0 +1,71 @@
+% -----------------------------------------------------------------------------
+% old compatibility crap
+% -----------------------------------------------------------------------------
+
+\input macros
+
+\let\after=\circ
+\let\ident=\equiv
+\let\equiv=\Leftrightarrow
+
+\def\ffa{\text{ f.f.a. }}
+\def\epsn{(\forall \epsilon>0)}
+\def\tocond#1{\buildrel #1 \over \longrightarrow}
+\def\xnull{{x_0}}
+\def\cont{\in\SetCont(D)}
+\def\div{\operatorname{div}}
+
+\def\VRL{\mathcal{L}}
+\def\LSet#1{{\rm #1}}
+\def\SetCont{\LSet C}
+\def\SetBV{\LSet{BV}}
+\def\SetQuad#1{R_{#1}}
+\def\SetLMeas{\cal L}
+\def\SetFLMeas{\cal L}
+\def\SetLInt{\LSet L}
+\def\SetRInt{\LSet R}
+\let\MBSet=\mathbb
+\def\SetNN{\SetN_0}
+
+\def\natural{\in\SetN}
+\def\nnatural{\in\SetNN}
+\def\integer{\in\SetZ}
+\def\rational{\in\SetQ}
+\def\real{\in\SetR}
+\def\complex{\in\SetC}
+\def\defined{\in D}
+
+\let\othersum=\sum
+\let\otherint=\int
+\def\int{\otherint\limits}
+\def\sum{\othersum\limits}
+
+\def\VR#1{#1}
+\def\nullvec{o}
+\def\transpose#1{{#1}^T}
+\def\unitgroup#1{#1^\times}
+\def\ntuple#1{#1_1,\ldots,#1_n}
+\def\lcoset#1#2{\lower2pt\hbox{$#2$}\backslash #1}
+\def\rcoset#1#2{#1/\lower2pt\hbox{$#2$}}
+\def\combover#1#2{\begin{pmatrix}#1\\#2\end{pmatrix}}
+\def\conjug#1{\overline{#1}}
+\def\cal#1{\mathcal{#1}}
+\def\divides{\big|}
+\def\bigcupd{\biguplus}
+\def\normdiv{\trianglelefteq}
+\def\dderivable{\Rightarrow}
+\def\derivable{\Rightarrow^*}
+\def\yes{$\surd$}
+\def\no{$\times$}
+
+% statements ------------------------------------------------------------------
+\newenvironment{stmts}{
+  \begin{list}{(\thestmtid)}{\usecounter{stmtid}}
+  }{
+  \end{list}
+  }
+\newenvironment{displaytext}{
+  \begin{quote}
+  }{
+  \end{quote}
+  }

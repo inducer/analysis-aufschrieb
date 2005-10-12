@@ -1,0 +1,34 @@
+\setlength{\unitlength}{0.00083333in}
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+{\renewcommand{\dashlinestretch}{30}
+\begin{picture}(4224,2289)(0,-10)
+\drawline(12,2262)(4212,2262)(4212,1812)
+	(12,1812)(12,2262)
+\drawline(762,2262)(762,1812)
+\drawline(3462,2262)(3462,1812)
+\drawline(1212,2262)(1212,1812)
+\drawline(1662,1812)(1662,2262)
+\drawline(2112,2262)(2112,1812)
+\drawline(2562,1812)(2562,2262)
+\drawline(3012,2262)(3012,1812)
+\drawline(12,1212)(4212,1212)(4212,12)
+	(12,12)(12,1212)
+\drawline(1887,1212)(1887,1812)
+\drawline(1737,1812)(1737,1662)(2037,1662)(2037,1812)
+\put(162,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}$\dots$}}}}}
+\put(3612,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}$\dots$}}}}}
+\put(3087,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}$\Box$}}}}}
+\put(1812,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}a}}}}}
+\put(2262,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}n}}}}}
+\put(2712,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}d}}}}}
+\put(912,537){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}endliche Kontrolleinheit}}}}}
+\put(912,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}$\Box$}}}}}
+\put(1362,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{12}{14.4}{\rmdefault}{\mddefault}{\updefault}B}}}}}
+\end{picture}
+}

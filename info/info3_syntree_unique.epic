@@ -1,0 +1,28 @@
+\setlength{\unitlength}{1mm}
+\setlength{\GapWidth}{5mm}
+\begin{center}
+  \begin{picture}(60,25)
+    \put(0,15){
+      \begin{bundle}{$S$}
+        \chunk{%
+          \begin{bundle}{$A$}
+            \chunk{$a$}
+            \chunk{$b$}
+          \end{bundle}
+          }
+        \chunk{$c$}
+      \end{bundle}
+      }
+    \put(30,15){
+      \begin{bundle}{$S$}
+        \chunk{$a$}
+        \chunk{%
+          \begin{bundle}{$B$}
+            \chunk{$b$}
+            \chunk{$c$}
+          \end{bundle}
+          }
+      \end{bundle}
+      }
+  \end{picture}
+\end{center}

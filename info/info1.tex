@@ -1,0 +1,835 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[german]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\include{math}
+
+\begin{document}
+\def\op#1{{\itshape #1:}}
+
+{\huge\bfseries\center Info I-Zusammenfassung}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Grundlagen}
+% -----------------------------------------------------------------------
+
+\definition Algorithmus:{
+  Ein Algorithmus wird gekennzeichnet durch die folgenden Eigenschaften:
+  \begin{itemize}
+    \item Schrittweise Ausf"uhrung
+    \item Determiniertheit
+    \item Eindeutigkeit
+    \item Jeder Schritt bewirkt eine "Anderung
+    \item Endlichkeit jedes einzelnen Schrittes, aber nicht unbedingt des
+      Algorithmus
+    \item Endlichkeit der Beschreibung
+  \end{itemize}
+}
+
+
+
+
+\definition Von-Neumann-Rechner:{
+  Ein \textit{Von-Neumann-Rechner} ist ein speicherprogrammierter Rechner.
+}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Grammatiken}
+% -----------------------------------------------------------------------
+
+\definition Alphabet:{
+  Ein Alphabet $V$ ist eine endliche Menge von Zeichen.
+}
+
+
+
+
+\definition Zeichenfolge:{
+  Eine Zeichenfolge $f$ ist eine endliche, geordnete Menge von Zeichen aus dem 
+  Alphabet. $\epsilon$ bezeichnet man die leere Zeichenkette.
+  
+  \textit{Schreibweise}: $a^n:=aa^{n-1},a^0:=\epsilon,a\epsilon=a$
+  
+  $x\in V, a\text{ Zeichenfolge}: |xa|:=|a|+1, |\epsilon|:=0$
+  
+  $V^*$ bezeichnet die Menge der Zeichenfolgen "uber $V$, 
+  einschlie"slich $\epsilon$.
+}
+
+
+
+
+\definition Grammatik:{
+  Eine \textit{Grammatik} ist ein Quadrupel von Mengen $G=(V_T,V_N,P,S)$. 
+  Dabei nennt man $V_T$ die Menge der terminalen Symbole, $V_N$ die
+  Menge der nicht-terminalen Symbole, $P$ die Menge der Produktionen und $S$
+  das Startsymbol.
+  
+  Es muss gelten: $V_T \cap V_N=\emptyset$, $S\in V_N$. Weiterhin bezeichnet
+  man mit $V=V_T\cup V_N$ das Vokabular der Grammatik. 
+  
+  F"ur alle Elemente $p\in P$ gilt: $p=l\to r$ mit zwei Zeichenfolgen $l$ 
+  und $r$, f"ur die gilt: $l=a\alpha b$ mit $a,b\in V^*,\alpha\in V_N$,
+  $r\in V^*$.
+}
+
+
+
+
+\definition Ableitung:{
+  Eine Zeichenfolge $\beta$ ist eine \textit{direkte Ableitung} einer
+  Zeichenkette $\alpha$ ($\alpha\to\beta$), wenn $\alpha=w_1lw_2$,
+  $\beta=w_1rw_2$ und $l\to r$ eine der Produktionen der Grammatik ist.
+  
+  Eine \textit{Ableitung} ist dann eine beliebige (endliche) Aneinaderreihung
+  von direkten Ableitungen.
+}
+
+
+
+
+\definition Satzform/Phrase:{
+  Eine Zeichenfolge $\alpha$ ist eine \textit{Satzform/Phrase} einer 
+  Grammatik, wenn $\alpha$ eine Ableitung des Startsymbols ist.
+}
+
+
+
+
+\definition Sprache:{
+  Die Sprache $L(G)$ einer Grammatik $G$ besteht aus der Menge der Phrasen
+  der Grammatik, die nur aus Terminalsymbolen bestehen.
+}
+
+
+
+
+\definition Chomsky-Klasse:{
+  Eine Grammatik geh"ort einer der folgenden \textit{Chomsky-Klassen}
+  an, falls die entsprechende Bedingung in der Tabelle zutrifft.
+  
+  \begin{tabular}{|l|c|l|}
+    \hline
+    \textbf{Chomsky-Klasse} & \textbf{Produktion} & \textbf{Bedingung} \\
+    \hline
+    0 (``unbeschr"ankt'') & $l\to r$ & $l,r\in V^*$  \\
+    1 (``beschr"ankt'') & $l\to r$ & $l,r\in V^*,1\le|l|\le|r|$ \\
+    1 (``kontextsensitiv'') & $ulv\to urv$ & $l\in V_N,u,r,v\in V^*,r\ne\epsilon$ \\
+    2 (``kontextfrei'') & $l\to r$ & $l\in V_N,r\in V^*$ \\
+    3 (``linkslinear'',``regul"ar'') & 
+      $\stack(l\to r;l\to ur)$ & $l,u\in V_N,r\in V_T^*$ \\
+    3 (``rechtslinear'',``regul"ar'') & 
+      $\stack(l\to r;l\to ru)$ & $l,u\in V_N,r\in V_T^*$ \\
+    \hline
+  \end{tabular}
+  
+  Bei $C_1$-Grammatiken ist zus"atzlich $S\to\epsilon$ eine erlaubte 
+  Produktion.(Das Startsymbol $S$ darf dann allerdings in keiner Expansion 
+  einer Produktion vorkommen.)
+  
+  Bei $C_2$-Grammatiken ist es m"oglich, Produktionen der Form $l\to\epsilon$
+  zu eliminieren.
+  
+  Es gilt: $C_3\subseteq C_2\subseteq C_1\subseteq C_0$. Zur Zerteilung 
+  von $C_2$- und $C_3$-Sprachen gibt es effiziente Algorithmen.
+}
+
+% -----------------------------------------------------------------------
+\para{Boole'sche Algebra}
+% -----------------------------------------------------------------------
+
+\definition Boole'sche Algebra:{
+  Eine Menge $B$ mit zwei Verkn"upfungen $\land$ und $\lor$ hei"st 
+  \textit{Boole'sche Algebra}, falls die folgenden Axiome gelten:
+  \begin{stmts}
+    \item $(\forall a,b \in B)(b \lor a = a\lor b)$ (\emph{Kommutativit"at $\lor$})
+    \item $(\forall a,b \in B)(b \land a = a\land b)$ (\emph{Kommutativit"at $\land$})
+    \item $(\forall a,b,c \in B)(a \lor (b \lor c)=(a \lor b)\lor c)$ (\emph{Assoziativit"at $\lor$})
+    \item $(\forall a,b,c \in B)(a \land (b \land c)=(a \land b)\land c)$ (\emph{Assoziativit"at $\land$})
+    \item $(\forall a,b \in B)(a\land(a \lor b)=a)$ (\emph{Verschmelzung $\lor$})
+    \item $(\forall a,b \in B)(a\lor(a \land b)=a)$ (\emph{Verschmelzung $\land$})
+    \item $(\forall a,b,c \in B)(a\lor(b\land c)= (a\lor b) \land (a\lor c))$ (\emph{Distributivit"at $\lor$})
+    \item $(\forall a,b,c \in B)(a\land(b\lor c)= (a\land b) \lor (a\land c))$ (\emph{Distributivit"at $\land$})
+    \item $(\forall a \in B)(a\lor 0=a)$ (\emph{Neutralelement $\lor$})
+    \item $(\forall a \in B)(a\land 1=a)$ (\emph{Neutralelement $\land$})
+    \item $(\forall a \in B)(a\lor (\neg a)=a)$ (\emph{Inverses $\lor$})
+    \item $(\forall a \in B)(a\land (\neg a)=0)$ (\emph{Inverses $\land$})
+    \end{stmts}
+}
+
+
+
+
+\definition Implikation/"Aquivalenz/Antivalenz:{
+  \begin{stmts}
+    \item $a\implies b :\equiv \neg a \lor b$ (\emph{Implikation})
+    \item $a\equiv b   :\equiv (\neg a \land \neg b)\lor(a  \land b)$ (\emph{"Aquivalenz})
+    \item $a\equiv b   :\equiv (a \land \neg b)\lor(\neg a  \land b)$ (\emph{Antivalenz})
+    \end{stmts}
+ }
+
+
+
+
+\theorem Weitere Regeln:=>{
+  \begin{stmts}
+    \item $a=\neg\neg a$ (\emph{Doppelte Negierung})
+    \item $a\land a=a$ (\emph{Idempotenz $\land$})
+    \item $a\lor a=a$ (\emph{Idempotenz $\lor$})
+    \item $\neg(a\lor b)=\neg a \land \neg b$ (\emph{DeMorgan'sche Regel $\lor$})
+    \item $\neg(a\land b)=\neg a \lor \neg b$ (\emph{DeMorgan'sche Regel $\land$})
+    \item $(a\implies b)\land (b\implies c) \implies a\implies c$ (\emph{Transitivit"at})
+    \end{stmts}
+}
+
+
+
+
+\definition Tautologie:{
+   Eine \textit{Tautologie} ist eine Aussage, die immer zutrifft.
+}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Induktion}
+% -----------------------------------------------------------------------
+
+Verschiedene Induktionsverfahren (z.z. Aussage: $A(n) \forall n$)
+\begin{itemize}
+  \item Zeige: $A(1)$, $A(n)\implies A(n+1)$
+  \item Zeige: $A(1)$, $A(n-1)\implies A(n)$
+  \item Zeige: $A(1)$, $(\forall k\natural)(k<n \implies A(k))\implies A(n)$ 
+     (``starke'' Induktion)
+  \item Zeige: $A(1),A(2)$, $A(n-2)\implies A(n)$
+  \item Zeige: $A(1)$, $A(\frac n 2)\implies A(n)$ (Aussage gilt dann aber 
+    nur f"ur $n=2^k$)
+  \item Sei $M_A\subseteq\SetN$ unendlich. Zeige $(\forall n\in M_A)(A(n))$ und
+    $A(n)\implies A(n-1)$
+\end{itemize}
+
+Tricks bei Induktionsbeweisen:
+\begin{itemize}
+  \item Aussage zun"achst nicht "uber Ausdruck selbst, sondern nur "uber 
+    sein Wachstum
+  \item Keine Eile! Versuche evtl. verschachtelte Induktionen. Teile eine 
+    schwierige Behauptung in mehrere einfache Teile!
+  \item Hole alles aus der Induktionsvoraussetzung heraus! 
+    (Benutze sie evtl. mehrfach in versch. Situationen)
+  \item Induktion "uber mehrere Parameter: Wichtig ist eine geschickte Wahl
+    des Induktionsparameters (vielleicht auch eine Kombination?)
+  \item Benutze evtl. starke Induktion, zeige nur, da"s die Behauptung
+    aus irgendeinem der vorhergehenden F"alle folgt.
+  \item Zwei F"alle: Lohnt es sich, beide gemeinsam zu betrachten, so
+    da"s sie beide aufeinander aufbauen?
+  \item Kann die Induktionsvoraussetzung verst"arkt werden (so da"s ein
+    st"arkerer Beweis entsteht, der dennoch einfacher ist)? 
+  \item Gilt der Schlu"s f"ur {\itshape wirklich} alle $n$?
+  \item Falls anwendbar: Beziehe dich vielleicht nicht auf die ``ersten'', sondern
+    auf die ``letzten'' Elemente der Behauptung.
+\end{itemize}
+
+\definition Schleifeninvariante:{
+  Eine Bedingung, die zu Schleifenbeginn, nach jeder Ausf"uhrung der Schleife
+  und an deren Ende wahr ist, nennt sich {\itshape Schleifeninvariante}.
+}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{O-Kalk"ul}
+% -----------------------------------------------------------------------
+
+\definition O-Kalk"ul:{
+  Seien $f(n),g(n):\SetN\to\SetN$ zwei Funktionen. Dann gilt:
+  \begin{align*}
+    f(n)=O(g(n)) &:\equiv 
+      (\exists n_0,c\natural)(\forall n>n_0)(\frac{f(n)}{g(n)}\le c) \\
+    f(n)=\Omega(g(n)) &:\equiv 
+      (\exists n_0,c\natural)(\forall n>n_0)(\frac{f(n)}{g(n)}\ge c) \\
+    f(n)=\Theta(g(n)) &:\equiv 
+      f(n)=O(g(n)) \land f(n)=\Omega(g(n)) \\
+    f(n)=o(g(n)) &:\equiv 
+      \limn \frac{f(n)}{g(n)}=0 \\
+    f(n)=\omega(g(n)) &:\equiv 
+      \limn \frac{g(n)}{f(n)}=0 \equiv g(n)=o(f(n)) \\
+  \end{align*}
+}
+
+\theorem: $c>0,a>1,f(n) \nearrow$=>{\begin{align*}
+  f^c(n)&=O(a^{f(n)}) \\
+  f^c(n)&=o(a^{f(n)})
+\end{align*}}
+
+\theorem: $f(n)=O(s_f(n)),g(n)=O(s_g(n))$=>{\begin{align*}
+  f(n)+g(n)&=O(s_f(n)+s_g(n)) \\
+  f(n)\cdot g(n)&=O(s_f(n)\cdot s_g(n)) 
+\end{align*}}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{ Rekurrenzrelationen }
+% -----------------------------------------------------------------------
+
+Tricks f"ur Rekurrenzen:
+\begin{itemize}
+\item Sei $T(g(n))=E(T(n),n)$ eine gegebene Rekurrenz. Wir wollen zeigen,
+  da"s $T(n)\le f(n)$. Dann mu"s gezeigt werden:
+  \[  f(g(n))\ge E(f(n),n) \]
+\end{itemize}
+
+Tricks zum Finden von geschlossenen Ausdr"ucken:
+\begin{itemize}
+  \item Anfang hinschreiben (ausmultipliziert, nicht ausmultipliziert, 
+    faktorisiert, ...)
+  \item Summenindex verschieben, voneinander abziehen, dann z.B. Differenz wie
+    $2T(n)-T(n)$ betrachten.
+  \item Nimm vielleicht zun"achst an, da"s $n$ eine bestimmte Form hat:
+    z.B. $n=2^k$
+  \item Rekurrenzen: Gibt es eine charakteristische Gleichung? 
+    (in der Art von $a_{n+1}^2=a_n+c$)?
+  \item Wachstum betrachten: Was sagt $T(n+1)-T(n)$?
+  \item ``Full-history''? Eliminiere die Geschichte mittels geschickter 
+    Subtraktion.
+\end{itemize}
+
+\example ``Teile-und-Herrsche''-Relationen:{
+  Ein rekursiver Algorithmus zerteile bei der Bearbeitung eines Problems 
+  der Gr"o"se $n$ das Problem in $a$ Teilprobleme der Gr"o"se $\frac 1 b$.
+  Die Kombination der L"osungen der Teilprobleme zu der des Gesamtproblems
+  ben"otige $c\cdot n^k$. Damit gilt:
+  \[T(n)=aT\left(\frac n b\right)+c\cdot n^k\]
+  Als Absch"atzung hierf"ur kann verwendet werden:
+  \[
+    T(n)=
+      \begin{cases}
+        O(n^{\log_b a)} & \text{falls $a>b^k$} \\
+        O(n^k \log n) & \text{falls $a=b^k$} \\
+        O(n^k) & \text{falls $a<b^k$} \\
+      \end{cases}
+  \]
+}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Datenstrukturen}
+% -----------------------------------------------------------------------
+
+\definition Abstrakter Datentyp:{
+  Template auf einen Typ, gekoppelt mit bestimmten Anforderungen, z.B. 
+  Wohlordnung
+}
+
+
+
+
+\definition Multiset:{
+  Eine ungeordnete Struktur, die mehrere Vorkommen eines einzelnen
+  Elements darstellen kann.
+}
+
+
+
+
+\definition Heap:{
+  Baum, in dem Eltern-Elemente stets gr"o"ser als ihre Kind-Elemente sind.
+
+  \op{Einf"ugen} Element irgendwo am Ende einf"ugen und dann so lange tauschen,
+  bis Heap-Eigenschaft wiederhergestellt ist.
+
+  \op{L"öschen der Wurzel} Wurzel weg, dann irgendein Blatt an der Wurzel 
+  einf"ugen und dann so lange tauschen, bis Heap-Eigenschaft 
+  wiederhergestellt ist.
+}  
+
+
+
+
+\definition Dictionary:{
+  Eine abstrakte Datenstruktur, die effizient einf"ugen, l"oschen und suchen 
+  kann.
+}
+
+
+
+
+\definition Binary Search Tree/BST:{
+  \op{Suchen/Einf"ugen} Klar
+  
+  \op{L"oschen} (nur schwierig, fallls 2 Kinder vorhanden, in diesem Fall) 
+    Vorg"anger/Nachfolger suchen, tauschen (Baum nicht mehr konsistent), 
+    Element hat jetzt nur max. ein Kind (Def. Vorg"anger/Nachfolger!),
+    L"oschen, Baum wieder konsistent.
+}
+
+
+
+
+\definition AVL Tree/Balanced BST:{
+  Eine Seite eines (Unter-)Baumes ist h"ochstens 1 Element h"oher als die
+  andere.
+  
+  \op{Einf"ugen} Eine (einfache oder doppelte) ``Rotation'' gen"ugt, um die
+  AVL-Eigenschaft beizubehalten. Zentraler Punkt: ``Kritischer Knoten'':
+  Wurzel des kleinsten Baumes, der aus dem Gleichgewicht ger"at. Hier findet
+  die Rotation statt.
+  
+  \op{L"oschen} Offensichtlich ein bi"schen komplizierter. :-)
+}  
+
+\definition Hashing:{
+  BLAH.
+  
+  Sei $p$ eine Primzahl, $m$ die Gr"o"se der Hashtabelle, $a,b$ zwei 
+  Zufallszahlen, $x$ der Schl"ussel als Integer. Dann gelten gemeinhin 
+  als ``gute'' Hash-Funktionen:
+  
+  \begin{align*}
+    f_1(x)&=x \bmod m \\
+    f_2(x)&=(x \bmod p) \bmod m \\
+    f_3(x)&=((ax+b) \bmod p) \bmod m
+  \end{align*}
+}
+
+\remark Repr"asentation von  Graphen:{
+  Ein Graph $G=(V,E)$ kann mindestens auf diese Arten und Weisen 
+  datentechnisch repr"asentiert werden:
+  \begin{itemize}
+    \item ``Nachbarschaftsmatrix''
+    \item Zeiger-Netz
+    \item $|V|+|E|$-Array (nicht-dynamisch) mit Knoten zuerst, die Indizes
+      in Array speichern, ab denen benachbarte Knoten indiziert werden.
+  \end{itemize}
+}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Strategien f"ur gute Algorithmen}
+% -----------------------------------------------------------------------
+
+\begin{itemize}
+  \item Versuche, das Problem zu reduzieren. Wende dazu folgende 
+    Techniken an:
+    \begin{itemize}
+      \item Vielleicht lassen sich Teile des Problems einfach weglassen,
+        ohne die Problemstellung zu "andern.
+	
+	Beispiel: Prominentenproblem (eine Person l"asst sich mit nur einer 
+	Frage eliminieren), Diskrete Bijektion (auf Surjektivit"at spielen,
+	nicht auf Injektivit"at)
+      \item Teile \& Herrsche$^{\text{TM}}$ (mehrere gleiche kleinere Probleme)
+        
+	Beispiel: Skyline-Problem
+      \item Suche nach mehrere verschiedene, aber kleinere Teilproblemen, und
+        wende diese Verfahren an
+    \end{itemize}
+  \item Verst"arkung der Induktionshypothese (Mach' einfach mehr, als du
+    eigentlich machen musst)
+    
+    Beispiel: Maximale zusammenh"angende Unterfolge (zus"atzlich noch 
+    gr"o"stes Suffix liefern), Gleichgewichtsfaktoren in BSTs (zus"atzlich
+    noch H"ohe berechnen)
+  \item Dynamisches Programmieren 
+    Existiert zur L"osung des Problems eine Funktion $F(x,y)$ mit einigen 
+    (wenigen) Parametern, so l"asst sich ein mittels Rekursion exponentiell
+    l"osbares Problem auch in $O(n^k)$ Schritten l"osen. Es muss dabei 
+    eine Abh"angigkeit des Wertes $F(x,y)$ von $F(x',y'), x'<x \lor y'<y$
+    geben.
+    
+    Bsp.: Rucksackproblem. Zugeh"orige Funktion $F(R)$ ergibt, ob
+    ein Rucksack der Gr"o"se $R$ mit bisherigen Elementen schon einmal
+    erfolgreich bepackt wurde. Sei $g$ die Gr"o"se des n"achsten
+    einzupackenden Elementes. Dann ist $F(R+g)=F(R)$ f"ur alle $R$.
+\end{itemize}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Algorithmen f"ur Folgen und Mengen}
+% -----------------------------------------------------------------------
+
+\definition Prinzip der Bin"arsuche:{
+  Gegeben sei eine sortierte (!) Folge oder Sequenz.
+  
+  a) \textit{Suche eines bestimmten Elements in einer bekannten Anzahl Elemente}:
+  Man eliminiert jeweils die H"alfte des Suchraums, indem man das Element
+  ``in der Mitte'' mit dem gesuchten vergleicht.
+  
+  b) \textit{Suche eines bestimmten Elements in einer unbekannten Anzahl Elemente}:
+  Man verdoppelt solange die angenommene Gr"o"se des Suchraums, bis ein Element
+  an dessen hinteren Ende liegt, das gr"o"ser als das gesuchte ist.
+  
+  Dieses Prinzip l"asst sich auch auf allgemeine ``suche ein $i$, ab dem\ldots'' oder
+  ``suche ein $i$, bis zu dem\ldots''-Probleme anwenden.
+  Vergleiche auch: Intervallhalbierungsverfahren zur Bestimmung von Nullstellen
+  
+  Zur Verfeinerung des Verfahrens kann man mit Hilfe einer Art 
+  ``Tangentenbestimmung'' einen g"unstigeren Teilungsort als immer die H"alfte
+  bestimmen (vgl. Newton-Verfahren). [``Interpolationssuche'']
+}
+
+Bekannte Sortieralgorithmen:
+\begin{description}
+  \item[Bucket sort] F"ur jeden m"oglichen Schl"ussel einen Bucket bereitstellen,
+    einsortieren, zusammensammeln, fertig: $O(n)$
+  \item[Radix sort] Eine Art ``rekursiver Bucket sort''. Man stellt jeweils
+    nur eine feste Anzahl Buckets bereit, sortiert ein, sortiert dann den 
+    Inhalt eines Buckets wieder rekursiv in eine feste Anzahl ein usw. $O(n)$
+  \begin{description}
+    \item[Straight radix sort] Radix sort, bei dem die ``unwichtigsten'' 
+      (am differenzierendsten) Teile des Schl"ussels zuerst
+      betrachtet werden.
+    \item[Radix-exchange sort] Radix sort, bei dem die ``wichtigsten'' 
+      (am wenigsten differenzierenden) Teile des Schl"ussels zuerst
+      betrachtet werden.
+    \item[Lexicographic sort] (alphabetisches Sortieren mittels radix-exchange 
+      sort)~?
+  \end{description}
+  \item[Insertion sort] Elemente nacheinander an entsprechender Stelle 
+    einsortieren: $O(n^2)$
+  \item[Selection sort] Gr"o"stes Element ausw"ahlen, an letzte Stelle schieben,
+    n"achstkleineres ausw"ahlen, an vorletzte Stelle... usw. $O(n^2)$
+  \item[Mergesort] Teile Sequenz in zwei H"alften, sortiere rekursiv (bis zum
+    Basisfall: 2 Elemente), kombiniere (``merge'') dann die zwei sortierten 
+    H"alften zusammen. (nicht in-place) $O(n\log n)$
+  \item[Quicksort] Pivot w"ahlen, Sequenz anhand dieses Pivots in zwei
+    H"alften teilen, rekursiv wieder das gleiche f"ur beide H"alften. 
+    In der Regel $O(n\log n)$, im schlimmsten Fall $O(n^2)$.
+  \item[Heapsort] Baue Heap nach einem der folgenden Verfahren auf:
+    \begin{description}
+      \item[top-down] Betrachte die Sequenz bis einschlie"slich $i-1$ als Heap, 
+	f"uge das $i$-te Element ein (gem"a"s Heap-Einf"uge-Algorithmus)
+      \item[bottom-up] ``Unterste Zeile'' des Baumes (bis einschl. 
+        $\lfloor n/2\rfloor$) besteht bereits aus (Einer-)Heaps. Jetzt kann
+	jedes potentielle neue (Eltern-)Element so weit im Baum nach unten
+	wandern, bis das Heap-Kriterium wieder erf"ullt ist.
+    \end{description}
+    Jetzt kann mit Hilfe des Heap-L"osche-Algorithmus immer das
+    maximale Element aus dem Heap entnommen werden. $\Theta(n\log n)$
+\end{description}
+
+Man kann zeigen, dass kein vergleichsbasierter Sortieralgorithmus in weniger
+als $O(n\log n)$ Schritten zum Ziel kommen kann. (Entscheidender Trick:
+Entscheidungsbaum)
+
+\definition Median:{
+  Der Median einer Menge $M$ reeller Zahlen ist diejenige Zahl $m$, f"ur die 
+  zwei Mengen $M_<:=\{x\in M\mid x<m\}$ und $M_>:=\{x\in M\mid x>m\}$ und
+  eine bijektive Abbildung zwischen diesen Mengen existieren.
+}
+
+\problem $k$-kleinstes Element finden:{
+  Partitionieren wie Quicksort. Dann ist bekannt, in welcher H"alfte 
+  das gesuchte Element liegt.
+}
+
+\definition Huffman encoding:{
+  F"uge alle Zeichen nach ihrer umgekehrten H"aufigkeit in einen Heap ein. 
+  Entnimm die zwei seltensten. F"uge statt ihrer ein neues ``Pseudo''-Zeichen
+  mit der Summe ihrer H"aufigkeiten in den Heap ein.
+}
+
+\problem Effizientes Durchsuchen von Text: {
+  \begin{description}
+    \item[KMP] Berechne, wie weit der gesuchte Text weitergeschoben werden kann,
+      wenn ein Match bei Position $i$ fehlgeschlagen ist.
+    \item[Boyer-Moore] Betrachte letzten Buchstaben. Berechne, wie weit 
+      verschoben werden kann, so da"s dieser zum ersten Mal richtig im 
+      gesuchten String zu liegen kommt.
+  \end{description}
+}
+
+\problem Finden einer minimalen Anzahl an Bearbeitungsschritten: {
+  \textit{L"osung} Dynamisches Programmieren.
+  Zeichenfolge $A$ soll in Zeichenfolge $B$ umgebr"oselt werden. 
+  $F(i,j):=$ Anzahl der Schritte, die es braucht,um $A[1..i]$ in $B[1..j]$
+  umzubr"oseln. Abh"angigkeit je nach zul"assigen Bearbeitungsschritten.
+}
+
+
+
+
+\definition Stochastische Algorithmen:{
+  Einen \textit{Monte-Carlo-Algorithmus} nennt man einen Algorithmus, der
+  mit einer gewissen (hohen) Wahrscheinlichkeit ein richtiges
+  Ergebnis liefert. (Beispiel: Element in der oberen H"alfte)
+  
+  Einen \textit{Las-Vegas-Algorithmus} nennt man einen Algorithmus, der
+  zwar mit Sicherheit ein richtiges Ergebnis liefert, dessen Laufzeit aber
+  unbestimmt ist. 
+}
+
+
+
+
+Ein Zufallsgenerator: Sei $r(1),b,t$ gegeben. 
+Dann ist $r(i)=(r(i-1)\cdot b +1)\bmod t$ eine ``ordentliche'' Zufallszahl,
+wenn $t>>10^6,b\approx \frac t {10}$.
+
+
+
+
+\problem Finden einer absoluten Mehrheit:{
+  \textit{Beobachtung}: Die Entfernung zweier ungleicher Stimmen ist 
+  mehrheitsneutral.
+} 
+
+
+
+
+\problem Finden der l"angsten aufsteigenden Teilfolge:{
+  Speichere alle bisherigen besten Teilfolgen und update sie entsprechend
+  dem gerade bearbeiteten Element
+}
+
+
+
+
+% -----------------------------------------------------------------------
+\para{Algorithmen f"ur Graphen}
+% -----------------------------------------------------------------------
+
+\definition Graph:{
+  Ein {\itshape Graph} $G=(V,E)$ besteht aus einer Menge $V$ von Knoten 
+  (vertices) und einer Menge $E$ von Kanten (edges). Es gibt 
+  {\itshape gerichtete} und {\itshape ungerichtete} Graphen. Bei ersteren
+  besteht die Menge $V$ aus geordneten, bei letzterem aus ungeordneten Paaren.
+  
+  Der {\itshape Grad} eines Knotens $v\in V$ ist die Anzahl an Kanten, die an 
+  $v$ enden. (analog: Einw"arts-Grad/Ausw"arts-Grad)
+  
+  Ein {\itshape Pfad} ist eine Folge von Knoten $v_1,v_2,...,v_n$, f"ur die
+  eine Folge von Kanten $(v_1,v_2),(v_2,v_3),...,(v_{n-1},v_n)$ existiert.
+  Ein Pfad hei"st \textit{einfach}, falls kein Knoten in ihm zweimal vorkommt.
+  
+  Ein Graph hei"st \textit{verbunden}, wenn zwischen allen Knoten Pfade
+  existieren. Ein Graph hei"st \textit{zweifach/$n$-fach verbunden} 
+  (biconnected/$n$-connected), wenn zwischen je zwei Knoten mindestens 
+  zwei/$n$ knotendisjunkte Pfade existieren.
+
+  Ein Knoten $v_2$ hei"st {\itshape erreichbar} von $v_1$, falls ein Pfad 
+  zwischen $v_1$ und $v_2$ existiert.
+  
+  Sei $U\subseteq V$ eine Menge von Knoten. Dann hei"st $H=(U,F)$ der
+  {\itshape von $U$ induzierte Subgraph}, wenn $F$ alle zu $U$ geh"origen 
+  Kanten beinhaltet.
+  
+  Eine {\itshape unabh"angige Menge $S$ in $G$} ist eine Menge von Knoten,
+  die paarweise nicht durch Kanten verbunden werden.
+  
+  Ein {\itshape Kreis} in $G$ ist ein Pfad $P$ mit $|P|>1$ und dem gleichen
+  Anfangs- und Endpunkt, in dem kein Knoten doppelt vorkommt.
+  (circuit: Kreis, cycle: einfacher Kreis)
+  
+  Ein Graph hei"st \textit{Wald}, falls er keine Kreise enth"alt. 
+  Ein verbundener Wald hei"st \textit{Baum}.
+  Ist ein Knoten in ihm besonders ausgezeichnet, so hei"st der Graph ein 
+  \textit{Baum mit Wurzel}.
+  
+  Ein \textit{aufspannender Wald} eines Graphen ist ein Wald, der alle
+  Knoten des Graphen enth"alt. Analog: aufspannender Baum (``spanning tree'')
+  
+  Ein \textit{bipartiter} Graph ist ein Graph, dessen Knoten in zwei Mengen
+  aufgeteilt sind, so da"s jeder Knoten mit einem Knoten aus der jeweils
+  anderen Menge verbunden ist.
+  
+  Ein Graph hei"st \textit{eulersch}, wenn er verbunden ist und seine Knoten
+  von geradem Grad sind.
+  
+  {\itshape Fl"ache}: Keine Definition gefunden.
+}
+
+
+
+
+\theorem: $G=(V,E)$ ein Graph, $F$ die Menge der Fl"achen von $G$=>
+{\[|V|+|F|=|E|+2\]}
+
+
+
+
+\definition Tiefensuche (DFS{:} Depth first search):{
+  Gehe zu einem Knoten, markiere ihn, klappere rekursiv alle benachbarten 
+  Knoten ab, vermeide dabei bereits markierte Knoten.
+  
+  Versieht man jeden Knoten in der Reihenfolge der Abarbeitung bei der
+  DFS mit einer Nummer, so nennt man diese Nummer die \textit{DFS-Nummer}.
+  
+  Mittels DFS l"asst sich aus einem ungerichteten Graphen in einem
+  Anlauf ein DFS-Baum erzeugen, der folgenden Eigenschaft hat: Entweder 
+  ist eine Kante Teil des Baumes, oder sie ist eine Querkante (``cross edge''), 
+  d.h. sie verbindet im DFS-Baum einen Knoten mit einem seiner Vorg"anger.
+  
+  Ebenso lassen sich mittels DFS aus gerichteten Graphen DFS-B"aume erzeugen.
+  (daf"ur sind gegebenenfalls im Gegensatz zu ungerichteten Graphen mehrere
+  Anl"aufe n"otig. Es kann ja schlie"slich mehrere ``H"ugel'' im Graphen
+  geben, von denen man hinunter, aber nicht mehr hinauf kommt.)
+  Hier gibt es f"ur eine Kante die folgenden M"oglichkeiten:
+  \begin{itemize}
+    \item im Baum enthalten
+    \item Querkante
+    \item Vorw"artskante
+    \item R"uckw"artskante
+  \end{itemize}
+  Haupteigenschaft von gerichteten DFS-B"aumen ist, dass der DFS-Baum
+  bez"uglich der DFS-Numerierung ein Heap ist. (Eltern-Knoten hat 
+  kleinere Zahl als Kind-Knoten)
+}
+
+
+
+
+\definition Breitensuche (BFS{:} Breadth first search):{
+  Beginne bei einem Knoten. Markiere ihn, markiere alle seine Kinder und setze 
+  Verweise auf sie in einen FIFO. Nimm den n"achsten so zu bearbeitenden Knoten
+  aus dem FIFO.
+
+  Versieht man jeden Knoten in der Reihenfolge der Abarbeitung bei der
+  BFS mit einer Nummer, so nennt man diese Nummer die \textit{BFS-Nummer}.
+}
+
+
+
+
+\problem Alle k"urzesten Pfade von einem Ausgangspunkt:{
+  (Kurz ist hier im Sinne von Gewichten an einem gewichteten Graphen zu
+  verstehen) Gesucht wird jeweils die L"ange des k"urzesten Pfades von einem 
+  Ausgangspunkt zu allen Knoten eines Graphen.
+  
+  \textit{L"osung}: Jedem Knoten wird eine gegenw"artige Pfadl"ange zugeordnet. 
+  (anfangs $\infty$) Dann werden die Knoten nacheinander bearbeitet und f"ur 
+  dem bearbeiteten Knoten benachbarte Knoten "uberpr"uft, ob der Weg "uber 
+  den bearbeiteten Knoten k"urzer als dessen gegenw"artiger ist.
+}
+
+
+
+
+\problem Aufspannender Baum mit minimalen Kosten:{
+  (Kosten sind hier wieder die Summe der Gewichte eines gewichteten Graphen)
+   
+  \textit{L"osung}: Einziger Unterschied zum ``alle k"urzesten Pfade''-Problem
+  besteht darin, dass anfangs eine Kante und kein Knoten ausgew"ahlt wird.
+}
+
+
+
+
+\problem Alle k"urzesten Pfade zwischen allen Knoten:{
+  (Kurz ist hier im Sinne von Gewichten an einem gewichteten Graphen zu
+  verstehen)
+  
+  \textit{L"osung}: Durchlaufe alle Knoten und ersetze Gewichte ($\infty$
+  falls Kante nicht existent) zwischen ihnen durch Summe der Gewichte der
+  Wege "uber den gerade durchlaufenen Knoten, falls diese kleiner als
+  das bestehende Gewicht ist.
+}
+
+
+
+
+\definition Transitive H"ulle (transitive closure):{
+  Die transitive H"ulle $H=(V,F)$ eines Graphen $G=(V,E)$ besteht aus
+  den gleichen Knoten und genau denjenigen Kanten zwischen zwei Knoten $v_1$
+  und $v_2$, f"ur die ein Pfad in $G$ von $v_1$ nach $v_2$ existiert.
+}
+
+
+
+
+\theorem Satz von Menger:$G=(V,E)$ ungerichtet, verbunden. $u,v\in V, 
+  (u,v)\not\in E$=>{
+    Die minimale Anzahl an zu entfernenden Knoten, die ben"otigt wird,
+    um den Graph bez"uglich $u$ und $v$ zu trennen, ist gleich der Maximalzahl 
+    an knotendisjunkten Pfaden zwischen $u$ und $v$.
+  }
+
+
+
+
+\theorem Satz von Whitney:=>{
+    Ein ungerichteter Graph ist $k$-verbunden $\equiv$ $k$ 
+    Knotenentfernungen erforderlich sind, um den Graph zu trennen.
+  }
+  
+
+
+
+\definition Artikulationspunkt:{
+  Ein \textit{Artikulationspunkt} eines Graphen ist ein Knoten, dessen
+  Entfernung die Trennung des Graphen bewirkt.
+}
+
+
+
+
+\definition $n$-fach verbundene Komponente:{
+  Eine $n$-fach verbundene Komponente eines Graphen ist die maximale 
+  Untermenge an Kanten, die einen $n$-fach verbundenen Graphen induzieren.
+}
+
+
+
+
+\theorem:=>{
+  Zwei Kanten $e$ und $f$ geh"oren genau dann zur selben zweifach verbundenen
+  Komponente, wenn es einen einfachen Kreis gibt, der durch diese zwei 
+  Kanten f"uhrt.
+}
+
+
+
+
+\theorem:=>{
+  Jede Kante geh"ort zu genau einer zweifach verbundenen Komponente.
+}
+
+
+
+
+\problem Finden von zweifach verbundenen Komponenten in Graphen:{
+  \textit{L"osung}: Baue mittels DFS einen Baum auf, der f"ur je eine
+  zweifach verbundene Komponente einen Knoten enth"alt. Merke dir dazu
+  die niedrigste DFS-Nummer, bis zu der ein gewisser Baumabschnitt wieder
+  hinaufreicht. ("uber R"uckw"artskanten, die ja von DFS bekanntlich ohnehin
+  eliminiert werden) Der durch diese DFS-Nummer markierte Punkt ist ein
+  Artikulationspunkt.
+}
+
+
+
+
+\definition Stark verbundene Komponente:{
+  Eine stark verbundene Komponente ist eine maximale Untermenge eines 
+  gerichteten Graphen, so dass f"ur je zwei Knoten $v_1$ und $v_2$ Pfade
+  von $v_1$ nach $v_2$ und umgekehrt von $v_2$ nach $v_1$ existieren.
+}
+
+
+
+
+\theorem:=>{
+  Zwei Knoten geh"oren zur selben stark verbundenen Komponente $\equiv$
+  Es existiert ein Kreis, der beide Knoten enth"alt.
+}
+
+
+
+
+\end{document}

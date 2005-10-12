@@ -1,0 +1,203 @@
+\para{Der Homomorphiesatz f"ur Ringe}
+% -----------------------------------------------------------------------------
+\remark Eigenschaften von Ringhomomorphismus-Kernen:{
+  Sei $f:R\to S$ Ringhomomorphismus. $I:=\ker f$ hat die folgenden Eigenschaften:
+  \begin{enumerate}
+    \item $\ker f$ ist Untergruppe von $(R,+)$.
+    \item $\forall u\in I,x\in R:xu\in I$ (LI)
+    \item $\forall u\in I,x\in R:ux\in I$ (RI)
+    \end{enumerate}
+  Grund: $u\in I,x\in R$ $\Rightarrow$ $f(xu)=f(x)f(u)=f(x)\cdot 0=0\implies xu\in I$, genauso
+  $ux\in I$.
+  }
+% -----------------------------------------------------------------------------
+\definition Ideal:{
+  \index{Ideal>zweiseitiges}
+  Sei $R$ Ring. Dann hei"st $I\subset R$ 
+  \emph{\indexthis{Linksideal}}/
+  \emph{\indexthis{Rechtsideal}}/
+  \emph{\indexthis{zweiseitiges Ideal}}
+  $:\iff$
+  $I$ Untergruppe von $(R,+)$ und (LI) bzw. (RI) bzw. beide gelten.
+  
+  Bezeichnung: $I\unlhd R$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \index{Ideal>triviales}
+  \index{triviales Ideal}
+  Die Faktorgruppe $R/I$, genauer $(R,+)/(I,+)$ wird bei vertreterweise
+  definiertem Produkt ein Ring, genannt \emph{\indexthis{Faktorring}}
+  von $R$ nach $I$. 
+
+  Der kanonische Homomorphismus 
+  $k:R\to\overline R:=R/I$ ist ein Ringhomomorphismus:
+  Es gelten $\overline x\cdot \overline y:=\overline{xy}$.
+  (Das ist wohldefiniert, denn sei 
+  $\overline x=\overline{x'}$ und
+  $\overline y=\overline{y'}$ $\iff$
+  $\exists u,v\in I:x'=x+u,y'=y+v$, daher 
+  \[x'y'=xy+\underbrace{uy+xv+uv}_{\in I}
+    \]
+  also $\overline{x'y'}=\overline{xy}$.)
+  Weiter ist $k(x)=\overline x=x+I$.
+  Von fr"uher: $\overline x+\overline y:=\overline{x+y}$.
+  Ringaxiome vererben sich trivial von den Vertretern auf die Klassen.
+  
+  Beachte: $\ker k=I$.
+  
+  Es gibt in jedem Ring die \emph{trivialen Ideale} $\{0\}=R/R$ und $R=R/ \{0\}$.
+  }
+% -----------------------------------------------------------------------------
+\remark Seltsamer Sonderfall:{
+  F"ur einen Ring $R$ gilt: $R=\{0\}\iff 0_R=1_R$ 
+  (``$\Rightarrow$'': $x=x1=x0=0$, ``$\Leftarrow$'': 0 ist neutral in $(\{0\},\cdot)$).
+  Oft wird dieser Ring stillschweigend ausgeschlossen.
+  }
+% -----------------------------------------------------------------------------
+\theorem Homomorphiesatz f"ur Ringe:
+  $\phi:R\to S$ Ringhomomorphismus=>{
+  \label{the:homsatz-ringe}
+  Dann ist $\ker \phi\unlhd R$ und man hat die kanonische Zerlegung
+  \insertfig{algebra1_3_2_homsatz_ringe}
+  Dabei sind $k$ surjektiver Pfeil in $\underline{Ring}$, $\overline\phi$
+  Isomorphismus und $\leq=i$ injektiver Pfeil in $\underline{Ring}$.
+  
+  Falls $\phi$ unit"ar, so auch $k,\overline \phi$ und $i$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:homsatz-ringe}:{
+  Homomorphie-Satz f"ur abelsche Gruppen $\Rightarrow$ $\overline\phi(\overline x)=\phi(x)$.
+  Nur zu pr"ufen: $\overline \phi$ ist Ringhomomorphismus: 
+  \[\overline\phi(\overline x\cdot \overline y)=\overline\phi(\overline{xy})
+    =\phi(xy)=\phi(x)\phi(y)=\overline\phi(\overline x)\overline\phi(\overline y)
+    \]
+  Damit ist die Behauptung gezeigt.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Beliebte Schreibweise nach C.F.~Gauss:{
+  $x\equiv y\mod I:\iff \overline x=\overline y$ (sprich: ``kongruent modulo $I$'')
+  F"ur $I=Rd$ schreibt man auch $x\equiv y\mod d$ ($R$ kommutativ).
+  }
+% -----------------------------------------------------------------------------
+\example Ideale in $\SetZ$:{
+  Sei $R=\SetZ$. Dann ist $\SetZ d\unlhd \SetZ$ ein Ideal.
+  Alle homomorphen Bilder von $\SetZ$ sind $\cong \SetZ/ d\SetZ$ ($d\in\SetN_0$).
+  $R$ als $\SetZ$-Algebra enth"alt $\phi(\SetZ)\cong R/d\SetZ$, $\phi(z)=z\cdot 1_R$.
+  $d=\chi(R)$ ist gerade die Charakteristik.
+  }
+% -----------------------------------------------------------------------------
+\theorem Idealentsprechungssatz:
+  $\phi$ surjektiver Ringhomomorphismus=>{
+  \label{the:ideal-entsprechung}
+  Dann ergibt $\phi$ eine bijektive, anordnungstreue Abbildung der
+  Menge 
+  \[\{I\mid I\text{ Linksideal von $R$},I\supset\ker\phi\}
+    \]
+  auf
+  \[\{I\mid I\text{ Linksideal von $S$}\}
+    \] 
+  (Ebenso f"ur Rechts- und zweiseitige Ideale)
+  \insertfig{algebra1_3_2_ideal_entsprechung}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ideal-entsprechung}:{
+  Untergruppenentsprechungssatz f"ur $(R,+),(S,+)$.
+  Bleibt zu zeigen: (a) $I$ Linksideal mit $I\supset\ker \phi$ $\Rightarrow$ $\phi(I)$ Linksideal und 
+  (b) $I\subset S$ Linksideal $\Rightarrow$ $\phi^{-1}(I)$ Linksideal.
+  
+  (a) $s\in \phi(I),u\in S$. Dann $\exists x\in R:\phi(x)=u$ und $\exists y\in I:\phi(y)=s$.
+  Dann $us=\phi(x)\phi(y)=\phi(\underbrace{xy}_{\in I})\in \phi(I)$.
+  
+  (b) "Ubung.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Wann sind Ideale gleich der ganze Ring?:{
+  F"ur Linksideal $I\unlhd R$ gilt $I=R\iff 1\in I\iff R^\times\cap I\neq \emptyset$.
+  
+  Grund: ``$\Leftarrow$'': Sei $s\in R^\times\cap I$. Dann auch $1=s^{-1}s\in I$. Dann gilt
+  auch f"ur jedes $x\in R$: $x1=x\in I$.
+  }
+% -----------------------------------------------------------------------------
+\definition Einfacher Ring:{
+  \index{Ring>einfacher}
+  \index{Ideal>maximales}
+  Ein Ring $R$ hei"st \emph{einfach} $:\iff$ $0$ und $R$ sind die einzigen
+  Ideale.
+  
+  Ein Ideal $I\unlhd R$ hei"st \emph{\indexthis{maximales Ideal}} $:\iff$
+  $I$ ist maximal bez"uglich der Ordnung ``$\subset$'' in der Menge der echten Ideale
+  von $R$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $M\unlhd R$ maximal, so ist $R/M$ einfach. (klar nach \ref{the:ideal-entsprechung}).
+  }
+% -----------------------------------------------------------------------------
+\lemma:$R$ Ring=>{
+  \label{the:max-ideal-ergaenzung}
+  Jedes Linksideal $I\neq R$ ist in einem maximalen Ideal $M\unlhd R$
+  enthalten. (gilt auch f"ur zweiseitige Ideale)
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:max-ideal-ergaenzung}:{
+  Mittels Lemma von Zorn. Zeige, dass die Menge $M$ der von $R$ verschiedenen
+  Linksideale bzgl. der Ordnung ``$\subset$'' induktiv ist, d.h. $M\neq\emptyset$ und
+  jede total geordnete Teilmenge $K$ von $M$ besitzt eine obere Schranke
+  $M_K$ (d.h. $\forall I\in K:I\subset M_K$).
+  
+  Sei dazu $K\subset M$, $K$ total geordnet bez"uglich ``$\subset$''. Wir versuchen es
+  mit $M_K:=\bigcup_{I\in K} I$. Das ist ein Linksideal, denn zu zwei beliebigen
+  $u,v\in M_K$ existieren $I_u\in K$ und $I_v\in K$ mit $u\in I_u$ und $v\in I_v$. Wegen der
+  Totalordnung von $K$ gilt (o.B.d.A.) $I_v\subset I_u$, d.h. $u,v\in I_u$, daher
+  auch $u+v,xu,xv\in I_u$. $M_K$ ist auch tats"achlich wieder in $M$, denn
+  w"are $M_K$ pl"otzlich der ganze Ring, so h"atte es nach obiger 
+  Bemerkung bereits ein Ideal in $K$ gegeben, das die $1$ mitgebracht hat,
+  das ist aber nicht m"oglich.\qed
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Ist $K$ ein K"orper, so ist $K^{n\times n}$ einfach. ("Ubung)
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \label{the:einfach-kommutativ-ist-koerper}
+  $R$ ist genau dann ein einfacher kommutativer Ring, wenn $R$ ein K"orper ist.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:einfach-kommutativ-ist-koerper}:{
+  ``$\Leftarrow$'': Sei $R$ K"orper, $I\unlhd R$ und $I$ nicht das Nullideal.
+  Daher $R^\times\cap I\neq \emptyset$ (es ist ja $R^\times =R\setminus\{0\}$) $\Rightarrow$ $I=R$. Daher ist
+  $0$ maximales Ideal, also $R$ einfach.
+  
+  ``$\Rightarrow$'' Sei $x\in R\setminus \{0\}$ $\Rightarrow$ $0\neq Rx\unlhd R$, $R$ einfach $\Rightarrow$ $Rx=R$,
+  $1\in R$ $\Rightarrow$ $\exists y\in R:yx=1$ $\Rightarrow$ $x\in R^\times$.\qed
+  }
+% -----------------------------------------------------------------------------
+\corollary:=>{
+  Sei $R$ kommutativer Ring. Dann sind die K"orper, die surjektiv-homomorph
+  zu $R$ sind, isomorph zu den $R/M$ ($M$ max. Ideale).
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  $\SetZ$ Ideal, $\SetZ d$ maximal $\iff$ $d$ ist Primzahl
+  
+  Grund: Anordnung ``$\subset$'' entspricht der umgekehrten Teilbarkeit von $d$.
+  Man erh"alt gerade die K"orper $\mathbb{F}_p=\SetZ/ p\SetZ$. ($p$ Primzahl)
+  }
+% -----------------------------------------------------------------------------
+\definition Integrit"at:{
+  \index{Ringe>integre}
+  \index{Ringe>nullteilerfreie}
+  Ein Ring $R$ hei"st \emph{integer} oder \emph{Integrit"atsbereich}
+  $:\iff$ $R$ ist kommutativ und nullteilerfrei. (d.h. $xy=0\Rightarrow x=0\lor y=0$)
+  
+  $P\unlhd R$ hei"st \emph{\indexthis{Primideal}} $:\iff$ $\overline R=R/P$
+  ist integer und $R$ ist kommutativ.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Jeder Teilring eines K"orpers ist integer.
+  }
+
+

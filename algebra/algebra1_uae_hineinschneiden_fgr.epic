@@ -1,0 +1,27 @@
+\setlength{\unitlength}{0.00065617in}
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+{\renewcommand{\dashlinestretch}{30}
+\begin{picture}(2933,1521)(0,-10)
+\drawline(1170,1260)(2520,1260)
+\drawline(2400.000,1230.000)(2520.000,1260.000)(2400.000,1290.000)
+\drawline(1800,630)(2070,900)
+\drawline(1890,540)(2160,810)
+\drawline(1710,720)(1980,990)
+\drawline(1980,270)(2700,1080)
+\drawline(2642.699,970.380)(2700.000,1080.000)(2597.854,1010.242)
+\drawline(1710,270)(1080,1080)
+\drawline(1177.353,1003.696)(1080.000,1080.000)(1129.992,966.860)
+\put(1620,1350){\makebox(0,0)[lb]{\smash{{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}$\overline j$}}}}}
+\put(990,540){\makebox(0,0)[lb]{\smash{{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}$i$}}}}}
+\put(2520,540){\makebox(0,0)[lb]{\smash{{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}$j$}}}}}
+\put(1710,0){\makebox(0,0)[lb]{\smash{{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}$A$}}}}}
+\put(2610,1170){\makebox(0,0)[lb]{\smash{{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}$G$}}}}}
+\put(0,1170){\makebox(0,0)[lb]{\smash{{{\SetFigFont{9}{10.8}{\rmdefault}{\mddefault}{\updefault}$F/\product{\mathcal R}_{Nor}$}}}}}
+\end{picture}
+}

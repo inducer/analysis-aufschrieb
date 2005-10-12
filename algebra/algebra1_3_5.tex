@@ -1,0 +1,242 @@
+\para{Der Chinesische Restsatz}
+% -----------------------------------------------------------------------------
+\example Kongruenzen:{
+  Jeder Monat hat 30 Tage, jede Woche 7 Tage. Das Kongruenzensystem
+  \begin{align*}
+    &x \equiv 13 \mod 30\\
+    &x \equiv 4 \mod 7
+    \end{align*}
+  beschreibt die Tage $x$, die ``Freitag der 13.'' sind. (wenn man bei
+  der Wochentagsnumerierung am Montag anf"angt)
+  }
+% -----------------------------------------------------------------------------
+\subsection{Vorbereitung: Rechnen mit Idealen}
+% -----------------------------------------------------------------------------
+\convention{
+  Der Begriff ``Ideal'' sei ab hier festgelegt auf einen der Begriffe
+  Links-, Rechts- oder zweiseitiges Ideal.
+  }
+% -----------------------------------------------------------------------------
+\definition Idealsumme:{
+  Sei $R$ Ring, $A,B\unlhd R$. Dann hei"st 
+  \[A+B:=\{a+b\mid a\in A,b\in B\}=\product{A\cup B}_{id}
+    \]
+  die \emph{Idealsumme} von $A$ und $B$. Bei der Idealsumme handelt 
+  es sich tats"achlich wieder um ein Ideal.\qed
+  }
+% -----------------------------------------------------------------------------
+\definition Idealprodukt:{
+  Sei $R$ Ring, $A,B\unlhd R$. Dann hei"st 
+  \[A\cdot B:=\{a\cdot b\mid a\in A,b\in B\}
+    \]
+  das \emph{Idealprodukt} von $A$ und $B$. Bei der Idealprodukt handelt 
+  es sich tats"achlich wieder um ein Ideal.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die zweiseitigen Ideale von $R$ bilden sowohl gegen"uber ``$+$'' wie auch 
+  gegen"uber ``$\cdot$'' ein Monoid. 
+  (Neutral ist das Nullideal f"ur ``$+$'', $R$ bei ``$\cdot$'', da ohnehin
+  $RA=A$ gilt)
+  
+  Assoziativit"at von ``$+$'': Im Teilmengenmonoid gilt die Assoziativregel.
+  
+  Assoziativit"at von ``$\cdot$'': Es gilt $A(BC)=\product{abc\mid a\in A,b\in B,c\in C}=(AB)C$.
+  ``$\supset$'': klar, denn $A(BC)\ni abc$. ``$\subset$'': $BC$ besteht aus allen Summen
+  $\sum_{i=1}^n r_ib_ic_is_i$, wobei $r_i,s_i\in R$ und $b_i\in B$ und $c_i\in C$. Wegen
+  $r_ib_i\in B$ und $c_is_i\in C$ sind das alles Summen der Form $\sum b_i'c_i'$ mit
+  $b_i'\in B$ und $c_i'\in C$.
+  $A(BC)$ besteht aus allen Summen der Art $\sum_{i,j} a_jb_{ij}c_{ij}$. Daraus
+  folgt die Behauptung.
+  
+  Es gelten au"serdem die Distributivregeln $A(B+C)=AB+AC$ und $(B+C)A=BA+CA$.
+  }
+% -----------------------------------------------------------------------------
+\example Rechnen mit Hauptidealen:{
+  Ist $R$ kommutativ und sind $a,b\in R$, so ist $Ra\cdot Rb=Rab$.
+  Es ist also 
+  \begin{align*}
+    \phi:(R,\cdot)&\to \text{Monoid der Ideale von $R$}\\
+    a&\mapsto \phi(a):=Ra
+    \end{align*}
+  ein Monoidhomomorphismus. Kern ist $R^\times$.
+  
+  Achtung: $Ra+Rb=R(a+b)$ ist falsch! ($\SetZ2+\SetZ3=\SetZ1\neq\SetZ5$)
+  }
+% -----------------------------------------------------------------------------
+\remark Motivation der Teilerfremdheit:{
+  Ist $R$ ein Hauptidealring, so gilt $Ra+Rb=R$ $\iff$
+  $\exists x,y\in R:1=xa+yb$ $\iff$ $\ggT(a,b)=1$. In diesem Fall hei"sen
+  $a,b$ \emph{relativ prim} oder \emph{teilerfremd}.
+  }
+% -----------------------------------------------------------------------------
+\definition Teilerfremdheit bei Idealen:{
+  \index{Ideal>teilerfremdes}
+  Sei $R$ beliebiger Ring. Die zweiseitigen Ideale $A,B$ hei"sen
+  \emph{teilerfremd} oder \emph{relativ prim} $:\iff$ $A+B=R$
+  ($\iff \exists a\in A,b\in B: a+b=1$)
+  }
+% -----------------------------------------------------------------------------
+\lemma:
+  $I,A,B$ Ideale im Ring $R$ und $I+A=R$, $I+B=R$=>{
+  \label{lem:ideal-teilefremd-durchschnitt}
+  Dann gilt $I+(A\cap B)=R$. 
+  (``Teilerfremdheit vererbt sich auf den Durchschnitt.'')
+  
+  Das Lemma gilt in gleicher Form auch f"ur endliche Durchschnitte (Induktion).
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{lem:ideal-teilerfremd-durchschnitt}:{
+  Es gibt $r,s\in I$ und $a\in A$, $b\in B$, so dass $s+a=1$ und $r+b=1$.
+  
+  Dann $1=1\cdot 1=(s+a)(r+b)=rs+sb+ar+ab\in I+(A\cap B)$ wegen
+  $rs,ar,sb\in I$ und $ab\in A\cap B$. \qed
+  }
+% -----------------------------------------------------------------------------
+\lemma:
+  $I_1,\ldots,I_n\unlhd R$ paarweise teilerfremd=>{
+  \label{lem:ideal-teilerfremd-durchschnitt}
+  Dann gilt
+  \[I_1\cap \ldots \cap I_n=\sum_{\pi\in S_n} I_{\pi(1)}\cdots I_{\pi(n)}
+    \]
+  Spezialfall: Ist $R$ kommutativ, so gilt $I_1\cap \ldots \cap I_n=I_{1}\cdots I_{n}$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{lem:ideal-teilerfremd-durchschnitt}:{
+  ``$\supset$'': $I_{\pi(1)}\cdots I_{\pi(n)}\subset I_j$, da $I_j$ zweiseitiges Ideal.
+  
+  ``$\subset$'': Betrachte $n=2$, Rest dann induktiv.
+  $I_1+I_2=R \Rightarrow 1=x_1+x_2$ ($x_i\in I_i$ $i=1,2$)
+  
+  Sei $x\in I_1\cap I_2\Rightarrow x=x\cdot 1=xx_1+xx_2\in I_1I_2+I_2I_1$.\qed
+  }
+% -----------------------------------------------------------------------------
+\subsection{Komponentenweises Rechnen in Ringen}
+% -----------------------------------------------------------------------------
+\motivation Ringzerlegung:{
+  Seien $R,R_1,\ldots,R_n$ Ringe und $\phi:R\to\times_{i=1}^n R_i=:\tilde R$ ein
+  Homomorphismus. ($\tilde R$ ein Ring bei komponentenweisem $+,\cdot$)
+  Allgemein: Rechnen in $R$ l"auft hinaus auf das Rechnen in den $R_i$.
+  
+  Praxis: Falls solche $R_i$ bekannt und in $R_i$ mit Computer
+  effektiv gerechnet werden kann, derart, dass das Rechnen in den
+  $R_i$ besser/schneller verl"auft und $\phi,\phi^{-1}$ gut berechenbare
+  Abbildungen, so ist es vorteilhaft, die folgende Identit"at 
+  auszunutzen:
+  \[r+-\cdot/s = \phi^{-1}(\phi(r)+-\cdot / \phi(s))
+    \]
+  Am besten geht das,	 wenn sich das Rechnen in den $R_i$ auf einzelne
+  getrennte Prozessoren verteilen l"asst.
+  
+  Noch vorteilhafter wird das ganze bei gro"sen Rechnungen, z.B.
+  bei Polynomauswertungen, da auf eine gro"se Rechnung jeweils
+  nur eine Hin- und eine R"ucktransformation kommt.
+  
+  Ern"uchterung: In der Regel sind solche $R_i$ nicht vorhanden. Jedoch:
+  }
+% -----------------------------------------------------------------------------
+\theorem Chinesischer Restsatz:
+  $R$ Ring, $n\in\SetN$, $I_1,\ldots,I_n$ paarweise teilerfremd=>{
+  \label{the:crs}
+  Algebra-Formulierung: Dann folgt
+  \begin{align*}
+    \phi: R/(I_1\cap \cdots \cap I_n) &\to (R/I_1\times \cdots\times R/I_n)\\
+    x+I_1\cap \cdots \cap I_n &\mapsto (x+ I_1,\ldots, x+I_n)
+    \end{align*}
+  ist ein Ringisomorphismus.
+  
+  Rechnerische (``Chinesen''- :-) Formulierung:
+  Das System simultaner Kongruenzen 
+  \[ x\equiv a_i\mod I_i
+    \]
+  hat f"ur alle $(a_1,\ldots,a_n)\in R^n$ eine L"osung $x\in R$.
+  $x$ ist modulo $I_1\cap \cdots \cap I_n$ eindeutig bestimmt.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:crs}:{
+  Schreit nach Homomorphiesatz! Betrachte
+  \begin{align*}
+    \psi : R &\to (R/I_1\times \cdots\times R/I_n)\\
+    x&\mapsto (x+ I_1,\ldots, x+I_n)
+    \end{align*}
+  Es gilt $x\in\ker\psi\iff (x+I_1,\ldots,x+I_n)=0\iff \forall i\in\{1,\ldots,n\}:x\in I_i\iff x\in\bigcap_{i=1}^n I_i$.
+  $\phi$ ist Ringhomomorphismus, da jede Komponentenabbildung einer ist.
+  Homomorphiesatz liefert $\phi=\overline \phi$: Damit ist
+  $R/ \ker \psi\to\psi(R)$ ein Isomorphismus.
+  
+  Surjektivit"at von $\psi$ $=$ L"osbarkeitsaussage der Chinesen-Formulierung:
+  Idee: L"ose $s_i\equiv \delta_{ij} \mod I_j$ ($i,j=1\ldots n$).
+  Dann l"asst sich die L"osung linear kombinieren als $x=\sum_{i=1}^n a_is_i$.
+  Gesucht sind also $s_i\equiv \delta_{ij} \mod I_j\iff s_i \in \bigcap_{j\neq i} I_j=:D$.
+  
+  Nach \ref{lem:ideal-teilerfremd-durchschnitt} ist $I_i$ relativ
+  prim zu $D$, also $R=I_i+D$, also existiert ein $s_i\in D$ und ein $r\in I_i$ mit
+  $1=s_i+r \Rightarrow s_i$. Wegen $s_i\in D$ gilt dann erst recht $s_i\equiv 0\mod I_j$ ($j\neq i$)
+  und $1\equiv s_i\mod I_i$.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Explizite Bestimmung der $s_i$, falls $R$ euklidisch:{
+  Sei $R$ euklidisch, $m_1,\ldots,m_n\in R$, $\ggT(m_i,m_j)=1$ f"ur $i\neq j$.
+  Zu besimmen sei $s_i\equiv \delta_{ij}\mod m_j$. Berechnung der $s_i$ mittels
+  Euklids Algorithmus:
+  
+  Setze $n_i:=\prod_{j\neq i} m_j$. Dann $\ggT(m_i,n_i)=1$ Bestimme 
+  $x_i,y_i\in R$ mit $1=x_im_i+y_in_i$. Dann tut's $s_i:=y_iu_i$.
+  (Denn: $s_i\equiv 0\mod m_j$, da $m_j\mod n_i$ ($j\neq i$) und
+  $s_i\equiv 1-x_im_i \equiv 1 \mod m_i$)
+  }
+% -----------------------------------------------------------------------------
+\remark Anwendung:{
+  \index{Funktion>Euler'sche}
+  Wir betrachten $R=\SetZ$ mit $m=p_1^{n_1}\cdots p_t^{n_t}$ mit $n_1,\ldots,n_t\in \SetN$
+  Primzerlegung. Dann folgt wegen
+  $\ggT(p_i,p_j)=1$ auch $\SetZ p_i^{n_i}+\SetZ p_j^{n_j}=\SetZ$ ($i\neq j$)
+  Nach dem Chinesischen Restsatz erhalten wir
+  \[\SetZ/m\SetZ\cong \times_{i=1}^t (\SetZ/ p_i^{n_i}\SetZ)
+    \]
+  (geht genauso f"ur beliebige Hauptidealringe), insbesondere auch
+  \[(\SetZ/m\SetZ)^\times\cong \times_{i=1}^t (\SetZ/ p_i^{n_i}\SetZ)^\times
+    \]
+  
+  F"ur die \emph{\indexthis{Euler'sche Funktion}} 
+  \[\phi(m):=|(Z/m\SetZ)^\times|=|\{x\in\SetZ\mid 0\leq x<m, \ggT(x,m)=1\}|
+    \]
+  sagt das $\phi(m)=\prod_{i=1}^t \phi(p_i^{n_i})$. 
+  Klarerweise
+  \[\phi(p^n)=|\{0\leq x<p^n\}\setminus\{py\mid 0\leq y< p^{n-1}\}|=p^n-p^{n-1}=p^n(1-\frac1p)
+    \]
+  Daher $\phi(m)=m\prod_{p\mid m} (1-\frac 1p)$, auch \emph{``Euler's Formel''}
+  genannt.
+  
+  Praxis: F"ur $R=\SetZ$, $R=K[X]$ ($K$ endlich oder $\SetQ$) existieren
+  sehr gute Algorithmen zur L"osung simultaner Kongruenzen.
+  $\phi$ und $\phi^{-1}$ sind effektiv zu berechnen.
+  }
+% -----------------------------------------------------------------------------
+\remark Rechnen mit gro"sen Integer-Zahlen:{
+  Methode (auch theoretisch sehr wichtig):
+  
+  Gleichheit ist dasselbe wie ``Kongruenz und Absch"atzung''. F"ur
+  $m\in\SetN$, $x,y\in\SetZ$ gilt: Aus $x\equiv y\mod m$, $-\frac m2<x\leq \frac m2$,
+  $-\frac m2<y\leq \frac m2$ folgt $x=y$.
+  }
+% -----------------------------------------------------------------------------
+\remark Rechnen mit gro"sen Zahlen:{
+  Sei $f\in\SetZ[X_1,\ldots,X_n]$, $x=(x_1,\ldots,x_n)\in\SetZ^n$, $|x_i|\leq M$ (Schranke):
+  Zur Berechnung von $f(x)$:
+  \begin{enumerate}
+    \item Aus $f$ und $M$ leicht (riesige) Schranke $N$ bestimmbar,
+      mit $|f(x)|\leq N/2$.
+    \item W"ahle (veschiedene) Primzahlen $p_1,\ldots,p_n$ (ziemlich klein,
+      so dass der Computer in $\mathbb F_{p_i}$ schnell und effektiv
+      rechnet und $p=\product p_i>N$.
+    \item Durch Rechnen in den $\mathbb F_{p_i}$ bestimme $a_i$ mit
+      $f(x)\equiv a_i\mod p_i$ und $|a_i|\leq \frac{ p_i}2$. (Es wird
+      $\overline f(\overline x)$ berechnet). Am besten: Jedes $p_i$
+      mit einem speziellen Prozessor.
+    \item Am Schluss mittels $\phi^{-1}$ die gro"se Zahl $f(x)$ berechnen.
+    \end{enumerate}
+  }
+  
+
+

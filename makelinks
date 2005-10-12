@@ -1,0 +1,13 @@
+#! /bin/bash
+
+function linksindir() {
+  cd $1
+  rm -f README german.sty index.html make.rules math.tex aufschrieb.tex macros.tex
+  ln -s ../make.rules .
+  cd ..
+  }
+
+linksindir ana
+linksindir info
+linksindir alg
+linksindir algebra

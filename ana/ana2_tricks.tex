@@ -1,0 +1,61 @@
+% -----------------------------------------------------------------------------
+\para{Tricks for Kicks}
+% -----------------------------------------------------------------------------
+\trick Operatornormen bestimmen:{
+  Benutze folgende Beziehung:
+  \[\fnorm A = \sup_{x\ne 0} \frac{\norm{Ax}}{\norm{x}}
+             = \sup_{x\ne 0} \norm{ A \frac x {\norm{x}} }
+	     = \sup_{\norm{x} = 1} \norm{Ax}
+    \]
+  Zeige dann eine obere Absch"atzung f"ur den so gewonnenen Ausdruck und 
+  konstruiere einen Vektor, so dass der Ausdruck tats"achlich erreicht wird.
+  Dann muss der gefundene Term Maximum, und damit Supremum, und damit
+  die gesuchte Operatornorm sein.
+  }
+% -----------------------------------------------------------------------------
+\trick Absch"atzen geht nicht?:{
+  Hilfe naht! 
+  \begin{itemize}
+    \item Nutze die "Aquivalenz von Normen auf endlich dimensionalen R"aumen 
+      aus.
+    \item Sch"atze auf jeden Fall den Betrag ab, nichts anderes!
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\trick Dinge, die man nicht vergessen sollte:{
+  Zum Beispiel:
+  \begin{itemize}
+    \item Banach'scher Fixpunktsatz, falls gezeigt werden soll, dass eine 
+      Gleichung (genau) eine L"osung hat.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem Definitheit einer Matrix:=>{
+  Eine Matrix $A$ ist 
+  \begin{itemize}
+    \item positiv definit $\equiv$ alle Hauptunterdeterminanten positiv
+    \item negativ definit $\equiv$ $k$-te Hauptunterdeterminante hat Vz $(-1)^k$
+    \item positiv semidefinit $\equiv$ alle Hauptunterdeterminanten $\ge 0$
+    \item negativ semidefinit $\equiv$ $k$-te Hauptunterdeterminante hat Vz $(-1)^k$
+      oder ist $0$
+    \item indefinit $\Leftarrow$ $(\exists k)$($2k$-te Hauptunterdeterminante 
+      hat negatives Vz)
+    \end{itemize}
+  (Quelle: D. Unruh, dominique@unruh.de)
+  }
+% -----------------------------------------------------------------------------
+\trick Als Ungleichung gegebene Mengen:{
+  Hier ist das gleiche Verfahren (quadratische Erg"anzung) angebracht, das
+  auch bei Quadriken in LA funktioniert.
+  }
+% -----------------------------------------------------------------------------
+\definition $\sigma$-Algebra:{
+  Ein Tupel $(X,B)$ mit $B\subseteq\cal P(x)$ hei"st $\sigma$-Algebra $:\equiv$
+  \begin{stmts}
+    \item $X\in B$
+    \item $A\in B$ $\implies$ $X\setminus A\in B$
+    \item $A_1,A_2,\ldots\in B$ $\implies$
+      \[\bigcap_{i=1}^\infty A_i\in B
+        \]
+    \end{stmts}
+  }

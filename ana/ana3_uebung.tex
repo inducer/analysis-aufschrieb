@@ -1,0 +1,149 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\para{Erl"auterungen}
+% -----------------------------------------------------------------------------
+\definition Kreuzprodukt:{
+  Seien $x,y\in\SetR^3$ mit $x=(\xi_1,\xi_2,\xi_3)$ und $y=(\eta_1,\eta_2,\eta_3)$.
+  Dann ist das Vektor-Kreuzprodukt $x\times y$ folgenderma"sen definiert:
+  \[x\times y:=e_x\cdot(\xi_2\eta_3-\xi_3\eta_2)+
+               e_y\cdot(\xi_1\eta_3-\xi_3\eta_1)+
+	       e_z\cdot(\xi_1\eta_2-\xi_2\eta_1)\]
+  Als Eselsbr"ucke kann man sich folgendes merken:
+  \[x\times y=\begin{vmatrix}
+      e_x & \xi_1 & \eta_1 \\
+      
+      e_y & \xi_2 & \eta_2 \\
+      e_z & \xi_3 & \eta_3 \\
+      \end{vmatrix}
+    \]
+  wobei die ``Determinante'' formal durch Entwickeln nach der ersten Spalte
+  berechnet wird.
+  }
+% -----------------------------------------------------------------------------
+\definition Schreibweise f"ur das Wegintegral:{
+  Sei $\Gamma\subseteq\SetR^p$ eine Menge, die durch einen Weg $\gamma$ 
+  parametrisiert werden kann, und $f\in\SetCont(\Gamma,\SetR^p)$. Dann 
+  definiert man 
+  \[\int_\Gamma f_1(x)dx_1+\cdots+f_p(x)dx_p:=\int_\gamma f(x) dx
+    \]
+  Die analoge Definition gilt f"ur Wegintegrale nach der Wegl"ange.
+  }
+% -----------------------------------------------------------------------------
+\definition Nabla-Operator:{
+  Der Nabla-Operator $\nabla$ wird im $\SetR^p$ formal definiert als der Vektor
+  \[\nabla:=\begin{pmatrix} 
+      \frac \partial {\partial x_1} \\
+      \vdots \\
+      \frac \partial {\partial x_p}
+      \end{pmatrix}
+    \]
+  Sei $\Phi\in\SetCont^1(\SetR^p,\SetR)$, $f\in\SetCont^1(\SetR^p,\SetR^p)$,
+  $g\in\SetCont^1(\SetR^3,\SetR^3)$. Dann ergeben sich formal:
+  \begin{align*}
+    \grad\Phi &= \nabla\cdot\Phi \\
+    \div f &= \nabla\cdot f \\
+    \rot f &= \nabla\times g
+    \end{align*}    
+  }
+% -----------------------------------------------------------------------------
+\para{Das Beste aus "Ubungen und Bl"attern}
+% -----------------------------------------------------------------------------
+\subsection{Exakte Differentialgleichungen}
+% -----------------------------------------------------------------------------
+\definition Exakte Differentialgleichung:{
+  \index{Differentialgleichung>exakte}
+  Sei $D\subseteq\SetR^2$. Eine Differentialgleichung der Form
+  \[g(x,y)dx+h(x,y)dy=0
+    \]
+  hei"st exakt $:\equiv$ $(g,h)$ ist ein Gradientenfeld, d.h. es existiert
+  eine Funktion $G\in\SetCont^1(D,\SetR)$ mit $G_x=g$, $G_y=h$.
+  Diese Funktion hei"st dann \indexthis{Stammfunktion}.
+  }
+% -----------------------------------------------------------------------------
+\definition Vollst"andiges Differential:{
+  \index{Differential>vollst"andiges}
+  Das vollst"andige Differential einer Funktion $G\in\SetCont^1(D,\SetR)$ 
+  ($D\subseteq\SetR^2$) wird definiert als
+  \[dG:=G_xdx+G_ydy
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^2$ einfach zusammenh"angend (?), 
+  $g,h\in\SetCont^1(D,\SetR)$ mit $g_y=h_x$=>{
+  Dann ist durch
+  \[G(x,y):=\int_\gamma g(\xi,\eta)d\xi+h(\xi,\eta) d\eta
+    \]
+  eine Stammfunktion gegeben. Dabei ist $\gamma$ ein beliebieger 
+  Verbindungsweg in $D$ zwischen $x,y$ und $(x_0,y_0)$ bel.
+  }
+% -----------------------------------------------------------------------------
+\definition Integrierender Faktor:{
+  \index{Faktor>integrierender}
+  Die Dgl $g(x,y)dx+h(x,y)dy=0$ ist im Allgemeinen nicht exakt.
+  Ein stetiger Faktor $\mu(x,y)$ hei"st integrierend $:\equiv$
+  $\mu(x,y)g(x,y)dx+\mu(x,y)h(x,y)dy=0$ ist exakt.
+  }
+% -----------------------------------------------------------------------------
+\remark Spezialfall:{
+  H"angt $\frac{g_y-h_x}{h}$ nur von $x$ ab, so ist
+  \[\mu(x)=e^{\int (g_y-h_x)/h\,dx}
+    \]
+  ein integrierender Faktor. Ebenso:
+  H"angt $\frac{g_y-h_x}{g}$ nur von $y$ ab, so ist
+  \[\mu(y)=e^{\int (g_y-h_x)/g\,dy}
+    \]
+  ein integrierender Faktor.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Tips und Tricks}
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b]\times\SetR,\SetR)$ f"ur jedes feste $x\in[a,b]$ 
+  monoton fallend in der zweiten Variablen=>{
+  Dann besitzt das AWP $y'(f(x,y),y(a)=y_0$ h"ochstens eine L"osung.
+  }
+% -----------------------------------------------------------------------------
+\trick Verfahren f"ur lineare Dgl'en:{
+  Ein Verfahren zur L"osung von linearen Differentialgleichungen, 
+  das nicht auf einer L"osungsformel beruht, ist folgendes:
+  \begin{itemize}
+    \item L"ose homogenes Problem
+    \item Vorkommende Konstante als $c(x)$ auffassen
+    \item Umstellen, $y'$ bestimmen, nach $c'$ aufl"osen, integrieren,
+      abschliessend Integrationskonstante bestimmen.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $D\subseteq\SetR^2$ offen, $f\in\SetCont^1(D,\SetR)$=>{
+  Dann ist $f$ lokal Lipschitz-stetig auf $D$.
+  }
+% -----------------------------------------------------------------------------
+\trick Erkennung von gleichgradiger Stetigkeit:{
+  Mit Hilfe des Satzes von Ascoli-Arcel\`a (\ref{the:ascoli}) l"asst sich
+  unter Umst"anden die Annahme, eine Menge sei gleichgradig stetig, zum
+  Widerspruch f"uhren: Findet man eine Folge, die nicht gleichm"a"sig
+  konvergiert (also z.B. eine Folge stetiger Funktionen gegen eine unstetige),
+  und sind alle anderen Voraussetzungen von \ref{the:ascoli} erf"ullt, so
+  ergibt sich direkt, dass die Menge nicht gleichgradig stetig gewesen
+  sein kann.  
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $T>0$, $g\in\SetCont([0,T],\SetR)$, $g(x)\ge 0 (x\in[0,T])$, 
+  $\limes x->{0+} \frac {g(x)}x=0$=>{
+  Dann folgt aus
+  \[g(x)\le \int_0^x \frac{g(s)}sds \qquad (x\in[0,T])
+    \]
+  $g(x)=0$ auf $[0,T]$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Nagumo:
+  $f\in\SetCont(\SetR^2,\SetR)$=>{
+  \index{Nagumo>Satz von}
+  Dann folgt aus
+  \[|f(x,y_1)-f(x,y_2)|\le \frac{|y_1-y_2|}{x-x_0}
+    \]
+  f"ur $x>x_0$ und $y_1,y_2\in\SetR$ beliebig, dass das AWP
+  $y'(x)=f(x,y(x)),y(x_0)=y_0$ nach rechts eindeutig l"osbar ist.
+  }

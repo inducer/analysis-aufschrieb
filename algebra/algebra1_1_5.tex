@@ -1,0 +1,289 @@
+% -----------------------------------------------------------------------------
+\para{Erzeugende und Relationen}
+% -----------------------------------------------------------------------------
+\example Erzeugende der Diedergruppen:{
+  $D_m\cong Z_m \rtimes Z_2=:G $ hat die Form $G=\product{g,u}$ mit den Relationen 
+  \begin{enumerate}
+    \item $g^m=u^2=1$
+    \item $\phi_u(g):=ugu^{-1}=g^{-1}$
+    \item 2 $\implies (ug)^2=1$
+    \end{enumerate}
+  Das Rechnen in $G$ ist durch die Erzeugenden und durch die Relationen 
+  1 und 3 eindeuteig bestimmt. Diese Relationen sind ``definierend'' f"ur $G$.
+  
+  Ziel ist es jetzt, diese Begrifflichkeit zu pr"azisieren.
+  }
+% -----------------------------------------------------------------------------
+\remark Erinnerung an freie Gruppen:{
+  \index{Gruppe>freie}
+  \index{Abbildungseigenschaft>universelle}
+  \index{UAE}
+  \index{Alphabet}
+  Sei $A$ eine Menge (das ``Alphabet''). Sei dann $A^{-1}$ eine Menge
+  von ``Inversen'' zu den Buchstaben in $A$.
+  
+  Dann gibt es die \emph{freie Gruppe} "uber $A$
+  $Fr_G(A)$. Sie besteht aus den gek"urzten W"ortern $w=(a_1,\dots,a_n)$ mit
+  $a_1,\dots,a_n\in A\uplus A^{-1}$ (wobei gek"urzt bedeutet, dass
+  $a_i^{-1}=a_{i+1}$ nicht vorkommt). Einzige Operation in $Fr_G$ ist die
+  Konkatenation $*$.
+  
+  Universelle Abbildungseigenschaft:
+  \insertfig{algebra1_uae}
+  Beachte $w=(a_1,\dots,a_n)=a_1* \cdots * a_n$, dann 
+  $\tilde f(w)=f(a_1)\cdots f(a_n)$ (in $G$).
+  
+  Falls $A\subset G$ ($G$ Gruppe), so wird $f:A\to G$ zur Inklusion $\tilde j$.
+  Es gilt $G=\product A\iff f$ surjektiv. $G\cong Fr_G(A)/\ker \tilde j$.
+  
+  Betrachte die linken Seiten der obigen Relationen mit $*$ statt $\cdot$ als
+  Elemente $w\in Fr_G(A)$. Man sagt, die Relation $w\in Fr_G(A)$ gilt in $G$
+  $:\iff \tilde j(w)=a_1\cdots a_n=1$.
+  }
+% -----------------------------------------------------------------------------
+\definition Relation:{
+  \index{Relation>definierende}
+  Eine \emph{Relation} "uber $A$ in $G\supset A$ ist ein $w\in Fr_G(A)$ mit 
+  $\tilde j(w)=1$ ($\iff w\in \ker \tilde j$).
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  $\tilde j$ bezeichne stets eine bestimmte Injektion der freien Gruppe
+  in eine Bildgruppe $G$.
+  }
+% -----------------------------------------------------------------------------
+\remark Idee zum Hineinschneiden von Relationen:{  
+  Gelte nun $\mathcal R\subset Fr_G(A)$, $G=\product A$. Gesucht: 
+  Gr"o"stm"ogliche Faktorgruppe $\overline G=G/N$, in der die
+  Relationen in $\cal R$ f"ur die Bilder $\kappa(\tilde j(w))$ ($w\in\mathcal R$)
+  gelten. (das bedeutet $\tilde j(w)\in N$)
+  
+  Idee: gesucht ist ein kleinstm"oglicher Normalteiler $N$ mit 
+  $\tilde j(\mathcal R)\subset N$.
+  }
+% -----------------------------------------------------------------------------
+\definition Normalteilererzeugnis:{
+  Sei $G$ Gruppe, $B\subset G$. Dann ist 
+  \[\product B_{Nor}:=\bigcap_{B\subset N\unlhd G} N\unlhd  G
+    \]
+  $\product B_{Nor}$ hei"st das \emph{Normalteilererzeugnis} von $B$ in $G$.
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenschaft des Normalteilererzeugnisses:{
+  \label{rem:nt-product}
+  Es gilt $\product B_{Nor}=\product{\bigcup_{g\in G} gBg^{-1}}$. 
+  
+  ``$\supset$'' ist leicht.
+  
+  ``$\subset$'': Es gilt zun"achst f"ur Teilmengen $C\subset G$ und alle $g\in G$:
+  \[\product{inn_g(C)}=inn_g(\product C)
+    \]
+  also insbesondere
+  \begin{align*}
+    inn_x(\product{\bigcup_{g\in G} gBg^{-1}})
+    &=\product{\bigcup_{g\in G} inn_x( gBg^{-1})}
+    =\product{\bigcup_{g\in G} inn_x( gBg^{-1})}\\
+    &=\product{\bigcup_{g\in G}  xgB(xg)^{-1}}
+    \subset \product{\bigcup_{g\in G}  gBg^{-1}}
+    \end{align*}
+  d.h. $\product{\bigcup_{g\in G} gBg^{-1}}$ ist Normalteiler, der $B$ enth"alt.
+  }
+% -----------------------------------------------------------------------------
+\definition Hineinschneiden von Relationen:{
+  Sei $G=\product A$, $\mathcal R\subset Fr_G(A)$. Dann hei"st
+  \[\overline G=G/\product{\tilde j(\mathcal R)}_{Nor}
+    \]
+  die Gruppe, die aus $G$ durch Hineinschneiden der Relation $\mathcal R$ 
+  entsteht.
+  }
+% -----------------------------------------------------------------------------
+\example Hineinschneiden von Zyklizit"at:{
+  Sei $G=Z_m=\product g$. Wir schneiden die Relation $g^n(\overset!=1)$ hinein.
+  Es entsteht die Gruppe $Z_{\ggT(n,m)}$.
+  }
+% -----------------------------------------------------------------------------
+\definition Kommutator:{
+  Sei $G$ Gruppe. Zu $g,h\in G$ hei"st $[g,h]:=ghg^{-1}h^{-1}$ der
+  \emph{Kommutator} von $g$ und $h$.
+  \[G':=\product{[g,h]\mid g,h \in G}_{Nor}=\product{[g,h]\mid g,h \in G}
+    \]
+  hei"st \emph{Kommutatorgruppe}.
+  $G/G'$ ist die gr"o"ste abelsche Faktorgruppe von $G$, sie entsteht
+  durch Hineinschneiden der Relation $[g,h]=1\iff gh=hg$.
+  $G/G'$ hei"st ``$G$ abelsch gemacht'' oder ``\emph{Kommutatorfaktorgruppe}''.
+  }
+% -----------------------------------------------------------------------------
+\definition Charakteristische Untergruppe:{
+  \index{Untergruppe>charakteristische}
+  Sei $G$ eine Gruppe. Eine Untergruppe $U\leq G$ hei"st \emph{charakteristisch}
+  $:\iff$ f"ur jedes $\phi\in Aut(G)$ gilt $\phi(U)=U$. 
+  
+  Jede charakteristische Untergruppe ist ein Normalteiler.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Kommutatorgruppe ist charakteristisch.
+  }
+% -----------------------------------------------------------------------------
+\theorem UAE des Hineinschneidens:
+  $A$ Menge, $G=\product A$ Gruppe, $\mathcal R\subset F_{Gr}(A)$,
+  $\overline G$ entstehe aus $G$ durch Hineinschneiden von $\mathcal R$.
+  $H$ Gruppe, $\phi:G\to H$ Homomorphismus
+  =>{
+  \label{the:uae-relationen}
+  Dann gilt: Genau dann faktorisiert $\phi$ durch $\overline G$ 
+  (d.h. genau dann existiert ein Homomorphismus $\overline \phi$, der in
+  untenstehendes kommutative Diagramm hineinpasst), wenn 
+  $\mathcal R$ f"ur $\phi(A)$ gilt, d.h. f"ur jedes $w=b_1*\cdots *b_m\in\mathcal R$
+  ($b_i\in A\cup A^{-1}$) gilt $\phi(b_1)\cdots \phi(b_m)=1$.
+  \insertfig{algebra1_uae_hineinschneiden}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:uae-relationen}:{
+  $\overline \phi$ ist wohldefiniert $\iff $ 
+  $\phi(\product{\tilde j(\mathcal R)}_{Nor})=\{1\}$.
+  
+  $\overline \phi$ ist dann eindeutig bestimmt.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem UAE des Hineinschneidens von Relationen in die freie Gruppe:
+  Sei $G$ Gruppe, $A\subset G$, $\mathcal R\subset F_{Gr}(A)=:F$=>{
+  \label{the:uae-relationen-fgr}
+  Genau dann gibt es einen Homomorphismus $\overline j$ mit untenstehendem
+  kommutativen Diagramm, wenn alle Relationen $w\in\mathcal R$ in $G$ gelten.
+  $\overline j$ ist dann eindeutig bestimmt.
+  \insertfig{algebra1_1_5_uae_fgr}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:uae-relationen-fgr}:{
+  \insertfig{algebra1_1_5_uae_fgr_proof}
+  Der Beweis geht in zwei Schritten vonstatten: Zun"achst konstruieren
+  wir mittels der UAE der freien Gruppe den Homomorphismus $\tilde j:F\to G$,
+  ausgehend vom gegebenen $j:A\to G$.
+  
+  Dann wenden wir die UAE des Hineinschneidens an und schneiden 
+  $\product{\mathcal R}_{Nor}$ in $F$ hinein und erhalten so
+  $\overline F:=F/\product{\mathcal R}_{Nor}$ sowie die dazugeh"origen
+  Abbildungen $\overline j$ und $\overline i:=i\circ k$.\qed
+  }
+% -----------------------------------------------------------------------------
+\definition Definierende Relation:{
+  \index{Relation>definierend}
+  \label{def:def-relation}
+  Sei $A$ Menge, $G=\product{A}$ Gruppe, $F:=F_{Gr}(A)$, $\mathcal R\subset F$.
+  $\mathcal R$ bestehe aus in $G$ geltenden Relationen. $\mathcal R$ hei"st
+  \emph{definierend} $:\iff$ $\overline j:F/\product{\mathcal R}_{Nor} \to G$
+  ist ein Isomorphismus.
+  
+  Man schreibt in diesem Fall $G=\product{A|\mathcal R}$.
+  }
+% -----------------------------------------------------------------------------
+\annotation \ref{def:def-relation}:{
+  Ich denke, man kann sich die Definition so vorstellen: 
+  $F/\product{\mathcal R}_{Nor}$ ergibt die gr"o"ste Gruppe, die mit den
+  gegebenen Grundelementen $A$ und den Rechenregeln in $\mathcal R$ 
+  machbar ist, $G$ kann durchaus etwas kleiner sein. Erst wenn
+  durch die Rechenregeln $F/\product{\mathcal R}_{Nor}$ auf die Gr"o"se
+  von $G$ gezwungen wird (d.h. ein Isomorphismus existiert), 
+  legen die Regeln genau $G$ fest.
+  
+  (Dass $G$ tats"achlich gr"o"ser ist als $F/\product{\mathcal R}_{Nor}$
+  kommt nicht vor, denn $F/\product{\mathcal R}_{Nor}$ ist stets die
+  \emph{gr"o"ste} solche Gruppe!)
+  }
+% -----------------------------------------------------------------------------
+\definition Endliche Pr"asentation:{
+  \index{Pr"asentation>endliche}
+  Eine Gruppe $G=\product{A|\mathcal R}$ hei"st \emph{endlich pr"asentiert} $:\iff$
+  $A$ und $\mathcal R$ sind endlich.
+  }
+% -----------------------------------------------------------------------------
+\theorem Kriterium f"ur Endliche Pr"asentation:
+  $G=\product A$ endlich, 
+  $\mathcal R\subset F_{Gr}(A)$ eine Menge von in $G$ geltenden Relationen=>{
+  \label{the:krit-endliche-praesentation}
+  Dann gilt: $\mathcal R$ ist genau dann definierend, wenn 
+  $|F/ \product{\mathcal R}_{Nor}|\leq |G|$ gilt.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:krit-endliche-praesentation}:{
+  In der Situation von \ref{the:uae-relationen-fgr} ist $\overline j$
+  surjektiv, denn es ist ja $G=\product A$, und jedes $a\in\product A$ erreicht
+  man ja mit Elementen der freien Gruppe. F"ur Injektivit"at gen"ugt dann
+  $|\overline F\leq | G|$.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  \begin{enumerate}
+    \item Betrachte
+      \begin{align*}
+        D_n&=Z_m\rtimes Z_2
+	=\product{\underbrace{g,h}_A\mid\underbrace{g^n,h*h,h*g*h*g}_{\mathcal R}}\\
+	&=\product{g,h\mid g^n=h^2=(hg)^2=1}
+	\end{align*}
+      Beh. $\mathcal R$ ist definierend.
+      
+      Es gen"ugt nach \ref{the:krit-endliche-praesentation} 
+      $|\overline F:=F/ \product{\mathcal R}_{Nor}|\leq |D_m|=2m$.
+      
+      In $\overline F$ gilt $g^m=h^2=(hg)^2=1$.
+      Aus $\mathcal R$ ergeben sich Folgerelationen: 
+      $h^2=1\Rightarrow h=h^{-1}$, $1=hghg\Rightarrow g^{-1}=hgh^{-1}$.
+      Daher $\overline F=\{g^ih^j\mid i\in\{0,\ldots,m\}, j=0,1\}$
+      (Betrachte eine beliebiges Wort in $G$ und k"urze mit Hilfe obiger
+      Regeln!)
+      Also auch $|\overline F|\leq 2m$.
+    \item Es gilt $S_n=\product{A:=\{\tau_1,\ldots,\tau_{n-1}\}}$ mit $\tau_i=(i,i+1)$ und
+      $\mathcal R=\{\tau_i^2=1 (i=1,\ldots,n),(\tau_i\tau_{i+1})^3=1 (i=1,\ldots,n-1), (\tau_i\tau_j)^2=1 (1\leq j<i-1\leq n-1)\}$.
+      
+      "Ubung: $\mathcal R$ ist definierend.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\remark Anwendung:{
+  $G=\product{A,\mathcal R}$ sei endlich pr"asentiert, $H$ endliche Gruppe.
+  $Hom(G,H)$ kann wie folgt bestimmt werden:
+  
+  Sei $A=(a_1,\ldots,a_n)\subset G$. Bestimme alle $A'=(a_1',\ldots,a_n')\subset H$, so dass
+  $\mathcal R$ f"ur die $a_i'$ in $H$ gilt.
+  
+  $\phi\in Hom(G,H)$ sind dann genau die Fortsetzungen der Abbildungen $a_i\mapsto a_i'$.
+  (laut UAE)
+  
+  Falls $G=H$ folgt: $\phi\in Aut(G)\iff G=\product{a_1',\ldots,a_n'}$ und 
+  $\mathcal R$ gilt f"ur die $a_i'$.
+  }
+% -----------------------------------------------------------------------------
+\remark Erfahrung der Gruppentheoretiker:{
+  Meist ist es sehr schwer, aus $A,\mathcal R$ etwas "uber 
+  $G=\product{A,\mathcal R}$ abzuleiten.
+  
+  Wortproblem: Gegeben sei eine endliche Pr"asentierung $G=\product{A,\mathcal R}$,
+  au"serdem $w=a_1*\cdots*a_n\in F_{Gr}(A)$.
+  Gesucht: Algorithmus, der entscheidet, ob $w$ in $G$ gilt oder nicht, d.h.
+  $\tilde j(w)=1$. In Spezialf"allen, wie z.B. f"ur $D_m$ oder die freie
+  Gruppe $F_{Gr}(A)$ (K"urzungsalgorithmus!) ist das Wortproblem zu l"osen,
+  wie gesehen. Aber allgemein?
+  
+  Satz von Novikow (ca. 1956): Das Wortproblem ist algorithmisch nicht l"osbar.
+  Genauer: Es gibt endlich pr"asentierte Gruppen $G$, f"ur die kein
+  Algorithmus zu L"osung des Wortproblems existiert.
+  
+  Daher kann erst recht kein Algorithmus existieren, der das ``Isomorphieproblem''
+  l"ost, d.h. zu zwei endlichen Pr"asentierungen entscheidet, ob die
+  resultierenden Gruppen isomorph sind.
+  
+  Ist $G=\product{A,\mathcal R}$ endlich und endlich pr"asentiert, so gibt es 
+  einen Algorithmus, der $|G|$ berechnet (``Coxeter-Todd-Algorithmus'').
+  Allerdings ist es sehr schwierig, zu entscheiden ob $\product{A,\mathcal R}$
+  endlich ist\ldots
+  
+  Kostprobe aus der Theorie der freien Gruppen:
+  
+  Satz von Schreier (1927):
+  Jede Untergruppe $U$ einer freien Gruppe $F$ ist frei. Hat
+  $F$ $n$ freie Erzeugende ($n\in N$) und ist $(F:U)<\infty$, so hat $U$
+  genau $(F:U)(n-1)+1$ freie Erzeugende.
+  F"ur $n=2$ gibt es nicht endlich erzeugbare Untergruppen. 
+  (Gut lesbarer Beweis dazu z.B. in M. Hall jr.: The Theory of groups, pp. 95-106)
+  }

@@ -1,0 +1,41 @@
+\setlength{\unitlength}{1mm}
+\begin{center}
+  \begin{picture}(120,40)
+    \put(0,15){\vector(1,0){20}}
+    
+    \put(25,15){\circle{10}}
+    \put(25,15){\makebox(0,0){$p_0$}}
+    
+    \put(40,25){\circle{10}}
+    \put(40,25){\makebox(0,0){$p_3$}}
+    
+    \put(55,15){\circle{10}}
+    \put(55,15){\circle{12}}
+    \put(55,15){\makebox(0,0){$p_1$}}
+    
+    \put(85,15){\circle{10}}
+    \put(85,15){\circle{12}}
+    \put(85,15){\makebox(0,0){$p_2$}}
+    
+    \put(28,19){\vector(3,2){7}}
+    \put(31,22){\makebox(0,0)[br]{$b$}}
+    
+    \put(30,15){\vector(1,0){19}}
+    \put(30,16){\makebox(19,0)[b]{$a$}}
+    
+    \put(52,21){\line(0,1){5}}
+    \put(55,26){\oval(6,12)[t]}
+    \put(58,26){\vector(0,-1){5}}
+    \put(55,33){\makebox(0,0)[b]{$b$}}
+    
+    \put(61,16){\vector(1,0){18}}
+    \put(61,17){\makebox(18,0)[b]{$a$}}
+    \put(79,14){\vector(-1,0){18}}
+    \put(61,13){\makebox(18,0)[t]{$b$}}
+    
+    \put(91,18){\line(1,0){5}}
+    \put(94.6,15){\oval(12,6)[r]}
+    \put(96,12){\vector(-1,0){5}}
+    \put(103,15){\makebox(0,0)[l]{$a$}}
+  \end{picture}
+\end{center}

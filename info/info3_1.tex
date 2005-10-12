@@ -1,0 +1,1930 @@
+\def\To{ERROR}
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\part{Formale Sprachen}
+% -----------------------------------------------------------------------------
+\section{Grammatiken und Sprachen}
+% -----------------------------------------------------------------------------
+\subsection{Grundbegriffe}
+% -----------------------------------------------------------------------------
+\definition Alphabet:{
+  Ein Alphabet ist eine endliche nichtleere Menge $V$ von \indexthis{Zeichen}.
+  }
+% -----------------------------------------------------------------------------
+\definition Wort:{
+  Ein Wort oder eine \indexthis{Zeichenkette} $w$ "uber einem Alphabet $V$ ist 
+  eine geordnete Menge $w=a_1\ldots a_n$ mit $a_i\in V$. Worte werden
+  gemeinhin mit Kleinbuchstaben bezeichnet.
+  
+  Die Menge aller Zeichenketten schreibt man $V^*$, die Menge aller nichtleeren
+  Zeichenketten $V^+:=V^*\setminus \{\lambda\}$.
+
+  Ein Wort $v$ ist genau dann ein \indexthis{Teilwort} des Wortes $w$, wenn 
+  es $b,c\in V^*$ gibt mit $w = bvc$.
+  }
+% -----------------------------------------------------------------------------
+\definition Sprache:{
+  Eine Sprache $L$ ist eine Teilmenge $L\subseteq V^*$.
+  }
+% -----------------------------------------------------------------------------
+\example Sprache und Alphabet:{
+  Eine Sprache "uber dem Alphabet $V := \{0,1\}$ ist z.B. 
+  $L:=\{0^n\mid n\nnatural\}$.
+  }
+% -----------------------------------------------------------------------------
+\definition Produktion:{
+  Eine Produktion oder \indexthis{Ersetzungsregel} ist ein Zweitupel
+  $(\alpha, \beta) \in V^* \times V^*$, auch geschrieben $\alpha \to \beta$. 
+  Ein \indexthis{Ersetzungssystem} oder \indexthis{Semi-Thue-System} $(V,P)$ 
+  ist ein geordnetes Paar, bestehend aus einem Alphabet $V$ und einer 
+  Produktionsmenge $P$.
+  }
+% -----------------------------------------------------------------------------
+\definition Ableitung:{
+  Seien nun $x, y \in V^*$. $y$ hei"st direkt ableitbar aus $x$ 
+  (Schreibweise: $x\dderivable y$) $:\equiv$
+  \[(\exists (\alpha, \beta) \in P)(\exists u, v \in V^*)(x = u \alpha
+    v \land y = u \beta v)
+    \]
+  $y$ hei"st (indirekt) ableitbar aus $x$ (Schreibweise: $x\derivable y$) 
+  $:\equiv$ 
+  \[(\exists x_1,\ldots,x_n\in V^*)(x\dderivable x_1 \dderivable \cdots 
+    \dderivable x_n \dderivable y)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Das Problem festzustellen, ob $x \derivable y$ f"ur gegebene $x,y$ gilt, 
+  ist im allgemeinen unentscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Grammatiken}
+% -----------------------------------------------------------------------------
+\definition Grammatik:{
+  Ein Viertupel $G=(V,T,S,P)$ mit den Alphabeten $V$ und $T$ sowie dem
+  Startsymbol $S$ und der Produktionsmenge $P$ hei"st eine Grammatik,
+  falls gilt
+  \begin{stmts}
+  \item $V\cap T=\emptyset$
+  \item $S\in V$
+  \item $|P|<\infty$ und f"ur $P$ gilt
+    \[(\forall p=u\to v \in P)(u,v\in(V\cup T)^+, u\cap V\ne\emptyset) 
+      \]
+  \end{stmts}
+  $T$ hei"st das \indexthis{Terminalalphabet}, $V$ das
+  \indexthis{Variablenalphabet} oder \indexthis{Nichtterminalalphabet}. Ein
+  beliebiges Element $q \in T$ hei"st \indexthis{Terminalzeichen}, ein
+  beliebiges Element $r \in V$ hei"st \indexthis{Variable} oder 
+  \indexthis{Nichtterminal}.
+
+  Sei nun $G=(V,T,S,P)$ eine Grammatik. Dann ist $L(G)$ die von $G$
+  erzeugte Sprache, definiert durch 
+  \[L(G):=\{w\in T^*\mid  S \derivable w\}
+    \]
+  Worte \index{Wort} "uber Grammatiken sind Elemente aus $T^*$, w"ahrend
+  f"ur eine \indexthis{Satzform} $u$ "uber $G$ ein $u\in(V\cup T)^*$ gilt.
+  }
+% -----------------------------------------------------------------------------
+\example Grammatik:{
+  Sei $V=\{S,A,B\}$ und $T=\{0,1\}$. Die Menge $P$ der Produktionen sei
+  \[P:=\{S \to 0B | 1A,A\to 0 | 0S | 1AA,B \to 1 | 1S | 0BB\}
+    \]
+  Dann gilt
+  \[L(G)=\{w \in \{0, 1\}^+\mid\text{Anzahl der Nullen gleich
+    Anzahl der Einsen}\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition "Aquivalenz von Grammatiken:{
+  \index{Grammatik>"Aquivalenz von}
+  Offensichtlich kann man f"ur ein- und dieselbe Sprache mehrere Grammatiken
+  angeben. Zwei Grammatiken $G_1,G_2$ hei"sen "aquivalent 
+  $:\equiv$ $L(G_1)=L(G_2)$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Die Chomsky-Hierarchie}
+\label{sub:chomsky}
+% -----------------------------------------------------------------------------
+\definition Chomsky-Klasse:{
+  Sei $G=(V,T,S,P)$ eine Grammatik. Dann hei"st $G$
+  \begin{itemize}
+    \item kontextsensitiv \index{Grammatik>kontextsensitive} $:\equiv$
+      die Produktionen haben die Form
+      \begin{itemize}
+        \item $yAz \to ywz$ mit $A\in V,w\ne\lambda,y,w,z\in(V\cup T)^*$ 
+        \item $S\to\lambda$, aber nur, wenn $S$ auf keiner rechten
+          Seite einer Produktionsregel vorkommt.
+        \end{itemize}
+      Dieser Grammatiktyp zeichnet sich dadurch aus, da"s Worte niemals
+      k"urzer werden (au"ser bei der trivialen Produktionsregel).
+    \item kontextfrei \index{Grammatik>kontextfreie} $:\equiv$
+      die Produktionen haben die Form $A\to w$ mit $A\in V,w\in(V\cup T)^*$.
+    \item rechtslinear \index{Grammatik>rechtslineare} $:\equiv$
+      die Produktionen haben die Form
+      \begin{itemize}
+        \item $A \to bC$ mit $A,C\in V,b\in T$
+        \item $A \to C$ mit $A,C\in V$
+        \end{itemize}
+      Die Linkslinearit"at wird analog definiert.
+    \end{itemize}
+  Einer Grammatik wird nun auch eine Typnummer zugeordnet: $G$ ist 
+  vom Typ
+  \begin{itemize}
+    \item 0 $:\equiv$ die Produktionen sind beliebig
+    \item 1 $:\equiv$ sie ist kontextsensitiv (kts)
+    \item 2 $:\equiv$ sie ist kontextfrei (ktf) 
+    \item 3 $:\equiv$ sie ist rechts- oder linkslinear
+    \end{itemize}
+  Sei $L_i$ die Klasse aller Grammatiken des Typs $i$. Dann gilt:
+  \[L_0 \supsetneqq L_1 \supsetneqq L_2 \supsetneqq L_3
+    \]
+  Eine Sprache hei"st vom Typ $i$ $:\equiv$ sie wird durch eine 
+  Grammatik des Typs $i$ erzeugt.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Abgeschlossenheit}
+\label{sub:complete}
+% -----------------------------------------------------------------------------
+\definition Operationen auf Sprachen:{
+  Seien $L, M$ Sprachen "uber $V$. Dann definiert man
+  \begin{itemize}
+    \item \indexthis{Vereinigung}: $L\cup M$ auf naheliegende Art und 
+      Weise.
+    \item \indexthis{Schnitt}: $L\cap M$ auf naheliegende Art und 
+      Weise.
+    \item \indexthis{Konkatenation}: 
+      $L\cdot M:=LM:=\{\alpha\beta\mid\alpha\in L,\beta\in M\}$
+      Daher auch $L^0:=\{\lambda\}$, $L^i:=L^{i-1}\cdot L$.
+    \item \indexthis{Sternoperation}:
+      $L^*:=\{\alpha_1\cdots\alpha_n\mid \alpha_i\in L,i,n\nnatural\}$,
+      deswegen auch $L^* = \bigcup_{n \geq 0} L^n$
+    \item \indexthis{Komplement}:
+      $L^c:=T^*\setminus L$
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem Abgeschlossenheit:=>{
+  \label{the:complete}
+  Die Mengen $L_i$ sind abgeschlossen bez"uglich der Operationen 
+  $\cup, \cdot, *$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:complete}:{
+  Seien $G_1=(V_1,T,S_1,P_1),G_2:=(V_2,T,S_2,P_2)$ Grammatiken
+  vom Typ $i$. Setze $L_j:=L(G_j)$ f"ur $j=1,2$. O.B.d.A. gelte
+  $V_1\cap V_2=\emptyset$.
+  \begin{description}
+    \item[Vereinigung] Setze $P:=\{S\to S_1|S_2\}\cup P_1\cup P_2$,
+      $V:=V_1\cup V_2$. Dann gilt $L(G)=L_1\cup L_2$ mit $G:=(V,T,S,P)$.
+    \item[Konkatenation ($i\ne 3$)] Ein Ansatz 
+      der Art $P:=\{S \to S_1S_2\}\cup P_1\cup P_2$ 
+      ist nicht ausreichend, da auf dem Wege "uber das identische 
+      Terminalalphabet Produktionen aus $P_1$ auf Teilworte angewandt werden 
+      k"onnten, die eigentlich aus $L_2$ ``stammen''.
+    
+      Daher legen wir zwei verschiedene Kopien $T_1, T_2$ des
+      Terminalalphabets $T$ als Variablenalphabete an. Die
+      Produktionen m"ussen nat"urlich ebenfalls entsprechend angepasst
+      werden. So seien $Q_i$ die Produktionenmengen nach den erforderlichen
+      Umbenennungen, erg"anzt um Produktionen, die aus den 
+      M"ochtegern-Terminalen in $T_i$ wieder echte Terminale machen.
+    
+      Seien weiter $P:=\{S\to S_1S_2\}\cup Q_1\cup Q_2$ sowie 
+      $V:=V_1\cup V_2\cup T_1\cup T_2\cup\{S\}$.
+    
+      Dann ist $G:=(V,T,S,P)$ wieder vom Typ $i$ und $L(G) = L_1L_2$.
+    \item[Konkatenation ($i=3$)] Wir nehmen an, die Grammatik sei
+      o.B.d.A. rechtslinear. Dann setzen wir
+      $P:=P_1\cup\{A\to bS_2\mid A\to b\in P_1\}\cup P_2$.
+      Dann ist $G:=(V,T,S_1,P)$ rechtslinear und $L(G)=L_1\cdot L_2$.
+    \item[Sternoperation ($i\ne 3$)] Definiere 
+      \[P:=P_1\cup\{S\to\lambda|S_1|S_1S_1|S_1S_2S_1,S_2\to S_2S_1S_2\}
+        \]
+      *** FIXME H"a?
+      dabei sind $G_1=G_2$, daher $S_1=S_2$. Dann ist 
+      $G:=(V_1\cup\{S\},T,S,P)$ wieder vom gleichen Typ wie $G_1=G_2$ und
+      $L(G)=L_1^*$.
+    \item[Sternoperation ($i = 3$)] Die Grammatik sei o.B.d.A. 
+      rechtslinear. Setze
+      \[P:=P_1\cup\{S_1\to\lambda\}\cup\{A\to bS_1\mid A\to b \in P_1\}
+        \]
+      so ist $G:=(V_1,T,S_1,P)$ rechtslinear und $L(G)=L_1^*$.\qed
+    \end{description}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Rechtslineare Sprachen sind abgeschlossen bez"uglich der Komplement-
+  und Durchschnittbildung. (Beweis sp"ater)
+  }
+% -----------------------------------------------------------------------------
+\section{Regul"are Sprachen}
+% -----------------------------------------------------------------------------
+\definition Regul"are Sprache:{
+  Rechts- oder linkslineare Sprachen werden als regul"are
+  Sprachen bezeichnet.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Finite Akzeptoren}
+% -----------------------------------------------------------------------------
+\definition Deterministischer finiter Akzeptor:{
+\index{DFA}%
+\index{Akzeptor>deterministischer finiter}%
+\index{Finiter Akzeptor>deterministischer}%
+\index{Deterministischer finiter Automat}%
+\index{Automat>deterministischer finiter}%
+\index{Finiter Automat>deterministischer}%
+  Ein deterministischer finiter Akzeptor/Automat (DFA) $M$ ist ein Quintupel
+  $M=(X,Q,\delta,q_0,F)$ mit dem Eingabealphabet $X$, der Zustandsmenge $Q$,
+  der Zustands"ubergangsfunktion $\delta:Q\times X\to Q$, dem Anfangszustand 
+  $q_0\in Q$ und der Endzustandsmenge $F$.
+  
+  Man definiert rekursiv eine mehrstufige "Ubergangsfunktion 
+  $\delta^*:Q\times X^*\to Q$ mit $\delta^*(q,\lambda):=q$ und 
+  $\delta^*(q,wx):=\delta(\delta^*(q, w),x)$.
+
+  Die von einem Automaten $M$ akzeptierte Sprache 
+  \[L(M):=\{w\in X^*\mid\delta^*(q_0, w)\in F\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example Ein einfacher Automat:{
+  \input info3_dfa_simple.epic
+  Hierbei ist $Q := \{q_0, q_1\}$, $X := \{0, 1\}$ sowie $F := \{q_0\}$.
+  Die Zustands"ubergangstabelle lautet
+  \[\begin{array}{c|cc}
+    \delta & 0 & 1 \\\hline
+    q_0 & q_1 & q_1 \\
+    q_1 & q_1 & q_0
+    \end{array}\]
+  Die von diesem Automaten akzeptierte Sprache ist $L = ((0 + 1)0^*1)^*$. 
+  (Notation siehe \ref{def:regex}.)
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M=(X,Q,\delta,q_0,F)$ DFA=>{
+  \label{the:dfa-linear}
+  Dann ist $L(M)$ rechtslinear.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:dfa-linear}:{
+  Wir legen einfach die Funktionsweise eines Automaten in Form von 
+  Produktionen dar. Setze 
+  \begin{multline*}
+    P:=\{q\to xq'\mid\delta(q, x)=q',q,q'\in Q,x\in X\}\cup  \\
+    \{q\to x\mid\delta(q, x)\in F,q\in Q,x\in X\}
+    \end{multline*}
+  Dann ist $G:=(Q,X,q_0,P)$ rechtslinear. \qed
+  }
+% -----------------------------------------------------------------------------
+\definition Nichtdeterministischer finiter Akzeptor:{
+\index{NFA}%
+\index{Akzeptor>nichtdeterministischer finiter}%
+\index{Finiter Akzeptor>nichtdeterministischer}%
+\index{Nichtdeterministischer finiter Automat}%
+\index{Automat>nichtdeterministischer finiter}%
+\index{Finiter Automat>nicht deterministischer}%
+  Ein Quintupel $M=(X,Q,\delta,q_0,F)$ hei"st ein
+  nichtdeterministischer finiter Akzeptor (NFA) $:\equiv$
+  $X, Q, q, F$ sind wie bei einem DFA und die Zustands"ubergangsfunktion 
+  ist $\delta:Q\times X\to \cal P(Q)$.
+  
+  Rekursiv definiert man wieder
+  $\delta^*:Q\times X^*\to \cal P(Q)$ mit $\delta^*(q,\lambda):=\{q\}$ und 
+  $\delta^*(q,wx):=\delta(\delta^*(q, w),x)$. (Beachte: Ergebnis von 
+  $\delta^*$ in vorigem Ausdruck ist bereits eine Menge!)
+
+  Die von $M$ akzekptiere Sprache ist
+  \[L(M):= \{w\in X^*\mid\delta^*(q_0, w)\cap F\ne\emptyset\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example Ein einfacher NFA:{
+  \input info3_nfa_simple.epic
+  Die zugeh"orige Grammatik ist rechtslinear:
+  \begin{align*}
+    q_0 &\to aq_0 | aq_1 | bq_2 | b\\
+    q_1 &\to bq_2 | b\\
+    q_2 &\to aq_2 | a
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $L$ rechtslinear=>{
+  Dann existiert ein NFA $M$ mit $L(M)=L$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$M=(X,Q,\delta,q_0,F)$ NFA=>{
+  \label{the:nfa-dfa}
+  Es existiert ein DFA $M'$ mit $L(M) = L(M')$.
+  }
+% -----------------------------------------------------------------------------
+\proof\ref{the:nfa-dfa}:{
+  Man definiert schlicht
+  \[M':=(X, \cal P(Q),\delta',\{q_0\},F')
+    \]
+  mit 
+  \[\delta'(\{q_1,\ldots,q_n\},x):=\delta(q_1, x)\cup\ldots\cup\delta(q_n,x)
+    \] 
+  und $F':=\{p\in\cal P(Q)\mid p\cap F\ne\emptyset\}$. 
+  Dieser Automat ist ein DFA und erkennt dieselbe Sprache wie $M$.\qed
+  }
+% -----------------------------------------------------------------------------
+\example Umwandlung NFA $\to$ DFA:{
+  Wir geben zun"achst einen NFA $M$ an:
+  \input info3_convert_nfa.epic
+  Die Zustands"ubergangstabelle f"ur diesen NFA lautet wie folgt:
+  \[\begin{array}{l}
+      p_0 := \{q_0\}\\
+      p_1 := \{q_1, q_2\}\\
+      p_2 := \{q_0, q_1, q_2\}\\
+      p_3 := \emptyset
+      \end{array}
+      \qquad
+      \begin{array}{c|ccc}
+       	\delta' & p_0 & p_1 & p_2 \\\hline
+       	a & p_1 & p_2 & p_2 \\
+       	b & p_3 & p_1 & p_1
+      \end{array}
+    \]
+  Ein zugeh"origer DFA $M'$ ist also
+  \input info3_convert_dfa.epic
+  }
+% -----------------------------------------------------------------------------
+\corollary: $L$ rechtslineare Sprache=>{
+  Es existiert ein DFA $M$ mit $L(M)=L$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Das Pumping-Lemma}
+% -----------------------------------------------------------------------------
+\lemma Pumping-Lemma:
+  $M=(X,Q,\delta,q_0,F)$ DFA, $|Q|=n$=>{
+  \label{the:pumping-lemma-dfa}
+  Dann gilt f"ur alle $z\in L(M)$ mit $|z|>n$
+  \[(\exists u,v,w\in T^*)(z=uvw,v\ne\lambda,uv^*w\in L(M))
+    \]
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:pumping-lemma-dfa}:{
+  Sei $z = a_1\ldots a_k$, $|z|=k>n$. Dann existieren $q_1,\ldots,q_n\in Q$ mit
+  $\delta(q_{i-1},a_i)=q_i$ f"ur $i=1,\ldots k$. 
+  
+  Wegen $k>n$ existieren nun mehr Zust"ande des DFA als Zeichen im Wort, 
+  es existieren also $i<j\in\{1,\ldots,k\}$ mit $q_i=q_j$. Dann erf"ullt 
+  $v:=a_{i+1}\ldots a_j$ die Behauptung, denn der Zyklus $q_i\ldots q_j=q_i$ 
+  akzeptiert $v$ beliebig oft.
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerung:{
+  Die Sprache $\{a^nb^n \mid n \in \mathbb{N}\}$ ist nicht rechtslinear, 
+  aber kontextfrei. W"are sie rechtslinear, m"usste f"ur sie auch
+  \ref{the:pumping-lemma-dfa} gelten. Offensichtlich kann dies aber
+  nicht der Fall sein, da kein Teilwort $v$ von $a^nb^n$ die geforderte
+  Bedingung erf"ullen kann.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $K,L$ rechtslinear=>{
+  \label{the:linear-cap-compl}
+  Dann sind auch $K^c$ und $K \cap L$ rechtslinear.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:linear-cap-compl}:{
+  Wir zeigen beide Teile der Behauptung:
+  \begin{description}
+    \item[Komplement:]
+      Betrachte den zu $K$ geh"origen DFA
+      $M:=(X,Q,\delta,q_0,F)$. Dann ist auch 
+      $M^c:=(X,Q,\delta,q_0,Q\setminus F)$ ein DFA, und er akzeptiert genau
+      $K^c$. Also ist auch $K^c$ rechtslinear.
+    \item[Schnitt:]
+      Man mache sich klar, dass gilt
+      \[K\cap L=(K^c\cup L^c)^c
+       	\]
+      womit sich die Aussage aus dem Vorangegangenen ergibt.\qed
+    \end{description}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Regul"are Ausdr"ucke}
+% -----------------------------------------------------------------------------
+\definition Regul"arer Ausdruck:{
+  \index{Ausdruck>regul"arer}
+  \label{def:regex}
+  $R$ ist ein regul"arer Ausdruck "uber einem Alphabet $T$, falls
+  \begin{enumerate}
+    \item $R = \emptyset, \lambda, a$ mit $a \in T$
+    \item $R = (R_1 + R_2)$ mit regul"aren Ausdr"ucken $R_1, R_2$ (Vereinigung)
+    \item $R = (R_1 \cdot R_2)$ mit regul"aren Ausdr"ucken $R_1, R_2$ (Konkatenation)
+    \item $R = (R_1)^*$ mit regul"arem Ausdruck $R_1$ (Sternoperation)
+    \end{enumerate}
+  Eine Sprache $L$ hei"st regul"ar, falls sie von einem regul"aren
+  Ausdruck erzeugt wird.
+  \index{Regul"are Sprache}
+  \index{Sprache>regul"are}
+  }
+% -----------------------------------------------------------------------------
+\example Regul"are Ausdr"ucke:{
+  Z.B. $\emptyset, \lambda, a^*, (ab + bb)^*$.
+  }
+% -----------------------------------------------------------------------------
+\remark :{
+  Mit den Ergebnissen aus \ref{sub:complete} erhalten wir:
+  Jede regul"are Sprache ist rechtslinear.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M=(Q,X,\delta,q_0,F)$ ein DFA, $Q=\{q_0,\ldots,q_n\}$=>{
+  \label{the:dfa-regular}
+  Dann ist $L(M)$ regul"ar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:dfa-regular}:{
+  Seien $i,j\in\{0,\ldots,n\}$ beliebig.
+  Setze $R_{ij}:=\{w\mid\delta^*(q_i,w)=q_j\}$. Ist $w\in R_{ij}$
+  und $q_i,q_{i_1},\ldots,q_{i_l},q_j$ die Abfolge der Zust"ande
+  bei der Akzeption von $w$, so definiere $Q(i,j,w):=\{q_{i_1},\ldots,q_{i_l}\}$.
+  Definiere dann weiterhin 
+  \[R_{ij}^k:=\{w\in R_{ij}\mid Q(i,j,w)\cap\{q_k,\ldots,q_n\}=\emptyset\}
+    \]
+  Wir zeigen durch vollst"andige Induktion "uber $k$: $R_{ij}^{n+1}=R^{ij}$
+  ist rechtslinear. F"ur den Induktionsanfang ($R_{ij}^0$) ist dies klar, 
+  denn es gilt $R_{ij}^0\subseteq X$.
+  
+  $k \curvearrowright k + 1$: Es gilt offensichtlich
+  $R_{ij}^{k+1}=R_{ij}^k+R_{ik}^k(R_{kk}^k)^*R_{kj}^k$. Weiterhin ist
+  dieser Ausdruck nach Bildung und Induktionsvoraussetzung regul"ar.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Linearit"at:{
+  Da die Argumentation von \ref{the:dfa-regular} auch auf linkslineare
+  Sprachen anwendbar ist, erh"alt man:
+  \[\{\text{rechtslineare Sprachen}\}=\{\text{regul"are Sprachen}\}=
+    \{\text{linkslineare Sprachen}\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Eine "Aquivalenzrelation}
+\label{sub:regular-equivrel}
+% -----------------------------------------------------------------------------
+\definition Index einer "Aquivalenzrelation:{
+  \index{"Aquivalenzrelation>Index einer}
+  Sei ``$\sim$'' eine "Aquivalenzrelation. Dann nennt die
+  Anzahl der von $\sim$ erzeugten "Aquivalenzklassen auch den 
+  Index von $\sim$, geschrieben $\#\sim$.
+  }
+% -----------------------------------------------------------------------------
+\definition Charakteristische "Aquivalenzrelation:{
+  Sei $L\subseteq T^*$ eine Sprache. Dann definiert man f"ur $x,y\in T^*$
+  \[x\sim_L y:\equiv (\forall z\in T^*)(xz\in L\equiv yz\in L)
+    \]
+  Man kann leicht nachpr"ufen, dass diese Relation symmetrisch,
+  reflexiv und transitiv, also eine "Aquivalenzrelation ist.
+  
+  Sei $M=(Q,X,\delta,q_0,F)$ ein DFA. Dann definiert man f"ur $x,y\in X^*$
+  \[x\sim_M y:\equiv \delta^*(q_0,x)=\delta^*(q_0,y)
+    \]
+  Auch diese Relation ist eine "Aquivalenzrelation, ihr Index ist gerade
+  $|Q|$.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $L\subseteq T^*$ Sprache=>{
+  \label{the:regular-equiv}
+  Dann gilt: $L$ regul"ar $\equiv$ Index von $\sim_L$ $<\infty$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:regular-equiv}:{
+  \begin{description}
+    \item[``$\implies$''] Sei $M=(Q,T,\delta,q_0,F)$ ein DFA
+      mit $L = L(M)$. Dann gilt f"ur alle $x\in T^*$:
+      $x\sim_M y\implies x\sim_L y$. In diesem Sinne ist
+      $\sim_M$ eine Verfeinerung von $\sim_L$, also gilt      
+      $\infty>\#\sim_M>\#\sim_L$.
+    \item[``$\Leftarrow$''] Seien $[w_1], \dots, [w_n]$ die
+      "Aquivalenzklassen von $\sim_L$. Wir definieren dann $M:=(Q,X,\delta,q_0,F)$ 
+      mit $Q:=\{[w_1],\ldots,[w_n]\}$, $\delta([w_i],x):=[wx]$, $q_0:=[\lambda]$,
+      $F:=\{[w]\mid w\in L\}$. Die Definition von $F$ ist 
+      repr"asentantenunabh"angig, denn sei $w_1\sim_L w_2,w_1\in L$. Dann
+      folgt nach Def. $w_1\lambda\in L\equiv w_2\lambda\in L$.
+      Insgesamt erh"alt man $w\in L(M)\equiv w\in L$.\qed
+    \end{description}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Wir geben zwei Beispiele f"ur dieses Kriterium an.
+  \begin{enumerate}
+    \item Sei $L := \{a^nb^n \mid n \leq 1\}$. Einige "Aquivalenzklassen
+      von $\sim_L$ sind dann zum Beispiel
+      \begin{itemize}
+      \item $[\lambda] = \{\lambda\}$
+      \item $[a] = \{a, a^2b, a^3b^2, a^4b^3, \dots\}$
+      \item $[a^2] = \{a^2, a^3b, a^4b^2, a^5b^3, \dots\}$
+      \item $[a^3] = \{a^3, a^4b, a^5b^2, a^6b^3, \dots\}$
+      \end{itemize}
+      Der Index von $\sim_L$ ist offensichtlich unendlich. Folglich ist
+      $L$ nicht regul"ar.
+    \item Sei nun $L := \{w \in \{0, 1\}^+ \mid w \text{ endet mit
+       	00}\}$. Dann sind die s"amtlichen "Aquivalenzklassen von $\sim_L$:
+      \begin{itemize}
+      \item $[\lambda] = \{w \in \{0, 1\}^+ \mid w \text{ endet nicht mit
+       	  0}\}$
+      \item $[0] = \{w \in \{0, 1\}^+ \mid w \text{ endet mit 0, aber
+       	  nicht mit 00}\}$
+      \item $[00] = \{w \in \{0, 1\}^+ \mid w \text{ endet mit 00}\}$
+      \end{itemize}
+      Folglich ist $\{0, 1\}^+ = [\lambda] \cup [0] \cup [00]$, der Index
+      von $\sim_L$ ist also gleich 3, $L$ also regul"ar.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Minimalautomat}
+\label{sub:miniauto}
+% -----------------------------------------------------------------------------
+\definition Minimalautomat:{
+  Sei $L$ eine Sprache. Dann ist der Minimalautomat f"ur diese Sprache
+  derjenige DFA $M=(X,Q,\delta,q_0,F)$ mit minimalem $|Q|$, f"ur den noch
+  gilt $L(M)=L$.
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerungen aus Abschnitt \ref{sub:regular-equivrel}:{
+  Unmittelbar kann man beobachten:
+  \begin{itemize}
+    \item Sei $n$ der Index der "Aquivalenzrelation $\sim_L$. Dann hat
+      jeder endliche DFA $M$ mit $L=L(M)$ mindestens $n$ Zust"ande.
+    \item Der "Aquivalenzklassenautomat aus dem Beweis zu
+      \ref{the:regular-equiv} ist minimal.
+    \item Es gibt bis auf Isomorphie nur einen Minimalautomaten f"ur $L$.
+    \item Ein DFA kann durch Verschmelzen von Zust"anden in den Minimalautomaten
+      "uberf"uhrt werden.
+    \end{itemize}
+  Zwei Zust"ande $p,q$ sind nicht verschmelzbar, falls 
+  falls es ein $w\in X^*$ gibt mit $\delta^*(p,w)\in F$, aber
+  $\delta^*(q,w)\not\in F$ beziehungsweise falls $\delta^*(p,w)$ und 
+  $\delta^*(q,w)$ nicht verschmelzbar sind. Daraus ergibt sich sofort
+  der folgende Minimierungsalgorithmus, der von der Grundsatzidee nur 
+  ``Paare von nicht verschmelzbaren Zust"anden anh"auft''.
+  }
+% -----------------------------------------------------------------------------
+\algorithm Minimierung eines DFA:{
+  \given $M=(X,Q,\delta,q_0,F)$ DFA.
+  
+  \aim Zugeh"origer Minimalautomat $\tilde M=(X,\tilde Q,\tilde\delta,q_0,F)$
+  
+  \begin{proc}
+    \item Entferne alle Zust"ande, die nicht von $q_0$ aus erreichbar sind.
+    \item Markiere alle Paare $(p,q)\in F\times F^c\cup F^c\times F$.
+    \item Wiederhole, bis keine Markierungen mehr hinzukommen:
+      \begin{itemize}
+        \item
+       	  F"ur alle unmarkierten Zust"ande $(p,q)\in Q^2$:
+	  \begin{itemize}
+	    \item
+       	      Ist $(\delta(p,a),\delta(q,a))$ f"ur ein $a\in X$ markiert, so
+       	      markiere $(p,q)$.
+	    \end{itemize}
+        \end{itemize}
+    \item Verschmelze alle unmarkierten Zustandspaare miteinander.
+    \end{proc}
+  }
+% -----------------------------------------------------------------------------
+\example Minimierung eines Beispielautomaten:{
+  Gegeben sei der folgende Automat
+  \input info3_dfa_min_before.epic
+  Im ersten Schritt werden die Paare $(q_0, q_4), (q_1, q_4), (q_2,
+  q_4), (q_3, q_4)$ markiert, also alle Paare, bei denen ein Zustand ein
+  Finalzustand ist, der andere aber nicht.
+  
+  Im zweiten Schritt werden die Paare $(q_0, q_1), (q_0, q_3), (q_1,
+  q_2), (q_2, q_3)$ markiert, da sie auf Zust"ande f"uhren, die als Paar
+  schon markiert sind.
+
+  Der dritte Schritt bringt keine weiteren Markierungen, also sind wir
+  fertig mit Aussortieren. Wir k"onnen nun beginnen, die verbleibenden
+  Zustandspaare zu verschmelzen. Wir kombinieren $(q_0, q_2)$ zu
+  $q_0q_2$ und $(q_1, q_3)$ zu $q_1q_3$. Der resultierende
+  Minimalautomat ist
+  \input info3_dfa_min_after.epic
+  Erkannt wird in beiden F"allen die Sprache 
+  $L =\{w\in\{0,1\}^+\mid w\text{ enth"alt }00\}$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Entscheidbarkeit}
+\label{sub:decidability}
+% -----------------------------------------------------------------------------
+\definition Produktautomat:{
+  Seien $M_1=(X,Q_1,\delta_1,q_0,F)$ und $M_2=(X,Q_2,\delta_2,q_0',F)$
+  DFA'en. Dann hei"st der Automat
+  \[M:=(X,Q_1\times Q_2,(\delta_1,\delta_2),(q_0,q_0'),F\times F')
+    \]
+  der Produktautomat von $M_1$ und $M_2$.
+  
+  Es gilt $L(M)=L(M_1)\cap L(M_2)$.
+  }
+% -----------------------------------------------------------------------------
+\remark Algorithmische Entscheidbarkeit:{
+  Algorithmisch entscheidbar sind:
+  \begin{itemize}
+    \item Wortproblem: $w\in L$?
+    \item Leerheit: $L=\emptyset$? Ist ein Endzustand von $q_0$ aus
+      erreichbar?
+    \item "Aquivalenz: $L_1=L_2$? Minimalautomaten vergleichen.
+    \item Schnitt: $L_1\cap L_2=\emptyset$? Betrachte hierf"ur den
+      Produktautomaten.
+    \item Endlichkeit: $|L|=\infty$? Hierbei gilt wegen des
+      Pumping-Lemmas (mit dem dortigen $n=|Q|$ des DFA)
+      \[|L| = \infty\equiv(\exists z \in L)(n<|z|\le 2n)
+        \]
+      Wir pr"ufen also nur noch alle Worte der L"ange $l \in (n, 2n]$ auf
+      Zugeh"origkeit zu $L$.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\section{Kontextfreie Grammatiken}
+% -----------------------------------------------------------------------------
+\subsection{Syntaxb"aume}
+% -----------------------------------------------------------------------------
+\example Kontextfreie Grammatik:{
+  \index{Grammatik>kontextfreie}
+  \index{Ableitungsbaum}
+  \index{Syntaxbaum}
+  Wir betrachten eine Grammatik mit den Produktionen
+  \begin{align*}
+    S &\to 0A\\
+    A &\to 0AA | 1
+    \end{align*}
+  Die kontextfreie Ableitung
+  \[S\dderivable 0A\dderivable 00AA\dderivable 000AAA\derivable 000111
+    \]
+  hat den Syntax oder Ableitungsbaum
+  \input info3_syntree_simple.epic
+  }
+% -----------------------------------------------------------------------------
+\remark Beobachtungen am Syntaxbaum:{
+  \begin{itemize}
+    \item $S$ ist die Wurzel
+    \item Bl"atter sind Elemente von $T \cup \{\lambda\}$
+    \item Knoten sind Elemente von $V$
+    \item Ist \input info3_syntree_part.epic
+      ein Teilbaum, dann gilt $A \to k_1 k_2 \ldots k_n \in P$.
+    \item Zu einem gegebenen Ableitungsbaum ist die Reihenfolge der
+      Ableitungen i.A. nicht eindeutig.
+    \item Zu einem gegebenen Wort aus $L(G)$ mit einer Grammatik $G$ ist 
+      die Ableitung i.A. nicht eindeutig. Grammatiken, auf die dieses zutrifft,
+      hei"sen mehrdeutig. 
+      \index{Grammatik>mehrdeutige}\index{mehrdeutige Grammatik}
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\example Verschiedene B"aume:{
+  Die beiden letzten Sachverhalte veranschaulicht das folgende Beispiel:
+  \input info3_syntree_unique.epic
+  }
+% -----------------------------------------------------------------------------
+\definition Linksableitung:{
+  Eine Links- bzw. \indexthis{Rechtsableitung} ist eine
+  Ableitung, bei der die am weitesten links beziehungsweise rechts
+  stehende Variable zuerst ersetzt wird.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Das Pumping-Lemma}
+\label{sub:ctf-pumping}
+% -----------------------------------------------------------------------------
+\lemma Baumh"ohenlemma:
+  $G=(V,T,S,P)$ eine kontextfreie Grammatik, 
+  $m:=\max\{|n|\mid(\exists A\in V)(A\to n\in P)\}$, $z\in L(G)$,
+  Ableitungsbaum von $z$ hat die H"ohe $k$=>{
+  \label{lem:ctf-tree-height}
+  Dann ergibt sich sofort aus dem Ableitungsbaum: $|z|\le m^k$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Pumping-Lemma (auch $uvwxy$-Theorem):
+  $G=(V,T,S,P)$ kontextfreie Grammatik=>{
+  \label{the:ctf-pumping}
+  \index{$uvwxy$-Theorem}
+  Dann existiert ein $p\natural$ so, dass f"ur alle $z\in L(G)$ mit
+  $|z|\ge p$ gilt:
+  \begin{multline*}
+    (\exists u,v,w,x,y\in T^*)(z=uvwxy,\\
+    |vwx|\le p,vx\ne\lambda,(\forall i\nnatural)(uv^iwx^iy\in L(G)))
+    \end{multline*}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf-pumping}:{
+  Setze wieder $m:=\max\{|n|\mid(\exists A\in V)(A\to n\in P)\}$, $z\in L(G)$.
+  Setze $p:=m^{|V|+1}$, sei $z\in L(G)$ nun ein Wort mit $|z|\ge p$. Wegen
+  \ref{lem:ctf-tree-height} kann der Ableitungsbaum von $z$ keine H"ohe 
+  $h\le|V|+1$ haben, da $z$ sonst gar nicht so lang sein k"onnte.
+  
+  Da nun $h>|V|$, muss im Ableitungsbaum ein Nichtterminal doppelt vorkommen,
+  w"ahle dasjenige Nichtterminal, welches als letztes doppelt vorkommt,
+  dieses sei $A$. Betrachte folgende Abbildung:
+  \begin{center}\input info3_pumping_ctf.epic\end{center}
+  Beachte: $A$ kann in der ersten Ableitung $S\derivable A$ auch schon vorkommen,
+  w"ahle daher $v$ und $x$ so, dass in der Ableitung $A\derivable vAx$ kein
+  weiteres $A$ mehr vorkommt, weiterhin so, dass $vx\ne\lambda$ (dies kann 
+  o.B.d.A. verlangt werden, da eine Ableitung $A\derivable A$ nichts zur
+  L"ange beigetragen hat, d.h. unser Wort erf"ullt die Voraussetzungen des
+  Satzes auch nach Entfernung dieser vergeblichen Ableitung noch)
+  
+  Nun gilt: $|vwx|\le p$ aufgrund der Wahl von $v,x$. 
+  Offensichtlich sind nun auch $uv^iwx^iy$ mit $i\nnatural\in L(G)$.\qed
+  }
+% -----------------------------------------------------------------------------
+\example Folgerung:{
+  Die Sprache $L:=\{a^nb^nc^n \mid n > 0\}$ ist nicht kontextfrei.
+
+  W"ahle $n>p$. Angenommen $uvwxy = a^nb^nc^n$ mit $|vwx| \leq p < n$
+  sowie $vx \not= \lambda$ und $p$ beliebig. Dann folgt
+  \[vwx \in a^*b^* \text{ oder } b^*c^*\]
+  und somit $uv^2wx^2y \not\in L$. Daraus folgt nach dem Pumping-Lemma,
+  dass $L$ nicht kontextfrei ist.
+  
+  $L$ ist sehr wohl kontextsensitiv, denn die
+  Produktionen
+  \begin{eqnarray*}
+    S & \to & aBC | aSBC\\
+    CB & \to & BC\\
+    aB & \to & ab\\
+    bB & \to & bb\\
+    bC & \to & bc\\
+    cC & \to & CC
+  \end{eqnarray*}
+  erzeugen $L$ und sind \emph{erweiternd}. Daher ist $L$ auch kontextsensitiv.
+  }
+% -----------------------------------------------------------------------------
+\subsection{$\lambda$- und kontextfreie Sprachen}
+\label{sub:ctf-lang}
+% -----------------------------------------------------------------------------
+\theorem:
+  $G=(V,T,S,P)$ kontextfrei=>{
+  \label{the:ctf-cts}
+  $L(G)$ kontextsensitiv.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf-cts}:{
+  Einziges Problem ist hier, dass bei kontextfreien Sprachen Produktionen
+  der Form $A\to\lambda$ zugelassen sind, bei kontextsensitiven jedoch nicht.
+
+  Seien $P^*:=\{A_1\to\lambda, \dots, A_k \to \lambda\}$ alle $\lambda$-Produktionen in
+  $P$. Setze $P':=P\setminus P^*$.
+  
+  Dann m"ussen wir lediglich f"ur jede Produktion in $P'$, in der mindestens 
+  eines von $A_1,\ldots,A_k$ auf einer rechten Seite auftritt, alle 
+  M"oglichkeiten ``durchrattern'', die es gibt, die $A_1,\ldots,A_k$
+  wegzulassen. F"ur jeden solchen ``Ratterschritt'' erzeugen wir eine 
+  neue Produktion. Dann ist die so erzeugte neue Produktionenmenge $P''$
+  gleichwertig mit $P$, aber $\lambda$-frei.
+
+  Setze weiterhin 
+  \[G':=\begin{cases}
+       	(V, T, S, P'') & \text{falls } \lambda \not\in L(G)\\
+       	(V \cup \{S'\}, T, S', P'' \cup \{S' \to \lambda | S\}) & \text{sonst}
+      \end{cases}
+    \]
+  Dann ist $G'$ kontextsensitiv mit $L(G) = L(G')$.\qed
+  }
+% -----------------------------------------------------------------------------
+\subsection{Abschlusseigenschaften}
+\label{sub:ctf-complete}
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \label{the:ctf-no-cap}
+  $L_2$ ist \emph{nicht} abgeschlossen bez"uglich des Schnittes.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf-no-cap}:{
+  Durch ein Gegenbeispiel. 
+  $L_1:=\{a^m b^n c^n\mid m,n\natural\}$ und
+  $L_2:=\{a^n b^n c^m\mid m,n\natural\}$
+  sind kontextfrei, $L_1\cap L_2=\{a^n b^n c^n\mid n\natural\}$ allerdings
+  nicht.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Abgeschlossenheit gg"u. Komplementbildung:{
+  Als direkte Folge von \ref{the:ctf-no-cap} und
+  aufgrund der DeMorgan-Regel sind kontextfreie Sprachen bez"uglich
+  des Komplementbildung i.A. nicht abgeschlossen.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Die Chomsky-Normalform}
+\label{sub:chomsky-nf}
+% -----------------------------------------------------------------------------
+\definition Chomsky-Normalform:{
+  \index{Normalform>Chomsky-}
+  Eine kontextfreie Grammatik ist in \emph{Chomsky-Normalform} (CNF),
+  wenn sie $\lambda$-frei ist und alle ihre Produktionen von folgender
+  Form sind:
+  \begin{itemize}
+    \item $S \to \lambda$ oder
+    \item $A \to BC$ oder
+    \item $A \to a,$
+    \end{itemize}
+  mit $A, B, C \in V$ sowie $a \in T$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $L=L(G)$ mit $G=(V,T,S,P)$ kontextfrei=>{
+  \label{the:chomsky-nf}
+  Dann existiert eine Grammatik $G'$ mit $L(G')=L(G)$, wobei $G'$ 
+  Chomsky-Normalform besitzt.
+  }
+% -----------------------------------------------------------------------------
+\proof Erzeugung der Chomsky-Normalform:{
+  Durch Angabe eines Algorithmus, wir erzeugen $G'=(V',T,S,P')$.
+  \begin{proc}
+    \item Mache die Grammatik $\lambda$-frei.
+    \item Erzeuge ein neues Nichtterminal $A_a\in V'$ 
+      f"ur jedes Terminal $a\in T$, Erg"anze $P'$ um $A_a\to a$.
+    \item Entferne alle "uberfl"ussigen Produktionen der Art
+      $A\to A$ aus $P'$.
+    \item Eliminiere alle Zyklen:
+      F"ur jeden Zyklus $A_1\to A_2\to \cdots\to A_k\to A_1$ eliminiere
+      $A_2,\ldots,A_k$, "andere deren Produktionen so, dass sie statt dessen
+      von $A_1$ ausgehen.
+    \item Eliminiere alle Umwege:
+      Befinden sich noch Produktionen der Art $A\to B\in P'$, wobei $A,B\in V'$,
+      so existieren auch Produktionen $B\to\cdots\to C\to |\alpha|$ mit $|\alpha|\ge 2$. 
+      Nimm f"ur alle auf diese Art erzeugbaren $\alpha\in (V\cup T)^*$ die 
+      Produktion $A\to w$ in $P'$ auf, wirf daf"ur die Einer-Produktionen
+      weg.
+    \item Eliminiere alle Produktionen $A\to B_1\ldots B_m$ mit $m\ge 3$:
+      Nimm einfach statt ihrer die neuen Nichtterminale $C_1,\ldots,C_{m-2}$
+      in $V'$ auf, erzeuge folgende Produktionen:
+      \begin{align*}
+        A&\to B_1C_1 \\
+        C_1&\to B_2C_2\\
+        &\dots\\
+        C_{m-2}&\to B_{m-1}B_m \\
+        \end{align*}
+    \end{proc}
+  Dann ist $G'$ offensichtlich in CNF.\qed
+  }
+% -----------------------------------------------------------------------------
+\example Chomsky-Normalform einer Grammatik:{
+  Wir betrachten das folgende Beispiel:
+  \begin{eqnarray*}
+    S & \to & AB\\
+    A & \to & aA | a\\
+    B & \to & bBc | bc
+   \end{eqnarray*}
+  Wir formen die Grammatik um und erhalten
+  \begin{eqnarray*}
+    S & \to & AB\\
+    A' & \to & a\\
+    B' & \to & b\\
+    C' & \to & c\\
+    A & \to & A'A | a\\
+    B & \to & B'C' | B'D\\
+    D & \to & BC'
+    \end{eqnarray*}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Cocke-Kasami-Younger-Algorithmus}
+% -----------------------------------------------------------------------------
+\algorithm Cocke-Kasami-Younger-Algorithmus:{
+\index{CKY-Algorithmus}
+  \given $G=(V,T,S,P)$ in CNF, $w\in T^*$
+  
+  \aim $w=x_1\ldots x_n\in L(G)$?
+  
+  \begin{proc}
+    \item Lege eine Pyramide mit den Zeilen 
+      $Y[1,1]\ldots Y[1,n]$, \dots $Y[n,1]$
+      an, wobei $Y[i,j]\in \cal P(V)$.
+      $Y[i,j]$ wird im Laufe des Algorithmus all diejenigen Nichtterminale
+      enthalten, aus denen $x_j\ldots x_{j+i-1}$ erzeugt werden kann.
+    \item Initialisierung: Schreibe in $Y[1,j]$ jeweils alle Nichtterminale
+      $V$, aus denen $x_j$ $(j=1,\ldots,n)$ erzeugt werden kann.
+    \item F"ur $i=2,\ldots,n$:\begin{itemize}
+      \item F"ur $j=1,\ldots,i$:\begin{itemize}
+        \item F"ur $m=1,\ldots,i-1$:\begin{itemize}
+          \item Untersuche alle Produktionen der Form $A\to BC\in P$:
+            Ist $B\in Y[m,j]$ ($\implies$ $m$ lang, gleicher Offset) und
+	    $C\in Y[i-m,j+m]$ ($\implies$ $i-m$ lang, um $m$ nach rechts 
+	    verschobener Offset), so erg"anze $Y[i,j]$ um $A$.
+	  \end{itemize}
+        \end{itemize}
+      \end{itemize}
+      \item Ist nun $S\in Y[n,1]$, so gilt $w\in L(G)$.
+    \end{proc}
+
+  \cpx $O(n^3)$
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Der CKY-Algorithmus ist ein Bottom-up-Algorithmus.
+  
+  Aus der vom CKY-Algorithmus erzeugten Pyramide kann man s"amtliche
+  m"oglichen Ableitungsb"aume eines Wortes ablesen.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Wir betrachten als Beispiel die Grammatik mit den Produktionen
+  \begin{eqnarray*}
+    S & \to & AB | BB\\
+    A & \to & AB | CC | a\\
+    B & \to & CA | BB | b\\
+    C & \to & BA | AA | b
+    \end{eqnarray*}
+  und fragen, ob $x_1x_2x_3x_4 := aabb \in L(G)$ gilt. Dazu bauen wir
+  die Pyramide auf:
+  \input info3_cky_pyramid.epic
+  Es ist zu sehen, da"s gilt $S \in \text{Zelle } (4, 1)$. Es folgt
+  also, da"s $aabb \in L(G)$!
+  
+  Im Beispiel gibt es nur einen Syntaxbaum:
+  \input info3_cky_syntree.epic
+  }
+% -----------------------------------------------------------------------------
+\subsection{Entscheidbarkeit}
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $G=(V,T,S,P)$ eine kontextfreie Grammatik in CNF. Dann sind in
+  polynomieller Zeit l"osbar:
+  \begin{description}
+    \item[Wortproblem:] Gilt $w \in L(G)$? Diese Frage kann der
+      CKY-Algorithmus beantworten.
+    \item[Leerheit:] Gilt $L(G) = \emptyset$? Der folgende Algorithmus
+      bestimmt alle Variablen, aus denen Worte ableitbar sind:
+      \begin{proc}
+        \item $U:=\emptyset\subseteq V$
+        \item $U':=\{A\in V\mid (\exists t\in T)(A\to t\in P)\}\subseteq V$
+        
+          (alle Nichtterminale, die in einem Schritt Terminale erzeugen)
+	\item Solange $U\ne U'$: \begin{itemize}
+          \item $U:=U'$
+	  \item $U':=\{A\in V\mid (\exists B,C\in U)(A\to BC \in P)\}$
+          \end{itemize}
+        \item $S\in U\equiv L(G)\ne\emptyset$
+       	\end{proc}
+      Die Nichtterminale in $V\setminus U$ sind nutzlos und k"onnen 
+      r"uckstandsfrei entfernt werden.
+    \item[Endlichkeit:] Gilt $|L(G)| = \infty$? Enthalte $V$ keine nutzlosen
+      Variablen. Der folgende Algorithmus
+      bestimmt alle Variablen, die nur endliche Worte $w \in T^*$
+      erzeugen.
+      \begin{proc}
+        \item $U:=\emptyset\subseteq V$
+        \item Setze
+          \begin{multline*}
+	    U':=\{A\in V\mid (\exists t\in T)(A\to t\in P)\}\cap\\
+            \{A\in V\mid (\forall B,C\in V)(A\to BC\not\in P)\}\subseteq V
+	    \end{multline*}
+          (alle Nichtterminale, die in einem Schritt \emph{nur} Terminale erzeugen)
+	\item Solange $U\ne U'$: \begin{itemize}
+          \item $U:=U'$
+	  \item $U':=U\cup \{A\in V\mid (\exists B,C\in U)(A\to BC\in P)\}$
+          \end{itemize}
+        \item $S\in U\equiv |L(G)|=\infty$ 
+        \end{proc}
+      Erl"auterung: Der Trick an diesem Algorithmus ist, dass er in $U$ 
+      keine Nichtterminale aufnimmt, die unendliche W"orter erzeugen,
+      also Produktionen wie $A\to BC,C\to BA$ mit $B\to b$, und zwar deswegen,
+      weil der Algorithmus nur strikte ``Bottom-up''-Konstruktion zul"asst,
+      ein Nichtterminal, das Dinge produziert, die noch nicht bekannt 
+      (d.h. $\in U$) sind, wird nicht zugelassen (d.h. in $U$ gesteckt).
+    \end{description}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Wir wollen nun als Beispiel eine Grammatik mit
+  den Produktionen
+  \begin{eqnarray*}
+    S &\to& AD | BC\\
+    B &\to& BC\\
+    D &\to& FE | b\\
+    F &\to& AD\\
+    A &\to& a\\
+    E &\to& b | c
+  \end{eqnarray*}
+  
+  Die Produktionen $S \to BC$ und $B \to BC$ sind nutzlos, da das
+  Nichtterminal $C$ nicht in ein Terminal umgewandelt werden kann. Die
+  beiden Produktionen k"onnen also gestrichen werden.
+  
+  \paragraph{Nutztest:} Wir wollen nun bestimmen, ob $G$ "uberhaupt eine
+  Sprache erzeugt. Dazu wenden wir Algorithmus 1 an. Wir notieren die
+  Ergebnisse in Tabellenform.
+  
+  \begin{center}
+    \begin{tabular}[c]{c|c}
+      Durchlauf & $U$ \\\hline
+      0 & $\emptyset$\\
+      1 & $\{A, D, E\}$\\
+      2 & $\{S, F, A, D, E\}$\\
+      3 & $\{S, F, A, D, E\}$
+    \end{tabular}
+  \end{center}
+  
+  Nach Ablauf des Algorithmus ist das Startsymbol $S$ in $U$
+  enthalten. Es folgt also $L \not= \emptyset$.
+  
+  \paragraph{Endlichkeitstest:} Weiterhin betrachten wir den Index von
+  $L$. Hierzu verwenden wir Algorithmus 2; hierbei ist zu beachten, da"s
+  nutzlose Produktionen aus der Grammatik zu entfernen sind, wie wir es
+  getan haben.
+  
+  \begin{center}
+    \begin{tabular}{c|c}
+      Durchlauf & $U$ \\\hline
+      0 & $\emptyset$\\
+      1 & $\{A, E\}$\\
+      2 & $\{A, E\}$
+    \end{tabular}
+  \end{center}
+  
+  Hier ist nach Beendigung des Algorithmus das Startsymbol $S$
+  nicht in $U$ enthalten. Es folgt also $|L| = \infty$.
+  }
+% -----------------------------------------------------------------------------
+\penalty-5000
+\subsection{Einfache Kellerautomaten}
+% -----------------------------------------------------------------------------
+\definition Einfacher Kellerautomat:{
+  \index{Kellerautomat>einfacher}
+  \insertpic{info3_pda}
+  Seien $T$ ein Eingabe-, $\Gamma\supseteq T$ ein Kelleralphabet, 
+  $S\in\Gamma$ und $\delta:T\cup\{\lambda\}\times\Gamma\to\cal P(\Gamma^*)$ 
+  eine "Ubergangsfunktion, deren Ergebnismenge immer h"ochstens endlich 
+  sein darf.
+  
+  Dann nennt man $M=(T,\Gamma,\delta,S)$ einen einfachen Kellerautomaten. 
+  Ein Tupel 
+  $K:=(a_i\ldots a_n,A_k\ldots A_1)\in T^*\times\Gamma^*$ 
+  hei"st \indexthis{Konfiguration} des Automaten.
+  
+  Eine Konfiguration $K$ eines einfachen Kellerautomaten kann mehrere 
+  Nachfolgekonfiguationen haben, einfache Kellerautomaten sind demzufolge
+  nach Definition nichtdeterministisch. Ausgehend von dieser Konfiguration
+  werden aufgrund der Zustands"ubergangsfunktion $\delta$ m"ogliche 
+  Nachfolgekonfigurationen ermittelt:
+  \begin{itemize}
+    \item 
+      $(a_{i+1}\ldots a_n,A_{k-1}\ldots A_1)$ ist m"ogliche 
+      Nachfolgekonfiguration, falls $\lambda\in\delta(a_i,A_k)$
+    \item 
+      $(a_i\ldots a_n,\alpha A_{k-1}\ldots A_1)$ ist m"ogliche 
+      Nachfolgekonfiguration, falls $\alpha\in\delta(\lambda,A_k)$ mit
+      $\alpha\in\Gamma^*$.
+    \end{itemize}
+  F"ur die "Uberf"uhrung von Konfigurationen in andere schreibt man
+  wie gehabt $K\dderivable K', K\derivable K'$. 
+
+  Die vom Kellerautomaten akzeptierte Sprache ist
+  \[L(M):=\{w\in T^*\mid (w,S)\derivable (\lambda,\lambda)\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G=(V,T,S,P)$ kontextfreie Grammatik=>{
+  \label{the:ctf->spda}
+  Dann existiert ein einfacher Kellerautomat $M=(T,\Gamma,\delta,S)$
+  mit $L(M)=L(G)$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf->spda}:{
+  Betrachte die obige Definition mit $\Gamma:=V\cup T$ und die direkte Analogie
+  zwischen den M"oglichkeiten f"ur die $\delta$-Funktion und den M"oglichkeiten
+  f"ur Produktionen in kontextfreien Sprachen.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $M=(T,\Gamma,\delta,S)$ einfacher Kellerautomat=>{
+  \label{the:spda->ctf}
+  $L(M)$ ist kontextfreie Sprache.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:spda->ctf}:{
+  Betrachte die obige Definition mit $V:=\Gamma\setminus T$ und die direkte 
+  Analogie zwischen den M"oglichkeiten f"ur Produktionen in kontextfreien 
+  Sprachen und den M"oglichkeiten f"ur die $\delta$-Funktion.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Im Gegensatz zum CKY-Algorithmus f"uhrt ein einfacher Kellerautomat
+  eine Top-Down-Analyse durch.
+  }
+% -----------------------------------------------------------------------------
+\remark Greibach-Normalform:{
+  Jede kontextfreie Grammatik kann in eine
+  "aquivalente Grammatik umgeformt werden mit Produktionen der Form
+  \[A\to aB_1\dots B_k,a\in T\cup\{\lambda\}, A,B_1,\dots,B_k \in V
+    \]
+  Ist $\lambda\not\in L(G)$, so kann $G$ auch in 
+  \indexthis{Greibach-Normalform} "uberf"uhrt werden. Alle Produktionen 
+  sind dann von der Form
+  \[A\to aB_1\dots B_k,a\in T,A,B_1,\dots,B_k\in V
+    \]
+  }
+% -----------------------------------------------------------------------------
+\subsection{Allgemeine Kellerautomaten}
+% -----------------------------------------------------------------------------
+\definition Allgemeiner Kellerautomat:{
+  \index{Kellerautomat>allgemeiner}
+  \index{PDA}
+  \index{push-down automaton}
+  Sei $Q$ eine endlichen Zustandsmenge, 
+  $T$ ein Eingabealphabet, 
+  $\Gamma$ ein Kelleralphabet, 
+  $\delta:Q\times T\cup\{\lambda\}\times\Gamma\to \cal P(Q)\times\cal P(\Gamma^*)$
+  eine Zustands"ubergangsfunktion, deren Ergebnismenge h"ochstens endlich 
+  sein darf, 
+  $q_0\in Q$ ein Anfangszustand und 
+  $S\in\Gamma$ ein Start-Kellerzeichen.
+
+  Dann nennt man $M=(Q,T,\Gamma,\delta,q_0,S)$ einen allgemeinen Kellerautomaten. 
+  Ein Tripel 
+  $K:=(q,a_i\ldots a_n,A_k\ldots A_1)\in Q\times T^*\times\Gamma^*$ 
+  hei"st \indexthis{Konfiguration} des Automaten.
+  
+  Eine Konfiguration $K$ eines einfachen Kellerautomaten kann mehrere 
+  Nachfolgekonfiguationen haben, einfache Kellerautomaten sind demzufolge
+  nach Definition nichtdeterministisch. Ausgehend von dieser Konfiguration
+  werden aufgrund der Zustands"ubergangsfunktion $\delta$ m"ogliche 
+  Nachfolgekonfigurationen ermittelt:
+  \begin{itemize}
+    \item 
+      $(q',a_{i+1}\ldots a_n,A_{k-1}\ldots A_1)$ ist m"ogliche 
+      Nachfolgekonfiguration, falls $(q',\lambda)\in\delta(q,a_i,A_k)$
+    \item 
+      $(q',a_i\ldots a_n,\alpha A_{k-1}\ldots A_1)$ ist m"ogliche 
+      Nachfolgekonfiguration, falls $(q',\alpha)\in\delta(q,a_i,A_k)$ mit
+      $\alpha\in\Gamma^*$.
+    \end{itemize}
+  F"ur die "Uberf"uhrung von Konfigurationen in andere schreibt man
+  wie gehabt $K\dderivable K', K\derivable K'$. 
+
+  Die vom Kellerautomaten akzeptierte Sprache ist
+  \[L(M):=\{w\in T^*\mid (q_0,w,S)\derivable (q,\lambda,\lambda) (q\in Q)\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $M=(Q,T,\Gamma,\delta,q_0,S)$ PDA=>{
+  \label{the:pda->ctf}
+  Dann ist $L(M)$ kontextfrei.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:pda->ctf}:{
+  Sei $V:=\{{}^pA^q \mid A \in\Gamma,p,q\in Q\}\cup \{S'\}$. 
+  Die Menge der Produktionen gewinnt man so:
+  \begin{multline*}
+    P:=\{S'\to {}^{q_0}S^q\mid q\in Q\}\cup
+    \{{}^{p}A^{q}\to 
+      a{}^{p}B_1^{p_1}{}^{p_1}B_2^{p_2}\ldots {}^{p_{k}}B_i^{q}\mid\\
+      p_1,\ldots,p_k\in Q,(q,B_1B_2\ldots B_i)\in\delta(p,a,A)
+      \}
+    \end{multline*}
+  Dann ist mit $G:=(V,T,S',P)$ gerade $L(G)=L(M)$.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Damit ergibt sich, dass PDAs mit einfachen Kellerautomaten 
+  gleichwertig sind. Sie sind eine Verallgemeinerung, bringen allerdings
+  keine gr"o"seren M"oglichkeiten.
+
+  Man kann allerdings zus"atzliche Endzust"ande einf"uhren:
+  \[L(M) := \{w \in T^* \mid (q_0,w,S) \derivable (q, \lambda,\lambda) 
+    \text{ mit } q\in F\subseteq Q\}
+    \]
+  Es gibt Sprachen, die durch deterministische
+  Kellerautomaten \emph{mit} $F$, aber nicht \emph{ohne} $F$ erkannt
+  werden. PDA mit $F$ erkennen also nicht zwingend alle kontextfreien Sprachen.
+  }
+% -----------------------------------------------------------------------------
+\section{Typ 1-und Typ 0-Sprachen}
+% -----------------------------------------------------------------------------
+\subsection{Erweiternde Grammatiken}
+% -----------------------------------------------------------------------------
+\definition Erweiternde Grammatik:{
+  \index{Grammatik>erweiternde}
+  Sei $G=(V,T,S,P)$ eine Grammatik. $G$ hei"st erweiternd $:\equiv$
+  f"ur $u\to v\in P$ gilt $|u|\le|v|$. Die Produktion $S\to\lambda$ ist
+  zul"assig, falls $S$ auf keiner rechten Seite einer Produktion vorkommt.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $L$ Sprache=>{
+  \label{the:expand<->ctf}
+  Es existiert eine kontextsensitive Grammatik $G=(V,T,S,P)$ mit $L(G)=L$ $\equiv$
+  es existiert eine erweiternde Grammatik $G'=(V',T,S,P')$ mit $L(G')=L$
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:expand<->ctf}:{
+  Die Richtung ``$\implies$'' ist nach Definition klar. Wir zeigen
+  ``$\Leftarrow$'':
+  
+  Das Problem ist, dass bei einer kontextsensitiven Grammatik nur immer
+  ein Nichtterminal in etwas aus $(V\cup T)^*$ wechseln darf, 
+  w"ahrend bei erweiternden Grammatiken nur Aussagen "uber die L"ange 
+  getroffen sind. Zun"achst ersetze alle Terminale $a\in T$ durch
+  neue Nichtterminale $A_a$. Schreibe $V$ aus $V'$ entsprechend um,
+  erg"anze $P:=P'\cup\{A_a\to a\mid a\in T\}$. Dies behebt mit dem Holzhammer
+  die M"oglichkeit f"ur Produktionen der Art $abc\to cde$ (d.h. nur Terminale), 
+  die im kts Fall ebenfalls nicht zul"assig sind.
+  
+  Um nun eine beliebige erweiternde Produktion
+  $A_1\ldots A_m\to B_1\ldots B_n\in P$ in eine kontextsensitive Produktion
+  umzuwandeln, f"uhre neue Nichtterminale $C_1,\ldots,C_{m-1}$ ein und
+  ersetze die alte Produktion durch die folgenden neuen:
+  \begin{align*}
+    A_1\ldots A_m &\to C_1A_2\ldots A_m\\
+    C_1A_2\ldots A_m &\to C_1C_2A_3\ldots A_m\\
+    &\ldots\\
+    C_1\ldots C_{m-1}A_m &\to C_1\ldots C_{m-1}B_mB_{m+1}\ldots B_n\\
+    C_1\ldots C_{m-1}B_mB_{m+1}\ldots B_n &\to 
+      C_1\ldots C_{m-2}B_{m-1}B_mB_{m+1}\ldots B_n\\
+    C_1\ldots C_{m-2}B_{m-1}B_mB_{m+1}\ldots B_n &\to 
+      C_1\ldots C_{m-3}B_{m-2}B_mB_{m-1}\ldots B_n\\
+    &\ldots\\
+    C_1B_2\ldots B_n &\to 
+      B_1\ldots B_n
+    \end{align*}
+  Damit ist die Behauptung gezeigt.\qed
+  }
+% -----------------------------------------------------------------------------
+\penalty-5000
+\subsection{Turingmaschinen}
+% -----------------------------------------------------------------------------
+\definition Turingmaschine:{
+  \insertpic{info3_turing}
+  Sei $Q$ eine Zustandsmenge, $F\subseteq Q$ eine Endzustandsmenge, 
+  $q_0\in Q$ der Anfangszustand, $\Gamma$ ein Bandalphabet,
+  $X\subseteq \Gamma$ ein Eingabealphabet, $\Box\in\Gamma$ das Leer- bzw.
+  Bandzeichen und $\delta:Q\times\Gamma\to Q\times\Gamma\times\{L,R,N\}$
+  eine Zustands"ubergangsfunktion.
+  
+  Dann hei"st das Septupel $M=(Q,F,q_0,\Gamma,X,\Box,\delta)$ eine 
+  Turingmaschine. Ein Tripel 
+  $K:=(\alpha,q,\beta)\in \Gamma^*\times Q\times\Gamma^*$ hei"st eine 
+  Konfiguration der Turingmaschine, die gleiche Konfiguration wird auch
+  durch $(\Box\alpha,q,\beta\Box)$ beschrieben. Wie "ublich verwenden
+  wir die Symbolik $K\dderivable K'$, $K\derivable K'$ f"ur den 
+  Konfigurations"ubergang.
+  
+  Sei z.B. $\delta(q,x)=(p,y,L)$. Dann wird auf dem Band an die Stelle des
+  $x$ ein $y$ geschrieben, in den Zustand $p$ gewechselt und der Kopf eine
+  Stelle nach links gesetzt.
+  
+  Die von einer Turingmaschine akzeptierte Sprache ist
+  \[L(M):=\{w\in X^*\mid (\lambda,q_0,w)\derivable(\alpha,q,\beta), q\in F\}
+    \]
+  Das Band einer Turingmaschine darf beliebig lang werden,
+  die anf"angliche Eingabe muss jedoch endlich sein. Turingmaschinen gibt
+  es in den Geschmacksrichtungen deterministisch bzw. nichtdeterministisch und
+  unbeschr"ankt bzw. linear beschr"ankt. In letzterem Fall hei"st die Maschine
+  auch \indexthis{LBA} wie ``linear bounded automaton''.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G=(V,T,S,P)$ kontextsensitive Grammatik=>{
+  \label{the:cts->lba}
+  $L(G)$ wird durch einen LBA erkannt.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:cts->lba}:{
+  O.B.d.A. $\lambda\not\in L(G)$.
+  Setze $\Gamma:=T\cup V$, 
+  Wir programmieren die Turingmaschine so, dass sie sich 
+  (nichtdeterministisch) beliebig ein
+  $v$ mit $u\to v\in P$ auf dem Band ausw"ahlt, dieses durch $u$ ersetzt
+  und im Falle $|u|<|v|$ die Eingabe nach rechts zusammenschiebt. Die
+  Turingmaschine geht in einen Endzustand, falls am Schluss nur noch $S$ auf
+  dem Band steht. Wegen der Eigenschaft $|u|\le|v|$ f"ur $u\to v\in P$ ist
+  die Turingmaschine linear beschr"ankt.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Analog zeigt man, dass Typ 0-Sprachen von unbeschr"ankten Turingmaschinen
+  erkannt werden.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $M=(Q,F,q_0,\Gamma,X,\Box,\delta)$ LBA=>{
+  \label{the:lba->ctf}
+  Dann ist $L(M)$ kontextsensitiv.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:lba->ctf}:{
+  Zu einem gegebenen LBA geben wir eine Grammatik $G$ an mit $L(M)=L(G)$
+  Setze $T:=X$,
+  \begin{multline*}
+    V:=\{S,A\}\cup(\Gamma^2)\cup(Q\Box\Box\Gamma^2)\cup(\Box\Box Q\Gamma^2)\cup\\
+    (Q\Gamma^2\Box\Box)\cup(\Gamma^2Q\Box\Box)\cup(\Box\Box\Gamma^2)\cup
+    (\Gamma^2\Box\Box)
+    \end{multline*}
+  Dabei dienen die speziellen $(*\Box*)$-Nichtterminale (anhand ihrer
+  L"ange von den anderen unterscheidbar) lediglich dazu, den linken und
+  rechten Rand f"ur den die ``Pseudo-Lesekopfposition'' anzeigenden Zustand
+  un"uberwindlich zu machen. 
+  
+  Wir erzeugen folgende Arten von Produktionen:
+  \begin{itemize}
+    \item Produktionen, um jede beliebige Anfangskonfiguration den 
+      Turingmaschine zu erzeugen:
+      \begin{align*}
+        \{S&\to A(aa\Box\Box)\mid a\in X\}\\
+        \{A&\to A(\Box\Box q a a)|A(aa)\mid q\in Q,a\in X\}
+        \end{align*}
+    \item Produktionen, um jeden m"oglichen $\delta$-"Ubergang zu 
+      simulieren. 
+      \begin{align*}
+        \{(\Box\Box qxa)&\to(p\Box\Box ya),\\
+        (\Box\Box zb)(qxa)&\to(\Box\Box pzb)(ya),\\
+        (zb)(qxa)&\to(pzb)(ya),\\
+        (zb)(qxa\Box\Box)&\to(pzb)(ya\Box\Box)\mid \delta(q,x)=(p,y,L),z\in\Gamma\} \cup \\
+        \{(xaq\Box\Box)&\to(pxa\Box\Box)\mid \delta(q,\Box)=(p,y,L)\}
+        \end{align*}
+      wobei die rechts- und neutrall"aufigen "Uberg"ange analog gebildet 
+      werden.
+    \item Produktionen, um das schlussendlich akzeptierte Wort aus dem
+      Backup an den jeweils zweiten Stellen zu rekonstruieren. Wir stellen
+      sicher, dass nur dann ein Terminalwort entsteht, wenn ein Endzustand
+      vorliegt, indem wir nur in diesem Fall die Umwandlung des Nichtterminals
+      mit dem gegenw"artigen ``Lesekopf'' zulassen:
+      \begin{align*}
+        \{(q\Box\Box xa)&\to a,\\
+        (\Box\Box qxa)&\to a,\\
+        (qxa)&\to a,\\
+        (qxa\Box\Box)&\to a,\\
+        (xaq\Box\Box)&\to a,\\
+        (xa)&\to a,\\
+        (\Box\Box xa)&\to a,\\
+        (xa\Box\Box)&\to a\mid q\in F,x,a\in X\}
+        \end{align*}
+    \end{itemize}
+  Insgesamt ergibt sich dann mit $G=(V,X,S,P)$ mit obiger 
+  Produktionenmenge $P$ eine kontextsensitive Grammatik mit $L(G)=L(M)$.
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Indem man in obigem Beweis auch das Schreiben "uber die Bandgrenzen hinaus
+  zul"asst, und die entsprechenden Backup-Bandzeichen dann zu $\lambda$s 
+  umwandelt, erh"alt man, dass allgemeine Turingmaschinen Sprachen
+  des Typs $0$ erkennen.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Deterministische Turingmaschinen}
+% -----------------------------------------------------------------------------
+\theorem:
+  $M=(Q,F,q_0,\Gamma,X,\Box,\delta)$ nichtdet. Turingmaschine=>{
+  \label{the:tm-det-nondet}
+  Dann existiert eine deterministische Turingmaschine $M'$ mit $L(M)=L(M')$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:tm-det-nondet}:{
+  Indem man die deterministische Turingmaschine in einer Art Timesharing
+  f"ur jede Konfiguration der nichtdeterministsichen Maschine jeweils
+  Einzelschritte durchf"uhren l"asst.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es ist unbekannt, ob nichtdeterministische LBA in
+  deterministische LBA umgewandelt werden k"onnen.
+  }
+% -----------------------------------------------------------------------------
+\penalty-5000
+\subsection{Abschlussseigenschaften}
+% -----------------------------------------------------------------------------
+\remark Zusammenfassung:{
+  Es sind abgeschlossen unter folgenden Operationen:\\
+  \begin{center}\begin{tabular}{|l|c|c|c|}
+    \hline
+    & $\cdot,\cup,*$ & $\cap$ & ${}^c$ \\
+    \hline
+    Typ 0 & \yes & \yes & \no \\
+    Typ 1 & \yes & \yes & \yes \\
+    Typ 2 & \yes & \no & \no \\
+    Typ 3 & \yes & \yes & \yes \\
+    \hline
+    \end{tabular}\end{center}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Das Halteproblem}
+% -----------------------------------------------------------------------------
+\definition G"odelnummer:{
+  Zum Beispiel durch zeichengebundene Kodierung der formalen Festlegung
+  einer Turingmaschine in einem $n$-adischen System und anschlie"sende
+  Darstellung der Kodierung $a_0,\ldots, a_j$ als Zahl 
+  \[q:=\sum_{k=0}^j a_k n^k
+    \]
+  erh"alt man eine Nummer f"ur jede Turingmaschine, genannt deren 
+  G"odelnummer bzgl. eines festen Kodierungssystems.
+  
+  Diese Zuordnung ist offensichtlich nicht zwingend surjektiv 
+  (d.h. es existieren Zahlen, zu denen es keine Turingmaschine gibt) 
+  und auch nicht zwingend eindeutig
+  (es exisitieren mehrere Kodierungen f"ur eine Turingmaschine), aber
+  injektiv.
+  
+  Surjektivit"at und Eindeutigkeit stellt man durch folgende zwei Konventionen
+  wieder her:
+  \begin{itemize}
+    \item Als das Urbild einer Zahl, der auf bisherige Weise keine 
+      Turingmaschine zugeordnet war, betrachten wir die triviale
+      endlos laufende Turingmaschine.
+    \item Man definiert sich eine gewisse Normalform f"ur die Kodierung
+      von Turingmaschinen.
+    \end{itemize}
+  Da unsere Zuordnung mit diesen Ver"anderungen bijektiv ist, definieren
+  wir $M_i$ als die Turingmaschine mit der Nummer $i$.
+  }
+% -----------------------------------------------------------------------------
+\definition Berechenbarkeit:{
+  Eine partielle Funktion $f:\SetNN\to\SetNN$ hei"st berechenbar $:\equiv$
+  
+  Es existiert ein $i\nnatural$ so, dass f"ur $M_i$ folgendes gilt:
+  Betrachte das erste Eingabezeichen $x_i$ von $M_i$ nach dem Bandzeichen.
+  Man l"asst $M_i$ mit der Eingabe
+  \[\underbrace{x_ix_i\ldots x_i}_{n\text{-mal}}
+    \]
+  laufen, und es muss gelten:
+  \begin{itemize}
+    \item $M_i$ h"alt an mit genau $k$ $x_i$'s auf dem Band $\equiv$ $f(n)=k$ und
+    \item $M_i$ h"alt nicht an $\equiv$ $f(n)$ ist undefiniert ($f(n)=\bot$).
+    \end{itemize}
+  
+  Schreibweise: $f=\phi_i$.
+  
+  Bei Funktionen, die ``Ja/Nein''=0/1-Antworten liefern sollen, spricht
+  man auch von Entscheid- oder L"osbarkeit.
+  }
+% -----------------------------------------------------------------------------
+\definition Die Funktion $\halt$:{
+  Wir definieren
+  \[\halt(i):=\begin{cases}
+      1 & \phi_i(i)\downarrow \\
+      0 & \phi_i(i)\uparrow \\
+      \end{cases}
+    \]
+  (Notation: $\downarrow$ = ``TM beendet mit Ausgabe'',
+  $\uparrow$ = ``TM l"auft endlos'') 
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \label{the:halt-computable}
+  $\halt$ ist nicht berechenbar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:halt-computable}:{
+  Annahme: $\halt$ berechenbar. Definiere:
+  \[\delta(i):=\begin{cases}
+      \bot & \phi_i(i)\downarrow \\
+      1 & \phi_i(i)\uparrow \\
+      \end{cases}
+    \]
+  Elementar (auf der Ebene von Turingmaschinen) "uberlegt man sich,
+  dass dann auch $\delta$ berechen bar ist.
+  Es existiert also ein $j\nnatural$ so, dass $\phi_j\ident\delta$,
+  also f"ur $\phi_j(j)$ gilt 
+  \[\phi_j(j)=\begin{cases}
+      \bot & \phi_j(j) \downarrow\\
+      1 & \phi_j(j)\uparrow \\
+      \end{cases}
+    \]
+  Widerspruch! \qed
+  }
+% -----------------------------------------------------------------------------
+\subsection{Das Wortproblem}
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \label{the:type0-nondecidable}
+  Das Wortproblem ist f"ur Sprachen des Typs 0 nicht entscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:type0-nondecidable}:{
+  Wir k"onnen das Halteproblem auf das Typ 0-Wortproblem reduzieren. \qed
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \label{the:type1-decidable}
+  Das Wortproblem ist f"ur Sprachen des Typs 1 entscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:type1-decidable}:{
+  $G=(V,T,S,P)$ sei eine Typ 1-Grammatik. Anhand des folgenden
+  Algorithmus kann das Wortproblem f"ur das Wort $w$ entschieden werden:
+  \begin{proc}
+    \item $M:=\emptyset,M':=\{S\}$
+    \item Solange $M\ne M'$ \begin{itemize}
+      \item $M:=M'$
+      \item $M':=M\cup \{\beta\mid\alpha\dderivable\beta,\alpha\in M,|\beta|\le|w|\}$
+      \end{itemize}
+    \item $w\in L(G)\equiv w\in M$.
+    \end{proc}
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\subsection{Das Post'sche Korrespondenzproblem}
+% -----------------------------------------------------------------------------
+\definition Post'sches Korrespondezproblem:{
+  Ein \indexthis{Postsystem} "uber einem endlichen Alphabet $X$ ist eine Menge
+  \[\left\{\begin{pmatrix}x_1\\y_1\end{pmatrix}, \dots,
+    \begin{pmatrix}x_n\\y_n\end{pmatrix}\right\} \subset X^* \times
+  X^*\]
+  $i_1, \dots, i_k$ ist eine L"osung des Postsystems, falls gilt
+  \[x_{i_1} x_{i_2} \dots x_{i_k} = y_{i_1} y_{i_2} \dots y_{i_k}\]
+  Das Postsche Korrespondenzproblem, auch 
+  \indexthis{Postian Correspondence Problem} oder 
+  \emph{PCP}, besteht darin, eine solche
+  L"osung zu finden.
+  }
+% -----------------------------------------------------------------------------
+\example Zwei Beispiel-Postsysteme:{
+  Das Postsystem
+  \[\left\{\begin{pmatrix}1\\01\end{pmatrix},
+    \begin{pmatrix}\lambda\\11\end{pmatrix},
+    \begin{pmatrix}0101\\1\end{pmatrix},
+    \begin{pmatrix}111\\\lambda\end{pmatrix}\right\} \subset X^* \times
+  X^*\]
+  hat eine L"osung $x_2 x_1 x_1 x_3 x_2 x_4 = 110101111 = y_2 y_1 y_1 y_3
+  y_2 y_4$.
+
+  Die k"urzeste L"osung f"ur das Postsystem
+  \[\left\{\begin{pmatrix}001\\0\end{pmatrix},
+    \begin{pmatrix}01\\011\end{pmatrix},
+    \begin{pmatrix}01\\101\end{pmatrix},
+    \begin{pmatrix}10\\001\end{pmatrix}\right\} \subset X^* \times
+  X^*\]
+  besteht aus 66 Indizes.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G=(V,T,S,P)$ Grammatik=>{
+  \label{the:derivable<->pcp}
+  Dann existiert f"ur jedes Wort $w\in L(G)$ ein Postsystem $K(w)$ mit
+  \[K(w)\text{ l"osbar}\equiv w\in L(G)\text{ l"osbar}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:derivable<->pcp}:{
+  Wir konstruieren $K$ "uber $X := V \cup V' \cup T
+  \cup T' \cup \{*, *', [, ]\}$, wobei $y'$ eine (unterscheidbare) 
+  Kopie von $y$ bezeichnet. $K$ bestehe aus
+  \[\left\{
+      \begin{pmatrix}[S*\\{}[\end{pmatrix},
+      \begin{pmatrix}]\\{} *'w]\end{pmatrix},
+      \begin{pmatrix}]\\{} *w']\end{pmatrix},
+      \begin{pmatrix}a\\a'\end{pmatrix},
+      \begin{pmatrix}a'\\a\end{pmatrix},
+      \begin{pmatrix}v\\u'\end{pmatrix},
+      \begin{pmatrix}v'\\u\end{pmatrix} \mid a \in X, u \to v \in P 
+      \right\}
+    \]
+  Jede L"osung hat zwingend folgende Gestalt:
+  \[\left(\begin{array}{c|c|c|c|c|c|c|c}
+      [S* & w_1' & *' & w_2  &\dots & * & w' & ]\\{}
+      [   & S    & *  & w_1' & \dots & *' & w_n & (* w'|*' w)]
+      \end{array}\right)
+    \]
+  d.h. man kann aus ihr eine Ableitungskette
+  \[S\dderivable w_1'\dderivable w_2 \dderivable \cdots \dderivable w
+    \] 
+  ablesen. \qed
+  }
+% -----------------------------------------------------------------------------
+\remark Berechenbarkeit von L"osungen des PCP:{
+  W"are das Postsche Korrespondenzproblem l"osbar, so w"are auch das
+  Wortproblem l"osbar. Das Wortproblem ist nicht l"osbar, also ist auch
+  das PCP nicht entscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Entscheidbarkeit bei Grammatiken}
+% -----------------------------------------------------------------------------
+\theorem:
+  $G=(V,T,S,P)$ eine Typ-2-Grammatik=>{
+  \label{the:ctf-unique}
+  Es ist nicht entscheidbar, ob $G$ nur eindeutige Ableitungen hat.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf-unique}:{
+  Wir beweisen die Aussage durch Reduktion des PCP auf das Eindeutigkeitsproblem.
+  Sei nun
+  \[\left\{\begin{pmatrix}x_1\\y_1\end{pmatrix}, \dots,
+    \begin{pmatrix}x_n\\y_n\end{pmatrix}\right\}\]
+  ein Postsystem "uber $K$. Wir betrachten weiter die kontextfreie
+  Grammatik
+  \begin{eqnarray*}
+    S &\to& A | B\\
+    A &\to& x_1 A 1 | x_2 A 2 | \dots | x_n A n | \lambda\\
+    B &\to& y_1 B 1 | y_2 B 2 | \dots | y_n B n | \lambda
+    \end{eqnarray*}
+  Die erzeugten Worte sind von der Form
+  \[x_{i_1} \dots x_{i_k} i_k \dots i_1 \text{ oder } y_{i_1} \dots
+  y_{i_k} i_k \dots i_1\]
+  $G$ hat mehr als eine Ableitung f"ur ein einziges Wort genau dann, wenn
+  das PCP l"osbar ist. Das PCP ist aber nicht entscheidbar, also ist auch
+  das Eindeutigkeitsproblem entscheidbar.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \label{the:ctf-cut-nondecidable}
+  Das Schnittproblem ist f"ur kontextfreie Sprachen unentscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf-cut-nondecidable}:{
+  Wir beweisen die Aussage durch Reduktion des PCP auf das Schnittproblem.
+  Sei nun
+  \[\left\{\begin{pmatrix}x_1\\y_1\end{pmatrix}, \dots,
+    \begin{pmatrix}x_n\\y_n\end{pmatrix}\right\}\]
+  ein Postsystem "uber $K$.
+  Wir betrachten weiter die kontextfreie Grammatik
+  \begin{eqnarray*}
+    S &\to& A|B\\
+    A &\to& x_1 A 1 | x_2 A 2 | \dots | x_n A n | x_1 1 | x_2 2 | \dots
+    x_n n\\
+    B &\to& y_1 B 1 | y_2 B 2 | \dots | y_n B n | y_1 1 | y_2 2 | \dots
+    y_n n
+  \end{eqnarray*}
+  Dann sind 
+  \[L_1 := \{\text{aus $A$ ableitbare Worte}\}, L_2 := \{\text{aus $B$
+    ableitbare Worte}\}
+    \]
+  kontextfreie Sprachen, und Elemente aus $L_1 \cap L_2$ sind eine L"osung des
+  PCP. W"are das Schnittproblem entscheidbar, dann auch das
+  PCP. Dies ist nicht der Fall, also ist das Schnittproblem nicht
+  entscheidbar.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Kontextfreie Sprachen mit kontextfreien Komplementen:{
+  Bei kontextfreien Sprachen mit kontextfreien Komplementen ist das 
+  Schnittproblem ebensowenig entscheidbar, da die Grammatik in obigem Beweis
+  eine Sprache mit kontextfreiem Komplement erzeugt.
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerung:{
+  Das Schnittproblem ist f"ur Sprachen des Typs $i\le 2$ nicht entscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $G=(V,T,S,P)$ kontextsensitiv=>{
+  \label{the:cts-emptiness-nondecidable}
+  $L(G)=\emptyset$ ist nicht entscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:cts-emptiness-nondecidable}:{
+  Wir reduzieren das Schnittproblem f"ur kontextsensitive Grammatiken
+  auf die Leerheit einer kontextsensitiven Grammatik und 
+  nehmen ohne Beweis an, dass der Schnitt zweier
+  kontextsensitiven Sprachen wieder kontextsensitiv ist. Dann gilt
+  \[L(G) = \emptyset \equiv L(G) \cap L(G) = \emptyset
+    \]
+  Das Schnittproblem ist nicht entscheidbar, also ist auch die Leerheit
+  nicht entscheidbar.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem: $G_1=(V_1,T,S_1,P_1)$,$G_2=(V_2,T,S_2,P_2)$ kontextfrei=>{
+  \label{the:ctf-equiv-nondecidable}
+  $L(G_1)=L(G_2)$ ist nicht entscheidbar.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:ctf-equiv-nondecidable}:{
+  Seien $L_1,L_2$ kontextfreie Sprachen mit kontextfreiem Komplement.
+  (deren Schnittproblem ist, wie oben gezeigt, nicht entscheidbar)
+  W"are das Gleichheitsproblem entscheidbar, so k"onnte man
+  den Schnitt aber wegen $L_1\cap L_2=\emptyset\equiv L_1\cup L_2^c=L_2^c$
+  entscheiden. Also ist die Gleichheit f"ur ktf Sprachen mit ktf Komplementen
+  nicht entscheidbar, deswegen erst recht nicht f"ur allgemeine ktf
+  Sprachen.
+  }
+% -----------------------------------------------------------------------------
+\section{Fixpunkttheorie}
+% -----------------------------------------------------------------------------
+\definition Halbordnung:{
+  \index{Ordnung>partielle}
+  Eine Relation ``$\le$'' auf einer Menge $M$ 
+  hei"st Halb- oder \indexthis{Teilordnung} bzw.
+  \indexthis{partielle Ordnung} $:\equiv$
+  \begin{stmts}
+    \item $(\forall x\in M)(x\le x)$ (Reflexivit"at)
+    \item $(\forall x,y,z\in M)(x\le y,y\le z\implies x\le z)$ (Transitivit"at)
+    \item $(\forall x,y,z\in M)(x\le y,y\le x\implies x=y)$ (Antisymmetrie)
+    \end{stmts}
+  $(M,\le)$ hei"st dann eine halbgeordnete Menge.
+  }
+% -----------------------------------------------------------------------------
+\definition Kleinstes Element:{
+  \index{Element>kleinstes}
+  Sei $(M,\le)$ eine halbgeordnete Menge. Dann hei"st $k\in M$ kleinstes
+  Element von $M$ $:\equiv$ $k\le x$ f"ur alle $x\in M$.
+  }
+% -----------------------------------------------------------------------------
+\definition Obere Schranke:{
+  \index{Schranke>obere}
+  Sei $(M,\le)$ eine halbgeordnete Menge. Dann hei"st $o\in M$ obere Schranke
+  von $T\subseteq M$ $:\equiv$ $x\le o$ f"ur alle $x\in T$.
+  }
+% -----------------------------------------------------------------------------
+\definition Supremum:{
+  $s\in M$ hei"st Supremum von $T\subseteq M$ $:\equiv$ $s$ ist kleinste
+  obere Schranke von $T$.
+  }
+% -----------------------------------------------------------------------------
+\remark Eindeutigkeit:{
+  Suprema sind eindeutig.
+  }
+% -----------------------------------------------------------------------------
+\definition Kette:{
+  Sei $(M,\le)$ eine halbgeordnete Menge. Eine Folge $(x_i)_{i=1}^\infty\subseteq M$
+  hei"st Kette $:\equiv$ $x_i\le x_{i+1}$ f"ur $i\ge 1$.
+  }
+% -----------------------------------------------------------------------------
+\definition Vollst"andige halbgeordnete Menge:{
+  \index{Menge>vollst"andige halbgeordnete}
+  Sei $(M,\le)$ eine halbgeordnete Menge. $M$ hei"st vollst"andig $:\equiv$
+  \begin{stmts}
+    \item Es existiert ein kleinstes Element in $M$.
+    \item Jede Kette in $M$ hat ein Supremum in $M$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Stetige Funktion:{
+  \index{Funktion>stetige}
+  Seien $(A,\le),(B,\le)$ vollst"andige halbgeordnete Mengen. Dann
+  hei"st $f: A \to B$ stetig, $\equiv$ f"ur jede Kette 
+  $(x_i)_{i=1}^\infty\subseteq A$ gilt
+  \[\sup_{i=1}^\infty f(x_i) = f(\sup_{i=1}^\infty x_i)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Im analytischen Sinne sind unsere stetigen Funktionen monoton wachsend
+  und linksseitig stetig auf abgeschlossenen Intervallen.
+  }
+% -----------------------------------------------------------------------------
+\definition Monotone Funktion:{
+  \index{Funktion>monotone}
+  Seien $(A,\le),(B,\le)$ halbgeordnete Mengen. Dann
+  hei"st $f: A \to B$ monoton, $\equiv$ f"ur alle $x,y\in A$ mit
+  $x\le_A y$ gilt auch $f(x)\le_B f(y)$
+  }
+% -----------------------------------------------------------------------------
+\lemma:
+  $(A, \leq),(B,\le)$ vollst"andige halbgeordnete Mengen,
+  $f:A\to B$ stetig=>{
+  \label{the:cont-mono}
+  Dann ist $f$ monoton.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:cont-mono}:{
+  Sei $a\le_A b$ in $A$. Betrachte $x_1:=a$, $x_2:=x_3\ldots:=b$.
+  
+  $f$ ist stetig, woraus folgt $\sup_n f(x_n)=f(\sup_n x_n)=f(b)$
+  Also gilt $f(a)=f(x_1)\le f(b)$.\qed
+  }
+% -----------------------------------------------------------------------------
+\definition Fixpunkt:{
+  Sei $(A,\leq)$ eine vollst"andige halbgeordnete Menge und $f:A\to A$ 
+  eine Abbildung. $a \in A$ hei"st Fixpunkt von $f$ $:\equiv$ $f(a)=a$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Kleene'scher Fixpunktsatz:
+  $(A,\le)$ vollst"andige halbgeordnete Menge, $f:A\to A$ stetig=>{
+  \label{the:kleene-fix}
+  Sei $m$ das kleinste Element von $A$. Dann ist
+  $\sup_{n\natural} f^n(m)$ der kleinste Fixpunkt von $f$. 
+  Insbesondere existiert mindestens ein Fixpunkt.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:kleene-fix}:{
+  Wir zeigen zun"achst, dass $\sup f^n(m)$ existiert:
+  \[m\leq f(m)\implies f(m)\leq f^2(m)\implies\ldots\implies f^n(m)\le f^{n+1}(m)
+    \]
+  Also ist $(f^n(m))_{n\natural}$ eine Kette. Es folgt direkt die
+  Existenz des Supremums.
+  
+  Weiter zeigen wir: Das Supremum von $f^n(m)$ ist ein Fixpunkt:
+  \[f(\sup(f^n(m))) = \sup(f^{n + 1}(m)) = \sup(f^n(m))
+    \]
+  Und schlie"slich zeigen wir, dass $\sup f^n(m)$ kleinster Fixpunkt ist,
+  angenommen $c\in A$ sei ein kleinerer Fixpunkt:
+  \[m\le c\implies f(m)\le f(c)=c \implies\ldots\implies f^n(m) \le f(c)=c
+    \]
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Fixpunktsatz}
+% --------------------------------------------------------------------------
+\remark Kurzschreibweise von Wortmengen:{
+  Analog zu den regul"aren Ausdr"ucken schreiben wir z.B.
+  \[a\{b,c\}d:=\{abd,acd\}
+    \]
+  Beachte:
+  \[a\emptyset d:=\emptyset
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Funktion einer kontextfreien Grammatik:{
+  Sei $G=(V,T,A_1,P)$ mit $V=\{A_1,\ldots,A_n\}$ und
+  \[P=\{A_i\to a_{i1},\ldots,a_{ik_i}\mid i=1,\ldots,n, a_{ij}\in (T\cup V)^*\}
+    \]
+  eine kontextfreie Grammatik.
+  
+  Definiere
+  \[g_i:\cal P(T^*)^n\to\cal P(T^*)
+    \]
+  mit $g_i(M_1,\ldots,M_n):=\overline{a_{i1}}\cup\ldots\cup\overline{a_{ik_i}}$.
+  Ist z.B. $a_{ik}=\alpha A_j\beta$, so ist $\overline{a_{ik}}:=\alpha M_j \beta$.
+  Beachte: $a_{ik}$ ist eine Zeichenkette, $\overline{a_{ik}}$ ist eine Menge.
+  
+  Dann hei"st $g:=(g_1,\ldots,g_n)$ die Funktion der kontextfreien 
+  Grammatik $G$.
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  Ab hier betrachten wir als Teilordnung die Ordnung ``$\subseteq$'' auf
+  Mengen $M\in\cal P(T^*)$ "uber einem Alphabet $T$:
+  $M\le N:\equiv M\subseteq N$.
+  
+  F"ur Tupel $(M_1,\ldots,M_n)\in\cal P(T^*)^n$ von solchen Mengen gelte 
+  dabei die Ordnung
+  \[(M_1,\ldots,M_k)\le(N_1,\ldots,N_k):\equiv (\forall i\in\{1,\ldots,k\})(M_i\le N_i)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\lemma:=>{
+  \label{lem:fun-cont-comp}
+  Eine zusammengesetzte Funktion ist stetig $\equiv$ ihre 
+  Komponentenfunktionen sind stetig.
+  }
+% -----------------------------------------------------------------------------
+\lemma:=>{
+  \label{lem:fun-ctf-cont}
+  Die Funktion einer kontextfreien Grammatik ist stetig.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{lem:fun-ctf-cont}:{
+  Wegen \ref{lem:fun-cont-comp} muss nur noch die Stetigkeit einer
+  Komponentenfunktion $g_i$ gezeigt werden. 
+  Sei $(M^{(k)})_{k=1}^\infty=(M_1^{(k)},\ldots,M_n^{(k)})_{k=1}^\infty$ eine 
+  Kette.
+  Zu zeigen ist $g_i(\sup_k M^{(k)})=\sup_k g_i(M^{(k)})$.
+  Mit den Bezeichnungen aus der Definition von $g$ gilt:
+  \begin{align*}
+    w\in g_i(\sup_k M^{(k)})
+    \equiv &w\in g_i(\sup_k(M_1^{(k)},\ldots,M_n^{(k)}))\\
+    \equiv &w\in g_i(\sup_k M_1^{(k)},\ldots,\sup_k M_n^{(k)})\\
+    \equiv &(\exists j\in\{1,\ldots,k_i\})(w\in\overline{a_{ij}}
+      \overset{\text{z.B.}}= \alpha(\sup_k M^{(k)}_l)\beta) \\
+    \equiv &(\exists k\natural)(\exists j\in\{1,\ldots,k_i\})(w\in\overline{a_{ij}}
+      \overset{\text{z.B.}}= \alpha(M^{(k)}_l)\beta)\\
+    \equiv &(\exists k\natural)(w\in g_1(M^{(k)}))
+    \equiv w\in \sup_k g_1(M^{(k)})
+    \end{align*}
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G=(V,T,S,P)$ eine kontextfreie Grammatik, $g$ die Funktion dazu=>{
+  \label{the:fix}
+  Sei dann
+  \[L_i:=\{w\in T^*\mid A_i\derivable w,A_i\in V\}\qquad i=1,ldots,n
+    \]
+  also z.B. $L_1=L(G)$, falls $A_1=S$. Dann ist $(L_1,\ldots,L_n)$ der
+  kleinste Fixpunkt von $g$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:fix}:{
+  Offenbar ist $\emptyset\in\cal P(T^*)$ das Minimum von $\cal P(T^*)$ 
+  bez"uglich der Teilmengenordnung. Weiter ist 
+  \[\sup_k g(\emptyset,\ldots,\emptyset)=(L_1,\ldots,L_n)
+    \]
+  und damit ergibt sich nach \ref{the:kleene-fix} sofort die Behauptung.\qed
+  }
+% -----------------------------------------------------------------------------
+\subsection{Gleichungssysteme}
+% -----------------------------------------------------------------------------
+\theorem:
+  $A,B\in\cal P(T^*)$, $T$ Alphabet=>{
+  \label{the:les}
+  F"ur das Gleichungssystem $X=AX+B$ ist $A^*B$ die kleinste L"osung.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:les}:{
+  Wir betrachten einfach $g(X)=AX+B$. Der kleinste Fixpunkt ist
+  \[\sup_k g^k(\emptyset)=B+AB+A^2B+A^3B+\cdots=A^*B
+    \]
+  Hallelujah!\qed
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Sei $G := (\{A_1, A_2\}, \{a, b\}, A_1, P)$ mit
+  \[P := A_1 \to aA_1 | bA_2 | a, A_2 \to aA_1 | aA_2 | b
+    \]
+  Wir haben also gegeben
+  \begin{eqnarray*}
+    x_1 &=& ax_1 + bx_2 + a\\
+    x_2 &=& ax_1 + ax_2 + b
+  \end{eqnarray*}
+  mit $x_1, x_2 \in \mathcal{P}((a+b)^*)$. Es folgt nach Satz
+  \ref{the:les}
+  \[x_1 = a^*(bx_2 + a),\]
+  woraus weiter folgt
+  \[x_2 = a^+(bx_2 + a) + ax_2 + b = a^+bx_2 + ax_2 + aa^+b = (a^+b +
+  a)x_2 + aa^+ + b\]
+  Erneutes Anwenden von Satz \ref{the:les} ergibt
+  \[x_2 = (a^+b + a)^*(aa^+ + b)\]
+  Einsetzen f"uhrt auf
+  \[x_1 = a^*(b(a^+b + a)^*(aa^+ + b) + a) = a^*b(a^+b + a)^*(aa^+ + b)
+  + a^+\]
+  Also folgt
+  \[L(G) = a^*b(a^+b + a)^*(aa^+ + b) + a^+\]
+  }
+% -----------------------------------------------------------------------------
+\section{Syntaxanalyse}
+% -----------------------------------------------------------------------------

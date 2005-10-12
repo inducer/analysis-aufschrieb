@@ -1,0 +1,687 @@
+% -----------------------------------------------------------------------------
+\para{Gruppen (Grundbegriffe)}
+% -----------------------------------------------------------------------------
+\subsection{Definition, Beispiele}
+% -----------------------------------------------------------------------------
+\definition Elementeigenschaften:{
+  \index{Rechtsinvers}
+  \index{Linksinvers}
+  Sei $M$ Monoid, $e$ neutrales Element, O.B.d.A. multiplikativ geschrieben, $a\in M$.
+  \begin{itemize}
+  \item $x\in M$ hei"st \emph{linksinvers} zu $a$ $:\iff$ $xa=e$
+  \item $x\in M$ hei"st \emph{rechtsinvers} zu $a$ $:\iff$ $ax=e$
+  \item $a$ hei"st \emph{invertierbar} $:\iff \exists$ Linksinverses $x$, 
+    Rechtsinverses $y$ zu $a$
+  \item Ein Monoid $(G,\circ)$, in dem alle $a\in G$ invertierbar sind, hei"st
+    eine \emph{Gruppe} $G$.
+  \end{itemize}
+ }
+% -----------------------------------------------------------------------------
+\lemma Links- und Rechtsinverse:
+  $G$ Gruppe, $a\in G$ => {
+  \label{lem:linksrechtsinv}
+  Alle Links- und Rechtsinversen von $a$ sind gleich.
+  Bezeichnung: $x=:a^{-1}$ bei fast allen Verkn"upfungen; $x=:-a$ bei $\circ =+$
+  }
+% -----------------------------------------------------------------------------  
+\proof \ref{lem:linksrechtsinv}:{
+  $e=ya=ax \implies x=ex = (ya)x = y(ax) = ye = y$.
+  Sind $y_1, y_2$ zwei Linksinverse  mit $y_1=x$ und $y_2=x$, so gilt
+  $y_1=y_2$. Analog f"ur Rechtsinverse.\qed
+  }
+% -----------------------------------------------------------------------------  
+\subsubsection*{Konstruktion von Gruppen}
+% -----------------------------------------------------------------------------
+\theorem Einheitengruppe von Monoiden:
+  $M$ Monoid=>{
+  \label{the:einheitengruppe-monoid}
+  $M^* := \{ x\in M \mid x$ invertierbar $ \}$ ist ein Untermonoid, das eine 
+  Gruppe ist. $M^*$ hei"st \emph{\indexthis{Einheitengruppe}} von $M$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:einheitengruppe-monoid}:{
+  $\surd$. Grund: $(x_1 \cdots x_n)^{-1} = x_n^{-1} \cdots x_1^{-1}$ f"ur
+  invertierbare $x_i$. $x\in M^* \implies x^{-1} \in M^*$ wegen 
+  $\left( x^{-1} \right) ^{-1}=x$.\qed
+  }
+% ----------------------------------------------------------------------------- 
+\example Einheitengruppen von Monoiden:{
+  \begin{itemize}
+  \item $FrMon(A)^* = \{ e=() \}$
+  \item Ist $A$ Menge, so ist
+    \begin{align*}
+      (A^A)^* 
+      &= \{ f: A \to A \mid 
+      \exists g,h \in A^A \mid g\circ f = id_A, f\circ g=id_A\}\\
+      &=\{f \mid f\text{ ist bijektiv}\}
+      \end{align*}
+    Inverse von $f$ (im Sinn des Monoids) ist die Umkehrabbildung $f^{-1}$.
+  \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\definition Symmetrische Gruppe eines Monoids:{
+  \index{Gruppe>symmetrische}
+  $(A^A)^* =: S_A$ hei"st \emph{symmetrische Gruppe} auf $A$.
+  } 
+% -----------------------------------------------------------------------------  
+\definition Einheitengruppe eines Rings:{
+  Ist $R$ ein Ring (mit $1$), so ist $(R, \circ)$ ein Monoid 
+  und man hat die Einheitengruppe von $R$:
+  \[R^\times := \{ a \in R \mid \exists x,y \in R : ax = ya = 1 \}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example Einheitengruppe eines Rings:{
+  $K^{n\times n}$ ist der Ring der $n\times n$-Matrizen 
+  "uber dem K"orper (oder Ring) K.
+  \[GL_n(K):=\left( K^{n\times n} \right)^\times = \{ A \subset K^{n\times n} \mid A \text{ invertierbar}\}
+    \]
+  F"ur K"orper (s. Vorlesung Lineare Algebra) gilt
+  \[\left( K^{n\times n} \right)^\times = \{ A \subset K^{n\times n} \mid \det A\neq 0\}
+    \]
+  Zu einer Halbgruppe $M$ ist $End(M)$ ein Monoid, man hat also
+  $Aut(M)=(End(M))^*$ eine Gruppe.
+  }
+% -----------------------------------------------------------------------------
+\remark Was ist $GL_n(\SetZ)$?:{
+  \index{Matrix>adjunkte}
+  Nach LA: Sei $A^\#$ die adjunkte Matrix zu $A\in GL_n(\SetZ)$, f"ur die gilt
+  $AA^\#=\det A E=A^\#A$. Falls $\det A\neq 0$: $A^{-1}=(\det A)^{-1} A^\#$.
+  Daher $GL_n(\SetZ)=\{A\in\SetZ^{n\times n} \mid \det A\in\SetZ^\times=\{1,-1\} \}$.
+  
+  F"ur kommutative Ringe $R$ gilt allgemein:
+  \[GL_n(R)=\{A\in\SetZ^{n\times n} \mid \det A\in R^\times\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\annotation Adjunkte Matrix:{
+  Wie erh"alt man $A^\#$ allgemein?
+  \missing
+  }
+% -----------------------------------------------------------------------------
+\subsection{Erzeugung und Untergruppenverband}
+% -----------------------------------------------------------------------------
+\definition Untergruppe:{
+  Sei $G$ eine Gruppe, o.E. multiplikativ geschrieben.
+  $U$ hei"st \emph{Untergruppe} der Gruppe $G$ $:\iff$ $U$ ist
+  eine Unterhalbgruppe von $G$, die selbst eine Gruppe ist.
+  
+  Bezeichnung: $U\leq G$.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Untergruppenkriterium:=>{
+  $U\leq G$ ist "aquivalent damit, dass alle drei folgenden
+  Eigenschaften gelten:
+  \begin{enumerate}
+    \item $\forall g,h\in U: gh\in U$ (Abgeschlossenheit)
+    \item $1_G\in U$ (Existenz des Neutralelements)
+    \item $\forall g\in U: g^{-1}\in U$ (Existenz des Inversen)
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\definition Vollst"andiger Verband:{
+  \index{Verband>vollst"andiger}
+  Eine geordnete Menge $A$, bei der jede Teilmenge eine Supremum und
+  ein Infimum besitzt, hei"st \emph{vollst"andiger Verband}.
+  }
+% -----------------------------------------------------------------------------
+\definition Untergruppenverband:{
+  $U(G):=\{U\subset G\mid U\leq G\}$ hei"st \emph{Untergruppenverband} von $G$. $U(G)$ ist
+  vollst"andiger Verband, denn:
+  \begin{enumerate}
+    \item $U(G)$ ist durch ``$\leq$'' geordnet.
+    \item Ist $M\subset U(G)$, so ist klar, dass gilt
+      \[\bigcap_{U\in M} U \in U(G)
+        \]
+    \item 
+      \index{Erzeugnis>gruppentheoretisches}
+      Ist $A\subset G$, so hei"st
+      \[\product A:=\product A_{Grp}:=\bigcap_{U\leq G,A\subset U} U\in U(G)
+        \]
+      das \emph{\indexthis{gruppentheoretische Erzeugnis}}
+      von $A$. Mit $A^{-1}:=\{a^{-1}\mid a\in A\}$ gilt $\product A=\product{A\cup A^{-1}}_{Hgr}$,
+      das hei"st, $\product A$ besteht aus allen endlichen Produkten von
+      Elementen in $A$ und $A^{-1}$. (Insbesondere ist $\product{A\cup A^{-1}}_{Hgr}$
+      eine Gruppe!)
+      
+      Man erh"alt, dass 
+      \[\sup M=\product{\bigcup_{U\in M} U}
+        \]
+    \item In $U(G)$ hat jede Teilmenge $M\subset U(G)$ ein Infimum, n"amlich
+      \[\inf M=\bigcap_{U\in M} U
+        \]
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\example Elemente von $U(G)$:{
+  Stets sind $G\in U(G)$ und $\{1_G\}\in U(G)$. Diese beiden nennt man die
+  \emph{trivialen Untergruppen} von $G$. Weiterhin erh"alt man f"ur jedes
+  $g\in G$
+  \[\product g:=\product{\{g\}}=\{g^z\mid z\in\SetZ\}\in U(G)
+    \]
+  eine Untergruppe von $G$.
+  }
+% -----------------------------------------------------------------------------
+\definition Ordnung,Zyklizit"at:{
+  \index{Gruppe>zyklische}
+  Sei $G$ eine Gruppe.
+  \begin{enumerate}
+    \item $\ord G:=|G|$ hei"st die \emph{Ordnung} von $G$.
+    \item $\ord g:=|\product g|$ hei"st die \emph{Ordnung} des Elements
+      $g\in G$.
+    \item $G$ hei"st \emph{zyklisch} $:\iff$ $\exists g\in G:G=\product g$.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\subsubsection*{Bestimmung von $U((\SetZ,+))$}
+% -----------------------------------------------------------------------------
+\remark Zyklizit"at von $\SetZ$:{
+  Es gilt $\SetZ=\product 1$, d.h. $\SetZ$ ist selbst zyklisch.
+  }
+% -----------------------------------------------------------------------------
+\lemma Untergruppen der ganzen Zahlen:$U\leq (\SetZ,+)$, $U\neq\{0\}$=>{
+  \label{lem:untergruppen-z}
+  Sei $d(U):=\min\{|u|\mid u\in U\setminus\{0\} \}>0$. Dann ist
+  $U=\product d=\SetZ d$.
+  
+  Ferner gilt f"ur $d_1,d_2\in\SetN_0$: $\product{d_1}\leq \product{d_2}\iff d_1\mid d_2$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{lem:untergruppen-z}:{
+  Sei $u\in U$. Dann ergibt sich $-u\in U$, d.h. $|u|\in U$. Daher
+  existiert ein eindeutig bestimmtes Minimum $d:=d(U):=\min\{ |u|\mid u\in U\}$
+  (Wohlordnung der nat"urlichen Zahlen).
+  
+  Es gilt $d\in U$, also insbesondere $\product d\leq U$.
+  
+  Weiterhin existiert zu jedem $u\in U$ ein $k\in \SetZ$ mit $(k-1)d\leq u< kd$,
+  es gilt also insbesondere $0\leq u-(k-1)d<d$, daher auch $u-(k-1)d=|u-(k-1)d|$.
+  Nun ist $d\in U$, d.h. es gilt $u-(k-1)d\in U$. Da $d$ aber unter den
+  Elementen von $U$ minimalen Betrag haben sollte, gilt $u-(k-1)d=0$,
+  also $u=(k-1)d\in \product d$. Daher gilt $U=\product d$.
+  
+  Es gilt f"ur ``ferner'': $d_1\in\product{d_1}\leq \product{d_2} = \product{zd_2\mid z\in\SetZ}$
+  $\iff$ $\exists z\in\SetZ:d_1=zd_2$ $\iff$ $d_2\mid d_1$.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Verbandstheoretische Deutung:{
+  $U(\SetZ)$ ist ein Verband, der zum Verband $\SetN$ mit
+  umgekehrter Teilbarkeitsordnung isomorph ist. (d.h. $\exists$
+  bijektive monotone Abbildung $U(\SetZ)\to \SetN$ mit $U\mapsto d(U)$.
+  
+  Verb"ande lassen sich grafisch veranschaulichen, so z.B.
+  $\SetN$ mit umgekehrter Teilbarkeitsordnung:
+  \insertfig{algebra1_teilbar_n}
+  }
+% -----------------------------------------------------------------------------
+\subsubsection*{Bestimmung von $U(S_3)$}
+% -----------------------------------------------------------------------------
+\example Zyklische Permutationen:{
+  \index{Permutation>zyklische}
+  Seien $a_1,\ldots,a_k\subset\{1,\ldots,n\}$.  Ein $\pi$ mit 
+  \[a_1\overset \pi\to a_2 \overset \pi\to a_3\overset \pi\to \cdots \overset \pi\to a_k \overset \pi\to a_1
+    \]
+  und $\pi(j)=j$ f"ur $j\neq a_1,\ldots,a_k$ wird \emph{zyklische Permutation} genannt.
+  F"ur solche $\pi$ wird die Bezeichnung $(a_1,\ldots,a_k):=\pi$ eingef"uhrt. Offenbar
+  gilt $\ord \pi =k$, und au"serdem ist klar, dass 
+  $(a_1,\ldots,a_k)=(a_2,\ldots,a_k,a_1)=\cdots$.
+  
+  Eine zyklische Permutation $(i,j)$ hei"st \emph{\indexthis{Transposition}}.
+  Nach LA gilt: Die Transpositionen erzeugen $S_n$ (Jede Transposition
+  ist Produkt von Vertauschungen). Es gen"ugen zur Erzeugung der $S_n$ 
+  allerdings auch die Transpositionen der Form $(i,i+1)$. Bekanntlich 
+  ist $|S_n|=n!$. Wie gro"s k"onnten dann Untergruppen von $S_3$ sein?
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Lagrange:
+  $G$ endliche Gruppe, $H\leq G$=>{
+  Dann gilt $\ord H\mid \ord G$. (Siehe \ref{the:lagrange})\qed
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $\ord G=p$, wobei $p$ eine Primzahl ist, so ist $G$ zyklisch.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Damit: $S_3$ kann nur Untergruppen der Ordnungen $1,2,3\mid 3!=6$ enthalten.
+  Dies sind gerade $\{id\},\{(12),(23),(31)\},\{(123),(123)^2\}$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Faktorgruppen und Homomorphies"atze}
+% -----------------------------------------------------------------------------
+\remark Teilmengenmonoid einer Gruppe:{
+  Sei $G$ Gruppe. Dann bildet die Menge $2^G$ mit der Verkn"upfung
+  $A\cdot B:=\{ab\mid a\in A,b\in B\}$ f"ur $A,B\subset G$ ein Monoid. 
+  (Die Assoziativit"at ist leicht nachzurechnen.)
+  
+  H"aufig schreibt man $aB:=\{a\}B$ f"ur derartige Verkn"upfungen mit
+  einelementigen Mengen.
+  
+  Es gilt $(2^G)^*=\{\{g\}\mid g\in G\}$. 
+  
+  [Dies folgert man so: Es gilt $|Ab|=|A|$, da die Gruppenverkn"upfung
+  injektiv ist f"ur jedes $b\in G$. Sucht man nun zu einer Menge $A$ das
+  Inverse $B$, so muss gelten $AB=\{e\}$, also insbesondere f"ur
+  jedes Element $b\in B$ $|Ab|=1$, also $|A|=1$, $|B|=1$ analog.]
+  }
+% -----------------------------------------------------------------------------
+\example Beispiel zu Schreibweisen in $2^G$:{
+  Das Untergruppenkriterium l"asst sich umformulieren. So ist $U\leq G$
+  "aquivalent zu den folgenden drei Aussagen:
+  \begin{enumerate}
+    \item $U\cdot U=U^2\subset U$
+    \item $U^{-1}\subset U$
+    \item $U\neq\emptyset$.
+    \end{enumerate}
+  In diesem Fall gilt $U^2 =U$ ($U=1_GU\subset U^2$ gilt eh immer!).
+  }
+% -----------------------------------------------------------------------------
+\definition Homomorphismus:{
+   Seien $G,H$ Gruppen. Ein \emph{(Gruppen-)Homomorphismus} von $G$ nach $H$
+   ist ein Halbgruppen-Homomorphismus $\phi:G\to H$.
+   }
+% -----------------------------------------------------------------------------
+\remark Einfache Folgerungen "uber Homomorphismen:{
+  In der Situation von obiger Definition gilt $\phi(1_G)=1_H$, $\phi(g^{-1})=\phi(g)^{-1}$.
+  Insbesondere folgt $\phi(G)\leq H$.
+  }
+% -----------------------------------------------------------------------------
+\example Homomorphismen:{
+  Es ist $\exp:(\SetC,+)\to (\SetC^\times ,\cdot)$ ein Homomorphismus.
+  }
+% -----------------------------------------------------------------------------
+\definition Nebenklassen,Quotienten,Index:{
+  Sei $G$ eine Gruppe, $U\leq G$.
+  \begin{enumerate}
+    \item Zu $g\in G$ hei"st $gU$ die \emph{rechte} und $Ug$ die
+      \emph{linke} \emph{\indexthis{Nebenklasse}}.
+      (Vorsicht! Diese Definition ist in vielen B"uchern, insbesondere
+      im Bosch, gerade andersherum)
+    \item 
+      \index{Quotient}
+      $G/U:=\{gU\mid g\in G\}$ (lies: $G$ von rechts durch $U$) hei"st
+      \emph{rechter Quotient} von $G$ durch/nach $U$. 
+      Den \emph{linken Quotienten} $U\backslash G$ definiert man analog.
+    \item $(G:U):=|G/U|$ hei"st der \emph{\indexthis{Index}} von $U$ in $G$.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\remark Bijektion von $G/U$ nach $U\backslash G$:{
+  Die Abbildung $\phi:G/U\to U\backslash G$ mit $xU\mapsto f(xU):=Ux^{-1}$ ist bijektiv.
+  Es gibt also gleichviele rechte und linke Nebenklassen, d.h.
+  $(G:U):=|G/U|=|U\backslash G|$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Cayley:
+  $G$ Gruppe=>{
+  \label{the:cayley}
+  Dann ist $\phi:G\to S_G$ mit $x\mapsto \phi(x):=l_x$ mit $l_x(y):=xy$ ist ein
+  injektiver Homomorphismus.
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerungen:{
+  Es ist $G\cong \phi(G)$. Jede Gruppe ist isomorph zu einer Permutationsgruppe.
+  (d.h. Untergruppe einer $S_M$). Folge: $|xU|=|l_x(U)|=|U|$, d.h.
+  alle Nebenklassen sind gleichm"achtig.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:cayley}:{
+  Die Homomorphie folgt direkt durch Einsetzen, die Injektivit"at so:
+  Sei $\phi(x)=\phi(y)$. Dann ist $x=l_x(1_G)=l_y(1_G)=y$, also $x=y$.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Lagrange:
+  $G$ Gruppe, $U\leq G$=>{
+  \label{the:lagrange}
+  Dann gilt $|G|=|U|\cdot (G:U)$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:lagrange}:{
+  F"ur $x,y\in G$ definiere $x\sim_U y:\iff xU=yU$. Das ist eine "Aquivalenzrelation.
+  Die Klasse $\overline x$ von $x$ ist gerade $xU$.
+  Demnach 
+  \[G=\biguplus_{\alpha \in G/U} \alpha
+    \]
+  Da aber $|\alpha|=|U|$ und es genau $(G:U)$ $\alpha$'s gibt, folgt die Behauptung.\qed
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerungen:{
+  Ist $U\leq H\leq G$, so gilt $(G:U)=(G:H)(H:U)$. Sind $U,V\leq G$, so gilt
+  $UV\leq G$ $\iff $ $UV=VU$ und es gilt $(UV:V)=(U:U\cap V)$.
+  }
+% -----------------------------------------------------------------------------
+\motivation Normalteiler:{
+  Wann ist $G/U$ selbst eine Gruppe? Ein Neutralelement haben wir immer,
+  wegen $U^2=U$. Die Inversenbildung ist z.B. mit $(xU)^{-1}:=x^{-1}U$ auch
+  kein Problem. Aber die Abgeschlossenheit? Ist immer $xUyU\in G/U$?
+  Es sollte dann $xUyU=xyU$ sein. Das tritt z.B. dann ein, wenn 
+  $\forall y\in G:Uy=yU$ ist.
+  }
+% -----------------------------------------------------------------------------
+\definition Normalteiler:{
+  \index{Untergruppe>normale}
+  \index{Homomorphismus>kanonischer}
+  Sei $G$ Gruppe.
+  Einer Untergruppe $N\leq G$ hei"st \emph{normal} oder ein \emph{Normalteiler}
+  $:\iff $ $\forall x\in G:Nx=xN$.
+  
+  Bezeichnung: $N\unlhd G$. Vorsicht: ``$\unlhd$'' ist nicht transitiv!
+  
+  $G/N$ ist dann eine Gruppe (genannt die \emph{\indexthis{Faktorgruppe}}
+  von $G$ nach $N$ und $\phi:G\to G/N$ mit $x\mapsto \phi(x):=xN$ ist ein
+  Homomorphismus, genannt \emph{\indexthis{kanonischer Homomorphismus}}.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Folgerungen:$G$ Gruppe=>{
+  \label{the:nt-folgerungen}
+  Dann gelten:
+  \begin{enumerate}
+    \item Es gilt ist $U\unlhd G\iff \forall x\in G:xUx^{-1}\subset U$. (Normalteilerkriterium)
+    \item Es gilt $G/U$ Gruppe $\iff$ $U\unlhd G$.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:nt-folgerungen}:{
+  \begin{enumerate}
+    \item ``$\Rightarrow$'': $\surd$. ``$\Leftarrow$'': Offenbar gilt: $xU=Ux\iff xUx^{-1}=U$.
+      Kann nun $xUx^{-1}\subsetneq U\iff U\not\subset xUx^{-1}$ vorkommen?
+      Sei $xUx^{-1}\subset U$. Dann gilt $U=x^{-1}(xUx^{-1})x\subset U$, aber auch
+      $U=x^{-1}(xUx^{-1})x\subset xUx^{-1}$.
+    \item ``$\Leftarrow$'': $\surd$. ``$\Rightarrow$'': Sei $G/U$ Gruppe. Dann existiert
+      f"ur alle $x\in G$ ein $y\in G$, so dass $xUyU=U$, also auch
+      $x1y1\in U$, d.h. $U=xyU$, also $x^{-1}U=yU$
+      Das ergibt $xUx^{-1}U=U$ und bedeutet $xUx^{-1}1\subset U$.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\remark Wichtige andere Darstellung von $G/N$:{
+  $\overline x=Nx$ ist "Aquivalenzklasse, $x$ ein Vertreter von
+  $\overline x=\alpha$. Das Rechnen mit diesen Klassen geschieht vertreterweise.
+  $\alpha,\beta\in G/N$. W"ahle Vertreter $x\in \alpha$ und $y\in\beta$. Dann ist $xy$ Vertreter
+  von $\alpha\beta$.
+  
+  Wir betrachten nun ein Hilfsmittel, mit dessen Hilfe sich feststellen
+  l"asst, ob $H\unlhd  G$:
+  }
+% -----------------------------------------------------------------------------
+\definition Innere Automorphismen:{
+  \index{Automorphismus>innerer}
+  \label{def:innerer-automorphismus}
+  Sei $G$ Gruppe.
+  F"ur alle $x\in G$ ist $in_x:G\to G$ mit $y\mapsto in_x(y):=xyx^{-1}$
+  ein Automorphismus von $G$, genannt \emph{innerer Automorphismus}.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{def:innerer-automorphismus}:{
+  Endomorphismus: $in_x(gh)=xghx^{-1}=xgx^{-1}xhx^{-1}=in_x(g)in_x(h)$.
+  
+  Bijektivit"at: $in_x\circ in_{x^{-1}}=in_{x^{-1}}\circ in_x=\id$.\qed
+  }
+% -----------------------------------------------------------------------------
+\definition Konjugation:{
+  \index{Untergruppe>konjugierte}
+  \index{Konjugiertenklasse}
+  Sei $G$ Gruppe, $U,V\leq G$. $U\sim V:\iff \exists x\in G:in_x(U)=V$ erkl"art
+  eine "Aquivalenzrelation, falls $U\sim V$ gilt, sagt man,
+  $U$ und $V$ seien \emph{zueinander konjugiert}.
+  
+  Es gilt $in_x(U)\leq G=in_x(U)$, weiter $|in_x(U)|=|U|$, deshalb sind z.B.
+  alle zueinander konjugierten Untergruppen gleichm"achtig.
+  
+  Die Menge $\{in_x(H)\mid x\in G\}$ hei"st \emph{Konjugiertenklasse} von $H$.
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerung:{
+  Es ist klar, dass $H\unlhd G$ $\iff$ Die Konjugiertenklasse besteht nur aus $H$.
+  Damit erh"alt man: Ist $H$ einzige Untergruppe einer bestimmten Ordnung
+  in $G$, so ist $H\unlhd G$. Andersherum: Gibt es mehrere konjugierte 
+  Untergruppen, so ist keine von ihnen ein Normalteiler.
+  }
+% -----------------------------------------------------------------------------
+\example Normalteiler und $\SetZ$:{
+  Wegen Abelizit"at von $\SetZ$ ist zun"achst jede Untergruppe
+  ein Normalteiler. Die Nebenklassen $\overline z$ haben folgende
+  Gestalt: $\overline z=z+d(U)\SetZ$. 
+  
+  Damit: $\SetZ/U=\{0+d(U)\SetZ,\ldots,d(U)-1+d(U)\SetZ\}$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Homomorphiesatz f"ur Gruppen}
+% -----------------------------------------------------------------------------
+\remark{Erinnerung: Klassenbildung}:{
+  Sei $M$ eine Menge und ``$\sim$'' eine "Aquivalenzrelation. Sei $m\in M$.
+  Dann ist $d(m):=\overline m:=\{x\in M\mid x\sim m\}$  die \emph{Klasse von $m$},
+  $M/\sim:=\{d(m)\mid m\in M\}$ der \emph{Quotient} von $M$ und $\sim$ sowie
+  $k:M\to M/\sim$ mit $m\mapsto \overline m$ die \emph{kanonische Abbildung}.
+  
+  Klassenbildung hat zwei Aspekte:
+  \begin{itemize}
+    \item Klassen sind Teilmengen von $M$, deren disjunkte Vereinigung 
+      $M$ ist.
+    \item Klassen sind Elemente (``Punkte'') des Quotienten $M/ \sim$.
+      Vorstellung: Die $x\in \overline m$ ``verschmelzen'' zu einem
+      neuen Ding, n"amlich zu $\overline m$.
+    \end{itemize}
+  \insertfig{algebra1_quotient}
+  $g$ existiert $\iff$ $f$ konstant auf Klassen. Eine beliebte Schreibweise
+  ist $g=\overline f$.
+  }
+% -----------------------------------------------------------------------------
+\definition Bild-"Aquivalenzrelation:{
+  \index{Faser}
+  Hat man eine surjektive Abbildung $f:M\to A$ (z.B. $A=M/ \sim $, $f=k$), so
+  ist $x\sim_f y :\iff f(x)=f(y)$ eine "Aquivalenzrelation. 
+  (s. auch \ref{the:homomorphie-mengen})
+  
+  Die Klassen sind $\overline x=f^{-1}(\{f(x)\})$. Sie werden 
+  \emph{Fasern} genannt.
+  }
+% -----------------------------------------------------------------------------
+\definition Schnitt:{
+  Sei $f:M\to A$ eine Abbildung.
+  Ein \emph{Schnitt} ist eine Abbildung $s:A\to M$ mit $f\circ s=\id_A$.
+  Beachte, dass die Forderung impliziert, dass $f$ surjektiv sein muss.
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerung:{
+  In der Situation von oben ist $\{s(a)\mid a\in A\}$ ein Vertretersystem der Klassen.
+  
+  Merke: Schnitte entsprechen gerade den Vertretersystemen bei $\sim_f$.
+  }
+% -----------------------------------------------------------------------------
+\example Schnitte:{
+  Sei $G$ eine Gruppe, $U\leq Z$, $G/U=G/ \sim$, d.h. $x\sim y= xU=yU$.
+  Betrachte speziell $G=\SetZ$, $U=d\SetZ$. 
+  Dann ist $\overline z=z+d\SetZ$, und der Schnitt ist $s=r_d$, wobei
+  $r_d(z):= z\bmod d$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Homomorphiesatz f"ur Mengen:
+  $f:M\to N$ eine Abbildung=>{
+  \label{the:homomorphie-mengen}
+  Dann ist $x \sim_f:\iff f(x)=f(y)$ eine "Aquivalenzrelation,
+  $\overline f(\overline x):=f(x)$ ist wohldefiniert. Weiterhin kommutiert
+  das folgende Diagramm:
+  \insertfig{algebra1_homsatz_mengen}
+  und es gelten au"serdem
+  \begin{enumerate}
+    \item $k$ ist surjektiv
+    \item $\overline f$ ist bijektiv
+    \item $i$ (Inklusion) ist injektiv.\qed
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\theorem Homomorphiesatz f"ur Gruppen:
+  $\phi :G\to H$ sei Gruppenhomomorphismus, $N:=\ker\phi=\phi^{-1}(\{1_H\})$=>{
+  \label{the:homomorphie-gruppen}
+  Dann gilt $N\unlhd G$ und $\phi$ hat die kanonische Faktorisierung
+  $\phi=i\circ \overline \phi\circ k$, wobei
+  \begin{enumerate}
+    \item $i$, die Inklusion, ein Monomorphismus ist.
+    \item $k$, die kanonische Abbildung $k(g):=gN=\overline g$, ein
+      Epimorphismus ist.
+    \item $\overline\phi$ mit $\overline \phi(\overline g)=\phi(g)$ ein
+      Isomorphismus ist.
+    \end{enumerate}
+  Betrachte auch folgendes kommutative Diagramm:
+  \insertfig{algebra1_homsatz_gruppen}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:homomorphie-gruppen}:{
+  Wende \ref{the:homomorphie-mengen} an auf $f=\phi$. 
+  Leicht nachzurechnen: $g\sim_f h\iff gh^{-1}\in \ker\phi=N\iff gN=hN\iff g\sim h$. 
+  Demnach $G/ \sim_f = G/N$. 
+  
+  Klar: $i,k$ Homomorphismen, Bijektivit"at von $\overline \phi$.
+  
+  $\overline \phi$ Homomorphismus: 
+  $\overline\phi(\overline g\overline h)
+    =\overline\phi(\overline{gh})
+    =\phi(gh)
+    =\phi(g)(h)
+    =\overline\phi(\overline g)\overline\phi(\overline h)$.
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\remark Folgerung:{
+  Es gilt $G/N=G/ \ker\phi \cong \phi(G)$.
+  
+  Kennt man alle Normalteiler von $G$, so kennt man alle homomorphen
+  Bilder von $G$ (bis auf Isomorphie).
+  }
+% -----------------------------------------------------------------------------
+\definition Einfache Gruppe:{
+  \index{Gruppe>einfache}
+  Sei $G$ eine Gruppe. $G$ hei"st \emph{einfach} $:\iff $ $|G|>1$ und $G$
+  hat nur den trivialen Normalteiler $\{1_G\}$.
+  }
+% -----------------------------------------------------------------------------
+\remark Anwendung des Homomorphiesatzes:{
+  $U(\SetZ)$ ist bekannt, also auch alle homomorphen Bilder von $\SetZ$:
+  Dies sind gerade die zyklischen Gruppen. Insbesondere ist eine zyklische
+  Gruppe $G$ mit erzeugendem Element $g$ isomorph zu $\SetZ/d\SetZ$ mit
+  \[d:=\begin{cases}
+      \ord G & \ord G<\infty \\
+      0 & \ord G=\infty
+      \end{cases}
+    \]
+  unter dem Isomorphismus $\phi:\SetZ/d\SetZ\to G$ mit $z\mapsto \phi(z):=g^z$.
+  Speziell gilt $g^i=g^j\iff \overline i=i+d\SetZ=j+d\SetZ=\overline j\iff
+  i-j\in d\SetZ\iff d\mid i-j$.
+  }
+% -----------------------------------------------------------------------------
+\definition Zwischengruppenverband:{
+  Sei $N$ ein Normalteiler.
+  Dann nennt man
+  \[U(G,N):=\{H\mid N\leq H\leq G\}
+    \]
+  den \emph{Zwischengruppenverband} von $G$ und $N$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Untergruppen-Entsprechungssatz:
+  $\phi:G\to\tilde G$ surjektiver Gruppenhomomorphismus, $N=\ker \phi$=>{
+  \label{the:untergruppen-entsprechung}
+  Dann gelten die folgenden Aussagen:
+  \begin{enumerate}
+    \item $\phi$ induziert eine bijektive anordnungstreue streng monotone
+      Abbildung $\phi:U(G,N)\to U(\tilde G)$. Man nennt dann f"ur ein
+      $H\in U(G,N)$ die Gruppe $\phi(H)$ die \emph{Bildgruppe} von $H$ unter
+      $\phi$.
+    \item Die Konjugiertenklasse von $H\in U(G,N)$ wird auf die 
+      Konjugiertenklasse von $\phi(H)$ abgebildet. Insbesondere
+      gilt $H \unlhd G\iff \phi(H) \unlhd \phi(G)=\tilde G$.
+    \item Ist $H\unlhd G$, so gilt $G/H\cong \phi(G)/ \phi(H)$.
+    \item Ist $N\leq H\leq H'\leq G$, so ist $(H':H)=(\phi(H'):\phi(H))$.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:untergruppen-entsprechung}:{
+  Zu 1.: Wegen der Surjektivit"at von $G$ folgt $\phi(\phi^{-1}(K))=K$ f"ur alle
+  Elemente $K\in U(\tilde G)$. F"ur eine Untergruppe $H\leq G$ gilt weiterhin
+  auch $\phi^{-1}(\phi(H))=H$, oder
+  
+  $x\in\phi^{-1}(\phi(H))\iff \phi(x)\in \phi(H)\overset !\iff x\in H$. Dabei ist ``$\Rightarrow$'' die 
+  interessante Richtung, die wir jetzt zeigen m"ochten. Existiere also
+  nach Voraussetzung ein $y\in H$, so dass $\phi(x)=\phi(y)\iff \phi(xy^{-1})=1$.
+  Dann ist $xy^{-1}\in\ker \phi=N\leq  H\leq G$. Wegen $y\in H$ folgt dann auch
+  $x\in H$.
+  
+  Damit wissen wir, dass $U(G,N)$ bijektiv auf $U(\tilde G)$ abgebildet 
+  wird.
+  
+  Zu 2.: Sei $H'=xHx^{-1}$. Dann ist $\phi(H')=\phi(x)\phi(H)\phi(x)^{-1}$, und damit
+  gezeigt, dass die Bild-Konjugiertenklasse in der ganzen 
+  Konjugiertenklasse in $\tilde G$ liegt. 
+  Sei andersherum jetzt $K'=yKy^{-1}$ mit $y\in G'$ und $K\leq \tilde G$.
+  Nach 1. existiert dann genau jeweils ein $H',H\in U(G,N)$ mit
+  $\phi(H')=K'$ und $\phi(H)=H'$ und wegen der Surjektivit"at von $\phi$
+  auch ein $x\in G$ mit $\phi(x)=y$. Dann ist
+  $K'=yKy^{-1}=\phi(x)\phi(H)\phi(x)^{-1}=\phi(xHx^{-1})$.
+  Wegen der Injektivit"at von $\phi$ folgt jetzt aus $\phi(H')=\phi(xHx^{-1})$ auch
+  $H'=xHx^{-1}$.
+  
+  Zu 3.,4.: Zu festem $H$ betrachte die Abbildung $\psi:G\to\tilde G\land phi(G)$, die
+  als Verkettung von $\tilde k\circ \phi$ entsteht, wobei $\tilde k$ die kanonische Abbildung
+  $\tilde k:\tilde G\to \tilde G/ \phi(G)$ ist.
+  $\psi$ ist offenbar surjektiv.
+  
+  Wende nun den Homomorphiesatz f"ur Mengen auf $\psi$ an.
+  \insertfig{algebra1_ug_entspr_proof}
+  Es gilt 
+  \begin{align*}
+    x\sim_\psi y 
+    &\iff \tilde k(\phi(x))=\tilde k(\phi(y))
+    \iff \phi(x)\phi(H)=\phi(y)\phi(H)\\
+    &\iff \phi(xy^{-1})\in\phi(H)
+    \iff xy^{-1}\in H
+    \iff xH=yH
+    \end{align*}
+  Damit haben wir gesehen, dass gilt $G/ \sim_\psi =G/H$, woraus insbesondere
+  $(G:H)=|\tilde G/ \phi(H)|$ folgt. 
+  
+  F"ur 4. darf o.B.d.A. angenommen werden,
+  dass $H'=G$. Falls $H\unlhd G$, so ist $\overline \phi$ ein Gruppenisomorphismus,
+  womit auch 3. erschlagen ist.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem Hauptsatz "uber zyklische Gruppen:=>{
+  \label{the:zyklische-gruppen-hauptsatz}
+  \index{Gruppe>zyklische>Hauptsatz "uber}
+  \index{Zyklische Gruppen>Hauptsatz "uber}
+  Es gelten:
+  \begin{enumerate}
+    \item Zu jedem $d\in\SetN_{>0}$ gibt es bis auf Isomorphie genau eine 
+      zyklische Gruppe $Z_d$ der Ordnung $d$ und genau eine unendliche
+      zyklische Gruppe.
+    \item Alle Untergruppen von $Z_d$ sind auch wieder zyklisch und entsprechen
+      bijektiv den Teilern von $d$ wobei $Z_a \leq Z_b \iff a\mid b$.
+    \end{enumerate}
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:zyklische-gruppen-hauptsatz}:{
+  Es gilt $Z_d\cong Z/d\SetZ$ (siehe oben), 
+  Rest folgt aus \ref{the:untergruppen-entsprechung}.\qed
+  }
+% -----------------------------------------------------------------------------
+\theorem Noether's K"urzungsregel, Erster Isomorphiesatz f"ur Gruppen:
+  $G$ Gruppe, $N\unlhd G$, $N\leq H\unlhd G$=>{
+  \index{1. Isomorphiesatz f"ur Gruppen}
+  \index{Erster Isomorphiesatz f"ur Gruppen}
+  \index{K"urzungsregel>Noether's}
+  \label{the:1-gruppen-iso}
+  Dann ist $(G/N)/(H/N)\cong G/H$.
+  }
+% -----------------------------------------------------------------------------
+\proof \ref{the:1-gruppen-iso}:{
+  Sei $\phi:=k$ die kanonische Abbildung von $G$ nach $G/N$. Dann folgt
+  die geforderte Isomorphie nach dem Untergruppenentsprechungssatz.
+  \qed
+  }
+% -----------------------------------------------------------------------------
+\theorem Zweiter Isomorphiesatz f"ur Gruppen:
+  $G$ Gruppe, $U\leq G$, $N\unlhd G$=>{
+  \index{2. Isomorphiesatz f"ur Gruppen}
+  \label{the:2-gruppen-iso}
+  Dann ist $UN\leq G$, weiter $N\leq UN$ und $UN/N\cong U/(U\cap N)$, genauso wieder
+  $U(UN,N)\cong U(U,U\cap N)$.\qed
+  }

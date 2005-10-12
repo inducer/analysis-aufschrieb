@@ -1,0 +1,33 @@
+% -----------------------------------------------------------------------------
+% Informatik 2 Aufschrieb
+% -----------------------------------------------------------------------------
+% Andreas Kloeckner / SS99
+% -----------------------------------------------------------------------------
+
+\input aufschrieb
+\input math
+\usepackage{epic}
+
+\def\cpx{\textit{Aufwand}: }
+\def\given{\textit{Gegeben}: }
+\def\aim{\textit{Gesucht}: }
+\newenvironment{proc}{\textit{Ablauf}:\begin{itemize}}{\end{itemize}}
+
+\begin{document}
+
+\mathtitle{Informatik II}{
+  Ein Aufschrieb der Vorlesung {\sl Informatik II} an der Uni Karlsruhe im 
+  Sommersemester 1999, gelesen von Prof.~Dr.~A. Waibel.
+  \vskip0.4cm
+  \aufschriebblurb
+  \vskip0.4cm    
+  \LaTeX-Lauf am \today.
+  }
+\aufschriebbody{
+  \input info2_1
+  \input info2_2
+  \input info2_3
+  }{
+  }
+\end{document}
+

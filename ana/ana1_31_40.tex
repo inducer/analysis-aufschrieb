@@ -1,0 +1,423 @@
+% -------------------------------------------------------------------------
+\para{Der zweite Hauptsatz der Integralrechnung}
+% -------------------------------------------------------------------------
+\definition:{
+  Sei $f\in\SetRInt([a,b])$. Dann ist $\int_b^a f(x)dx:=-\int_a^b f(x)dx$
+  
+  Sei $c\in[a,b]$. Dann ist $\int_c^c f(x)dx:=0$
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  $f\in\SetRInt([a,b]),x\in[a,b]$. Dann ex. $\int_a^x f(x)dx$.
+  }
+% -------------------------------------------------------------------------
+\theorem 2. Hauptsatz der Differential- und Integralrechnung:
+  $f\in\SetRInt([a,b])$,
+  $F:[a,b]\to\SetR$, $x\mapsto F(x):=\int\nolimits_a^x f(t)dt$=>{
+  \begin{stmts}
+    \item $F$ ist Lipschitz-stetig auf $[a,b]$, insbes. $F\in\SetCont([a,b])$
+    \item Ist $f$ in $x_0\in[a,b]$ stetig, so ist $F$ in $x_0$ db und 
+          $F'(x_0)=f(x_0)$
+    \item $f\in\SetCont([a,b])\implies F\in\SetCont^1([a,b])$ und $F'=f$ auf 
+          $[a,b]$
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  Jede Funktion $f\in\SetCont([a,b])$ besitzt auf $[a,b]$ eine Stammfunktion.
+  }
+% -------------------------------------------------------------------------
+\para{Integrationsregeln}
+% -------------------------------------------------------------------------
+\theorem:$I\subseteq\SetR$ bel. Intervall, $f\in\SetCont(I)$, 
+  $\xi\in I$ fest, 
+  $F:I\to\SetR$, $x\mapsto F(x):=\int\nolimits_a^x f(t)dt$=>{
+  $F'=f$ auf $I$
+  }
+% -------------------------------------------------------------------------
+\definition Unbestimmtes Integral:{
+  Sei $I\subseteq\SetR$ bel. Intervall, $f:I\to\SetR$ eine Funktion.
+  Besitzt $f$ auf $I$ eine Stammfunktion $F$, so schreibt man f"ur eine 
+  solche auch 
+  \[\int f(x)dx:=F
+    \]
+  }
+% -------------------------------------------------------------------------
+\theorem Partielle Integration:=>{
+  \begin{stmts}
+    \item $f,g\in\SetRInt([a,b])$, $F,G$ Stammfunktionen von $f,g$.\\
+      Dann: $\int_a^b F(x)g(x)dx =[F(x)G(x)]_a^b-\int_a^b f(x)G(x)dx$
+    \item $f,g\in\SetCont^1([a,b])$\\
+      Dann: $\int_a^b f'(x)g(x)dx= [f(x)g(x)]_a^b-\int_a^b f(x)g'(x)dx$
+    \item $I\subseteq\SetR$ beliebiges Intervall, $f,g\in\SetCont^1(I)$\\
+      Dann: $\int f'(x)g(x)dx = f(x)g(x)-\int f(x)g'(x) dx$
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\definition Hilfsschreibweise zur Substitutionsregel:{
+  F"ur den folgenden Satz legen wir fest
+  \[<\alpha;\beta>:=[\min\{\alpha,\beta\};\max\{\alpha,\beta\}]
+    \]
+  }
+% -------------------------------------------------------------------------
+\theorem Substitutionsregel:
+  $f\in\SetRInt(<\alpha;\beta>)$ besitze auf $<\alpha;\beta>$ eine Stammfunktion.=>{
+  \begin{stmts}
+    \item $g:<\alpha;\beta>\to\SetR$ db, $(f\circ g)\cdot g' \in\SetRInt((\alpha;\beta))$ \\
+      $g(<\alpha;\beta>)\subseteq <\alpha;\beta>,a:=g(\alpha),b:=g(\beta)$ \\
+      Dann: $\displaystyle\int_a^b f(x) dx=\int_\alpha^\beta f(g(t))\cdot g'(t) dt$ 
+    \item $f\in\SetCont(<a;b>),g\in\SetCont^1(<\alpha;\beta>)$ \\
+      $g(<\alpha;\beta>)\subseteq <\alpha;\beta>,a:=g(\alpha),b:=g(\beta)$ \\
+      Dann: $\displaystyle\int_a^b f(x) dx=\int_\alpha^\beta f(g(t))\cdot g'(t) dt$ 
+    \item $I, J$ seien bel. Intervalle, 
+      $f\in\SetCont(I),g\in\SetCont^1( J)\subseteq I$
+    \item $\int f(g(t))\cdot g'(t) dt=\int f(x)dx|_{x=g(t)}$ auf  $J$.
+    \item $g$ streng monoton $\implies$ $(\exists g^{-1}:g( J)\to  J)$\\
+      $\displaystyle\int f(x)dx=\int f(g(t))g'(t) dt\big|_{t=g^{-1}(x)}$
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\remark Merkregel f"ur die Substitution:{
+  Sei $g=g(x)$ eine db Funktion. Dann schreibt man $\frac{dg}{dx}$ f"ur $g'$.
+  Subst. $x=g(t)$. Dann ist $\frac{dx}{dt}=g'(t) \equiv dx=g'(t)dt$. 
+  Keine Mathematik, aber schick zum Merken.
+  }
+% -------------------------------------------------------------------------
+\para{Verschiedenes}
+% -------------------------------------------------------------------------
+\definition Feinheitsma"s:{
+  Sei $z$ eine Zerlegung von $[a,b]$ und $|I_j|,j=1\ldots n$ die L"ange des
+  $j$-ten Intervalls.
+  
+  Dann ist $|z|:=\max\{|I_j||j=1\ldots n\}$ das Feinheitsma"s von $z$.
+  }
+% -------------------------------------------------------------------------
+\theorem:$f:[a,b]\to\SetR, (\forall x\in[a,b])(|f(x)|\le M)$, 
+  $z,\tilde z$ Zerlegungen von $[a,b]$, $z\subseteq\tilde z$, 
+  $\tilde z$ enth"alt $p$ Teilpunkte mehr als $z$.=>{
+  Dann gelten
+  \begin{align*}
+    \lsum(\tilde z) &\le \lsum(z) + 2pM|z|\\
+    \usum(\tilde z) &\ge \usum(z) - 2pM|z|\\
+    \end{align*}
+  }
+% -------------------------------------------------------------------------
+\theorem:$f:[a,b]\to\SetR, (\forall x\in[a,b])(|f(x)|\le M)$, 
+  $(z_n)$ Folge von Zerlegungen von $[a,b]$, $\limn|z_n|=0$,
+  zu jedem $z_n$ existiert ein passender Zwischenvektor $\xi(n)$.=>{
+  \begin{stmts}
+    \item $\limn \lsum(z_n)=\lint_a^b f(x)dx$ \\
+      $\limn \usum(z_n)=\uint_a^b f(x)dx$ 
+    \item $f\in\SetRInt([a,b])\implies
+      \limn \sigma_f(z_n;\xi(n))=\int_a^b f(x)dx$
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\theorem: $(f_n)$ Folge in $C^1([a,b])$. $f_n(a)$ konvergiert, 
+  $f_n'$ konvergiert glm auf $[a,b]$ gegen $g:[a,b]\to\SetR$=>{
+  $f_n$ konvergiert glm auf $[a,b]$ und f"ur die Grenzfunktion gilt
+  \begin{gather*}
+    f(x)=\limn f_n(x)\qquad f\in\SetCont^1[a,b]\\
+    (\forall x\in[a,b])(f'(x)=g(x))     
+    \end{gather*}
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  Vorstehender Satz l"a"st sich ausdr"ucken (mit den obigen Voraussetzungen):
+  \[(\limn f_n)'=f'=g=\limn (f_n)' 
+    \]
+  Obiger Satz gilt entsprechend f"ur Funktionenreihen.
+  }
+% -------------------------------------------------------------------------
+\theorem Satz von Taylor mit Integralrestglied:
+  $I\subseteq\SetR$ Intervall, $f\in\SetCont^{n+1}(I)$, $a,b\in I,a<b$=>
+  {
+  Es gilt
+  \[f(b)=\sum_{k=0}^n \frac {f^{(k)}(a)}{k!} (b-a)^k+
+         \int_a^b \frac{(b-x)^n}{n!}f^{(n+1)}(x) dx
+    \]
+  }
+% -------------------------------------------------------------------------
+\para{Uneigentliche Integrale}
+% -------------------------------------------------------------------------
+\convention{$a,b\real$, 
+  $\alpha\real\cup\{-\infty\},\beta\in\SetR\cup\{\infty\}$
+  }
+% -------------------------------------------------------------------------
+\definition Uneigentliches Integral:{
+  $f:\stack({[\alpha;\beta)};{(\alpha;\beta]})\to\SetR$ sei ib "uber jedem
+  Intervall $\stack({[a;t]};{[t;b]})$ mit $t\in\stack({(a;\beta)};{(\alpha;b)})$.
+  Existiert der Grenzwert 
+  $\stack({\limes t->\beta \int_a^t f(x)dx};{\limes t->\alpha \int_t^b f(x) dx})$,
+  so hei"st $f$ uneigentlich integrierbar "uber $\stack({[a;\beta)};{(\alpha;b]})$.
+  und das Integral
+  $
+    \stack({\int_a^\beta f(x)dx};{\int_\alpha^b f(x) dx})
+    =
+    \stack({\limes t->\beta \int_a^t f(x)dx};{\limes t->\alpha \int_t^b f(x) dx})
+  $
+  hei"st konvergent. Andernfalls hei"st
+  $\stack({\int_a^\beta f(x)dx};{\int_\alpha^b f(x) dx})$ divergent.
+  }
+% -------------------------------------------------------------------------
+\lessertheorem: $f:[\alpha;\beta)\to\SetR$ ib f"ur alle 
+  $[a;t)$ mit $t\in(\alpha;\beta)$=>
+  {
+  Es ist
+  \[\int_a^\beta f(x)dx \text{ konvergent} \equiv
+    (\exists c\in(\alpha;\beta))(\int_c^\beta f(x)dx \text{ konvergent})
+    \]
+  In diesem Fall:
+  \[\int_a^\beta f(x)dx =\int_a^c f(x)dx+\int_c^\beta f(x)dx
+    \]
+  F"ur untere Grenzen gilt dieser Satz analog.
+  }
+% -------------------------------------------------------------------------
+\definition Beidseitiges uneigentliches Integral:{
+  $f:(\alpha,\beta)\to\SetR$ hei"st uneigentlich ib "uber $(\alpha;\beta)$ 
+  $:\equiv$
+  \[(\exists c\in (\alpha;\beta))
+      (\int_\alpha^c f(x)dx \text{ konvergent} \land 
+       \int_c^\beta f(x)dx \text{ konvergent})
+    \]
+  In diesem Fall:
+  \[\int_\alpha^\beta f(x)dx:=\int_\alpha^c f(x)dx+\int_c^\beta f(x)dx 
+    \]
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  Gilt obige Beziehung f"ur ein $c\in(\alpha;\beta)$, so gilt sie f"ur alle
+  $c\in(\alpha;\beta)$.
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  Aus der Existenz von $\limes t->\infty \int_{-t}^t f(x)dx$ folgt nicht
+  die Konvergenz des entsprechenden Integrals.
+  }
+% -------------------------------------------------------------------------
+\convention{
+  Die folgenden S"atze und Definitionen sind f"ur Integrale der Form
+  $\int_a^\beta f(x) dx$ formuliert, gelten aber sinngem"a"s auch f"ur 
+  den anderen Typ.
+  
+  Sei ab hier $f\in\SetRInt([a,b])$, $t\in(\alpha,\beta)$.
+}
+% -------------------------------------------------------------------------
+\theorem Cauchy-Kriterium f"ur uneigentliche Integrale:=>{
+  Es gilt
+  \begin{multline*}
+    \int_a^\beta f(x)dx \text{ konvergent} \equiv \\
+    \epsn(\exists c=c(\epsilon)\in(a,\beta))(\forall u,v \in [c,\beta))
+      (\left|\int_u^v f(x)dx\right| <\epsilon)
+    \end{multline*}
+  }
+% -------------------------------------------------------------------------
+\definition Absolute Konvergenz bei uneigentlichen Integralen:{
+  $\int_a^\beta f(x)dx$ hei"st absolut konvergent $:\equiv$ 
+  $\int_a^\beta |f(x)| dx$ konvergiert.
+  }
+% -------------------------------------------------------------------------
+\theorem Dreiecksungleichung f"ur uneigentliche Integrale:
+  $\int_a^\beta f(x)dx$ absolut konvergent=>{
+  $\int_a^\beta f(x)dx$ konvergent und es gilt
+  \[\left|\int_a^\beta f(x)dx\right|\le\int_a^\beta |f(x)|dx
+    \]
+  }
+% -------------------------------------------------------------------------
+\theorem Majoranten-/Minoranten\-kriterium f"ur uneigentliche Integrale:=>{
+  \begin{stmts}
+    \item $(\forall x \in[a,\beta))(|f(x)|\le g(x))$, 
+      $\int_a^\beta g(x)dx$ konv.
+      $\implies$ $\int_a^\beta f(x)dx$ konv. absolut
+      (\emph{\indexthis{Majorantenkriterium}})
+    \item $(\forall x \in[a,\beta))(f(x)\ge g(x)\ge 0)$, 
+      $\int_a^\beta g(x)dx$ divergent 
+      $\implies$ $\int_a^\beta f(x)dx$ divergent
+      (\emph{\indexthis{Minorantenkriterium}})
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  Sei $ W$ die Menge aller "uber $[a,\beta)$ uneigentlich ib'en 
+  Funktionen. Dann ist $ W$ ein reeller Vektorraum und die 
+  Abbildung $f\mapsto\int_a^\beta f(x)dx\,(f\in W)$ ist linear.
+  }
+% -------------------------------------------------------------------------
+\para{Funktionen von beschr"ankter Variation}
+% -------------------------------------------------------------------------
+\definition Variation:{
+  Sei $[a,b]\subseteq\SetR,a<b$ und $f:[a,b]\to\SetR$ eine Funtkion.
+  $z=\{x_0,...x_n\}$ sei Zerlegung von $[a,b]$.
+  
+  Dann hei"st $V_f(z):=\sum_{j=1}^n |f(x_j)-f(x_{j-1})|$ die Variation
+  von $f$ bezgl. $z$.
+  }
+% -------------------------------------------------------------------------
+\lessertheorem:
+  $z_1,z_2$ Zerlegungen von $[a,b]$ mit $z_1\subseteq z_2$=>{
+  $V_f(z_1)\le V_f(z_2)$
+  }
+% -------------------------------------------------------------------------
+\definition Beschr"ankte Variation:{
+  $f:[a,b]\to\SetR$ hei"st von beschr"ankter Variation (bV) $:\equiv$
+  \[(\exists M\ge 0)(\forall z \text{ Zerlegung von $[a,b]$})(V_f(z)\le M)
+    \]
+  In diesem Fall hei"st 
+  $V_f([a,b]):=\sup \{V_f(z)\mid z \text{ Zerlegung von $[a,b]$}\}$
+  die \indexthis{Totalvariation} von $f$.
+  $\SetBV([a,b])$ bezeichnet die Menge aller Funktionen von beschr"ankter
+  Variation auf $[a,b]$
+}
+% -------------------------------------------------------------------------
+\lessertheorem:=>{
+  Es ist $\SetCont^1([a,b])\subset \SetBV([a,b])$, aber
+  $\SetCont([a,b])\not\subset \SetBV([a,b])$.
+  }
+% -------------------------------------------------------------------------
+\theorem:$f:[a,b]\to\SetR$, $c\in[a,b]$=>{
+  \begin{stmts}
+    \item $f\in\SetBV([a,b])\equiv f\in\SetBV([a;c])\cap\SetBV([c;b])$
+      $(\forall f\in\SetBV([a,b]))(V_f([a,b])=V_f([a;c])+V_f([c;b])$ 
+    \item $f\in\SetBV([a,b])$ $\implies$ $f$ ist beschr"ankt 
+    \item $f$ monton auf $[a,b]$ $\implies$ $f\in\SetBV([a,b])$ 
+    \item $f$ hat beschr"ankte Ableitung $\implies$ $f\in\SetBV([a,b])$ 
+      Dieser Fall tritt z.B. ein, wenn $f\in\SetCont^1([a,b])$ oder $f$ 
+      Lipschitz-stetig.
+    \item $\SetBV([a,b])$ ist ein reeller Vektorraum.
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\theorem:=>{
+  Es ist $f\in\SetBV([a,b])$ $\equiv$
+  \[(\exists f_1,f_2:[a,b]\to\SetR \text{ monton $\nearrow$})(f=f_1-f_2)
+    \]
+  }
+% -------------------------------------------------------------------------
+\theorem:$f\in\SetCont^1([a,b])$=>{
+  Dann gilt 
+  \[V_f([a,b])=\int_a^b |f'(x)| dx
+    \]
+  }
+% -------------------------------------------------------------------------
+\para{Das Riemann-Stieltjes-Integral}
+% -------------------------------------------------------------------------
+\convention{
+  $f,g:[a,b]\to\SetR$ beschr"ankt
+  }
+% -------------------------------------------------------------------------
+\definition Riemann-Stieltjes-Integral:{
+  Sei $z=\{x_0,...x_n\}$ Zerlegung von $[a,b]$ und $\xi$ ein zu $z$ 
+  passender ZV.
+  
+  $\sigma_f(z;\xi;g):=\sum_{j=1}^n f(\xi_j)(g(x_j)-g(x_{j-1}))$
+  hei"st dann \indexthis{Riemann-Stieltjes-Summe}.
+  
+  $f$ hei"st (Riemann-Stieltjes-)ib bzgl. $g$ $:\equiv$
+  \begin{multline*}
+    (\exists s\in\SetR)\epsn(\exists \delta>0)
+    (\forall z \text{ Zerlegung von $[a,b]$ mit $|z|<\delta$})\\
+    (\forall \xi \text{ ZV passend zu $z$})(|\sigma_f(z;\xi;g)-s|<\epsilon)
+    \end{multline*}
+  $\SetRInt_g([a,b])$ bezeichnet die Menge aller "uber $[a,b]$ bzgl. $g$
+  Riemann-Stieltjes-ib'en Funktionen.
+  
+  Man kann zeigen, da"s $s$ in diesem Fall eindeutig bestimmt ist. $s$
+  hei"st dann das Riemann-Stieltjes-Integral von $f$ bzgl. $g$
+  "uber $[a,b]$
+  
+  Schreibweise:
+  \[\int_a^b f(x)dg(x):=s
+    \]
+}
+% -------------------------------------------------------------------------
+\remark:{
+  Es gilt
+  \begin{stmts}
+    \item Sei $g:[a,b]\to\SetR, g(x):=x$. Dann ist 
+      $\sigma_f(z,\xi,g)=\sigma_f(z,\xi)$ und es gilt 
+      $\SetRInt_g([a,b])=\SetRInt([a,b])$.
+    \item Sei $g:[a,b]\to\SetR, g(x):=c, c\real$. Dann gilt:
+      $\SetRInt_g([a,b])=\{f:[a,b]\to\SetR\mid f \text{ beschr"ankt}\}$
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt
+  \[\begin{split}
+    f\in\SetRInt_g([a,b]) \equiv 
+    & (\forall (z_n) \text{ $z_n$ Zerl. von $[a,b]$ mit $|z_n|\to 0 (n\to\infty)$})\\
+    & (\forall (\xi_n) \text{ $\xi_n$ zu $z_n$ passender ZV})
+      (\sigma_f(z_n,\xi_n,g)\to\int_a^b f(x)dg(x))
+    \end{split}\]
+  }
+% -------------------------------------------------------------------------
+\theorem:
+  $g_1,g_2:[a,b]\to\SetR$ beschr"ankt=>{
+  \begin{stmts}
+    \item $\SetRInt_g([a,b])$ ist reeller Vektorraum.
+      Die Abbildung $f\mapsto\int_a^bf(x)dg(x)\,(f\in\SetRInt_g([a,b]))$ ist linear.
+    \item $f\in\SetRInt_{g_1}([a,b])\cap\SetRInt_{g_2}([a,b])$, 
+      $\alpha,\beta\in\SetR$.
+      Dann: $f\in\SetRInt_{\alpha g_1+\beta g_2}$ und 
+      \[\int_a^b f(x) d\alpha g_1(x)+\int_a^b f(x) d\beta g_2(x)=
+	\int_a^b f(x) d\alpha g_1(x)+\beta g_2(x)
+        \]
+    \item $a<c<b; f\in\SetRInt_g([a;c])\cap \SetRInt_g([c;b])\cap\SetRInt_g([a,b])$ 
+      Dann: $\int_a^b f(x)dg(x)=\int_a^c f(x)dg(x)+\int_c^b f(x)dg(x)$
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  $f\in\SetRInt_g([a;c])\cap\SetRInt_g([c;b]) \not\implies f\in\SetRInt_g([a,b])$
+  }  
+% -------------------------------------------------------------------------
+\theorem Partielle Integration (Riemann-Stieltjes):
+  $f\in\SetRInt_g([a,b])$=>{
+    $g\in\SetRInt_f([a,b])$ und es gilt
+    \[ \int_a^b f(x)dg(x)= [f(x)g(x)]_a^b-\int_a^b g(x)df(x) \]
+  }
+% -------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b]),g\in\SetBV([a,b])$=>{
+  Dann ist $f\in\SetRInt_g([a,b])$.
+  }  
+% -------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b]),g\in\SetCont^1([a,b])$=>{
+  $f\in\SetRInt_g([a,b])$ und es gilt
+  \[\int_a^b f(x)dg(x)=\int_a^b f(x)\cdot g'(x)dx 
+    \]
+  }  
+% -------------------------------------------------------------------------
+\theorem:
+  $g:[a,b]\to\SetR \nearrow$, $f_1,f_2\in\SetRInt_g([a,b]), f_1\le f_2$=>
+  {
+  Dann gilt 
+  \[\int_a^b f_1(x)dg(x)\le\int_a^b f_2(x)dg(x)
+    \]
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  $f\in\SetRInt_g([a,b])$, $g\nearrow$, $m,M\real, m\le f\le M$ auf $[a,b]$.
+  Dann gilt
+  \[m[g(x)]_a^b\le\int_a^b f(x)dg(x)\le M[g(x)]_a^b
+    \]
+  }
+% -------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b])$, $g\in\SetBV([a,b])$, $F(x):=\int_a^x f(t)dg(t)$=>{
+  \begin{stmts}
+    \item $F\in\SetBV([a,b])$
+    \item $g$ in $x_0$ stetig $\implies$ $F$ in $x_0$ stetig
+    \end{stmts}
+  }
+% -------------------------------------------------------------------------
+\remark:{
+  Sind $f\in\SetCont([a,b])$, $g\in\SetCont^1([a,b])$, so gilt
+  \begin{align*}
+    F(x)&=\int_a^x f(t)dg(t)=\int_a^x f(t)g'(t) dt\implies F\in\SetCont^1([a,b]) \\
+    F'(x)&=f(x)g'(x)\text{ auf $[a,b]$}
+    \end{align*}
+  }
+% -------------------------------------------------------------------------
+\framedmsg{Das war's --- weiter geht's in Ana II :-)}

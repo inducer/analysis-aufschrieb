@@ -1,0 +1,66 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\para{Tricks for kicks}
+% -----------------------------------------------------------------------------
+\trick Grenzwert einer rekursiv def. Folge:{
+  Monotonie/Beschr"anktheit beweisen, Grenzwert durch Einsetzen in Definition.
+  }
+% -----------------------------------------------------------------------------
+\trick Geht nicht?:{
+  Sch"atz' es ab. Geht immer noch nicht? Versuch's mit Bernoulli.
+  Immer noch nicht? Schreib' den Anfang der Reihe hin. Immer noch nicht?
+  Versuch' doch mal, den Mittelwertsatz als Absch"atzung zu verwurschten.
+  Auch nicht? Dann versuch' mal eine Formel aus Kapitel 4! Geht immer 
+  noch nicht? Substituier doch mal wieder!
+  }
+% -----------------------------------------------------------------------------
+\trick Polynom im Z"ahler, Polynom im Nenner?:{
+  Klammer' doch $x^z,z\integer$ aus.
+  }
+% -----------------------------------------------------------------------------
+\trick Steht da was von $|a+c|$?:{
+  Dann hilft Dir vielleicht $|a+c|=|a-b+b+c|\le|a-b|+|b+c|$.
+  }
+% -----------------------------------------------------------------------------
+\trick Reihenwert berechnen:{
+  Versuch mal, zu integrieren, dann zu berechnen, und dann wieder zu 
+  differenzieren! (Vor. glm konv.)
+  }
+% -----------------------------------------------------------------------------
+\trick Integriert sich nicht von selbst?:{
+  Zwing es: Partielle Integration mit $1$ als $f'$? Partielle Integration,
+  bei der immer das gleiche rauskommt: nach Integral aufl"osen!
+  So "ahnlich wie $\frac 1{\sqrt{1+x^2}}$? Da steckt die Trigonometrie dahinter!
+  Wo wir bei Trigonometrie sind: $\sin^2=1-\cos^2$ und umgekehrt.
+  
+  Rationale Funktion in Abh"angigkeit von $\sin x$ und $\cos x$? 
+  
+  Substituiere $t=\tan \frac x 2$. Dann wird aus:
+  
+  \begin{tabular}{ccc}
+    $\sin x$ &$\to$& $\frac{2t}{1+t^2}$ \\
+    $\cos x$ &$\to$& $\frac{1-t^2}{1+t^2}$ \\
+    $\sin^2 \frac x 2$ &$\to$& $\frac{t^2}{1+t^2}$ \\
+    $\cos^2 \frac x 2$ &$\to$& $\frac{1}{1+t^2}$ \\
+    \end{tabular}
+  
+  Rationale Funktion in Abh"angigkeit von $\sqrt{ax^2+bx+c}$ und $x$?
+  
+  Substituiere $t=\frac{2(ax+b)}{\sqrt{\pm D}}$ mit $D=4ac-b^2$. 
+  Dann bleibt irgendetwas von der Form $\sqrt{1+t^2}$,$\sqrt{1-t^2}$ stehen.
+  Versuch es dann so:
+  
+  \begin{tabular}{ccc}
+    $\sqrt{1+t^2}$ &$\to$& $t=\sinh s$ \\
+    $\sqrt{t^2-1}$ &$\to$& $t=\cosh s$ \\
+    $\sqrt{1-t^2}$ &$\to$& $t=\sin/\cos s$
+    \end{tabular}
+  
+  Rationale Funktion in Abh"angigkeit von $\sqrt{ax+b}$, $\sqrt{cx+d}$ und $x$?
+
+  Substituiere $x=\frac{t^2-b}a$.  
+  }
+% -----------------------------------------------------------------------------
+\trick Hilft alles nichts?:{
+  Schlaf dr"uber.
+  }

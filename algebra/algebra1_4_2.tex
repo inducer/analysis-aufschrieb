@@ -1,0 +1,309 @@
+\long\def\remind#1:#2{
+  \mathpar{Erinnerung}{#1}{#2}
+  }
+\long\def\names#1:#2{
+  \mathpar{Benennung}{#1}{#2}
+  }   
+%-----------------------------------------------------------
+\para{Pfeile in der Kategorie der K"orper}
+%-----------------------------------------------------------
+\subsection{Fortsetzung von Pfeilen}
+%-----------------------------------------------------------
+\remind{}:{
+ ${Kp}_p=$ Kategorie aller K"orper der Charakteristik $p\in \mathbb{P}\cup \{0\}$
+ mit unit"aren Ringhomomorphismen als Pfeile.
+ }
+%-----------------------------------------------------------
+\remark{}:{\begin{enumerate}
+ \item Falls char$K\neq$ char$L$, so existiert kein Pfeil
+ $K \longrightarrow L$
+ \item Jeder Pfeil $\phi: K\longrightarrow L$ ist injektiv.
+ \item $\mathbb{F}_p=\begin{cases}
+ \SetQ & p=0 \\
+ \SetZ/\SetZ_p & p\neq 0 \\
+ \end{cases}$ ist ein Initialobjekt von $Kp_p$.
+ \end{enumerate}
+ Grund:
+ 
+ \begin{enumerate}
+ \item Falls $\phi: K\longrightarrow L$ ein Pfeil, char$K=p>0$, so
+ $0=\phi(0)=\phi(p\cdot 1_K)=p\cdot\phi(1_K)=p\cdot 1_L \Rightarrow p=\operatorname{char}L $.
+ Falls char$K=0$, so enth"alt $L$ einen zu $\SetQ$ isomorphen K"orper laut$(2)$
+ $\Rightarrow$ char$L=0$.
+ \item Fr"uher: $K$ ist einfacher Ring, d.h. $\{0\},K$ sind die einzigen Ideale
+ $\Rightarrow \Kern\phi=\{0\}$ ($\Kern\phi=K$ nicht m"oglich, wegen
+ $\phi(1_K)=1_L$) $\Rightarrow \phi$ injektiver Ringhomomorphismus.
+ \item Existiert Pfeil $\mathbb{F}_p \longrightarrow K$ f"ur alle $K\in \operatorname{Ob}_{Kp_p}$
+ (laut Paragraph 1, $\mathbb{F}_p$ Primk"orper von $K$.)
+ ist $\phi:\mathbb{F}_p \longrightarrow K$ ein Pfeil.
+ $\forall z\in \SetZ:\phi(z\cdot 1_K)=z\cdot \phi(1_K)=z\cdot 1_L$
+ $\Rightarrow \phi$ eindeutig bestimmt, wegen
+ $\{z\cdot 1_K\}=\mathbb{F}_p$ oder $\{\frac{z\cdot 1_K}{n\cdot 1_K}\}=\mathbb{F}_p, (p=0)$,
+ $\phi(\frac{z\cdot 1_K}{n\cdot 1_K})=\frac{z\cdot 1_L}{n\cdot 1_L}$.
+ \end{enumerate}} 
+%------------------------------------------------------------------
+\remark{Folgerung}:{ \begin{enumerate}
+ \item Aut$\mathbb{F}_p=\{e_{\mathbb{F}_p}=\operatorname{id}_{\mathbb{F}_p}\}$
+ f"ur $p\in \mathbb{P}\cup \{0\}$.
+ \item Jeder Pfeil $\sigma: K\longrightarrow L$ ist Fortsetzung  von $\operatorname{id}_{\mathbb{F}_p}$,
+ d.h. $\sigma|_{\mathbb{F}_p}=\operatorname{id}_{\mathbb{F}_p}$.
+ Deshalb: studiere Fortsetzung.
+ \insertfig{algebra1_4_2_fortsetz}
+ \end{enumerate} 
+ }
+%------------------------------------------------------------------
+\names{}:{\begin{enumerate}
+ \item[(i)] $\sigma$ Pfeil, $x\in L$, so schreibe
+ \[{}^{\sigma}x:=\sigma(x)\]
+ \item \[f=\sum_{i=0}^{n}u_i x^i\in L[X]\] 
+ \[{}^{\sigma}f:=\sum_{i=0}^n {}^{\sigma}u_i x^i\in \sigma(L)[X]\]
+ klar: ${}^{\sigma}(f+g)={}^{\sigma}f+{}^{\sigma}g$, 
+ ${}^{\sigma}(fg)={}^{\sigma}f{}^{\sigma}g$.\\
+ $K\stackrel{\sigma}{\longrightarrow}L\stackrel{\tau}{\longrightarrow}F $,
+ so ${}^{\tau}({}^{\sigma}f)={}^{(\tau\sigma)}f$.
+ 
+ 
+ gesehen: Ist $K$ K"orper, $\sigma: K\longrightarrow L$ ein Pfeil und $K'=\sigma(K)$
+ (zu $K$ isomorpher Teilk"orper von $L$), 
+ so hat man Ringisomorphismus
+ \[K[X]\longrightarrow K'[X], f\mapsto {}^{\sigma}f\]
+ wobei  $\grad f= \grad{}^{\sigma}f$. Insbesondere gilt:\\
+ $f$ irreduzibel $\Rightarrow$ ${}^{\sigma}f$ irreduzibel. 
+ 
+ \end{enumerate} 
+  }
+%------------------------------------------------------------------
+\motivation{}:{Ist $\sigma$ ein Pfeil, welche Fortsetzungen $\tilde{\sigma}$ gibt es dann?
+
+ \insertfig{algebra1_4_2_fortsetzungssatz1}
+ }
+%------------------------------------------------------------------
+\theorem{Fortsetzungssatz f"ur Stammk"orper}:{$K,L,L'$ K"orper, 
+ $\sigma:K\longrightarrow L'$ ein Pfeil, $K':=\sigma(K)$, $L/K$ Erweiterung, $u\in L$, $u'\in L'$}=>{
+ \label{the_fortsetzungssatz_fuer_stammkoerper}
+ \begin{enumerate}
+ \item[Fall 1] $u/K$ sei transzendent. Genau dann gibt es eine Fortsetzung $\tilde{\sigma}$
+ von $\sigma$. 
+ $\tilde{\sigma} :K(u)\longrightarrow L'$, mit $\tilde{\sigma}(u)=u'$,
+ falls $u'/K'$ transzendent ist.
+ \item[Fall 2] $u/K$ sei algebraisch, $g_{u/K}=g\in K[X]$ Minimalpolynom. Genau dann
+ gibt es eine Fortsetzung $\tilde{\sigma}:K(u)\longrightarrow L'$, mit 
+ $\tilde{\sigma}(u)=u'$, wenn $u'/K'$ algebraisch ist mit Minimalpolynom ${}^{\sigma}g\in K'[X]$.
+ \end{enumerate}
+ $\tilde{\sigma}$ ist jeweils durch $u'$ und $\sigma$ eindeutig bestimmt.
+ }   
+%---------------------------------------------------------------------
+\proof \ref{the_fortsetzungssatz_fuer_stammkoerper}:{\begin{enumerate}
+ \item[Fall 1] sehr leicht, wenn $K(u)\cong K(X)\Rightarrow K(u')\cong K(X)$.
+ \item[Fall 2] F"ur $u\in L$, $f\in K[X]$ gilt: (falls $\tilde{\sigma}$ Fortsetzung)
+ \[{}^{\tilde{\sigma}}(f(u))=({}^{\sigma}f)({}^{\tilde{\sigma}}u)\]
+ da $f=\sum a_ix^i$, $a_i\in K$.
+ \[{}^{\tilde{\sigma}}(f(u))=\tilde{\sigma}(\sum a_ix^i)=\sum \tilde{\sigma}(a_i)\tilde{\sigma}(u)^i
+ =\sum \sigma(a_i)\tilde{\sigma}(u)^i={}^{\sigma}f({}^{\tilde{\sigma}}u)\]
+ $\Rightarrow \tilde{\sigma}$ durch $\sigma$ und ${}^{\tilde{\sigma}}(u)=:u'$ eindeutig bestimmt.
+ \[\Rightarrow 0={}^{\tilde{\sigma}}(\underbrace{g(u)}_{=0})={}^{\sigma}g({}^{\tilde{\sigma}}u)
+ =({}^{\tilde{\sigma}}g({\tilde{\sigma}}(u)))\]
+ $\Rightarrow {}^{\sigma}g=g_{{}^{\tilde{\sigma}}/K'}$ (da irreduzibel).
+ Sei umgekehrt ${}^{\sigma}g=g_{u'/K}$, ${}^{\sigma}g(u')=0$
+ 
+ Konstruktion von $\tilde{\sigma}$:
+ 
+ def.: $K[X]\stackrel{\longrightarrow}{\Psi} K'[u']$, $f\mapsto \Psi(f):={}^{\sigma}f(u')$, ist 
+ Ringhomomorphismus, da $f\mapsto {}^{\sigma}$ und Einsetzen Ringhomomorphismen sind. $\Psi$ ist surjektiv.
+ \[f\in \Kern\Psi\iff {}^{\sigma}f(u')=0, {}^{\sigma}g(u')=0
+ \iff {}^{\sigma}g \mid{}^{\sigma}f \iff g\mid f \iff f\in K[X]\cdot g\]
+ \[K(u)\tilde{\longrightarrow} K[X]/g\cdot K[X] \stackrel{\cong}{\longrightarrow}\Psi(K[X])=K'[u']\]
+ \[f(u)\mapsto \bar{f} \mapsto {}^{\sigma}f(u)\]
+ \[\tilde{\sigma}:u \mapsto u'\]
+ $\tilde{\sigma}$ ist genau das, was man konstruieren wollte.
+ $\tilde{\sigma}|_K=\sigma$ klar. 
+ \end{enumerate}
+ \insertfig{algebra1_4_2_fortsetzungssatz2}
+ \[\tilde{\sigma}(f(u))=\bar{\Psi}(\bar{f})=\Psi(f)={}^{\sigma}f(u')\]
+ $f=X$ gibt $f(u)=u$, $\tilde{\sigma}(u)=\underbrace{{}^{\sigma}1}_{1} \cdot X(u')=u'$,
+ $f=a\in K$, $f(u)=a$, $\tilde{\sigma}(a)={}^{\sigma}a(u')={}^{\sigma}a$
+ $\Rightarrow \tilde{\sigma}$ ist Fortsetzung und $\tilde{\sigma}(u)=u'$
+ 
+ 
+ }
+%--------------------------------------------------------------------- 
+\example{Standardbeispiel}:{
+ \insertfig{algebra1_4_2_beispiel_zu_fortsetz1}
+ ${}^{\operatorname{id}}g=g$, $g=g_{\sqrt{2}/\SetQ}=X^2-2$
+ 
+ ${}^{\sigma}g=g \Rightarrow u'=\tilde{\sigma}(u)$ erf"ullt, wenn
+ $(u')^2=2 \Rightarrow u'\in \begin{cases}
+ \sqrt{2}&\\
+ -\sqrt{2}\\
+ \end{cases}$
+ \insertfig{algebra1_4_2_beispiel_zu_fortsetz2}
+ $g_{\sqrt{3}/K}=X^2-3$, hinreichend und notwendig: $\tilde{\sigma}(\sqrt{3})\in
+ \{\stack(+;-)\sqrt{3}\}$
+ Ergebnis: $\tau \in \operatorname{Aut}(\SetQ(\sqrt{2},\sqrt{3}))\iff \tau(\sqrt{2})=\stack(+;-)\sqrt{2}$,
+ $\tau(\sqrt{3})=\stack(+;-)\sqrt{3}$, f"ur jede Vorzeichenwahl ein eindeutiger Automorphismus vorhanden.
+ schreibe: $\tau(\sqrt{2})=\chi_2(\tau)\sqrt{2}$, $\tau(\sqrt{3})=\chi_3(\tau)\sqrt{3}$,
+ klar: $\tau \longrightarrow (\chi_2(\tau),\chi_3(\tau))$ ist injektiver Homomorphismus Aut$L\longrightarrow$
+ $\product{\stack(+;-)1}\times \product{\stack(+;-)1}$, daher Isomorphismus.
+ 
+ Resultat: Aut$L=V_4=Z_2\times Z_2$ (\indexthis{Kleinsche Vierergruppe}) 
+ \index{Vierergruppe>Klein'sche}
+ }
+%-------------------------------------------------------------------------
+\subsection{Adjunktion von Nullstellen und Zerf"allungsk"orper}
+%-------------------------------------------------------------------------
+\lemma :{$f\in K[X], \grad f>0$}=>{
+ \label{lem_zefaellungs}
+ $\exists L/K, u\in L, f(u)=0$}
+%--------------------------------------------------------------------------
+\proof \ref{lem_zefaellungs}:{O.B.d.A $f$ irreduzibel, $L=K[X]/K[X]f$ ist 
+ K"orper und $K$-Algebra. Identifiziert man $a\in K$ mit $\bar{a}=a+K[X]f$,
+ so ist $K$ Teilk"orper, also $L/K$, 
+ $u=\bar{X}$ tut es: $f(\bar{X})=\bar{f(X)}=0_L$\qed
+ }
+%--------------------------------------------------------------------------
+\theorem{Folgerung}:{$K$ K"orper, $f\in K[X]$, $n=\grad f>0$}=>{
+\label{the_zerf} 
+ Dann existiert ein $L/K$, $u_1,\ldots,u_n\in L$, $e\in K^{\times}$ mit
+ \[f=e\prod_{i=1}^{n}(X-u_i)\] in L[X]} 
+%--------------------------------------------------------------------------
+\proof \ref{the_zerf}:{Induktion nach $\grad f$.
+ 
+ $\grad f=1$ ($L=K$ tut es)
+ 
+ $\grad f>1$ $\stackrel{\text{Lemma}}{\Rightarrow}$
+ $\exists K_1/K, u_1\in K_1$ mit $f(u_1)=0 \Rightarrow X-u_1 \mid f$ in $K_1[X]$
+ $\Rightarrow f=(X-u_1)f_1$, $f_1=\frac{f}{X-u_1}, f_1\in K_1[X], 
+ \grad f_1=n-1<n $
+ 
+ Induktionshyp. $\exists L/K, u_1,\ldots, u_{n-1}\in L, f_1=\prod_{i=1}^{n-1}(X-u_i)
+ \Rightarrow$ Beh. } 
+%----------------------------------------------------------------------------
+\definition{}:{
+\begin{enumerate}
+  \item[(a)] Sei $0\neq f\in K[X]$, $K$ K"orper. $Z$ heisse \indexthis{{\emph Zerf"allungsk"orper}} $\iff$
+  \begin{enumerate}
+    \item[(i)] $Z/K$ ist K"orpererweiterung
+	\item[(ii)] $\exists n\in \SetN, u_1,\ldots ,u_n\in Z, e\in K^{\times}:$ $f=e\prod_{i=1}^{n}(X-u_i)$
+	\item[(iii)] $Z=K(u_1, \ldots, u_n)$ 
+  \end{enumerate}
+  \item[(b)] $Z$ heisse Zerf"allungsk"orper einer Menge $M$ von Polynomen $M\subseteq K[X]$
+  
+  $\iff \forall f\in M, f\neq 0$ enth"alt $Z$ einen Zerf"allungsk"orper $Z_f$ von $f$ und
+  \[Z=\product{\bigcup_{f\in M}Z_f}_{\text{Kp}}\]
+  \item[(c)] $\bar{K}$ heisst algebraischer Abschluss von $K$, wenn $\bar{K}$ Zerf"allungsk"orper
+  von $M=K[X]$ ist.
+  \item[(d)] $K$ heisst algebraisch abgeschlossen, wenn $K=\bar{K}$ 
+\end{enumerate}}   
+%------------------------------------------------------------------------------
+\example{}:{Aus der Analysis bekannt: $\SetC$ ist algebraisch abgeschlossen.}
+%------------------------------------------------------------------------------
+\remark{Information}:{
+ Die Konstruktion von $\bar{K}$ sollte so geschehen:
+ 
+ Wende Zorn{\'{}}s Lemma an auf die ``Menge'' aller algebraischer K"orpererweiterungen von $K$.
+ 
+ Problem: Das ist keine Menge (kann umgangen werden). Es gibt Satz:
+ Zu jedem Ko"rper $K$ existiert ein algebraischer Abschluss $\bar{K}$.}
+%------------------------------------------------------------------------------
+\remark{}:{\begin{enumerate}
+  \item[(a)] zu $L/K$ ist die Menge $M=\{x\in L\mid x/K \quad\text{algebraisch} \}$
+  (genannt: ``algebraischer Abschluss von $K$ in $L$)
+  \item[(b)] Ist $L$ algebraisch abgeschlossen, so auch $M=\bar{K}$, z.B. 
+  $\bar{\SetQ}\subseteq \SetC$, $\bar{\SetQ}/\SetC$
+\end{enumerate}} 
+%------------------------------------------------------------------------------
+\definition{}:{\begin{enumerate}
+   \item[(i)] Sei $f\in K[X], \grad f>0$, $f$ heisse \indexthis{{\emph separabel}} $\iff$
+   Die Primteiler von $f$ haben in einem Zerf"allungsk"orper $Z$ von $f$ "uber $K$ 
+   keine mehrfache Nullstelle.
+   \item[(ii)] $u\in L, L/K$ heisse separabel (algebraisch) $\iff u/K$ algebraisch
+   und $g_{u/K}$ (Minimalpolynom) ist separabel. 
+   \item[(iii)] $L/K$ heisse separabel (algebraisch) $\iff \forall u\in L: u/K$ separabel. 
+ \end{enumerate}}
+%-------------------------------------------------------------------------------
+\example{}:{$Z=\SetQ(\sqrt{2},\sqrt{3})$ ist Zerf"allungsk"orper von $f=(X^2-2)(X^2-3)\in 
+ \SetQ[X]$.}
+%-------------------------------------------------------------------------------
+\theorem{Fortsetzungssatz (f"ur Zerf"allungsk"orper)}:{$Z/K$ Zerf"allungsk"orper von $f$
+ $\in K[X], \grad f>0$, $\sigma$ Isomorphismus: $K\longrightarrow K'=\sigma(K)$,
+ $L/K'$ eine Erweiterung}=>{
+ \label{the_fortsetz_fuer_zerfaellungsk}
+ \insertfig{algebra1_4_2_fortsetzungssatz_fuer_zerfaellungs}
+ \begin{enumerate}
+   \item[(i)] Ist $\tilde{\sigma}$ eine Fortsetzung von $\sigma$, $\tilde{\sigma}:Z\longrightarrow L$,
+   so ist $Z'=\tilde{\sigma}(Z)$ ein Zerf"allungsk"orper von ${}^{\sigma}f$.
+   \item[(ii)] Ist umgekehrt $Z'$ ein Zerf"allungsk"orper von ${}^{\sigma}f$, so 
+   gibt es mindestens eine und h"ochstens $\tilde{n}=(Z:K)$ Fortsetzung 
+   $\tilde{\sigma}:Z\longrightarrow Z'$ von $\sigma$. Letzterer Fall tritt genau dann ein, wenn
+   ${}^{\sigma}f$ separabel ist. Demn"achst : $f$ separabel $\iff{}^{\sigma}f$ separabel.
+ \end{enumerate}}  
+%--------------------------------------------------------------------------------
+\proof\ref{the_fortsetz_fuer_zerfaellungsk}:{\begin{enumerate}
+   \item[(i)] $f=e\prod_{i=1}^{n}(X-u_i)$ in $Z[X]$. $\Rightarrow {}^{\sigma}f=
+   {}^{\tilde{\sigma}}f={}^{\sigma}e\prod_{i=1}^{n}({}^{\sigma} 1 X-{}^{\tilde{\sigma}}u_i)\in Z'[X]=\sigma(Z)[X]$.
+   $\Rightarrow \tilde{\sigma}(Z)$ ist Zerf"allungsk"orper von ${}^{\sigma}f$ "uber $K'$.
+   \item[(ii)] Induktion nach $n$.
+   
+   $n=1$ trivial ($Z=K, Z'=K'$)
+   
+   $n>1:$ $\Rightarrow \exists$ Primpolynom $g\in K[X]$ mit $g\mid f$ in $K[X]$\\
+   $\Rightarrow g=\prod_{i=1}^{m}(X-u_i)$ Zerlegung in $Z[X], u_i\in Z$.\\
+   $\Rightarrow {}^{\sigma}g \in K'[X]$ ist Primfaktor von ${}^{\sigma}f$,
+   ${}^{\sigma}g=\prod_{j=1}^{m}(X-u_j')$
+   
+   $1\leq m:=\grad g=\grad{}^{\sigma}g\leq \tilde{n}$. Nach Fortsetzungssatz: \\
+   $\forall u_j'  \exists$ Fortsetzung $\sigma_j$ von $\sigma$ mit $\sigma_j(u_1)=u_j'$.
+   
+   $\frac{\tilde{n}}{m}=(Z:K(u_1))<(Z:K)$, wo $\tilde{n}=(Z:K)$.
+   
+   \insertfig{algebra1_4_2_bew_fortsetzungssatz_fuer_zerfaellungs}
+   $Z=K_1(u_2, \ldots, u_n)$ ist Zerf"allungsk"orper von $\frac{f}{X-u_1}\in K_1[X]$,
+   $\grad\frac{f}{X-u_1}=n-1$, $n=\grad f$.
+   $Z'$ Zerf"allungsk"orper von ${}^{\sigma_j}(\frac{f}{X-u_1})$.
+   Induktionshyp. $\Rightarrow$
+   \begin{enumerate}
+     \item[(a)] $\exists$ Fortsetzung $\tilde{\sigma}$ von $\sigma_j$, erst recht von $\sigma$.
+	 \item[(b)] Jedes $\sigma_j$ hat h"ochstens $\frac{\tilde{n}}{m}$ Fortsetzungen. Es ex. h"ochstens
+	 $m$ Fortsetzungen $\sigma_j$ von $\sigma$. $m=\grad g=(K_1:K)$, also insgesamt 
+	 $\frac{tilde{n}}{m}\cdot m=\tilde{n}$ Fortsetzungen.
+	 \item[(c)] Ist ${}^{\sigma}f$ separabel $\Rightarrow {}^{\sigma}g$ hat $\grad g=\grad
+	 {}^{\sigma}g=m$ verschiedene Nullstellen.\\
+	 $\Rightarrow \sigma$ hat $m$ verschiedene Fortsetzungen $\sigma_j$ 
+	 
+	 klar: ${}^{\sigma_j}(\frac{f}{X-u_j'})$ ebenfalls separabel. $\Rightarrow$ per Induktionshyp.\\
+	 Jedes $\sigma_j$ hat $\frac{\tilde{n}}{m}$ Fortsetzungen. Insgesamt $\frac{\tilde{n}}{m}\cdot m=\tilde{n}$
+	 Fortsetzungen von $\sigma$. 
+   \end{enumerate}
+  \end{enumerate}
+  \qed}
+%--------------------------------------------------------------------------
+\remark{}:{	klar: Zerf"allungsk"orper existiert.
+ $Z=K(u_1, \ldots, u_n)$, $f=e\prod_{i=1}^{n}(X-u_i)\in L[X]$}
+%--------------------------------------------------------------------------
+\remark{}:{ 
+ wichtige Sprechweise:
+	 
+ $L/K$, $L'/K$ seien K"orpererweiterungen
+ \begin{enumerate}
+    \item[(a)] Ein Pfeil $\sigma:L\longrightarrow L'$ heisst {\emph "uber} $K$, wenn $\sigma|_K=id_K$.
+	\item[(b)] $\operatorname{Aut}(L/K)=\{\sigma \in \operatorname{Aut}L \mid \sigma \quad \text{"uber} 
+	\quad K\}$
+	heisst Automorphismengruppe von $L$ "uber $K$ (ist Untergruppe von $\operatorname{Aut} L$)
+ \end{enumerate}
+}
+%---------------------------------------------------------------------------
+\theorem{Hauptsatz "uber Zerf"allungsk"orper}:{$K$ K"orper, $f\in K[X], \grad f>0$}=>{
+ \label{the_hauptsatz_ueber_zerf}
+ \begin{enumerate}
+    \item[(i)] Es gibt einen Zerf"allungsk"orper von $f$ "uber $K$.
+	\item[(ii)] Je zwei Zerf"allungsk"orper sind "uber $K$ isomorph.
+	\item[(iii)] $1\leq |\operatorname{Aut}(Z/K)|\leq (Z:K)$, ``$=$'' gilt genau dann, wenn $f$ 
+	separabel ist.
+ \end{enumerate}}
+%----------------------------------------------------------------------------
+\proof \ref{the_hauptsatz_ueber_zerf}:{folgt unmittelbar aus Fortsetzungssatz}
+%---------------------------------------------------------------------------- 
+	  
+  
+   
+ 

@@ -1,0 +1,1096 @@
+% -----------------------------------------------------------------------
+\para{Fourier-Transformation}
+% -----------------------------------------------------------------------
+\subsection{Fourier-Reihe f"ur periodische kontinuierliche Signale}
+% -----------------------------------------------------------------------
+\definition Kontinuierliches Signal:{
+  \index{Signal>kontinuierliches}
+  Ein kontinuierliches Signal sei hier eine Funktion $f:\SetR\to\SetR$, 
+  dargestellt als $f(x):=y$, wobei $x,y\real$.
+}
+% -----------------------------------------------------------------------
+\definition Periodisches Signal:{
+  \index{Signal>periodisches}
+  Gilt f"ur alle $x\real$ und ein $T\real^+$
+  \[
+    f(x)=f(x+T)
+  \]
+  so hei"st $f$ periodisch mit der \indexthis{Periode} $T$.
+  (kurz: $T$-periodisch) Existiert ein kleinstes $T_0\real^+$, so dass
+  $f$ $T_0$-periodisch ist, so nennt man $T_0$ die Grundperiode von $f$.
+}
+% -----------------------------------------------------------------------
+\definition Kreisfrequenz:{
+  Den einer Periode $T$ zugeordneten Wert
+  \[
+    \omega=\frac{2\pi}T
+  \]
+  nennt man die Kreisfrequenz. Die der Grundperiode $T_0$ eines Signals
+  zugeordnete Kreisfrequenz hei"st Grundkreisfrequenz $\omega_0$.
+}
+% -----------------------------------------------------------------------
+\definition Trigonometrische Reihe:{
+  \index{Reihe>trigonometrische}
+  Seien $a_k,b_k\in\SetR$ ($k\nnatural$). Dann hei"st eine Funktionenreihe
+  der Gestalt
+  \[
+    f(x)=\frac{a_0}2+\sumn 1 a_n \cos(\omega_0 nx) + b_n \sin(\omega_0 nx)
+  \]
+  eine trigonometrische Reihe oder \indexthis{Fourierreihe} mit Periode $T_0$.
+}
+% -----------------------------------------------------------------------
+\theorem:
+  $f$ trigonometrische Reihe
+  =>
+{
+  Sei
+  \[
+    f(x)=\frac{a_0}2+\sumn 1 a_n \cos(\omega_0 nx) + b_n \sin(\omega_0 nx)
+  \]
+  mit $a_n,b_n\real$. Dann legt man f"ur $k=1\ldots n$ fest
+  \begin{align*}
+    c_k&:=\frac{a_k-ib_k}2 \\
+    c_0&:=\frac{a_0}2 \\
+    c_{-k}&:=\frac{a_k+ib_k}2
+  \end{align*}
+  Dann gilt
+  \begin{align*}
+    f(x)&=\sum_{n=-\infty}^\infty c_n e^{i\omega_0 nx} \\
+        &=\underbrace{
+          \sum_{n=1}^\infty \frac{a_n-ib_n}2 (\cos(-\omega_0 nx)+i\sin(-\omega_0 nx)) +
+          }_{\text{``negative H"alfte''}}
+          \frac{a_0}2 + 
+          \underbrace{
+          \sum_{n=1}^\infty \frac{a_n+ib_n}2 (\cos(\omega_0 nx)+i\sin(\omega_0 nx))
+          }_{\text{``positive H"alfte''}}\\
+        &=\frac{a_0}2 + 
+          \sum_{n=1}^\infty 
+            \frac{a_n-ib_n}2 (\cos(\omega_0 nx)-i\sin(\omega_0 nx)) +
+            \underbrace{\frac{a_n+ib_n}2 (\cos(\omega_0 nx)+i\sin(\omega_0 nx))}
+            _{\text{konjugiert komplex zum 1. Summanden}} \\
+        &=\frac{a_0}2 + 
+          \sum_{n=1}^\infty 2\Re(\frac{a_n+ib_n}2(\cos(\omega_0 nx)-i\sin(\omega_0 nx)) \\
+        &=\frac{a_0}2 + 
+          \sum_{n=1}^\infty a_n \cos(\omega_0 nx)+b_n\sin(\omega_0 nx)
+  \end{align*}
+}
+% -----------------------------------------------------------------------
+\definition Integral "uber beliebiges Intervall:{
+  Der Ausdruck
+  \[
+    \int_T f(x) dx = a
+  \]
+  mit $f:\SetR\to\SetR$, $T,a\real$ bedeutet
+  \[
+    (\forall s\real)(\int_s^{s+T} f(x) dx = a)
+  \]
+}
+% -----------------------------------------------------------------------
+\theorem Orthogonalit"atsrelationen:
+  $m,n\natural$
+  =>
+{
+  Dann gilt:
+  \begin{stmts}
+    \item 
+      \[
+        \int_{2\pi} \sin(mx) \cdot \sin (nx) dx=
+        \begin{cases}
+          0 & \text{f"ur $m\ne n$} \\
+          \pi & \text{f"ur $m=n>0$} \\
+          0 & \text{f"ur $m=n=0$} \\
+        \end{cases}
+      \]
+    \item 
+      \[
+        \int_{2\pi} \sin(mx) \cdot \cos (nx) dx=0
+      \]
+    \item 
+      \[
+        \int_{2\pi} \cos(mx) \cdot \cos (nx) dx=
+        \begin{cases}
+          0 & \text{f"ur $m\ne n$} \\
+          \pi & \text{f"ur $m=n>0$} \\
+          2\pi & \text{f"ur $m=n=0$} \\
+        \end{cases}
+      \]
+    \item Oder, deutlich k"urzer und eleganter:
+      \[
+        \int_{2\pi} e^{inx}\cdot e^{-imx} dx=
+        \begin{cases}
+          0 & \text{f"ur $m\ne n$} \\
+          2\pi & \text{f"ur $m=n$}
+        \end{cases}
+      \]
+    \item Und noch allgemeiner:
+      \[
+        \int_{T_0} e^{i\omega_0 (n-m) x} dx=
+        \begin{cases}
+          0 & \text{f"ur $m\ne n$} \\
+          T_0 & \text{f"ur $m=n$}
+        \end{cases}
+      \]
+  \end{stmts}
+}
+% -----------------------------------------------------------------------
+\theorem:
+  $f:(-T_0/2,T_0/2]\to\SetR$ integrierbar und durch 
+  eine konvergente trigonometrische Reihe darstellbar
+  =>
+{
+  \label{the:contfourseries}
+  Sei
+  \[
+    g(x):=\sum_{n=-\infty}^\infty c_n e^{i\omega_0 nx}
+  \]
+  mit
+  \[
+    c_n:=\frac 1 {T_0} \int_{T_0} f(x) e^{-i\omega_0 nx} dx 
+  \]
+  Dann gilt $f(x)=g(x)$.
+}
+% -----------------------------------------------------------------------
+\theorem Dirichletsche Bedingungen:
+  $f:\SetR\to\SetR$ $T_0$-periodisch
+  =>
+{
+  Gelten f"ur $f$ die folgenden drei Bedinungen
+  \begin{stmts}
+    \item $f$ ist absolut integrierbar:
+      \[
+        \int_{T_0} |f(x)| dx < \infty
+      \]
+    \item $f$ ist auf ganz $\SetR$ von beschr"ankter Variation
+    \item $f$ hat auf jedem endlichen Intervall h"ochstens endlich viele
+      Unstetigkeitsstellen.
+  \end{stmts}
+  so ist $f$ als Fourier-Reihe darstellbar.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Insbesondere erf"ullen st"uckweise stetig differenzierbare Funktionen
+  die Dirichletschen Bedinungen.
+}
+% -----------------------------------------------------------------------
+\subsection{Fourier-Transformation f"ur aperiodische kontinuierliche Signale}
+% -----------------------------------------------------------------------
+\definition Fourier-Transformation:{
+  Sei $f$ ein aperiodisches Signal, f"ur das gilt 
+  $(\forall |x|>T_1)(f(x)=0)$. Sei $\tilde f(x)$ die periodische Fortsetzung
+  von $f$ mit Periode $T_0>T_1$.
+  Betrachte \ref{the:contfourseries}. Setzt man
+  \[
+    \FT(\tilde f)(n\omega_0)=T_0 c_n=\int_{T_0} \tilde f(x) e^{-i\omega_0 nx} dx 
+  \]
+  so gilt
+  \[
+    \tilde f(x)=\frac 1 {2\pi} \sum_{n=-\infty}^\infty \FT(\tilde f)(n\omega_0) e^{i\omega_0 nx} \omega_0
+  \]
+  L"asst man nun $T_0\to\infty$, also $\omega_0\to 0$ 
+  (und somit auch ``$\tilde f\to f$'') gehen und 
+  verallgemeinert man $\FT(f)(n\omega_0)$ f"ur beliebige $\omega$ 
+  (``$\omega:=n\omega_0$''), erh"alt man die Analysegleichung 
+  \[
+    \FT(f)(\omega)=\int_{-\infty}^\infty f(x) e^{-i\omega x} dx 
+  \]
+  und die Synthesegleichung 
+  \[
+    \FT^{-1}(\FT(f))(x)=f(x)=
+      \frac 1 {2\pi} \int_{-\infty}^\infty \FT(f)(\omega) e^{i\omega x} d\omega
+  \]
+  der Fouriertransformation. Hierbei nennt sich $\FT(f):\SetR\to\SetR$ die 
+  Fourier-Transfomierte bzw. das \indexthis{Spektrum} von $f$.
+}
+% -----------------------------------------------------------------------
+\remark Weitere Spektren:{
+  Weiterhin unterscheidet man folgende Spektren:
+  \begin{itemize}
+    \item \indexthis{Amplitudenspektrum} $|\FT(f)|$
+    \item \indexthis{Phasenspektrum} 
+      $\phi(\omega):=\arctan \frac {\Im(\FT(f))}{\Re(\FT(f))}$
+    \item \indexthis{Leistungsspektrum} $|\FT(f)|^2$
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\theorem Dirichletsche Bedingungen:
+  $f:\SetR\to\SetR$
+  =>
+{
+  Gelten f"ur $f$ die folgenden drei Bedinungen
+  \begin{stmts}
+    \item $f$ ist absolut integrierbar:
+      \[
+        \int_{-\infty}^\infty |f(x)| dx < \infty
+      \]
+    \item $f$ ist auf ganz $\SetR$ von beschr"ankter Variation
+    \item $f$ hat auf jedem endlichen Intervall h"ochstens endlich viele
+      Unstetigkeitsstellen.
+  \end{stmts}
+  so hat $f$ eine Fourier-Transformierte und es gilt $\FT^{-1}\circ\FT(f)=f$.
+}
+% -----------------------------------------------------------------------
+\definition Dirac-Distribution:{
+  Die Zuordnung $\delta:\SetR\to\SetR$ mit
+  \[
+    \delta(x):=\begin{cases}
+      0 & \text{f"ur $|x|>\epsilon$} \\
+      \frac 1 {2\epsilon} & \text {f"ur $|x|\le 2\epsilon$} 
+    \end{cases}
+  \]
+  und $\epsilon\to 0+$ ist eine m"ogliche Ann"aherung der Dirac-Distribution.
+}
+% -----------------------------------------------------------------------
+\definition Einheitssprung:{
+  Das kontinuierliche Signal
+  \[
+    \sigma(x):=\begin{cases}
+      0 & \text{f"ur $x<0$} \\
+      1 & \text{f"ur $x\ge 0$} \\
+    \end{cases}
+  \]
+  nennt man das Einheitssprung-Signal.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  N"aherungsweise gelten:
+  \begin{stmts}
+    \item \[ \frac {d\sigma}{dx}=\delta(x) \]
+    \item \[ \int_{-\infty}^\infty \delta(x) dx = 1 \]
+    \item \[ \int_{-\infty}^\infty f(x)\delta(x) dx = f(0) \]
+  \end{stmts}
+  Aus (3) folgt, dass die Fouriertransformierte des Impulses 
+  konstant $1$ ist.
+}
+% -----------------------------------------------------------------------
+\example:{
+  Es gelten:
+  \begin{align*}
+    \FT(1)(\omega) &= 2\pi \delta(\omega) \\
+    \FT(\delta(x))(\omega) &= 1 \\
+    \FT(\sigma(x))(\omega) &= \pi \delta(\omega)-i\frac 1 \omega \\    
+    \FT(e^{i\omega_0 x})(\omega) &= 2\pi\delta(\omega-\omega_0) \\
+    \FT(\sin(\omega_0 x))(\omega) &= -i\pi [\delta(\omega-\omega_0)+\delta(\omega+\omega_0)] \\
+    \FT(\cos(\omega_0 x))(\omega) &= \pi [\delta(\omega-\omega_0)-\delta(\omega+\omega_0)] \\
+    \FT(\sum_{k=-\infty}^\infty \delta(x-kT_0))(\omega) &=
+      \omega_0 \sum_{k=-\infty}^\infty \delta(\omega-k\omega_0) \\
+  \end{align*}
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Sei $f$ durch eine trigonometrische Reihe darstellbar. Dann folgt mit Hilfe
+  des Beispiels, dass $\FT(f)$ aus einer Summe von Impulsen besteht, 
+  deren Intensit"aten den Fourier-Koeffizienten entsprechen.
+}
+% -----------------------------------------------------------------------
+\definition Faltung:{
+  Seien $f,g:\SetR\to\SetR$ Funktionen. Dann nennt man
+  \[
+    (f*g)(t):=\int_{-\infty}^\infty f(t-\tau)g(\tau) d\tau
+  \]
+  die Faltung von $f$ und $g$.
+}
+% -----------------------------------------------------------------------
+\theorem Eigenschaften der Fourier-Transformation:
+  $f,g$ kontinuierliche Signale, $a,b\complex$, $t_0\real$=>
+{
+  Es gelten
+  \begin{stmts}
+    \item Linearit"at:
+      \[
+        \FT(af+bg)=a\FT(f)+b\FT(g)
+      \]
+    \item Differentiation:
+      \[
+        \FT(f^{(n)})=(i\omega)^n \FT(f)
+      \]
+    \item Originalverschiebung:
+      \[
+        \FT(f(x-x_0))(\omega)=e^{-i\omega x_0} \FT(f)(\omega)
+      \]
+    \item Dehnung:
+      \[
+        \FT(f(ax))(\omega)=\frac 1 {|a|} \FT(f)(\frac \omega a)
+      \]
+    \item Faltung:
+      \[
+        \FT(f*g)=\FT(f)\cdot \FT(g)
+      \]
+    \item Konjugierte Symmetrie:
+      \[
+        \FT(f)(-\omega)=\FT^*(f)(\omega)
+      \]
+  \end{stmts}
+  wobei $x^*$ die zu $x$ konjugiert komplexe Zahl darstellt.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Aus der konjugierten Symmetrie ergibt sich (durch Substitution im Integral), 
+  dass gerade Signale ($f(x)=f(-x)$) eine rein reelle und gerade 
+  Fouriertransformierte haben, w"ahrend reelle ungerade Signale eine rein
+  imagin"are und ungerade Fouriertransformierte haben.
+}
+% -----------------------------------------------------------------------
+\theorem Reziprozit"at der Fouriertransformation:
+  $f$ kontinuierliches Signal, $g:=\FT(f)$
+  =>
+{
+  Falls $g$ existiert, gilt
+  \[
+    \FT(g)(\omega)=2\pi f(-\omega)
+  \]
+}
+% -----------------------------------------------------------------------
+\subsection{Fourier-Reihe f"ur periodische diskrete Signale}
+% -----------------------------------------------------------------------
+\definition Diskretes Signal:{
+  \index{Signal>diskretes}
+  Ein diskretes Signal sei hier eine Funktion $f:\SetZ\to\SetR$, 
+  dargestellt als $f[x]:=y$, wobei $x\integer$ und $y\real$.
+}
+% -----------------------------------------------------------------------
+\definition Periodisches Signal:{
+  \index{Signal>periodisches}
+  Gilt f"ur alle $x\integer$ und ein $N\natural$
+  \[
+    f[x]=f[x+N]
+  \]
+  so hei"st $f$ periodisch mit der \indexthis{Periode} $N$.
+  (kurz: $N$-periodisch) Existiert ein kleinstes $N_0\natural$, so dass
+  $f$ $N_0$-periodisch ist, so nennt man $N_0$ die Grundperiode von $f$.
+}
+% -----------------------------------------------------------------------
+\definition Kreisfrequenz:{
+  Den einer Periode $N$ zugeordneten Wert
+  \[
+    \omega=\frac{2\pi}N
+  \]
+  nennt man die Kreisfrequenz. Die der Grundperiode $N_0$ eines Signals
+  zugeordnete Kreisfrequenz hei"st Grundkreisfrequenz $\omega_0$.
+}
+% -----------------------------------------------------------------------
+\theorem Periodizit"at von diskreten komplex exponentiellen Signalen:
+  $f$ diskretes komplex exponentielles Signal=>
+{
+  \label{the:discperiodicity}
+  Sei $f[x]:=e^{i \omega x}$. Dann ist $f$ genau dann periodisch, wenn
+  es $m,N\natural$ gibt mit $\frac{\omega}{2\pi}=\frac m N$. Die 
+  Grundperiode ist dann $N_0=N=m\frac{2\pi}{\omega}$. Dass solche
+  $m,N$ existieren sei ab jetzt immer vorausgesetzt, wenn $\omega_0$ 
+  erscheint.
+}
+% -----------------------------------------------------------------------
+\definition Summe "uber beliebigen Bereich:{
+  Der Ausdruck
+  \[
+    \sum_{n=<N>} f[n] = a
+  \]
+  mit $f:\SetZ\to\SetR$, $N\natural,a\real$ bedeutet
+  \[
+    (\forall s\integer)(\sum_{n=s}^{s+N} f[n] = a)
+  \]
+}
+% -----------------------------------------------------------------------
+\definition Trigonometrische Reihe:{
+  \index{Reihe>trigonometrische}
+  Seien $c_n\real$ ($n\integer$). Dann hei"st eine Funktionenreihe der Gestalt
+  \[
+    f[x]=\sum_{n=<N_0>} c_n e^{i\omega_0 nx}
+  \]
+  eine trigonometrische Reihe oder \indexthis{Fourierreihe} mit Periode $N_0$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Da gilt
+  \[
+    e^{i\omega_0 n}=e^{i\omega_0 (n+N_0)}
+  \]
+  gen"ugen f"ur eine $N_0$-periodische Fourierreihe $N_0$ Koeffizienten.
+}
+% -----------------------------------------------------------------------
+\theorem:
+  $k\natural$
+  =>
+{
+  Dann gilt:
+  \[
+    \sum_{n=<N_0>} e^{i\omega_0 nk} =
+    \begin{cases}
+      N_0 & \text{f"ur $k=zN_0$ ($z\integer$)} \\
+      0 & \text{sonst} 
+    \end{cases}
+  \]
+}
+% -----------------------------------------------------------------------
+\theorem:
+  $f:\SetZ\to\SetR$ diskretes $N_0$-periodisches Signal 
+  =>
+{
+  \label{the:discfourseries}
+  Sei
+  \[
+    g[x]:=\sum_{n=<N_0>} c_n e^{i\omega_0 nx}
+  \]
+  mit
+  \[
+    c_n:=\frac 1 {N_0} \sum_{x=<N_0>} f[x] e^{-i\omega_0 nx}
+  \]
+  Dann gilt $f[x]=g[x]$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Diese Zerlegung existiert f"ur jedes $N_0$-periodische Signal.
+}
+% -----------------------------------------------------------------------
+\subsection{Fourier-Transformation f"ur aperiodische diskrete Signale}
+% -----------------------------------------------------------------------
+\definition Fourier-Transformation:{
+  Sei $f$ ein aperiodisches Signal, f"ur das gilt 
+  $(\forall |x|>N_1)(f[x]=0)$. Sei $\tilde f$ die periodische Fortsetzung
+  von $f$ mit Periode $N_0>N_1$.
+  Betrachte \ref{the:discfourseries}. Setzt man
+  \[
+    \FT(\tilde f)(n\omega_0)=N_0 c_n=\sum_{x=<N_0>} \tilde f[x] e^{-i\omega_0 nx}
+  \]
+  so gilt
+  \[
+    \tilde f[x]=\frac 1 {2\pi} \sum_{n=<N_0>} \FT(\tilde f)(n\omega_0) e^{i\omega_0 nx} \omega_0
+  \]
+  L"asst man nun $N_0\to\infty$, also $\omega_0\to 0$ 
+  (und somit auch ``$\tilde f\to f$'') gehen und 
+  verallgemeinert man $\FT(f)(n\omega_0)$ f"ur beliebige $\omega$ 
+  (``$\omega:=n\omega_0$''), erh"alt man die Analysegleichung 
+  \[
+    \FT(f)(\omega)=\sum_{x=-\infty}^\infty f[x] e^{-i\omega x} dx 
+  \]
+  und die Synthesegleichung 
+  \[
+    \FT^{-1}(\FT(f))[x]=f[x]=
+      \frac 1 {2\pi} \int_{2\pi} \FT(f)(\omega) e^{i\omega x} d\omega
+  \]
+  der Fouriertransformation. Hierbei nennt sich $\FT(f):\SetR\to\SetR$ die 
+  Fourier-Transfomierte bzw. das \indexthis{Spektrum} von $f$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Hier wirkt sich die Reziprozit"at deutlich aus: Bei der 
+  kontinuierlichen Fourierreihe war das Spektrum diskret, jedoch
+  das Signal kontinuierlich, hier ist das Spektrum kontinuierlich,
+  jedoch das Signal diskret.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Die Eigenschaften der diskreten Fouriertransformation ergeben sich analog
+  zur kontinuierlichen.
+}
+% -----------------------------------------------------------------------
+\subsection{Erg"anzungen}
+% -----------------------------------------------------------------------
+\definition DFT:{
+  Sei $f$ ein aperiodisches diskretes Signal, f"ur das gilt 
+  $(\forall x\not\in\{0,\ldots,N_1-1\})(f[x]=0)$. 
+  Sei $\tilde f$ die periodische Fortsetzung von $f$ mit Periode $N_0>N_1$ so,
+  dass $f[x]=\tilde f[x]$ f"ur alle $x\in\{0,\ldots,N_0-1\}$.
+  Betrachte \ref{the:discfourseries}. Setzt man
+  \[
+    \DFT(f)[n]=c_n=\frac 1 {N_0} \sum_{x=0}^{N_0-1} \tilde f[x] e^{-i\omega_0 nx}
+  \]
+  so gilt
+  \[
+    f[x]\approxeq\tilde f[x]=\sum_{x=0}^{N_0-1} \DFT(f)[n] e^{i\omega_0 nx}
+  \]
+  Dann nennt man $\DFT(f)$ die diskrete Fouriertransformierte von $f$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Die diskrete Fouriertransformation ist \emph{nicht} gleich der
+  Fouriertransformation eines diskreten Signals. (dieser aber in gewisser
+  Weise "ahnlich)
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Da gilt 
+  \[
+    e^{i\omega_0 nx}=
+      (\underbrace{e^{i 2\pi/N_0}}_{\text{$N_0$-te Einheitswurzel}})^{xn}
+  \]
+  l"asst sich die DFT mit Hilfe der DFT-Matrix auf einen
+  Schlag berechnen. (Beachte formale "Ubereinstimmung der DFT-Synthesegleichung
+  mit der Matrixmultiplikation mit der DFT, ebenso der DFT-Analyse mit der
+  Inversen der DFT-Matrix)
+}
+% -----------------------------------------------------------------------
+\definition Bandbegrenztheit:{
+  Sei $f:\SetR\to\SetR$, eine Funktion, $F:\SetR\to\SetC$ ihre 
+  Fouriertransformierte. Dann hei"st $f$ bandbegrenzt mit der 
+  Grenzkreisfrequenz $\omega_g$ genau dann, wenn gilt
+  \[
+    f(t)=\frac 1 {2\pi} \int_{-\omega_g}^{\omega_g} F(\omega) d\omega
+  \]
+}
+% -----------------------------------------------------------------------
+\remark:{
+  F"ur eine mit $\omega_g$ bandbegrenzte Funktion folgt 
+  $\omega>\omega_g\implies F(\omega)=0$.
+}
+% -----------------------------------------------------------------------
+\theorem Abtasttheorem:
+  $f:\SetR\to\SetR$ $\omega$-periodisch, bandbegrenzt mit $\omega_g$
+  =>
+{
+  Sei $n:=\frac {\omega_g}\omega$. 
+  W"ahle ein $t_s$ mit $|t_s|<\frac \pi {\omega_g}$ und ein $t_0\in\SetR$
+  beliebig.
+  Dann ist $f$ durch die Funktionswerte $f(t_0-nt_s),\ldots,f(t_0+nt_s)$
+  eindeutig bestimmt.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Betrachtet man das Abtasten/Samplen als Faltung mit einer
+  Impulssequenz der Frequenz $\omega_0$, so ergibt sich als 
+  Fouriertransformierte eine Reihe von Spektren im Abstand $\omega_0$. 
+  R"ucken diese nun so dicht aneinander, dass sie sich "uberlappen 
+  (ist also der Abstand der Spektren $\omega_0$ kleiner als deren 
+  jeweilige Ausdehnung $2\omega_g$),so "uberlappen sich diese (Aliasing) 
+  und das urspr"ungliche Signal ist nicht mehr rekonstruierbar.
+}
+% -----------------------------------------------------------------------
+\para{Information und Kodierung}
+% -----------------------------------------------------------------------
+\definition Alphabet:{
+  Ein Alphabet $A$ ist eine geordnete endliche Menge von Symbolen.
+  \[
+    A=(a_1,a_2,\ldots,a_n)
+  \]
+}
+% -----------------------------------------------------------------------
+\definition Verteilung eines Alphabets:{
+  Als Verteilung $p_A$ eines Alphabets $A$ bezeichnet man einen Vektor 
+  von normierten Wahrscheinlichkeiten, der f"ur jedes Zeichen 
+  angibt, mit welcher Wahrscheinlichkeit es auftritt.
+  \[
+    p_A=(p(a_1),p(a_2),\ldots,p(a_n))
+  \]
+  ``Normiert'' bedeutet, dass gelten muss
+  \[
+    1 = \sum_{k=1}^n p(a_i)
+  \]
+}
+% -----------------------------------------------------------------------
+\definition "Ubertragungseinrichtung:{
+  Zu einer "Ubertragungseinrichtung geh"oren ein \indexthis{Sender}
+  mit einem Senderalphabet $S=(s_1,s_2,\ldots,s_n)$ 
+  und einer Verteilung $p_S=(p(s_1),p(s_2),\ldots,p(s_n))$, 
+  ein \indexthis{Empf"anger} mit einem 
+  mit einem Empf"angeralphabet $E=(e_1,e_2,\ldots,e_m)$ 
+  und einer Verteilung $p_E=(p(e_1),p(e_2),\ldots,p(e_m))$
+  und einem "Ubertragungskanal, der definiert wird durch eine Matrix
+  von bedingten Wahrscheinlichkeiten $p_K=((p(e_i|s_j)))$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Bei dieser Definition einer "Ubertragungseinrichtung ist die Verteilung
+  des Empf"angers durch Senderverteilung und Kanalmatrix in folgender 
+  Weise vollst"andig bestimt:
+  \[
+    p(e_i)=\sum_{j=1}^n p(e_i|s_j) \cdot p(s_j)
+  \]
+}
+% -----------------------------------------------------------------------
+\definition Information:{
+  Gesucht ist als $I(p)$ der mittlere Informationswert eines Zeichens aus einem
+  Alphabet $A$ mit der Verteilung $p_A$, bzw. als $I(p_S,p_E)$ der mittlere 
+  Informationswert eines Zeichens aus dem Empf"angeralphabet $E$ mit der 
+  m"oglicherweise "uber die Kanalmatrix $p_K$ von der Senderverteilung $p_S$ 
+  abh"angigen Verteilung $p_E$. An beide stellt man folgende Forderungen:
+  \begin{stmts}
+    \item \textbf{Stetigkeit:} $I(p_A)$ und $I(p_S,p_E)$ sind f"ur die 
+      Wahrscheinlichkeitswerte $\in[0,1]$ stetig.
+    \item \textbf{Positivit"at:} $I(p_A)\ge 0$, $I(p_S,p_E)\ge 0$
+    \item \textbf{Sicherheit:} Man nennt eine Verteilung degeneriert 
+      $:\equiv$ sie ist eine Permutation von $(1,0,\ldots,0)$.
+      Ist $p$ degeneriert, gilt $I(p_A)=0$, sind $p_S$ und $p_E$ beide
+      degeneriert, so gilt $I(p_S,p_E)=0$.
+    \item \textbf{Unsicherheit:} Maximum der Information genau dann, wenn
+      $p$ bzw. $p_S,p_E$ Gleichverteilungen sind.
+    \item \textbf{Additivit"at:} Sind $p_S$ und $p_E$ unabh"angige 
+      Verteilungen, dann gilt $I(p_S,p_E)=I(p_S)+I(p_E)$. (bezogen auf obiges
+      Modell m"usste gelten $p(e_i|s_j)=p(e_i)$)
+  \end{stmts}
+  Die beiden folgenden Terme erf"ullen die obigen Forderungen:
+  \begin{align*}
+    I(p)&=\sum_{i=1}^n p(a_i) \log_2 \frac 1 {p(a_i)} \\
+    I(p_S,p_E)&=\sum_{i=1}^n \sum_{j=1}^n p(e_i|s_j)\cdot p(s_j) 
+      \log_2 \frac 1 {p(e_i|s_j)\cdot p(s_j) } 
+  \end{align*}
+  Hierbei muss man zur Wahrung der Stetigkeit $0 \log_2 0:=0$ festlegen.
+  Der Zahlenwert $I(p)$ wird als Information, \indexthis{Unsicherheit} oder
+  \indexthis{Entropie} bezeichnet. Die Information $I(p)$ wird in bit 
+  angegeben.
+}
+% -----------------------------------------------------------------------
+\definition bit:{
+  Die Information $I(p)$ zweier sich gegenseitig ausschliessender Ereignisse,
+  die beide gleich wahrscheinlich sind, ist $1$ bit.
+  (Ein bit darf nicht mit dem technischen Ausdruck Bit verwechselt. Ersteres
+  ist das Z"ahlma"s der Information, w"ahrend letzteres einer Bin"arziffer
+  entspricht.)
+}
+% -----------------------------------------------------------------------
+\definition Mittlere Wortl"ange:{
+  \index{Wortl"ange>mittlere}
+  Sei $N_i$ die Anzahl Bits, die zur Kodierung des Zeichens $a_i$ aus
+  dem Alphabet $A$ mit der Verteilung $p_A$ verwendet wird. Dann hei"st
+  \[
+    L(p_A):=\sum_{i=1}^n p_A(a_i) N_i
+  \]
+  die mittlere Wortl"ange von $A$ bez"uglich $p_A$ und den Zeichenl"angen $N_i$
+}
+% -----------------------------------------------------------------------
+\theorem Kodierungstheorem von Shannon:
+  $A$ Alphabet mit Verteilung $p_A$, $N_i$ Zeichenl"angen
+  =>
+{
+  \index{Shannon>Kodierungstheorem von}
+  Dann gilt
+  \[
+    I(p_A)\,\mathrm{Bit} \le L(p_A)
+  \]
+}
+% -----------------------------------------------------------------------
+\definition Datei:{
+  Sei $A$ ein Alphabet. Dann ist eine Datei $(f_i):\{0,\ldots,m\}\to A$ eine 
+  endliche Folge $f_i$ von Elementen von $A$.
+}
+% -----------------------------------------------------------------------
+\definition Arten von Codes:{
+  Ein Code hei"st
+  \begin{itemize}
+    \item \textit{pr"afixfrei} bzw. \textit{Pr"afixcode}, wenn keines 
+      seiner Symbole Pr"afix eines anderen ist
+    \item \textit{eindeutig} bzw. nicht \textit{ambig}, wenn es zu seiner 
+      Dekodierung nur eine M"oglichkeit gibt
+    \item \textit{sofort dekodierbar} wenn zu seiner Dekodierung kein Lookahead
+      erforderlich ist
+  \end{itemize}
+  \index{Pr"afixcode}
+  \index{Code>pr"afixfreier}
+  \index{Code>eindeutiger}
+  \index{Code>sofort dekodierbarer}
+}
+% -----------------------------------------------------------------------
+\algorithm Erzeugung des Huffman-Codes:{
+  \given Alphabet $A=(a_1,\ldots,a_n)$, Datei $(f_i)_{i=0}^m$
+  
+  \aim Huffman-Baum $T$, der einen optimalen pr"afixfreien bin"aren 
+    Code f"ur die gegebene Datei repr"asentiert
+    
+  \begin{proc}
+    \item Berechne f"ur jedes Zeichen $a_i$ die absolute H"aufigkeit $n(a_i)$
+      in $(f_i)$
+    \item Baue einen Heap $H$ auf, der die Zeichen von $A$ nach ihrer
+      absoluten H"aufigkeit $n(a_i)$ ordnet (geringste zuoberst)
+    \item Lege einen leeren Baum $T$ an
+    \item Solange $H$ nicht leer ist
+      \begin{itemize}
+        \item Ist nur noch ein Zeichen $c$ in $H$ enthalten, so nimm 
+          den $c$ entsprechenden Knoten in $T$ als Wurzel und beende
+        \item Entferne die zwei Zeichen $c$ und $d$ mit geringster H"aufigkeit
+          aus dem Heap
+        \item Erzeuge ein Pseudozeichen $z$, das in $T$ Elternknoten von $c$
+          und $d$ wird. Setze $n(z):=n(c)+n(d)$. F"uge $z$ mit $n(z)$ in
+          $H$ ein.
+      \end{itemize}
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\definition Kolmogorov-Komplexit"at:{
+  Ordnet einer Datenmenge die L"ange des k"urzesten Programms, das diese
+  Datenmenge generiert, als Komplexit"at zu.
+}
+% -----------------------------------------------------------------------
+\algorithm RLE-Kompression:{
+  Kodiert Wiederholungen durch Bl"ocke der Art (Anzahl,Datenelement).
+}
+% -----------------------------------------------------------------------
+\definition Parit"at:{
+  Das Parit"atsverfahren besteht im Anf"ugen eines zus"atzlichen Bits
+  an eine Bitsequenz, so dass eine bestimmte Eigenschaft der
+  Gesamtsequenz sichergestellt ist. Man unterscheidet
+  \begin{itemize}
+    \item Das Anf"ugen eines Bits so, dass die Anzahl der Einsen 
+      stets gerade ist (even parity)
+    \item Das Anf"ugen eines Bits so, dass die Anzahl der Einsen 
+      stets ungerade ist (odd parity)
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\definition Rechteck-Code:{
+  Man denke sich eine Sequenz von $m\cdot n$ Bits ($m,n\natural$) in
+  einer $m\times n$-Matrix angeordnet. Bildet man nun "uber jede Spalte
+  und jede Zeile eine Parit"at, so kann man bei einem fehlerhaften Bit
+  anhand der beiden falschen Parit"aten das fehlerhafte Bit erkennen
+  und ``umdrehen''.
+  
+  Analog: \indexthis{Dreieck-Code}, \indexthis{kubische Codes}
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Hat man f"ur zwei Bitsequenzen die Parit"aten $p_1$ und $p_2$ ermittelt,
+  so l"asst sich mit Hilfe der Operation $p_1\text{ xor } p_2$ die
+  Parit"at der gesamten Sequenz ermitteln.
+}
+% -----------------------------------------------------------------------
+\definition Pr"ufsumme:{
+  F"ur eine Datei $(f_i)_{i=1}^n$ gibt es verschiedene Varianten, Pr"ufsummen zu 
+  ermitteln:
+  \begin{itemize}
+    \item Einfach: \[\sum_{i=1}^n f_i\]
+    \item Gewichtet: \[\sum_{i=1}^n i\cdot f_i\]
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\definition Verlustbehaftete Kompression:{
+  \index{Kompression>verlustbehaftete}
+  Man spricht von verlustbehafteter Kompression, wenn aus den komprimierten
+  Daten die Originaldaten nicht vollst"andig identisch rekonstruiert werden
+  k"onnen.
+}
+% -----------------------------------------------------------------------
+\algorithm $k$-Mittelwerte Algorithmus:{
+  \given Ein Vektorraum $\VR V$ mit Abstandsfunktion 
+    $d(x,y):\VR V\times\VR V\to\SetR$, $v_1,\ldots,v_n\in\VR V$, $k\natural$
+    
+  \aim Ein Codebuch $C=\{\mu_1,\ldots,\mu_k\}$, so dass eine Abbildung 
+    $\phi:V\to\{0,\ldots,k\}$ gefunden werden kann, f"ur die
+    \[
+      \sum_{i=1}^n d(\mu_{\phi(v_i)},v_i)
+    \]
+    einem lokalen Minimum nahekommt.
+    
+  \begin{proc}
+    \item Initialisiere $\mu_i$ mit beliebigen $v_j$. 
+      ($i\in\{1,\ldots k\}$,$j\in\{1,\ldots n\}$)
+    \item Solange Quantisierungsfehler zu gro"s
+      \begin{itemize}
+        \item Z"ahle je Codebuchvektor $\mu_i$ die auf diesen Vektor 
+          abgebildeten Mustervektoren, setze deren Anzahl
+          \[
+            n[i]:=|\{j\mid \phi(v_j)=i\}|
+          \]
+        \item Lege einen neuen Satz von Codebuchvektoren $\mu_1',\ldots,\mu_k'$
+          nach folgendem Verfahren fest:
+          \[
+            \mu_i':=\frac 1 {n[i]} 
+              \sum_j \begin{cases} v_j & \phi(j)=i \\ 0 & \text{sonst}\end{cases}
+          \]
+        \item Nimm das Codebuch $(\mu_i')$ als neues Codebuch $(\mu_i)$
+      \end{itemize}
+  \end{proc}
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Die Menge aller jeweils einem Vektor aus dem Codebuch zugeordneten 
+  Vektoren nennt man Voronoi-Region.
+}
+% -----------------------------------------------------------------------
+\para{Problemklassen}
+% -----------------------------------------------------------------------
+\definition Entscheidungsproblem:{
+  Ein Entscheidungsproblem ist ein Problem, dessen L"osung f"ur alle
+  m"oglichen Eingaben in einer Ja-Nein-Antwort besteht.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Sei $U$ die Menge aller m"oglichen Eingaben eines Entscheidungsproblems,
+  und sei $L\subseteq U$ die Menge aller Eingaben, f"ur die die Antwort
+  ``ja'' lautet. Dann nennt man $L$ die dem Problem entsprechende Sprache.
+  Folglich kann jedes Entscheidungsproblem als ein Spracherkennungsproblem 
+  aufgefasst werden. Die Begriffe ``Problem'' und ``Sprache'' k"onnen 
+  weiterhin als gleichwertig aufgefasst werden.
+}
+% -----------------------------------------------------------------------
+\definition Polynomialer Algorithmus:{
+  \index{Algorithmus>polynomialer}
+  Ein Algorithmus hei"st polynomial genau dann, wenn 
+  seine asymptotische Laufzeit $O(T(n))$ durch ein Polynom dargestellt 
+  werden kann.
+  
+  U.a. erf"ullen polynomiale Algorithmen die Beziehung
+  \[
+    T(cn)=O(T(n))\quad c\in\SetR^+
+  \]
+  Die Begriffe effizient bzw. machbar (tractable) sind in Bezug auf
+  Algorithmen synonym zu polynomial.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Man spricht auch von einem ``polynomialen Problem'' und meint damit
+  die Polynomialit"at des Algorithmus, der das Problem in den asymptotisch
+  wenigsten Schritten l"ost.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Man kann zeigen, dass die meisten ``sinnvollen'' Rechnerarchitekturen
+  einander in polynomialer Zeit emulieren k"onnen. Damit ist jeder 
+  polynomiale Algorithmus auf jeder ``sinnvollen'' Maschine polynomial.
+}
+% -----------------------------------------------------------------------
+\definition Reduzierbarkeit:{
+  \index{Reduzierbarkeit}
+  Seien $L_1\subseteq U_1$ und $L_2\subseteq U_2$ zwei Sprachen.
+  Dann nennt man $L_1$ reduzierbar auf $L_2$, falls es einen
+  Algorithmus $f:U_1\to U_2$ gibt, so dass gilt $f(L_1)=L_2$.
+}
+% -----------------------------------------------------------------------
+\definition Polynomiale Reduzierbarkeit:{
+  \index{Reduzierbarkeit>polynomiale}
+  Seien $L_1\subseteq U_1$ und $L_2\subseteq U_2$ zwei Sprachen.
+  Dann nennt man $L_1$ polynomial reduzierbar auf $L_2$, falls es einen
+  polynomialen Algorithmus $f:U_1\to U_2$ gibt, so dass gilt $f(L_1)=L_2$.
+}
+% -----------------------------------------------------------------------
+\definition Polynomiale "Aquivalenz:{
+  \index{"Aquivalenz>polynomiale}
+  Seien $L_1\subseteq U_1$ und $L_2\subseteq U_2$ zwei Sprachen.
+  Dann nennt man $L_1$ polynomial "aquivalent zu $L_2$, falls
+  $L_1$ und $L_2$ gegenseitig aufeinander polynomial reduzierbar sind.
+}
+% -----------------------------------------------------------------------
+\theorem:
+  $L_1, L_2$ Sprachen, $L_2$ polynomial erkennbar, $L_1$ auf $L_2$
+  polynomial reduzierbar
+  =>
+{
+  Dann existiert auch ein polynomialer Algorithmus f"ur die Erkennung
+  von $L_1$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Polynomiale Reduzierbarkeit und damit auch polynomiale "Aquivalenz sind
+  transitive Relationen.
+  
+  Hat man f"ur ein Problem ein Laufzeitminimum bewiesen, und kann dieses
+  Problem auf ein anderes reduziert werden, so hat auch das letztere
+  das f"ur das erste bewiesene Laufzeitminimum. (Voraussetzung: 
+  Aufwand des Algorithmus asymptotisch gr"o"ser als Aufwand der
+  Reduktion)
+}
+% -----------------------------------------------------------------------
+\problem Lineare Optimierung:{
+  \index{Optimierung>lineare}
+  Gegeben ist eine Zielfunktion $f:\SetR^n\to\SetR$ mit folgender Gestalt
+  \[
+    f(x):=\vec a\cdot \vec x
+  \]
+  wobei $\vec a=(a_1,\ldots,a_n)\in\SetR^n$ und $\vec x=(x_1,\ldots,x_n)\in U$.
+  Der Wertebereich $U$, in dem sich die Werte von $x$ bewegen d"urfen,
+  wird eingeschr"ankt durch Bedingungen der folgenden drei Arten
+  \begin{stmts}
+    \item $\vec\alpha_i \cdot \vec x \le \beta_i$, 
+      wobei $\vec\alpha_i\in\SetR^n,\beta_i\real$
+    \item $\vec\gamma_i \cdot\vec x = \delta_i$, 
+      wobei $\vec\gamma_i\in\SetR^n,\delta_i\real$
+    \item $x_i\ge 0$
+  \end{stmts}
+  F"ur die lineare Optimierung gibt es polynomiale Algorithmen. Weiterhin
+  ist die ganzzahlige lineare Optimierung ($\vec x\in\SetN^n$) ziemlich 
+  schwierig.
+}
+% -----------------------------------------------------------------------
+\problem Problem des Philantropen:{
+  $n_S$ Spender wollen an $n_E$ Empf"anger spenden, es existieren jedoch
+  Beschr"ankungen der folgenden Arten:
+  \begin{itemize}
+    \item Ein Spender hat eine Spendeh"ochstsumme
+    \item Ein Empf"anger hat eine Empfangsh"ochstsumme
+    \item Ein Spender will nur einen H"ochstbetrag an einen bestimmten Spender
+      richten
+  \end{itemize}
+  Welches ist die Verteilung, die die meisten Spendengelder flie"sen l"asst?
+}
+% -----------------------------------------------------------------------
+\problem Zuweisungsproblem:{
+  $n_S$ Spender wollen an $n_E$ Empf"anger spenden, es existieren jedoch
+  Beschr"ankungen der folgenden Arten:
+  \begin{itemize}
+    \item Ein Spender spendet an h"ochstens einen Empf"anger
+    \item Ein Spender hat eine Spendeh"ochstsumme
+    \item Ein Empf"anger hat eine Empfangsh"ochstsumme
+    \item Ein Spender will nur einen H"ochstbetrag an einen bestimmten Spender
+      richten
+  \end{itemize}
+  Welches ist die Verteilung, die die meisten Spendengelder flie"sen l"asst?
+}
+% -----------------------------------------------------------------------
+\example:{
+  Die folgenden Probleme sind polynomial aufeinander reduzierbar 
+  (``$\rightarrow$''):
+  \begin{itemize}
+    \item System verschiedener Repr"asentanten 
+      $\rightarrow$ bipartites Matching
+      (Jede Menge und jedes Element in der Gesamtvereinigung bekommt einen
+      Knoten)
+    \item Editierdistanz $\rightarrow$ K"urzester-Pfad-Problem
+    \item Suche nach Dreiecken in Graphen $\rightarrow$ Multiplikation
+      boolescher Matrizen
+    \item Netzwerkflussproblem $\rightarrow$ Lineare Optimierung
+    \item Statisches Routing $\rightarrow$ Lineare Optimierung
+    \item Problem des Philantropen $\rightarrow$ Lineare Optimierung
+    \item Zuweisungsproblem $\rightarrow$ Lineare Optimierung
+    \item Sortieren $\leftrightarrow$ Erzeugung eines kreuzungsfreien Polygons
+    \item Multiplikation symmetrischer Matrizen $\leftrightarrow$
+      Multiplikation zweier beliebiger Matrizen
+    \item Quadrieren einer Matrix $\leftrightarrow$
+      Multiplikation zweier beliebiger Matrizen
+  \end{itemize}
+  Diese Aufz"ahlung umfasst alle Beispiele der Vorlesung.
+}
+% -----------------------------------------------------------------------
+\definition Nichtdeterministischer Algorithmus:{
+  \index{Algorithmus>nichtdeterministischer}
+  Ein nichtdeterministischer Algorithmus, der zus"atzlich zu den
+  verschiedenen ``"ublichen'' Operationen eine zus"atzliche 
+  Verzweigungsoperation gestattet, deren beide Zweige gewisserma"sen
+  ``gleichzeitig'' ausgef"uhrt werden. Die Ausf"uhrung eines 
+  nichtdeterministischen Problems resultiert also in einer Masse von
+  Einzelergebnissen, entsprechend den f"ur verschiedene Verzweigungen
+  ausgew"ahlten Wegen.
+  
+  Als Ergebnis eines nichtdeterministischen Spracherkennungsalgorithmus
+  gilt die Disjunktion aller Ergebnisse. 
+  (mindestens einmal wahr $\implies$ wahr, alle falsch $\implies$ falsch)
+}
+% -----------------------------------------------------------------------
+\definition Problemklasse P:{
+  Man sagt, ein Problem sei in P $:\equiv$ es gibt f"ur das Problem einen 
+  deterministischen Algorithmus mit polynomialer Laufzeit. 
+}
+% -----------------------------------------------------------------------
+\definition Problemklasse NP:{
+  Man sagt, ein Problem sei in NP $:\equiv$ es gibt f"ur das Problem einen 
+  nichtdeterministischen Algorithmus mit polynomialer Laufzeit.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Offensichtlich gilt P $\subseteq$ NP.
+}
+% -----------------------------------------------------------------------
+\definition $K$-hart:{
+  Sei $K$ eine Problemklasse und $P$ ein Problem. Dann hei"st $P$ $K$-hart,
+  falls jedes Problem aus $K$ polynomial auf $P$ reduzierbar ist.
+}
+% -----------------------------------------------------------------------
+\definition $K$-vollst"andig:{
+  Sei $K$ eine Problemklasse und $P$ ein $K$-hartes Problem. Dann hei"st 
+  $P$ $K$-vollst"andig, falls $P$ selbst in $K$ liegt.
+}
+% -----------------------------------------------------------------------
+\theorem:
+  $L_1,L_2$ Sprachen, $L_2$ NP-vollst"andig, $L_2$ auf $L_1$ reduzierbar,
+  $L_1$ in NP
+  =>
+{
+  Dann ist auch $L_1$ NP-vollst"andig.
+}
+% -----------------------------------------------------------------------
+\problem SAT:{
+  \index{Satisfiability}
+  Finde zu einer gegebenen aussagenlogischen Formel in konjunktiver Normalform 
+  eine Variablenbelegung, so dass die Auswertung der Formel den Wert ``Wahr''
+  ergibt.
+}
+% -----------------------------------------------------------------------
+\theorem Satz von Cook:=>
+{
+  SAT ist NP-vollst"andig, denn (a) jeder von einer Turingmaschine 
+  entscheidbare Algorithmus l"asst sich auf SAT zur"uckf"uhren 
+  (b) SAT ist in NP.
+}
+% -----------------------------------------------------------------------
+\problem Cliquenproblem:{
+  Gegeben ist ein Graph $G$, gesucht ist eine Clique mit $k$ Elementen in $G$.
+  
+  Das Cliquenproblem ist NP-vollst"andig, da SAT darauf reduzierbar ist
+  und es selbst in NP liegt.
+  (Man erzeugt einen Graphen mit einer ``Spalte'' f"ur jede Klausel mit 
+  allen Literalen dieser Klausel, erzeugt dann zwischen je zwei Variablen, 
+  die nicht in der gleichen Spalte stehen, und nicht zueinander negiert
+  sind, eine Kante. Dann ist jede Clique eine m"ogliche Belegung und jede
+  m"ogliche Belegung eine Clique.)
+}
+% -----------------------------------------------------------------------
+\problem 3SAT:{
+  \given Eine aussagenlogische Formel in konjunktiver Normalform, bei
+  der pro konjunktiv verbundenem Einzelterm nur drei Variablen vorkommen
+  
+  \aim Eine Belegung der vorkommenden Variablen, so dass die Auswertung
+  der Formel den Wert ``Wahr'' ergibt.
+  
+  SAT ist auf 3SAT reduzierbar, indem man nach folgendem Schema
+  neue Variablen einf"uhrt ($k>3$):
+  \begin{multline*}
+    (x_1 \lor x_2 \lor \ldots x_k) \equiv \\
+    (x_1 \lor x_2 \lor y_1) \land (x_3\lor \neg y_1 \lor y_2) \land
+      \ldots \land (x_{k-1} \lor x_k \lor \neg y_{k-3})
+  \end{multline*}
+  Da 3SAT selbst in NP liegt und SAT darauf reduzierbar ist, ist 3SAT
+  NP-vollst"andig.
+}
+% -----------------------------------------------------------------------
+\problem 3COL:{
+  \given Ein Graph $G=(V,E)$
+  
+  \aim Eine Abbildung $f:V\to\{A,B,C\}$, so dass keine zwei benachbarten
+    Knoten die gleiche ``Farbe'' ($A,B,C$) haben.
+    
+  3SAT ist auf 3COL reduzierbar, indem man nach folgendem Bild die Formel
+  in einen Graphen verwandelt:
+
+  \input info2_3col.epic
+  
+  Zun"achst baut man eine Konstruktion der Art von (*), um die drei 
+  verf"ugbaren Farben an den drei Knoten benennen zu k"onnen. Nennen wir sie
+  hier F,T und A (wie False, True und A). Dann stellen Konstruktionen wie (**)
+  sicher, dass jeweils $x$ und $\overline x$ mit F oder T bzw. umgekehrt
+  gef"arbt werden, indem $x$ und $\overline x$ mit A aus (*) verbunden werden.
+  
+  Zuletzt verunm"oglicht die Konstruktion (***) f"ur jede Klausel die Belegung 
+  aller drei Variablen einer Klausel mit F. W"are dies der Fall, w"are die 
+  einzige m"ogliche Belegung f"ur die mit T verbundenen Knoten in (***) die 
+  Belegung A, womit die F"arbung des darunterliegenden Dreiecks unm"oglich 
+  w"urde.
+  
+  3COL liegt offensichtlich in NP, und da 3SAT polynomial darauf reduziert 
+  werden kann, ist 3COL NP-vollst"andig.
+}
+% -----------------------------------------------------------------------
+\example Weitere NP-vollst"andige Probleme:{
+  Als weitere NP-vollst"andige Probleme sind bekannt:
+  \begin{itemize}
+    \item Das Problem des Handlungsreisenden
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\remark:{
+  Zum tats"achlichen L"osung von NP-vollst"andigen Problemen empfiehlt sich
+  eine der folgenden Vorgehensweisen:
+  \begin{itemize}
+    \item Algorithmus, der nur f"ur bestimmte Eingaben schnell/gut/"uberhaupt
+      funktioniert 
+    \item \textbf{\indexthis{Backtracking}} Arbeite solange vorw"arts, bis 
+      es nicht mehr weitergeht, geh' dann nur einen Schritt zur"uck 
+      (verwirf nicht gleich alles), versuche dort anders zu gehen usw.
+      
+      Eigenschaften: In der Regel drastische Aufwandsreduktion, aber nicht
+        garantiert. Es wird immer eine exakte L"osung gefunden.
+    \item \textbf{\indexthis{Branch and Bound}} Backtracking, das schon 
+      aufh"ort, eine Variante zu verfolgen, sobald eine bestimmte 
+      Grenze/Bedingung (``boundary'') erreicht ist.
+      
+      Eigenschaften wie Backtracking.
+    \item N"aherungsl"osungen (Beispiel: Handlungsreisender, zun"achst
+      Spannbaum aufstellen, dann mittels DFS Abk"urzungen suchen)
+    \item Probabilistische Algorithmen (z.B. genetische Algorithmen)
+    \item Speziall"osungen f"ur Einzelf"alle
+  \end{itemize}
+}

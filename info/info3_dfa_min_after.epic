@@ -1,0 +1,34 @@
+\setlength{\unitlength}{1mm}
+\begin{center}
+  \begin{picture}(120,40)
+    \put(0,15){\vector(1,0){20}}
+    
+    \put(25,15){\circle{10}}
+    \put(25,15){\makebox(0,0){$q_0q_2$}}
+    
+    \put(55,15){\circle{10}}
+    \put(55,15){\makebox(0,0){$q_1q_3$}}
+    
+    \put(85,15){\circle{10}}
+    \put(85,15){\circle{12}}
+    \put(85,15){\makebox(0,0){$q_4$}}
+    
+    \put(22,19){\line(0,1){5}}
+    \put(25,24){\oval(6,12)[t]}
+    \put(28,24){\vector(0,-1){5}}
+    \put(25,31){\makebox(0,0)[b]{$1$}}
+    
+    \put(30,16){\vector(1,0){20}}
+    \put(30,17){\makebox(20,0)[b]{$0$}}
+    \put(50,14){\vector(-1,0){20}}
+    \put(30,13){\makebox(20,0)[t]{$1$}}
+    
+    \put(60,15){\vector(1,0){19}}
+    \put(60,16){\makebox(19,0)[b]{$0$}}
+    
+    \put(91,18){\line(1,0){5}}
+    \put(94.6,15){\oval(12,6)[r]}
+    \put(96,12){\vector(-1,0){5}}
+    \put(103,15){\makebox(0,0)[l]{$0, 1$}}
+  \end{picture}
+\end{center}

@@ -1,0 +1,13 @@
+\setlength{\unitlength}{1mm}
+\setlength{\GapWidth}{5mm}
+\begin{center}
+  \begin{picture}(20,10)
+    \put(0,5){
+      \begin{bundle}{$A$}
+        \chunk{$k_1$}
+        \chunk{$k_2\dots$}
+        \chunk{$k_n$}
+      \end{bundle}
+      }
+  \end{picture}
+\end{center}

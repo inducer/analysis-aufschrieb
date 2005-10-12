@@ -1,0 +1,780 @@
+% -----------------------------------------------------------------------------
+\para{Unendliche Reihen}
+% -----------------------------------------------------------------------------
+\definition Reihe:{
+  \index{Konvergenz>Reihen}
+  Sei $(a_n)$ reelle Folge. F"ur $n\natural$ sei
+  $s_n:=\sum_{i=1}^n a_i$. Die Folge $(s_n)$ hei"st unendliche Reihe
+  (kurz:Reihe) und wird bezeichnet $\sumn 1 a_n$.
+  
+  $(s_n)$ hei"st ($n$-te) Teilsumme der Reihe.
+  
+  $\sumn 1 a_n$ hei"st \tstack(konvergent;divergent) $:\equiv$
+  $(s_n)$ ist \tstack(konvergent;divergent).
+  
+  Ist $\sumn 1 a_n$ konvergent, so hei"st $\limn s_n$ der
+  Reihenwert/die Reihensumme.
+  
+  Schreibweise: $\sumn 1 a_n = \limn s_n$
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $p\integer$ und $(a_n)_{n=p}^\infty$ eine reelle Folge, so def.
+  man entsprechend: $s_n:=\sum_{i=p}^n a_i$ und $\sumn p$. Die folgenden
+  S"atze und Definitionen "ubertragen sich entsprechend.
+  }
+% -----------------------------------------------------------------------------
+\example Geometrische Reihe:{
+  \index{Reihe>geometrische}
+  F"ur $|x|<1$ ergibt sich
+  \[\sumn 0 x^n=\frac 1 {1-x}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\example Harmonische Reihe:{
+  \index{Reihe>harmonische}
+  Die harmonische Reihe
+  \[\sumn 1 \frac 1 n
+    \]
+  divergiert.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\SetQ$ kann von abz"ahlbar vielen Intervallen mit bel. kleiner L"angensumme
+  "uberdeckt werden.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$(a_n)$ reelle Folge=>{
+  \begin{stmts}
+    \item $a_n\ge 0$ und $(s_n)$ beschr"ankt $\implies$ $\sumn 1 a_n$ konv.
+      (\emph{\indexthis{Monotoniekriterium}})
+    \item $\sumn 1 a_n$ konv. $\equiv$
+      \[\epsn(\exists n_0=n_0(\epsilon))(\forall m,n)
+        (m > n\implies\left|\sum_{k=n+1}^m a_k\right|<\epsilon)
+	\]
+      (\emph{\indexthis{Cauchykriterium}})
+    \item $\sumn 1 a_n$ konv. $\implies$ $(\forall \nu\natural)(\sumn \nu a_n \text{ konv.})$. 
+    
+      Weiterhin gilt f"ur $\nu\to\infty$ auch $\sumn\nu a_n\to 0$.
+    \item $\sumn 1 a_n$ konvergiert $\implies$ $\limn a_n=0$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Linearit"at von Reihen:
+  $\sumn 1 a_n,\sumn 2 b_n$ konv. Reihen, $\alpha,\beta \real$=>{
+  \[\sumn 1 (\alpha a_n+\beta b_n) = \alpha \sumn 1 a_n + \beta \sumn 1 b_n
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\sumn 1 (a_n+b_n)$ kann konvergieren, obwohl $\sumn 1 a_n$ und
+  $\sumn 1 b_n$ divergieren.
+  }
+% -----------------------------------------------------------------------------
+\definition Absolute Konvergenz:{
+  \index{Konvergenz>absolute}
+  Eine Reihe hei"st absolut konvergent $:\equiv$
+  $\sumn 1 |a_n|$ konvergiert.
+  }
+% -----------------------------------------------------------------------------
+\theorem Dreiecksungleichung f"ur Reihen:$\sumn 1 |a_n|$ absolut konvergent=>{
+  \index{Reihen>Dreiecksungleichung f"ur}
+  $\sumn 1 a_n$ konvergiert und es gilt
+  \[
+    \left|\sumn 1 a_n\right| \le \sumn 1 |a_n|
+  \]
+}
+% -----------------------------------------------------------------------------
+\para{Konvergenzkriterien f"ur Reihen}
+% -----------------------------------------------------------------------------
+\theorem Leibniz-Kriterium:
+  $(a_n)$ monoton fallende Nullfolge, $b_n=(-1)^{n+1}a_n$=>{
+  Dann konvergiert $\sumn 1 b_n$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Majorantenkriterium:
+  $|a_n|\le b_n \ffa n\natural$ und $\sumn 1 b_n$ konvergent=>{
+  Dann konv. $\sumn 1 a_n$ absolut.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Minorantenkriterium:
+  $0\le b_n\le a_n \ffa n\natural$ und $\sumn 1 b_n$ divergent=>{
+  Dann ist $\sumn 1 a_n$ divergent.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  $\sumn 1 \frac 1 {n^2}=\frac {\pi^2} 6$
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\sumn 1 \frac 1 {n^\alpha}$ konvergiert $\equiv$ $\alpha>1$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Wurzelkriterium:
+  $(a_n)$ reelle Folge=>{
+  \begin{stmts}
+    \item Ist $\sqrt[n]{|a_n|}$ unbeschr"ankt, so div. $\sumn 1 a_n$.
+    \item Ist $\sqrt[n]{|a_n|}$ beschr"ankt, so ex.
+          $\alpha:=\limsupn \sqrt[n]{|a_n|}$.
+    \item $\alpha<1 \implies \sumn 1 a_n$ konv. absolut
+    \item $\alpha=1:$ keine Aussage m"oglich
+    \item $\alpha>1 \implies \sumn 1 a_n$ divergiert
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\sqrt[n]{|a_n|}<1$ f"ur alle $n\natural$ gen"ugt im allgemeinen nicht
+  f"ur Konvergenz.
+  }
+% -----------------------------------------------------------------------------
+\theorem Quotientenkriterium:
+  $(a_n)$ reelle Folge mit $a_n\ne 0 \ffa n\natural$=>{
+  \begin{stmts}
+    \item $\left|\frac {a_{n+1}}{a_n}\right|$ beschr"ankt,
+          $\limsupn \left|\frac {a_{n+1}}{a_n}\right|<1$ $\implies$
+          $\sumn 1 a_n$ absolut konv.
+    \item $\left|\frac {a_{n+1}}{a_n}\right|\ge 1\ffa n\natural \implies \sumn 1 a_n$
+          divergent
+    \item $\left|\frac{a_{n+1}}{a_n}\right|$ beschr"ankt,
+          $\liminfn \left|\frac{a_{n+1}}{a_n}\right|>1$ $\implies$
+          $\sumn 1 a_n$ divergent
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $(a_n)$ Folge in $\SetR\setminus\{0\}$ und $\left|\frac{a_n+1}{a_n}\right|$
+  beschr"ankt, so gilt
+  \[\liminfn \left|\frac {a_n+1}{a_n}\right| \, \le \,
+    \liminfn \root n \of{|a_n|} \, \le \,
+    \limsupn \root n \of{|a_n|} \, \le \,
+    \limsupn \left|\frac {a_n+1}{a_n}\right|
+    \]
+  Liefert das Quotientenkriterium keine Entscheidung, so braucht man
+  es mit dem Wurzelkriterium gar nicht erst zu versuchen, d.h. das
+  Quotientenkriterium ist das ``empfindlichere Werkzeug''.
+}
+% -----------------------------------------------------------------------------
+\example Exponentialfunktion:{
+  $E(x):=\sumn 0 \frac {x^n}{n!}$ konvergiert f"ur alle $x\real$.
+  (Quotientenkriterium)
+  
+  Es gilt $E(0)=1, E(1)=e$.
+  }
+% -----------------------------------------------------------------------------
+\remark Klammern in Reihen:{
+  In konverg. Reihen darf man im allgemeinen ``Klammern'' nicht weglasssen,
+  ohne die Konvergenz zu beeinflussen. Hinzuf"ugen von Klammern ist jedoch
+  kein Problem, wie der folgende Satz zeigt:
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\sumn 1 a_n$ konvergent, $(n_k)$ streng wachsende Folge in $\SetN$=>{
+  Setze $b_1:=a_1+\cdots+a_{n_1}$, $b_2=a_{n_1+1}+\cdots+a_{n_2}$ $\ldots$.
+  
+  Dann konvergiert $\sumn 1 b_n$ und es ist $\sumn 1 b_n = \sumn 1 a_n$.
+  }
+% -----------------------------------------------------------------------------
+\para{Umordnung von Reihen}
+% -----------------------------------------------------------------------------
+\definition Umordnung:{
+  Sei $(a_n)$ reelle Folge und $\phi:\SetN\to\SetN$ bijektiv.
+  Setze $b_n:=a_{\phi(n)}$.
+  
+  Dann hei"st $(b_n)$ Umordnung von $(a_n)$ und 
+  $\sumn 1 b_n$ Umordnung von $\sumn 1 a_n$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Relation ``ist Umordnung von'' ist symmetrisch.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:$\phi:\SetN\to\SetN$ bijektiv, $n_0\natural$=>{
+  Dann existiert ein $n_0\natural$ so, dass 
+  $(\forall n\ge n_0)(\phi(n)\ge n_0)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Umordnungssatz:
+  $(b_n)$ Umordnung von $(a_n)$=>{
+  \begin{stmts}
+    \item $(a_n)$ konvergiert $\implies$ $(b_n)$ konvergiert und
+      $\limn a_n=\limn b_n$.
+    \item $\sumn 1 a_n$ konv. absolut $\implies$
+      $\sumn 1 b_n$ konv. absolut und $\sumn 1 a_n=\sumn 1 b_n$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Riemann'scher Umordnungssatz:
+ $\sumn 1 a_n$ konvergent, aber nicht absolut konvergent=>{
+ \begin{stmts}
+   \item Es ex. eine divergente Umordnung $\sumn 1 b_n$ von $\sumn 1 a_n$.
+   \item Sei $s\real$. Dann ex. eine Umordnung $\sumn 1 c_n$ von $\sumn 1 a_n$ mit 
+     $\sumn 1 c_n$ konv. und $\sumn 1 c_n=s$.
+   \end{stmts}
+ }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\sumn 1 a_n$ konvergiert absolut $\equiv$ Jede Umordnung $\sumn 1 b_n$ von
+  $\sumn 1 a_n$ konvergiert (gegen $\sumn 1 a_n$).
+}
+% -----------------------------------------------------------------------------
+\definition Produktreihe:{
+  Seien $\sumn 0 a_n,\sumn 0 b_n$ absolut konv. Reihen. Sei
+  $\Phi:\SetN\times\SetN\to\SetN$ bijektiv und $a_j b_k =p_{\Phi(j,k)}$.
+  $\sumn 0 p_n$ hei"st dann Produktreihe von $\sumn 0 a_n,\sumn 0 b_n$.
+}
+% -----------------------------------------------------------------------------
+\remark:{
+  Sind $\sumn 0 p_n$ und $\sumn 0 \tilde p_n$ zwei solche Produktreihen,
+  dann ist jede Umordnung der anderen.
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $\sumn 0 a_n,\sumn 0 b_n$ abs. konv.,$\sumn 0 p_n$ sei eine ihrer
+  Produktreihen.=>{
+  $\sumn 0 p_n$ konv absolut und 
+  $\sumn 0 p_n=\left(\sumn 0 a_n\right)\left(\sumn 0  b_n\right)$
+  }
+% -----------------------------------------------------------------------------
+\definition Cauchyprodukt:{
+  Seien $\sumn 0 a_n,\sumn 0 b_n$ absolut konvergent. Sei weiterhin
+  $c_n:=\sum_{k=0}^n a_k b_{n-k}$. Dann hei"st $\sumn 0 c_n$ das
+  Cauchyprodukt von $\sumn 0 a_n$ und $\sumn 0 b_n$.
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $\sumn 0 a_n,\sumn 0 b_n$ abs. konv.,$\sumn 0 c_n$ sei ihr Cauchyprodukt=>{
+  $\sumn 0 c_n$ konv. absolut und 
+  $\sumn 0 c_n=\left(\sumn 0 a_n\right)\left(\sumn 0  b_n\right)$.
+  }
+% -----------------------------------------------------------------------------
+\remark Funktionalgleichung der Exponentialfunktion:{
+  Aus (13.3) ergibt sich die Funktionalgleichung f"ur die Exponentialfunktion:
+  \[E(x)\cdot E(y)=E(x+y)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{Potenzreihen}
+% -----------------------------------------------------------------------------
+\definition Potenzreihe:{
+  \label{def:potenzreihe}
+  Sei $(a_n)_{n=0}^\infty$ eine reelle Folge. Eine Reihe der Form
+  $\sumn 0 a_n x^n$ hei"st Potenzreihe/PR.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\sumn 0 a_n x^n$ Potenzreihe=>{
+  \begin{stmts}
+    \item Ist $\sqrt[n]{|a_n|}$ unbeschr"ankt,
+      so konv. die PR nur f"ur $x=0$.
+    \item Ist $\sqrt[n]{|a_n|}$ beschr"ankt,
+      so ex. $\rho:=\limsupn \sqrt[n]{|a_n|}$:
+    \item $\rho=0 \implies$ PR konv. abs. f"ur alle $x\real$
+    \item $\rho>0 \implies$ PR konv. abs. f"ur alle $|x|<\frac 1 \rho$
+      und div. f"ur alle $|x|>\frac 1 \rho$.
+      F"ur $|x|=\frac 1 \rho$ ist keine allgemeine Aussage m"oglich.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Konvergenzradius:{
+  Sei $\sumn 0 a_n x^n$ eine Potenzreihe und $\rho$ wie oben. 
+  Dann hei"st
+  \[r:=\begin{cases}
+      0                 & \sqrt[n]{|a_n|} \text{unbeschr"ankt} \\
+      \infty            & \sqrt[n]{|a_n|} \text{beschr"ankt und $\rho=0$} \\
+      \frac 1 \rho      & \sqrt[n]{|a_n|} \text{beschr"ankt und $\rho>0$}
+      \end{cases}
+    \]
+  der Konvergenzradius/KR der PR.
+  }
+% -----------------------------------------------------------------------------
+\definition Konvergenzbereich:{
+  Sei $\sumn 0 a_n x^n$ eine Potenzreihe und $r$ ihr KR. Dann hei"st die Menge 
+  \[K:=\left\{x\in\SetR\mid\sumn 0 a_n x^n \text{ konv.} \right\}
+    \]
+  der Konvergenzbereich/KB der PR.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  In Abh"angigkeit von $r$ hat der KB folgende Gestalt:
+  \[KB=\begin{cases}
+      \{0\}                     	& \text{falls $r=0$} \\
+      \SetR                     	& \text{falls $r=\infty$} \\
+      \stack({(};[)-r,r\stack({)};])    & \text{falls $r\in(0;\infty)$}
+      \end{cases}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Sinus/Cosinus:{
+  Sinus und \indexthis{Cosinus} werden hier "uber ihre 
+  Potenzreihenentwicklung festgelegt:
+  \begin{align*}
+    \cos:\SetR\to\SetR &\quad \cos x:=\sumn 0 (-1)^n \frac{x^{2n}}{(2n)!}\\
+    \sin:\SetR\to\SetR &\quad \sin x:=\sumn 0 (-1)^n \frac{x^{2n+1}}{(2n+1)!}
+    \end{align*}
+  Die beiden Potenzreihen konvergieren absolut f"ur alle $x\real$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\sumn 0 a_n x^n$,$\sumn 0 b_n x^n$ PR mit KRen $r_1,r_2>0$.=>{
+  Sei $R:=\min\{r_1,r_2\}$, $c_n:=\sum_{k=0}^n a_k b_{n-k}$.
+  
+  Dann ist der Konvergenzradius von $\sumn 0 c_n x^n$ mindestens $R$ und
+  es gilt
+  \[\sumn 0 c_n x^n=\left(\sumn 0 a_n x^n\right)\left(\sumn 0 b_n x^n\right)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$E(x)=\sumn 0 \frac{x^n}{n!}$=>{
+  \begin{stmts}
+    \item $(\forall x,y\real)(E(x)E(y)=E(x+y))$ 
+    \item $E(0)=1 \quad E(1)=e$ 
+    \item $(\forall r\in\SetQ)(E(r)=e^r)$ 
+    \item $(\forall x\in\SetQ)(E(-x)=\frac{1}{E(x)} \land E(x)>0)$ 
+    \item $E:\SetR\to\SetR$ streng monoton wachsend 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{$g$-adische Entwicklung}
+% -----------------------------------------------------------------------------
+\definition Gau"s-Klammer:{
+  Sei $a\real$. Dann ex. genau ein $k\integer$ mit $k\le a\le k+1$.\par
+  Dann ist $[a]:=k$ die gr"o"ste ganze Zahl kleiner oder gleich a.
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  $a\ge 0\quad g\natural\quad g>1$
+  }
+% -----------------------------------------------------------------------------
+\definition $g$-adische Entwicklung:{
+  Ist die Zahl $a\real$ gegeben, so erh"alt man die g-adische Entwicklung von
+  $a$ durch diese Folge:
+  \begin{align*}
+    z_0&:=[a]\\
+    z_{n+1}&:=\left[\left(a-z_0-\frac{z_1}{g}-\cdots\frac{z_n}{g^n}\right)g^{n+1}\right]
+  \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$a\real, (z_n)_{n=0}^\infty$ die g-adische Entwicklung von a=>{
+  \begin{stmts}
+    \item $z_0+\frac{z_1}{g}+\cdots+\frac{z_n}{ g^n}\le a <z_0+
+          \frac{z_1}{ g}+\cdots+\frac{z_n}{ g^n}+\frac{1}{ g^n}$ 
+    \item $(\forall n\nnatural)(z_n\nnatural)$
+    \item $(\forall n\nnatural)(z_n\le g-1)$
+    \item Die Folge $(z_n)$ ist bei festem $a$ eindeutig bestimmt.
+    \item $\sumn 0 z_n=a$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition g-adische Schreibweise:{
+  Seien $a\real, (z_n)_{n=0}^\infty$ die g-adische Entwicklung von a. Dann schreibt man
+  \[a = z_0,z_1 z_2 z_3\ldots 
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$a\real, (z_n)_{n=0}^\infty$ die g-adische Entwicklung von a=>{
+  $(z_n)=g-1 \; \ffa n\natural$ ist nicht m"oglich.
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  $\SetR$ ist "uberabz"ahlbar.
+  }
+% -----------------------------------------------------------------------------
+\para{Grenzwerte bei Funktionen}
+% -----------------------------------------------------------------------------
+\definition H"aufungspunkt:{
+  Sei $D\subseteq\SetR$ und $x_0\real$. Dann hei"st $x_0$
+  H"aufungspunkt/HP von D $:\equiv$ \par
+  $\epsn(D\cap U_\epsilon(x_0)\setminus \{x_0\} \ne\emptyset)$
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Endliche Mengen haben keinen H"aufungspunkt.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:$D\subseteq\SetR,x_0\real$=>{
+  $x_0$ ist HP von D\ $\equiv$ Es ex. eine Folge $(x_n)$ in
+  $D\setminus \{x_0\}$ mit $\limn x_n=x_0$.
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  $D\subseteq\SetR,x_0$ H"aufungspunkt von D.
+  }
+% -----------------------------------------------------------------------------
+\definition Grenzwert einer Funktion:{
+  Sei $f:D\to\SetR$ eine Funktion und $a\real$. Dann hei"st a der Grenzwert von
+  $f$ $:\equiv$
+  \[(\forall (x_n) \text{ in } D\setminus\{x_0\})
+    (\limn x_n = x_0\implies \limn f(x_n)=a)
+    \]
+  Schreibweise: $\limx {x_0}=a$ oder $f(x) \tocond{x\to x_0} a$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Falls $x_0\defined$, so ist der Funktionswert an dieser Stelle nicht
+  relevant. F"ur Existenz und Gr"o"se von $\limx \xnull f(x)$ ist nur das
+  Verhalten von $f$ in der ``N"ahe'' von $x_0$ relevant.
+  }
+% -----------------------------------------------------------------------------
+\definition Einseitige Grenzwerte:{
+  Man legt fest
+  \begin{align*}
+    \limx {x_0+} f(x) &:= \lim_{\substack{ x\to x_0 \\ x>x_0 }} f(x)\\
+    \limx {x_0-} f(x) &:= \lim_{\substack{ x\to x_0 \\ x<x_0 }} f(x)
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem Epsilon-Delta-Charakterisierung des Grenzwert:$f:D\to\SetR,a\real$=>{
+  \index{Grenzwert>Epsilon-Delta-Charakterisierung}
+  Es ist $\limx \xnull f(x)=a$ $\equiv$
+  \[\epsn(\exists \delta=\delta(\epsilon))(\forall x\defined\setminus\{x_0\})
+    (|x-x_0|<\delta \implies |f(x)-a|<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Folgen-Charakterisierung des Grenzwerts:$f:D\to\SetR$=>{
+  \index{Grenzwert>Folgen-Charakterisierung}
+  Der Grenzwert $\limx \xnull f(x)$ existiert $\equiv$
+  \[(\forall (x_n) \text{ in }D\setminus\{x_0\})
+    (\limn x_n=x_0\implies (f(x_n))\text{ konvergiert})
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f,g,h:D\to\SetR,
+  \exists a:=\limx \xnull f(x),
+  \exists b:=\limx \xnull g(x)$=>{F"ur $x\to x_0$: 
+  \begin{stmts}
+    \item $f(x)+g(x)\to a+b$,
+      $f(x)\cdot g(x)\to a\cdot b$,
+      $|f(x)| \to |a|$
+    \item $(\exists \delta>0)(\forall x\defined\cap U_\delta(x_0)\setminus\{x_0\})
+      (f(x)\le g(x))\implies a\le b$
+    \item $(\exists \delta>0)(\forall x\defined\cap U_\delta(x_0)\setminus\{x_0\})
+      (f(x)\le h(x)\le g(x)), a=b \implies h(x)\to a$
+    \item $b\ne 0\implies
+      (\exists \delta>0)(\forall x\defined\cap U_\delta(x_0)\setminus\{x_0\})
+      (|g(x)|>\frac{|b|}{ 2})$
+      $\implies \frac{f(x)}{ g(x)}\to \frac ab$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition:{
+  Sei $(x_n)$ reelle Folge. Dann sagt man
+  \begin{align*}
+    x_n\to\infty &:\equiv (\forall c\real)(\exists n_0\natural)
+                          (\forall n\ge n_0)(x_n>c)\\
+    x_n\to -\infty &:\equiv (\forall c\real)(\exists n_0\natural)
+                          (\forall n\ge n_0)(x_n<c)
+  \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition:{
+  Sei $D\subseteq\SetR:f:D\to\SetR$. Dann ist
+  $\lim f(x)=\pm\infty$ $:\equiv$
+  \[(\forall (x_n) \text{ in } D\setminus\{x_0\})
+    (\limn x_n=x_0 \implies \limn f(x_n)=\pm\infty)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition:{
+  $D\subseteq\SetR$ sei nicht nach \tstack(oben;unten) beschr"ankt,
+  $f:D\to\SetR$. Dann ist $\limx {\pm\infty}$ f(x)=a $:\equiv$
+  \[(\forall (x_n) \text{ in } D)
+    (\limn x_n=\pm\infty \implies \limn f(x_n)=a)
+    \]
+  ($a=\pm\infty$ zugelassen)
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Es gilt $\limx \infty E(x)=\infty$ und $\limx {-\infty} E(x)=0$.
+  }
+% -----------------------------------------------------------------------------
+\para{Stetigkeit}
+% -----------------------------------------------------------------------------
+\definition Stetigkeit:{
+  Sei $D\subseteq\SetR,f:D\to\SetR$. $f$ hei"st stetig in $x_0\defined$ $:\equiv$
+  \[(\forall (x_n)\text{ in }D)(\limn x_n=x_0\implies \limn f(x_n)=f(x_0))
+    \]
+  Schreibweise: $f\cont$, wobei
+  $\SetCont(D):=\{f:D\to\SetR\mid\text{ $f$ ist auf D\ stetig}\}$
+  }
+% -----------------------------------------------------------------------------
+\theorem Epsilon-Delta-Charakterisierung der Stetigkeit:
+  $D\subseteq\SetR,f:D\to\SetR,x_0\defined$=>{
+  \index{Stetigkeit>Epsilon-Delta-Charakterisierung}
+  \begin{stmts}
+    \item $f$ stetig in $x_0$ $\equiv$
+      $\epsn(\exists \delta=\delta(\epsilon)>0)(\forall x\defined)$ 
+      $(|x-x_0|<\delta \implies |f(x)-f(x_0)|<\epsilon)$
+    \item $x_0$ HP von D $\implies$ $f$ ist stetig in $x_0$ $\equiv$
+      $\limx \xnull f(x)=f(x_0)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f,g:D\to\SetR$, $f,g$ seien stetig in $x_0\defined$.=>{
+  Dann sind auch $f+g,f\cdot g,|f|$ stetig.
+  Ist $\tilde D=\{x\defined\mid g(x)\ne 0\}, x_0\in\tilde D$, so ist
+  $\frac f g$ auch stetig in $x_0$.\par
+  Somit ist $\SetCont(D)$ ein Vektorraum.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f:D\to\SetR$ sei stetig in $x_0$, $g: E\to\SetR$, wobei
+  $f(D)\subseteq E$, $g$ stetig in $f(x_0)$=>{
+  Dann ist $f\after g$ stetig in $x_0$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Potenzreihen mit Konvergenzradius $r>0$ sind stetig.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $E(x)$, $\sin x$, $\cos x$ sind stetig auf $\SetR$.
+  }
+% -----------------------------------------------------------------------------
+\para{Eigenschaften stetiger Funktionen}
+% -----------------------------------------------------------------------------
+\theorem Zwischenwertsatz:
+  $f\in \SetCont([a;b])$ und $f(a)\le y_0\le f(b)$ oder $f(a)\ge y_0\ge f(b)$=>{
+  Dann existiert ein $x_0\in [a;b]$ mit $f(x_0)=y_0)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Nullstellensatz von Bolzano:
+  $f\in \SetCont([a;b])$ und $f(a)<0<f(b)$=>{
+  Dann existiert ein $x_0\in (a;b)$ mit $f(x_0)=0$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $E(\SetR)=(0;\infty)$
+  }
+% -----------------------------------------------------------------------------
+\definition abgeschlossen/offen:{
+  $D\subseteq\SetR$ hei"st abgeschlossen $:\equiv$
+  $(\forall (x_n)\text{ in }D)(\limn x_n\defined)$
+  
+  $D\subseteq\SetR$ hei"st offen $:\equiv$
+  $\SetR\setminus D$ ist abgeschlossen.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\SetR$ ist offen und abgeschlossen,
+  $[a,b)$ ist weder offen noch abgeschlossen. 
+  Das bedeutet, offen und abgeschlossen sind bei Mengen keine Gegens"atze,
+  w"ahrend dies im allgemeinen z.B. bei T"uren der Fall ist. :-)
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:=>{
+  $D$ ist abgeschlossen $\equiv$ Jeder HP von $D\in D$
+  
+  $D$ ist offen $\equiv$
+  $(\forall x\defined)(\exists \delta>0)(U_\delta(x)\subseteq D)$
+}
+% -----------------------------------------------------------------------------
+\lessertheorem:$D\subseteq\SetR$ abgeschlossen und beschr"ankt,
+  $(x_n)$ sei Folge in $D$=>{
+  $(x_n)$ enth"alt konvergente TF in $D$. (``$D$ ist folgenkompakt.'')
+  }
+% -----------------------------------------------------------------------------
+\definition Beschr"anktheit einer Funktion:{
+  $f:D\to\SetR$ hei"st beschr"ankt, falls $f(D)$ beschr"ankt ist.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\emptyset\ne D\subseteq\SetR$, $D$ abgeschlossen, beschr"ankt.
+  $f\cont$=>{
+  Dann existieren $x_1,x_2\in D$ so, dass 
+  $(\forall x\in D)(f(x_1)\le f(x)\le f(x_2))$,
+  d.h.: $f$ ist beschr"ankt und $f(D)$ besitzt Minimum und Maximum.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $ I\subseteq\SetR$ ein Intervall und $f: I\to\SetR$ sei
+  streng mon. \tstack(wachsend;fallend) $\implies$ $f$ injektiv und
+  $f^{-1}:f( I)\to I$.
+
+  $f$ streng mon. \tstack(wachsend;fallend) $\equiv$
+  $f^{-1}$ streng mon. \tstack(wachsend;fallend)
+}
+% -----------------------------------------------------------------------------
+\theorem:Sei $ I$ ein Intervall, $f\in\SetCont( I)$=>{
+  $f( I)$ ist Intervall
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:
+  $f\in\SetCont([a;b])$, $A:=\min f([a;b])$, $B:=\max f([a;b])$=>{
+  Dann ist $f([a;b])=[A;B]$.
+  }
+% -----------------------------------------------------------------------------
+\theorem: $ I$ Intervall,$f\in\SetCont( I)$ streng monoton=>{
+  $f^{-1}\in\SetCont(f(I))$
+  }
+% -----------------------------------------------------------------------------
+\definition Logarithmus:{
+  Auf $\log:(0;\infty)\to\SetR$ wird der Logarithmus $\log x$ folgenderma"sen
+  definiert: $\log x:=E^{-1}(x)$.
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenschaften von $\log$:{
+  \begin{stmts}
+    \item $\log$ ist auf $(0;\infty)$ streng monoton wachsend und stetig.
+    \item $\log 1=0$, $\log e=1$, $\limx {0+} \log x=-\infty$, 
+      $\limx \infty \log x=\infty$.
+    \item $\log (x\cdot y)=\log x+\log y$
+    \item $\log (\frac x y)=\log x-\log y$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Allgemeine Potenz:{
+  Sei $a>0,x\real$. Speziell f"ur $a=e$:
+  \[e^x:=E(x \log e)=E(x)
+    \]
+  Dann ist
+  \[a^x:=E(x \log a)=e^{x \log a}
+    \]
+}
+% -----------------------------------------------------------------------------
+\remark Eigenschaften der allgemeinen Potenz:{
+  \begin{stmts}
+    \item $x\mapsto a^x$ stetig
+    \item $a^x>0$ 
+    \item $a^{x+y}=a^x\cdot a^y$
+    \item $a^{-x}=\frac{1}{a^x}$
+    \item $\left(a^x\right)^y=a^{x\cdot y}$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{Funktionenfolgen und -reihen}
+ % -----------------------------------------------------------------------------
+\convention{
+  Sei $D\subseteq\SetR$ und $(f_n)$ eine Folge von Funktionen.
+  
+  $f_n:D\to\SetR,n\natural$, $s_n:=\sum_{k=1}^{n} f_k$.
+  
+  $\sumn 1 f_n$ bezeichnet die Funktionenfolge $(s_n)$.
+  }
+% -----------------------------------------------------------------------------
+\definition Punktweise Konvergenz:{
+  Die Funktionenfolge $(f_n),\sumn 1 f_n$ hei"st punktweise/pw konvergent
+  $:\equiv$ 
+  \[\limn f_n(x)/\sumn 1 f_n(x) \text{ex. f"ur alle $x\in D$}
+    \]
+  Dann hei"st $f(x):=\limn f_n(x)$ bzw. $s(x):=\sumn 1 f_n(x)$ die
+  Grenz- bzw. Summenfunktion von $(f_n)$/$\sumn 1 f_n$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Punktweise Konvergenz in Quantorenschreibweise:
+  \[(\forall x\defined)\epsn(\exists n_0=n_0(x,\epsilon))(\forall n\ge n_0)
+      \stack({(|f_n(x)-f(x)|<\epsilon)};{(|s_n(x)-s(x)|<\epsilon)})
+    \]
+}
+% -----------------------------------------------------------------------------
+\definition Gleichm"a"sige Konvergenz:{
+  $(f_n)$ bzw. $\sumn 1 f_n$ hei"st gleichm"a"sig/glm konvergent $:\equiv$
+  Es ex. ein $f:D\to\SetR$ bzw. $s:D\to\SetR$ mit:
+  \[
+    \epsn(\exists n_0=n_0(\epsilon))(\forall n\ge n_0)(\forall x\defined)
+      \stack({(|f_n(x)-f(x)|<\epsilon)};{(|s_n(x)-s(x)|<\epsilon)})
+  \]
+}
+% -----------------------------------------------------------------------------
+\remark:{
+  $(f_n)$ konv. glm gegen $f$ $\implies$ $(f_n)$ konv. pw gegen $f$.
+  (analog f"ur $(s_n)$)
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $(f_n)$ Funktionenfolge und $f:D\to\SetR$ eine Fkt.=>
+  {
+    Genau dann, wenn eine Nullfolge $(\alpha_n)$ und ein $n\natural$ 
+    mit
+    \[(\forall n\ge n_0)(\forall x\defined)(|f_n(x)-f(x)|<\alpha_n)\]
+    existieren, konvergiert $(f_n)$ glm gegen $f$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Majorantenkriterium von Weierstra"s:
+  $(f_n)$ Funktionenfolge und $f:D\to\SetR$ eine Fkt.=>
+  {
+    Existiert eine Folge $(c_n)$ und ein $n_0\natural$ mit
+    \[(\forall n\ge n_0)(\forall x\defined)(|f_n(x)|\le c_n)\]
+    und ist $\sumn 1 c_n$ konvergent, so konv. $\sumn 1 f_n$ glm auf D.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Potenzreihen konvergieren im allgemeinen nicht glm auf ihrem
+  Konvergenzbereich, jedoch konvergieren sie gleichm"a"sig auf einem 
+  abgeschlossenen Intervall, das Teilmenge ihres Konvergenzbereiches ist:
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\sumn 0 a_n x^n$ Potenzreihe, $D$ ihr Konvergenzbereich,
+  $[a;b]\subseteq D$=>{
+  $\sumn 0 a_n x^n$ konvergiert glm auf $[a;b]$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $(f_n)$/$\sumn 0 f_n$ glm gegen $f:D\to\SetR$ konvergente Funktionenfolge=>{
+  Dann gilt:
+  \begin{stmts}
+    \item $(\forall n\natural)(f_n \text{ ist stetig in $x_0$})$ $\implies$
+            $f$ ist stetig in $x_0$
+    \item $(\forall n\natural)(f_n\cont) \implies f\cont$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $(f_n)$ pw konvergent auf $D$ gegen $f:D\to\SetR$, so gilt:\par
+  $f_n\cont$, aber $f\not\in\SetCont(D)$ $\implies$ $(f_n)$ konvergiert nicht
+  glm.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $(f_n)$/$\sumn 0 f_n$ eine glm gegen $f:D\to\SetR$ konvergente Funktionenfolge,
+  sind alle $(f_n)$ in $x_0\in D$ stetig und ist $x_0$ HP von $D$,
+  so gilt:
+  \[\limx \xnull\left(\limn f_n(x)\right) \; = \;
+    \limx \xnull f(x)=f(x_0)=\limn f_n(x_0) \; = \;
+    \limn \left( \limx \xnull f_n(x) \right)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Identit"atssatz:
+  $f(x)=\sumn 0 a_n x^n, g(x)=\sumn 0 b_n x^n$ PRen mit KRen $r_1,r_2>0$=>{
+    Sei $R:=\min\{r_1,r_2\}$. Sei $(x_k)$ eine Folge in $(-R,R)\setminus\{0\}$
+    mit $\limes k->\infty x_k=0$.\par
+    Dann gilt $(\forall k\natural)(f(x_k)=g(x_k))$ $\implies$
+      $(\forall n\nnatural)(a_n=b_n)$
+  }
+% -----------------------------------------------------------------------------
+\para{Gleichm"a"sige Stetigkeit}
+% -----------------------------------------------------------------------------
+\convention{
+  $D\subseteq\SetR \qquad f:D\to\SetR$
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es ist $f\cont$ $\equiv$
+  \[(\forall x'\defined)\epsn(\exists \delta(\epsilon,x'))(\forall x\defined)
+    (|x-x'|<\delta \implies |f(x)-f(x')|<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Gleichm"a"sige Stetigkeit:{
+  $f:D\to\SetR$ hei"st gleichm"a"sig stetig/glm stetig $:\equiv$
+  \[\epsn(\exists \delta(\epsilon))(\forall x,x'\defined)
+    (|x-x'|<\delta \implies |f(x)-f(x')|<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $f$ ist glm stetig auf $D$ $\implies$ $f\cont$
+  }
+% -----------------------------------------------------------------------------
+\theorem:$D$ beschr"ankt und abgeschlossen, $f\cont$=>{
+  $f$ ist glm stetig
+  }
+% -----------------------------------------------------------------------------
+\definition Lipschitz-Stetigkeit:{
+  $f:D\to\SetR$ hei"st Lipschitz-stetig $:\equiv$
+  \[(\exists L>0)(\forall x,x'\defined)(|f(x)-f(x')|<L(x-y))
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $f$ ist Lipschitz-stetig auf $D$ $\implies$ $f$ ist glm stetig auf $D$
+  }

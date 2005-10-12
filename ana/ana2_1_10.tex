@@ -1,0 +1,857 @@
+% -----------------------------------------------------------------------------
+\section{Normierte lineare R"aume und Konvergenz}
+% -----------------------------------------------------------------------------
+\convention{
+  Mit $\VR U,\VR V,\VR W,\VR X,\VR Y,\VR Z$ bezeichnen wir in Zukunft Vektorr"aume. 
+  Falls diese endlich sind, so erscheint ihre Dimension im Index, wie z.B. 
+  in $\VR V_3$.
+  
+  Die Menge der Homomorphismen von $V$ nach $W$ bezeichnen wir dann mit 
+  $\VRL(\VR V, \VR W):=\text{Hom}(\VR V,\VR W)$.
+  }
+% -----------------------------------------------------------------------------
+\definition Norm:{
+  Eine Abbildung $\norm \cdot:\VR V\to\SetR$ mit den Eigenschaften
+  \begin{stmts}
+    \item 
+      $(\forall x\in \VR V)(\norm x \geq 0;\norm x = 0 \equiv x = \nullvec)$
+    \item
+      $(\forall x\in \VR V)(\norm{\lambda x} = |\lambda| \norm x$
+      (Homogenit"at)
+    \item
+      $(\forall x,y\in \VR V)(\norm{x+y} \leq \norm x+\norm y)$
+      (Dreiecksungleichung)
+    \end{stmts}
+  hei"st eine Norm auf $\VR V$. Ist $\norm \cdot$ eine Norm auf $\VR V$, so hei"st
+  $(\VR V;\norm \cdot)$ ein normierter linearer Raum (NLR). F"ur $x,y\in\VR V$
+  hei"st $\norm{x-y}$ der Abstand von $x$ und $y$ (bez"uglich $\norm \cdot$).
+  }
+% -----------------------------------------------------------------------------
+\example Beispiele f"ur Normen:{
+  Im Vektorraum $\VR V_1=\SetR$ existiert die Betragsfunktion als Norm mit 
+  $\norm x:=|x|$.
+  
+  In $\SetR^n$ existieren folgende Normen (sei $x=(\ntuple \xi)$):
+  \begin{stmts}
+    \item $\norm x:= \max \{ \ntuple \xi \}$ (Maximumsnorm)
+    \item $\norm x:= \sum_{k=1}^n |\xi_k|$ (Betragssummennorm)
+    \item $\norm x:= \sqrt{\sum_{k=1}^n \xi_k^2}$ (Euklid-Norm)
+    \end{stmts}
+  
+  In $\VR V=\SetCont([a;b];\SetR)$ existieren folgende Normen:
+  \begin{stmts}
+    \item $\norm x:= \max \{ \norm{f(t)}\mid t\in [a;b] \}$ 
+    \item $\norm x:= \int_a^b |f(t)| dt$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:=>{
+  \begin{stmts}
+    \item $| \norm x - \norm y | \leq \norm{x-y}$ 
+    \item $\norm{\sum_{k=1}^n x_k} \leq \sum_{k=1}^n \norm{x_k}$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Innenprodukt:{
+  \index{Skalarprodukt}
+  Seien $x=(\ntuple \xi),y=(\ntuple \eta)$. 
+  Dann hei"st $x\cdot y:=\sum_{k=1}^n \xi_k\eta_k$ Innenprodukt/Skalarprodukt 
+  von $x$ und $y$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Beachte
+  \[\sqrt{x\cdot x} = \text{Euklidnorm}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Cauchy-Schwarz-Ungleichung:=>{
+  Die Euklidnorm ist eine Norm auf endlich dimensionalen VRen, und es gilt
+  \[|x\cdot y|\leq\norm x \norm y
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $\norm \cdot_0$ eine Norm auf $\SetR^n$ und $\VR V_n$ ein $n$-dimensionaler
+  VR, so kann man $\VR V_n$ folgenderma"sen normieren: Man w"ahlt eine Basis
+  $\{\ntuple b\}$. $x=\sum_{k=1}^n \xi_k b_k$. Dann ist 
+  $\norm x:=\norm{(\ntuple \xi)}$ Norm auf $\VR V_n$.
+  
+  Ist umgekehrt $\norm \cdot$ eine Norm auf $V_n$ mit $\{\ntuple b\}$ als Basis,
+  so ist $\norm{(\ntuple \xi)}_0:=\norm{\sum_{k=1}^n \xi_k b_k}$ eine Norm
+  auf $\SetR^n$.
+  }
+% -----------------------------------------------------------------------------
+\definition Beschr"anktheit:{
+  Eine Menge $\LSet A\subseteq \VR V$ hei"st beschr"ankt $:\equiv$
+  $(\exists c>0)(\forall x\in\LSet A)(\norm x < c)$.
+  }
+% -----------------------------------------------------------------------------
+\lesserdefinition Konvergenz:{
+  Eine Folge $(x_n)$ in $\VR V$ hei"st konvergent, falls gilt
+  \[(\exists x\in\VR V)\epsn(\exists n_0\natural)(\forall n\geq n_0)(\norm{x_n-x}<\epsilon)
+    \]
+  In diesem Fall hei"st $x$ Grenzwert/GW von $(x_n)$. S"amtliche Schreibweisen
+  von reellen Grenzwerten "ubertragen sich entsprechend.  
+  }
+% -----------------------------------------------------------------------------
+\lesserdefinition Cauchy-Folge:{
+  Eine Folge $(x_n)$ in $\VR V$ hei"st Cauchy-Folge, falls gilt 
+  \[\epsn(\exists n_0\natural)(\forall n,m\geq n_0)(\norm{x_n-x_m}<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark Analog wie in $\SetR$ definiert man:{
+  \begin{itemize}
+    \item Divergenz
+    \item Beschr"anktheit
+    \item Teilfolge
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark Analog wie in $\SetR$ beweist man:{
+  \begin{itemize}
+    \item Konvergente Folgen sind beschr"ankt
+    \item Eindeutigkeit des Grenzwertes
+    \item $x_n\to x \equiv \norm{x_n-x}\to 0$
+    \item $x_n\to x,y_n\to y \implies x_n+y_n\to x+y$
+    \item $\lambda\real: \lambda x_n\to\lambda x$
+    \item $\norm {x_n}\to \norm x$
+    \item Jede Teilfolge einer konv. Folge konvergiert gegen den selben Grenzwert.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark Konvergenz von Cauchyfolgen:{
+  Wie in $\SetR$ gilt auch in NLRen, dass jede konvergente Folge eine
+  Cauchyfolge ist, aber die Umkehrung gilt nur noch in speziellen R"aumen:
+  }
+% -----------------------------------------------------------------------------
+\definition Banach-Raum:{
+  Ein NLR $(\VR V;\norm \cdot)$ hei"st vollst"andig oder Banach-Raum, wenn in 
+  $\VR V$ jede Cauchy-Folge konvergiert.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Definitionen 3 und 4 h"angen von der gew"ahlten Norm ab.
+  }
+% -----------------------------------------------------------------------------
+\definition "Aquivalenz von Normen:{
+  Zwei Normen $\norm \cdot_1$, $\norm \cdot_2$ auf $\VR V$ hei"sen "aquivalent, wenn
+  gilt
+  \[(\exists \alpha,\beta)(\forall x\in\VR V)(\alpha\norm x_1\leq\norm x_2\leq\beta\norm x_1)
+    \]
+  Schreibweise: $\norm \cdot_1\sim\norm \cdot_2$
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  ``$\sim$'' ist eine "Aquivalenzrelation auf der Menge aller Normen auf $\VR V$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\norm \cdot_1$, $\norm \cdot_2$ Normen auf VR $\VR V_n$, $\dim \VR V_n=n$=>{
+  Dann ist $\norm \cdot_1\sim\norm \cdot_2$
+  }
+% -----------------------------------------------------------------------------
+\theorem:$(\VR V_n;\norm \cdot)$ NLR, $\dim V_n=n\natural$=>{
+  \begin{stmts}
+    \item
+      Ist $\{\ntuple b\}$ eine Basis von $\VR V_n$ und 
+      $(x_k)=\sum_{j=1}^n \xi_j^{(k)} b_j$ eine Folge in $\VR V_n$, so gilt:
+      $(x_n)$ konvergent $\equiv$ die Folgen $(\xi_j^{(k)})$ sind konvergent 
+      $(j=1\ldots n)$. 
+      
+      In diesem Fall gilt 
+      $\limes k->\infty x_k=\sum_{j=1}^n \limes k->\infty \xi_j^{(k)} b_j$.
+    \item
+      $\VR V_n$ ist vollst"andig.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Bolzano-Weierstra"s:
+  $(\VR V_n,\norm \cdot)$ endlich dimensionaler NLR, 
+  $(x_k)$ beschr"ankte Folge in $\VR V_n$=>{
+    $(x_k)$ besitzt eine konvergente Teilfolge.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$(\VR V_n,\norm \cdot_1)$ und $(\VR W,\norm \cdot_2)$ normierte NLRe, 
+  $\Phi\in\VRL(\VR V_n,\VR W)$=>{
+  Die Menge 
+  \[M:=\left\{\frac{\norm{\Phi(x)}_2}{\norm x_1} \mid x\in\VR V_n\setminus \{0\} \right\}
+    \]
+  ist beschr"ankt und $\fnorm \cdot: \VRL(\VR V_n,\VR W)\to\SetR$ mit
+  $\fnorm \Phi:=\sup M$ ist eine Norm auf $\VRL(\VR V_n,\VR W)$.
+  F"ur diese Norm gilt:
+  \[(\forall x\in\VR V)(\norm{\Phi(x)}_2\leq\fnorm \Phi\norm x_1)
+    \]
+}
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $\norm \cdot_1$ Norm auf $\SetR^n$, $\norm._2$ Norm auf $\SetR^m$, so
+  ist 
+  \[\fnorm A:=\sup_{x\neq\nullvec}\frac{\norm{Ax}_2}{\norm x_1}
+    \] 
+  eine Norm auf $\SetR^{m\times n}$. Es gilt dann: 
+  \[\norm{Ax}_2 \leq \fnorm A \cdot \norm x_1
+    \]
+  
+  Ist $\norm \cdot=\norm \cdot_1=\norm \cdot_2$, so gilt f"ur $A,B\in\SetR^{n\times n}$
+  \[\fnorm{A\cdot B}\leq \fnorm A \cdot \fnorm B
+    \]
+  Diese Eigenschaft nennt sich \indexthis{Submultiplikativit"at}.
+  }
+% -----------------------------------------------------------------------------
+\section{Topologische Grundbegriffe}
+% -----------------------------------------------------------------------------
+\convention{
+  Im folgenden sei stets $(\VR V,\norm \cdot)$ ein NLR. 
+  }
+% -----------------------------------------------------------------------------
+\lesserdefinition Offene Kugel, Delta-Umgebung:{ 
+  \index{Delta-Umgebung}
+  F"ur $x_0\in\VR V,\delta>0$ hei"st 
+  \[U_\delta:=\{x\in\VR V\mid\norm{x-x_0}<\delta\}
+    \] 
+  die Umgebung oder offene Kugel um $x_0$ mit Radius $\delta$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es gilt:
+  \begin{align*}
+    A\subseteq\VR V \text{ beschr"ankt} & \equiv (\exists c>0)(A\subseteq U_c(\nullvec)) \\
+      & \equiv (\exists c>0)(\exists x_0\in\VR V)(A\subseteq U_c(x_0))
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition Innerer Punkt:{
+  Sei $A\subseteq\VR V$.
+  \begin{stmts}
+    \item $x_0\in\VR V$ hei"st innerer Punkt von $A$ $:\equiv$ 
+      $(\exists \delta>0)(U_\delta(x_0\subseteq A))$
+    \item $\inner A:=$ Menge der inneren Punkte von $A$.
+    \item $A$ hei"st offen $:\equiv$ $\inner A=A$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \begin{stmts}
+    \item Die Vereinigung beliebig vieler offener Mengen ist wieder offen.
+    \item Der Durchschnitt endlich vieler offener Mengen ist wieder offen.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Der Schnitt unendlich vieler offener Mengen ist im allgemeinen nicht mehr 
+  offen.
+  }
+% -----------------------------------------------------------------------------
+\definition H"aufungspunkt:{
+  Sei $A\subseteq\VR V$.
+  \begin{stmts}
+    \item $x_0\in\VR V$ hei"st H"aufungspunkt/HP von $A$ $:\equiv$
+      $(\forall \delta>0)(U_\delta(x_0)\setminus\{x_0\}\cap A \neq \emptyset)$.
+    \item $H(A):=$ Menge aller H"aufungspunkte von $A$.
+    \item $\closure A:=A\cup H(A)$ hei"st \indexthis{Abschluss} von $A$.
+    \item $A$ hei"st abgeschlossen $:\equiv$ $\closure A=A$
+      \index{Abgeschlossenheit}
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$A\subseteq\VR V$=>{
+  \begin{stmts}
+    \item $A$ ist abgeschlossen $\equiv$ $\VR V\setminus A$ ist offen. \\
+    \item Die Vereinigung endl. vieler abgeschlossener Mengen ist abgeschlossen. \\
+    \item Der Durchschnitt bel. vieler abgeschlossener Mengen ist abgeschlossen. \\
+    \item A ist abgeschlossen $\equiv$ $H(A)\subseteq A$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Randpunkt:{
+  Sei $A\subseteq\VR V$.
+  \begin{stmts}
+    \item 
+      $x_0\in\VR V$ hei"st Randpunkt von $A$, falls gilt
+      \[(\forall \delta>0)(U_\delta(x_0)\cap A\neq\emptyset \land 
+        U_\delta(x_0)\cap V\setminus A\neq\emptyset)\]
+    \item
+      $\rim A$ $:=$ Menge aller Randpunkte/Rand von $A$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:=>{
+  Es gilt $\rim A=\closure A\setminus\inner A$.
+  }
+% -----------------------------------------------------------------------------
+\definition Umgebung:{
+  Sei $x_0\in\VR V$. Dann hei"st $U\subseteq\VR V$ eine Umgebung von $x_0$, falls gilt
+  \[(\exists \delta>0)(U_\delta(x_0)\subseteq U
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Sei $A\subseteq\VR V$.
+  \begin{stmts}
+    \item 
+      $x_0\in H(A)$$\equiv$ Es existiert eine Folge $(x_n)$ in 
+      $A\setminus\{x_0\}$ mit $\limn x_n = x_0$.
+    \item
+      $A$ ist abgeschlossen $\equiv$ Der Grenzwert jeder konvergenten Folge in $A$
+      liegt in $A$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\section{Reihen, Grenzwerte, Stetigkeit}
+% -----------------------------------------------------------------------------
+\lesserdefinition Konvergenz von Reihen:{
+  \index{Reihen>Konvergenz von}
+  Sei $(\VR V,\norm \cdot)$ ein NLR. Ist $(x_n)$ Folge in $\VR V$, so ist die 
+  Konvergenz der Reihe $\sumn 1 x_n$ durch die Konvergenz der Folge
+  $\left(\sum_{k=1}^n x_n\right)$ definiert.
+
+  \index{Konvergenz>absolute}
+  Absolute Konvergenz wird durch die Konvergenz der Folge 
+  $\left(\sum_{k=1}^n \norm{x_n}\right)$ definiert.
+  
+  F"ur Banachr"aume gelten sinngem"a"s wie in $\SetR$:
+  \begin{itemize}
+    \item \indexthis{Majorantenkriterium}
+    \item \indexthis{Wurzelkriterium}
+    \item \indexthis{Quotientenkriterium}
+    \item \indexthis{Cauchykriterium}
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Betrachte $\SetR^{n\times n}$ mit einer submultiplikativen Norm $\fnorm .$
+  Sei $A\in\SetR^{n\times n}$ Dann konvergiert die Reihe
+  \[e^A:=\sum_{k=0}^\infty \frac{A^k}{k!}
+    \]
+  absolut.
+  }
+% -----------------------------------------------------------------------------
+\definition Grenzwert einer Funktion:{
+  \index{Funktion>Grenzwert einer}
+  Seien $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$ NLRe, $D\subseteq\VR V$,
+  $x_0\in D$ sei H"aufungspunkt von $D$ und $f:D\to\VR W$ eine Funktion,
+  weiterhin sei $y_0\in\VR W$. Dann definiert man
+  \[\limes x->{x_0} f(x)=y_0 :\equiv
+    (\forall (x_n)\subseteq D\setminus \{x_0\})
+    (x_n\to x_0\implies f(x_n)\to y_0)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem: 
+  $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$ NLRe, $D\subseteq\VR V$,
+  $x_0\in D$ HP von $D$, $f:D\to\VR W$ Funktion,
+  $y_0\in\VR W$=>{
+  Dann ist $\limes x->{x_0} f(x)=y_0$ $\equiv$
+  \[\epsn(\exists \delta>0)(\forall x\in D\setminus\{x_0\})
+    (|x-x_0|<\delta\implies |f(x)-y_0|<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Stetigkeit:{
+  \index{Funktion>Stetigkeit einer}
+  Seien $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$ NLRe, $D\subseteq\VR V$,
+  $x_0\in D$ und $f:D\to\VR W$ eine Funktion.
+  
+  Dann hei"st $f$ stetig in $x_0$ $:\equiv$
+  \[(\forall (x_n) \text{ in} D\setminus \{x_0\})
+    (x_n\to x_0\implies f(x_n)\to f(x_0))
+    \]
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$ NLRe, $D\subseteq\VR V$,
+  $x_0\in D$, $f:D\to\VR W$=>{
+  Dann ist $f$ genau dann stetig in $x_0$, wenn gilt
+  \[\epsn(\exists \delta>0)(\forall x\in D\setminus\{x_0\})
+    (|x-x_0|<\delta\implies |f(x)-f(x_0)|<\epsilon)
+    \]  
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:
+  $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$ NLRe, $D\subseteq\VR V$,
+  $f,g:D\to\VR W$, $w:D\to\SetR$, $\alpha,\beta\real$=>
+{
+  \begin{stmts}
+    \item 
+      Sei $x_0$ H"aufungspunkt von $D$ und sei 
+      $\limx \xnull f(x)=y_0$, 
+      $\limx \xnull g(x)=z_0$ und  
+      $\limx \xnull h(x)=\lambda$.
+      Dann gilt
+      \begin{itemize}
+        \item $\limx \xnull h(x)\cdot(\alpha f(x)+\beta g(x))=
+          \lambda(\alpha y_0+\beta z_0)$
+        \item $\lambda\neq 0$ $\implies$ 
+	  \[(\exists \delta>0)(\forall x\in U_\delta(x_0)\cap D\setminus\{x_0\})
+            (h(x)\neq 0, \limx \xnull \frac 1 {h(x)} = \frac 1 \lambda)
+            \]
+        \end{itemize}
+    \item
+      Sei $x_0\in D$ und $f,g,h$ stetig in $x_0$. Dann ist
+      $h\cdot(\alpha f+\beta g)$ stetig in $x_0$. 
+      Falls $h(x_0)\neq 0$, gilt au"serdem 
+      \[(\exists\delta>0)(\forall x\in U_\delta(x_0)\cap D\setminus\{x_0\})(h(x)\neq 0)
+        \] 
+      und $\frac 1 h:U_\delta(x_0)\cap D\to\SetR$ ist stetig in $x_0$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:
+  $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$, $(\VR Z,\norm \cdot_3)$  NLRe, 
+  $D\subseteq\VR V$, $\LSet E\subseteq\VR W$, 
+  $f:D\to\VR W$, $g:\LSet E\to\VR Z$, $f(D)\subseteq\LSet E$, $x_0\in D$, 
+  $f$ stetig in $x_0$, $g$ stetig in $f(x_0)$=>{
+  Dann ist $g\circ f:D\to\VR W$ stetig in $x_0$.
+  }
+% -----------------------------------------------------------------------------
+\definition Stetigkeit auf Mengen:{
+  \index{Stetigkeit>gleichm"a"sige}
+  \index{Stetigkeit>Lipschitz-}
+  Seien $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$, $D\subseteq\VR V$, 
+  $f:D\to\VR W$.
+  
+  Dann hei"st $f$
+  \begin{itemize}
+    \item stetig auf $D$ genau dann, wenn $f$ stetig ist 
+      in jedem Punkt $x\in D$.
+    \item gleichm"a"sig stetig auf $D$ $:\equiv$
+      \[\epsn(\exists \delta>0)(\forall x,y\in D)
+        (\norm{x-y}_1<\delta \implies \norm{f(x)-f(y)}_2)
+        \]
+    \item Lipschitz-stetig auf $D$ $:\equiv$
+      \[\epsn(\exists L\geq0)(\forall x,y\in D)
+        (\norm{f(x)-f(y)}_2\leq L\norm{x-y}_1)
+        \]
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Lineare Abbildungen sind Lipschitz-stetig.
+  }
+% -----------------------------------------------------------------------------
+\lesserdefinition Konvergenz bei Funktionenfolgen:{
+  \index{Funktionenfolgen>Konvergenz bei}
+  \index{Konvergenz>punktweise}
+  \index{Konvergenz>gleichm"a"sige}
+  Seien $(\VR V,\norm \cdot_1)$, $(\VR W,\norm \cdot_2)$ NLRe, $D\subseteq\VR V$,
+  $(f_n):D\to\VR W$, $f:D\to\VR W$
+  
+  Dann hei"st $(f_n)$
+  \begin{itemize}
+    \item punktweise/pw konvergent gegen $f$, wenn gilt 
+      \[(\forall x\in D)(\limn f_n(x)=f(x))
+        \]
+    \item gleichm"a"sig/glm konvergent gegen $f$, wenn gilt
+      \[\epsn(\forall n\geq n_0)(\forall x\in D)(\norm{f_n(x)-f(x)}_2<\epsilon) 
+        \]
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $D\subseteq\VR V$, $(f_n):D\to\VR W$, $x_0\in D$,
+  $(\forall n\natural)(f_n \text{ stetig in $x_0$})$=>{
+  Konvergiert $f_n$ gleichm"a"sig gegen $f$, so ist auch $f$ stetig in $x_0$.
+  }  
+% -----------------------------------------------------------------------------
+\section{Kompakte Mengen}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $(\VR V,\norm \cdot)$ ein normierter linearer Raum.
+  }
+% -----------------------------------------------------------------------------
+\definition Kompaktheit:{
+  $A\subseteq\VR V$ hei"st kompakt genau dann, wenn gilt:
+  
+  Sind $O_j$ ($j\in\LSet J$) beliebige offene Teilmengen von $\VR V$ mit 
+  $A\subseteq\bigcup_{j\in\LSet J} O_j$, so gibt es f"ur jede solche
+  \indexthis{"Uberdeckung} endlich viele Teilmengen
+  $O_{j_1},\ldots O_{j_n}$ mit $A\subseteq\bigcup_{i\in \{1,\ldots,n\}} O_{j_n}$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$A\subseteq\VR V$ kompakt=>{
+  $A$ ist abgeschlossen und beschr"ankt.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  In unendlich dimensionalen R"aumen sind beschr"ankte und abgeschlossene
+  Mengen im allgemeinen nicht kompakt.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Heine-Borel:
+$(\VR V_n;\norm \cdot)$ $n$-dimensionaler NLR, $\emptyset\neq\ A\subseteq\VR V_n$
+  abgeschlossen und beschr"ankt=>{
+  \index{Heine-Borel>Satz von}
+  $A$ ist kompakt. ($\emptyset$ ist auch kompakt)
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+$(\VR V_n;\norm \cdot)$ $n$-dimensionaler NLR, $A\subseteq\VR V_n$=>{
+  Dann sind folgende Aussagen "aquivalent:
+  \begin{stmts}
+    \item $A$ ist kompakt
+    \item $A$ ist beschr"ankt und abgeschlossen
+    \item Jede Folge $(x_n)$ in $A$ besitzt eine konvergente Teilfolge 
+      $(x_{n_l})$ mit $\limes l->\infty x_{k_l}\in A$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die "Aquivalenz von (1) und (3) gilt auch in unendlich dimensionalen NLRen.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $(\VR V,\norm \cdot_1)$, $(\VR W,\norm._2)$ endlich dimensionale NLRe, 
+  $\emptyset\neq D\subseteq\VR V_n$ kompakt,
+  $f:D\to\VR W_n$ stetig=>{
+  \begin{stmts}
+    \item $f(D)$ kompakt
+    \item $\VR W_m=\SetR \implies (\exists x_1,x_2\in D)(f(x_1)\leq f(x)\leq f(x_2))$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $(\VR V,\norm \cdot_1)$, $(\VR W,\norm._2)$ endlich dimensionale NLRe, 
+  $\emptyset\neq D\subseteq\VR V_n$ kompakt,
+  $f:D\to\VR W_n$ stetig=>{ 
+  Dann ist $f$ gleichm"a"sig stetig auf $D$. 
+  }
+% -----------------------------------------------------------------------------
+\section{Differenzierbarkeit}
+% -----------------------------------------------------------------------------
+\convention{
+  Ab jetzt betrachten wir nur noch endlich dimensionale NLRe, o.B.d.A. 
+  repr"asentiert durch $(\SetR^n,\norm.)$. $\norm.$ bezeichnet fast immer
+  die Euklidnorm. $D\subseteq\SetR^n$ sei stets offen, $\fnorm A$ sei wie
+  in Satz 6 definiert. $\norm x$ bezieht sich auf den Raum, aus dem $x$ 
+  stammt.
+  }
+% -----------------------------------------------------------------------------
+\definition Differenzierbarkeit:{
+  Sei $x_0\in D$, $f:D\to\SetR^n$ eine Funktion. Dann hei"st $f$ in
+  $x_0$ differenzierbar/db/total-differenzierbar/Fr{\'e}chet-differenzierbar 
+  genau dann, wenn eine Matrix $A\in\SetR^{m\times n}$ existiert mit
+  \[\frac{f(x_0+h)-f(x_0)-Ah}{\norm h}\to 0\quad (h\to 0)
+    \]
+  In diesem Fall hei"st $A$ \indexthis{Ableitung} von $f$ an der Stelle $x_0$.
+  
+  Schreibweise: $f'(x_0):=A$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \begin{stmts}
+    \item Diese Def. ist in $\SetR$ "aquivalent zur alten Definition.
+    \item Falls sie existiert, ist die Ableitung eindeutig bestimmt.
+    \item Ist $f:D\to\SetR^n$ in jedem Punkt $x\in D$ differenzierbar,
+      so hei"st $f$ differenzierbar auf $D$. In diesem Fall ist durch 
+      $x\mapsto f'(x)$ eine Abbildung $f':D\to\SetR^{m\times n}$ gegeben. 
+      Ist $f'$ auch noch stetig auf $D$, so hei"st $f$ 
+      \indexthis{stetig differenzierbar} auf $D$.
+      \index{Differenzierbarkeit>stetige}
+      
+      Schreibweise: $f\in\SetCont^1(D,\SetR^n)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:D\to\SetR^m$ in $x_0\in D$ db=>{ 
+  Dann ist $f$ stetig in $x_0$.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Ist $f=Ax+b$, so ist $f'(x)=A$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Kettenregel:
+  $D\subseteq \SetR^n$, $\LSet E\subseteq \SetR^m$, $g:D\to\SetR^m$, 
+  $f:\LSet E\to\SetR^k$, $g(D)\subseteq\LSet E$, $g$ diffbar in $x_0$,
+  $f$ diffbar in $g(x_0)$=>{
+  Sei $F:=f\circ g$, $F:D\to\SetR^k$. Dann ist $F$ diffbar in $x_0$, 
+  und es gilt:
+  \[F'(x_0)=f'(g(x_0))\cdot g'(x_0)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Menge der differenzierbaren Funktionen ist ein Vektorraum, 
+  das Differenzieren ist eine lineare Abbildung.
+  }
+% -----------------------------------------------------------------------------
+\definition Partielle Ableitung:{
+  \index{Ableitung>partielle}
+  Seien $(\ntuple e)$ und $(u_1,\ldots,u_m)$ Standardbasen von $\SetR^n$ bzw.
+  $\SetR^m$. $D\subseteq\SetR^n$ sei offen und $f:D\to\SetR^m$ mit
+  den Komponentenfunktionen $f_k:D\to\SetR (k=1\ldots m)$, so dass
+  \[f(x)=\sum_{k=1}^n f_k(x)\cdot u_k
+    \]
+  Dann definiert man f"ur $x_0=(\ntuple \xi)\in D$, $1\leq i\leq m$ und 
+  $1\leq j\leq n$ definiert man
+  \begin{align*}
+    \frac{\partial f_i}{\partial \xi_j}(x_0):=&
+      (f_i)_{\xi_j}(x_0):=
+      (D_jf_i)(x_0):= \\
+    & \limes t->0 \frac{f(x_0+t\cdot e_j)-f(x_0)}t
+    \end{align*}
+  Falls der Grenzwert existiert, hei"st er partielle Ableitung von $f_i$
+  nach der $j$-ten Koordinate an der Stelle $x_0$.
+  
+  Existieren alle partiellen Ableitungen, so hei"st $f$ an der Stelle $x_0$
+  partiell differenzierbar. Sind dann auch noch alle partiellen Ableitungen
+  auf $D$ stetig, so hei"st $f$ auf $D$ stetig partiell 
+  differenzierbar.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:D\to\SetR^m$, $f$ in $x_0\in D$ db=>{
+  Dann ist $f$ in $x_0$ partiell db und es gilt f"ur $j=1,\ldots,n$
+  \[f'(x_0)e_j=\sum_{i=1}^n D_jf_iu_i
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Konvexit"at:{
+  Sei $\VR V$ ein VR. Eine Menge $\LSet A\subseteq\VR V$ hei"st konvex genau
+  dann, wenn f"ur alle $x,y\in\LSet A$ gilt:
+  \[s(x,y):=\{tx+(1-t)y\mid t\in[0;1]\}\subseteq\LSet A
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Mittelwertsatz:
+  $f:D\to\SetR$ db auf $D$, $a,b\in D,a\neq b,s(a,b)\subseteq D$=>{
+  Dann existiert ein $\xi\in s(a,b)\setminus\{a,b\}$ mit 
+  \[f(b)-f(a)=f'(\xi)\cdot(b-a)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sind die Voraussetzungen des Mittelwertsatzes f"ur eine Funktion $f$ 
+  erf"ullt, ist $D$ konvex und die Ableitung beschr"ankt, so ist $f$
+  Lipschitz-stetig.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:D\to\SetR^m$=>{
+  Dann gilt:
+  \[f\in \SetCont^1(D,\SetR)
+    \equiv
+    \text{$f$ ist auf $D$ stetig partiell db.}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\lesserdefinition Gradient:{
+  Ist $f:D\to\SetR$ an der Stelle $x_0$ partiell db, so schreibt man auch
+  \[\grad f(x_0):=((D_1f)(x_0),\ldots,(D_nf)(x_0))
+    \]
+  $\grad f(x_0)$ hei"st dann der Gradient von $f$ an der Stelle $x_0$. Ist
+  $f$ in $x_0$ diffbar, so ist $f'(x_0)=grad f(x_0)$. Ist $f:D\to\SetR^m$
+  in $x_0$ db, so ist
+  \[f'(x_0)=\begin{pmatrix} \grad f_1(x_0) \\ \vdots \\ \grad f_n(x_0) \end{pmatrix}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Richtungsableitung:{
+  Sei $f:D\to\SetR$ eine Funktion, $x_0\in D$ und $v\in\SetR^n$ mit
+  $\norm v=1$. Dann ist
+  \[\frac{\partial f}{\partial v}(x_0) := \limes t->0 \frac{f(x_0+tv)-f(x_0)}t
+    \]
+  falls dieser Grenzwert existiert. In diesem Fall hei"st der Grenzwert die
+  Richtungsableitung von $f$ an der Stelle $x_0$ in Richtung $v$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $f:D\to\SetR$ in $x_0$ partiell db, so ist 
+  \[(D_jf)(x_0)=\frac{\partial f}{\partial e_j}(x_0)
+    \]
+  also die Richtungsableitung von $f$ in Richtung $e_j$. $(j=1,\ldots,n)$
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:D\to\SetR$ in $x_0$ db, $v\in\SetR^n$, $\norm v=1$=>{
+  \begin{stmts}
+    \item 
+      \[\frac{\partial f}{\partial v}(x_0) = f'(x_0)\cdot v = \grad f(x_0)\cdot v 
+        \]
+    \item 
+      \[\max \{ \frac{\partial f}{\partial w}(x_0) \mid 
+                w\in\SetR^n, \norm w=1
+             \} = \norm{\grad f(x_0)}
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\section{Der Fixpunktsatz von Banach}
+% -----------------------------------------------------------------------------
+\lesserdefinition Kontraktion:{
+  Sei $(\VR V,\norm\cdot)$ NLR, $\emptyset\neq A\subseteq\VR V$ eine Teilmenge.
+  Dann hei"st eine Abbildung $g:A\to A$ mit $\norm{g(x)-g(y)}\leq q \norm{x-y}$ 
+  f"ur ein $q\in[0;1)$ eine Kontraktion.
+  
+  (Hoffe ich mal. So steht es im Beweis zum Satz "uber die Umkehrfkt.)
+  }
+% -----------------------------------------------------------------------------
+\theorem Fixpunktsatz von Banach:
+  $(\VR V,\norm\cdot)$ vollst"andiger NLR, $\emptyset\neq A\subseteq\VR V$ 
+  abgeschlossen, $g:A\to A$ Kontraktion=>{ 
+  Dann existiert genau ein Fixpunkt $x\in A$ mit $g(x)=x$. 
+  }
+% -----------------------------------------------------------------------------
+\section{Vorbereitungen zum Satz "uber die Umkehrfunktion}
+% -----------------------------------------------------------------------------
+\theorem:
+  $\Omega:=\{A\mid A\in\SetR^{n\times n} \text{ regul"ar}\}$=>{
+  \begin{stmts}
+    \item Ist $A\in\Omega, B\in \SetR^{n\times n}$ und gilt 
+      \[\fnorm{A-B}<\frac 1 {\fnorm{A^{-1}}}
+        \] 
+      so ist $B$ regul"ar.
+    \item $\Omega$ ist offene Teilmenge von $\SetR^{n\times n}$ und 
+      $A\mapsto A^{-1}$ ist eine stetige Abbildung in $\Omega$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^n$ offen und konvex, $f\in\SetCont^1(D,\SetR^n)$,
+  $\fnorm{f'(x)}<L$ auf $D$=>{
+  Dann gilt f"ur $x,y\in D$
+  \[\norm{f(x)-f(y)}\leq L\norm{x-y}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\section{Satz "uber die Umkehrfunktion}
+% -----------------------------------------------------------------------------
+\theorem Satz "uber die Umkehrfunktion:
+  $D\subseteq\SetR^n$ offen, $f\in\SetCont^1(D,\SetR^n)$, $x_0\in D$
+  und $f'(x_0)$ regul"ar=>{
+  \begin{stmts}
+    \item Es existiert eine offene Umgebung $U\subseteq D$ von $x_0$ und 
+      eine offene Umgebung $\tilde U$ von $y_0:=f(x_0)$ derart, dass
+      $f$ auf $U$ injektiv ist und $f(U)=\tilde U$ gilt.
+    \item Ist $f^{-1}:\tilde U\to U$ die Inverse von $f:U\to\tilde U$ 
+      (wie in (1)), so ist $f^{-1}\in\SetCont^1(\tilde U;\SetR^n)$ und es gilt
+      \[(f^{-1})'(x)=(f'\circ f^{-1}(x))^{-1}\quad (x\in\tilde U)
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^n$, $f\in\SetCont^1(D,\SetR^n)$, $f'(x)$ regul"ar 
+  f"ur alle $x\in D$=>{
+  Dann ist $f(E)$ offen f"ur jede offene Teilmenge $E\subseteq D$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Unter den obigen Voraussetzungen ist $f$ auf einer Umgebung jedes
+  beliebigen Punktes $x\in D$ injektiv. $f$ hei"st dann lokal-injektiv.
+  }
+% -----------------------------------------------------------------------------
+\section{Der Satz "uber implizit definierte Funktionen}
+% -----------------------------------------------------------------------------
+\convention{
+  Ist $x=(\xi_1,\ldots,\xi_n)\in\SetR^n, y=(\eta_1,\ldots,\eta_m)\in\SetR^m$,
+  so schreiben wir einfach $(x,y)$ f"ur $(\xi_1,\ldots,\xi_n,\eta_1,\ldots,\eta_m)$.
+  
+  Jedes $A\in\SetR^{n\times(n+m)}$ l"asst sich in zwei lineare Abbildungen
+  $A_x$ und $A_y$ zerlegen, so dass
+  \begin{align*}
+    A_x x &:= A\begin{pmatrix} x \\ 0 \end{pmatrix} \\
+    A_y y &:= A\begin{pmatrix} 0 \\ y \end{pmatrix}
+    \end{align*}
+  Dann gilt $A\begin{pmatrix} x \\ y \end{pmatrix} = A_xx+A_yy$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $A\in\SetR^{n\times(n+m)}$, $A_x$ invertierbar=>{
+  Zu jedem $y\in\SetR^m$ existiert genau ein $x\in \SetR^n$ mit 
+  $A\begin{pmatrix} x \\ y \end{pmatrix} = 0$, n"amlich
+  \[x=-(A_x)^{-1} A_y y
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz "uber implizit definierte Funktionen:
+  $D\subseteq\SetR^{n+m}$ offen, $f\in\SetCont^1(D,\SetR^n)$, 
+  $(x_0,y_0)\in D$, $f(x_0,y_0)=0$ und 
+  f"ur $A=f'(x_0,y_0)$ sei $A_x$ regul"ar=>{ 
+  \index{implizit definierte Funktionen>Satz "uber}
+  \index{Funktionen>Satz "uber implizit definierte}
+  Dann gibt es offene Mengen $U\subseteq D$ und $\tilde U\subseteq\SetR^m$
+  mit $(x_0;y_0)\in U$ und $y\in\tilde U$ mit folgenden Eigenschaften:
+  \begin{stmts}
+    \item Zu jedem $y\in \tilde U$ ex. genau ein $x\in\SetR^n$ mit 
+      $(x,y)\in U$ und $f(x,y)=0$.
+    \item Definiert man $g:\tilde U\to\SetR^n$ durch $g(y):=$das eindeutig
+      bestimmte $x$ aus (1), so gilt $g(y_0)=x_0$, $f(g(y_0),y_0)=0 (y\in\tilde U)$
+      und $g\in\SetCont^1(\tilde U,\SetR^n)$.
+      
+      Ferner gilt: $g'(y_0) = -(A_x)^{-1} A_y$ bzw. auch allgemeiner
+      \[g'(y)=-f'(g(y),y)_x^{-1} f'(g(y),y)_y \quad(y\in \tilde U)
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\trick Merkregel zum Satz:{
+  Sei $h:\SetR^m\to\SetR^n$ mit $h(y):=f(g(y),y)$. Sei weiter $y\in\tilde U$, also
+  \begin{align*}
+    \frac{dh}{dy}&=0
+      \underset{h\in\SetCont^1}=\frac{\partial h}{\partial y} \\
+      &=\frac{\partial f}{\partial g{,}y} \frac{\partial g{,}y}{\partial y} \\
+      &=\begin{pmatrix}
+          \frac{\partial f}{\partial g} &
+          \frac{\partial f}{\partial y}
+        \end{pmatrix}
+        \cdot
+        \begin{pmatrix}
+          \frac{\partial g}{\partial y}\\
+          I_m \\
+        \end{pmatrix} \\
+      &=\frac{\partial f}{\partial g}\cdot\frac{\partial g}{\partial y}+
+        \frac{\partial f}{\partial y}=0
+    \intertext{Deswegen gilt:}
+    \frac{\partial g}{\partial y}
+      &=-\left(\frac{\partial f}{\partial g}\right)^{-1}
+        \frac{\partial f}{\partial y}
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\section{Ableitungen h"oherer Ordnung}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $D\subseteq\SetR^n$ offen, $f:D\to\SetR$ Funktion.
+  }
+% -----------------------------------------------------------------------------
+\definition Mehrfache partielle Differentiation:{
+  \index{Differentiation>mehrfache}
+  Sei $f$ partiell db auf $D$ mit den partiellen Ableitungen
+  $D_1f,D_2f,\ldots,D_nf$. Sind $D_1f,D_2f,\ldots,D_nf:D\to\SetR$
+  partiell db, so sind die partiellen Ableitungen zweiter Ordnung von $f$
+  definiert durch
+  \[D_{ij}f:=f_{\xi_j\xi_i}:=\frac{\partial^2 f}{\partial \xi_i \xi_j}:=
+    D_i(D_jf)
+    \]
+  Faustregel: Immer vom $f$ aus lesen ergibt die Reihenfolge von innen nach au"sen.
+  }
+% -----------------------------------------------------------------------------
+\definition Mehrfache stetige Differenzierbarkeit:{
+  \index{Differenzierbarkeit>stetige>mehrfache}
+  $f$ hei"st auf $D$ $k$-mal stetig db $:\equiv$
+  Jede $k$-fache partielle Ableitungen von $f$ nach einer beliebigen
+  Kombination von Koordinaten existiert und ist stetig.
+  
+  Schreibweise: $f\in\SetCont^k(D,\SetR)$
+  
+  Analog definiert man:
+  \begin{align*}
+    \SetCont^k(D,\SetR^m)&:=\{f=(f_1,\ldots,f_m) \mid 
+      (\forall 1\leq j\leq m)(f_j\in\SetCont^k(D,\SetR^m))\} \\
+    \SetCont^0(D,\SetR^m)&:=\SetCont(D,\SetR^m) \\
+    \SetCont^\infty(D,\SetR^m)&:=\bigcap_{k\geq 0} \SetCont^k(D,\SetR^m)
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Schwarz:
+  $D\subseteq\SetR^n$ offen, $f:D\in\SetCont^2(D,\SetR)$=>{
+  Dann gilt f"ur alle $i,j\in\{1,\ldots,n\}$, dass $D_{ij}f=D_{ji}f$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $f\in\SetCont^k(D,\SetR)$, so folgt aus dem Satz von Schwarz, dass
+  bei $\leq k$-facher Differentiation die Reihenfolge keine Rolle spielt.
+  }
+% -----------------------------------------------------------------------------

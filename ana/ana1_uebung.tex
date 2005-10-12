@@ -1,0 +1,204 @@
+% -----------------------------------------------------------------------------
+% Analysis 1 Uebung/Saetze
+% -----------------------------------------------------------------------------
+% Andreas Kloeckner / WS98
+% -----------------------------------------------------------------------------
+
+\para{Das Beste aus "Ubungen und Bl"attern}
+% -----------------------------------------------------------------------------
+\theorem:$a,b,c\in\SetR$=>{
+  \begin{stmts}
+    \item $\frac x y+\frac y x\ge 2$
+    \item $ab+bc+ac \le a^2+b^2+c^2$
+    \item $\frac {x^2} y+\frac {y^2}x \ge x+y$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$(a_n),(b_n)$ reelle Folgen=>{
+  \[\left(\sum_{i=1}^n a_i b_i \right)^2=
+    \left(\sum_{i=1}^n a_i^2 \right)
+    \left(\sum_{i=1}^n b_i^2 \right)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$a,b,c>0,n\natural$=>{
+  \begin{stmts}
+    \item $\root n \of{a+b} \le \root n\of a+\root n \of b$
+    \item $|\root n\of a+\root n \of b|\le \root n \of {|a-b|}$
+    \item $\frac 3 {\frac 1 a+\frac 1 b+\frac 1 c}\le \frac {a+b+c} 3$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\emptyset\ne M$=>{
+  \begin{stmts}
+    \item $\alpha\ge 0: \sup \alpha M=\alpha\sup M$ 
+    \item $\alpha<0: \sup \alpha M=\alpha\inf M$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$(a_n),(b_n)$ beschr"ankte reelle Folgen=>{
+  \begin{stmts}
+    \item $\liminfn a_n=\limn\inf\limits_{k\ge n} a_k$ 
+    \item $\limsupn a_n=\limn\sup\limits_{k\ge n} a_k$ 
+    \item $\limsupn (a_n b_n)\le\limsupn a_n\cdot\limsupn b_n$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Verdichtungssatz von Cauchy:
+  $(a_n)$ monoton fallende positive Folge=>{
+  Es gilt
+  \[\sumn 1 a_n \text{ konvergent } \equiv
+    \sumn 0 2^k a_{2^k} \text{ konvergent }
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Konvergenzkriterium von Raabe:
+  $(a_n)$ reelle Folge mit $(\forall n\natural)(a_n\ne 0)$=>{
+  $(\exists C>1)\left(\left|\frac{a_{n+1}}{a_n}\right|\le 1-\frac C n\quad 
+    \ffa n\natural\right)$
+  $\implies$ $\sumn 1 a_n$ ist absolut konvergent.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Dini:
+  $(f_n)$ auf $[a;b]$ mon. wachsende Folge stetiger Funktionen=>{
+  Konvergiert $(f_n)$ pw gegen eine stetige Funktion, konvergiert $(f_n)$
+  auch glm.
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt
+  \begin{align*}
+    \cos x=0 &\equiv (\exists k\integer)(x=\frac \pi 2+k\pi)\\
+    \sin x=0 &\equiv (\exists k\integer)(x=k\pi)
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition Trigonometrische Funktionen:{
+  \begin{tabular}{|c|c|c|}
+    \hline
+    Funktion & Definition & Ableitung \\
+    \hline
+    $\tan x$ & $\frac{\sin x}{\cos x}$ & $1+\tan^2 x, \frac 1 {\cos^2 x}$ \\[2mm]
+    $\cot x$ & $\frac{\cos x}{\sin x}$ & $\frac 1 {\sin^2 x}$ \\[2mm]
+    \hline
+    $\arcsin x$ & $\sin^{-1}:[-1,1]\to[-\frac \pi 2,\frac\pi 2]$ & $\frac 1 {\sqrt{1-x^2}}$ \\[2mm]
+    $\arccos x$ & $\cos^{-1}:[-1,1]\to[0,\pi]$ & $-\frac 1 {\sqrt{1-x^2}}$ \\[2mm]
+    $\arctan x$ & $\tan^{-1}:\SetR \to[-\frac \pi 2,\frac\pi 2]$ & $\frac 1 {1+x^2}$ \\[2mm]
+    $\arccot x$ & $\cot^{-1}$ & $-\frac 1 {1+x^2}$ \\[2mm]
+    \hline
+    $\sinh x$ & $\frac{e^x -e^{-x}}2$ & $\cosh x$ \\[2mm]
+    $\cosh x$ & $\frac{e^x +e^{-x}}2$ & $\sinh x$ \\[2mm]
+    $\tanh x$ & $\frac{\sinh x}{\cosh x}$ & $\frac 1 {\cosh^2 x}$ \\[2mm]
+    \hline
+    $\arcsinh x$ & $\sinh^{-1}$ & $\frac 1 {\sqrt{x^2+1}}$ \\[2mm]
+    $\arccosh x$ & $\cosh^{-1}$ & $\frac 1 {\sqrt{x^2-1}}$ \\[2mm]
+    \hline
+    $\log\left|\frac{1+x}{1-x}\right|$ & & $\frac 1 {1-x^2}$ \\[2mm]
+    \hline
+    \end{tabular}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt f"ur alle $x\in\SetR$
+  \[\cosh^2 x-\sinh^2 x=1
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\sumn 0 a_nx^n$ PR mit KR $r>0$, konv. f"ur $x=r$=>{
+  Die Reihe konv. auf $[0;r]$ glm und es gilt
+  \[\limes x->r \sumn 0 a_n x^n=\sumn 0 a_n r^n
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Cauchy-Schwarz-Ungleichung:$f,g\in\SetRInt([a;b]),(x_n),(y_n)\in\SetR^{\SetN}$=>{
+  Es gilt
+  \begin{align*}
+    \left|\int_a^b f(x)g(x) dx\right|^2 &\le
+    \int_a^b f^2(x)dx \cdot \int_a^b g^2(x)dx\\
+    \left|\sum_{j=1}^n x_j y_j dx\right|^2 &\le
+    \sum_{j=1}^n  x_j^2\cdot \sum_{j=1}^n  y_j^2\\
+  \end{align*}
+  }
+% -----------------------------------------------------------------------------
+%\theorem:$f$ hat auf $[0;1]$ ib Ableitung=>{$$
+%  (\forall x\in[0;1])(f(x)\le \sqrt{\int_0^1 (f'(y))^2 dx})
+%$$}
+% -----------------------------------------------------------------------------
+\definition Konvexit"at einer Funktion:{
+  Eine Funktion $f:I\to\SetR$ hei"st konvex $:\equiv$
+  \[(\forall x,y\in I)(\exists \lambda\in[0;1])
+    (f(\lambda x+(1-\lambda)y)\le \lambda f(x)+(1-\lambda)f(y)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$f:I\to\SetR,g:\SetR\to\SetR$ konvex=>{
+  \begin{stmts}
+    \item $f$ ist in jedem inneren Punkt von $I$ stetig.
+    \item $f$ db $\implies$ ($f$ konvex $\equiv$ $f$ monoton wachsend)
+    \item $f,g$ monoton wachsend $\implies$ $f\circ g$ ist konvex und monoton
+      wachsend
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Partialbruchzerlegung:
+  $r(x)=\frac {p(x)}{q(x)}$ rationale Funktion, $p(x),q(x)$ Polynome,
+  $\degree p<\degree q$=>
+  {
+    Habe $q$ die Produktdarstellung
+    \[
+      q(x)=a_n\prod_{k=1}^r (x-x_k)^{\rho_k}
+        \prod_{k=1}^s (x^2+A_k x+B_k)^{\sigma_k}
+    \]
+    Dann l"a"st sich $r(x)$ folgenderma"sen als Summe darstellen:
+    \[
+      r(x) = 
+        \sum_{n=1}^r \sum_{k=1}^{\rho_n} 
+          \frac {a_{nk}}{(x-x_n)^k}
+        +
+        \sum_{n=1}^s \sum_{k=1}^{\sigma_n}
+	  \frac {\alpha_{nk} x+\beta_{nk}}{(x^2+A_nx+B_n)^k}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Koeffizienten der PBZ lassen sich im Wesentlichen mittels drei
+  Verfahren bestimmen:
+  \begin{itemize}
+    \item Mit $(x-x_i)^{\rho_k}$ multiplizieren, $x=x_i$ setzen
+    \item Multiplikation mit q(x), Koeffizientenvergleich (umst"andlich)
+    \item ``Beliebige'' Werte einsetzen, LGS l"osen.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\theorem Integration rationaler Funktionen:
+  $r(x)=\frac {p(x)}{q(x)}$ rationale Funktion, $p(x),q(x)$ Polynome,
+  $\grad p <\grad q$=>{
+  Dann ist die rationale Funktion elementar integrierbar, weil sie
+  sich mit Hilfe der Partialbruchzerlegung in elementar ib Summanden
+  aufteilen l"a"st. ($D:=4B-A^2>0$)
+  \begin{align*}      
+    \int \frac 1 {x-x_i} dx &= log |x-x_i|\\
+    \int \frac 1 {(x-x_i)^k} dx &= \frac 1 {1-k} \frac 1 {(x-x_i)^{k-1}}\\
+    \int \frac 1 {x^2+Ax+B} dx &=
+      \frac 2 {\sqrt D} \arctan \frac {2x+A} {\sqrt D}\\
+    \int \frac x {x^2+Ax+B} dx &=
+      \frac 1 2 \log |x^2+Ax+B|-
+      \frac A {\sqrt D} \arctan \frac {2x+A} {\sqrt D}\\
+    \int \frac 1 {(x^2+Ax+B)^{k+1}} dx &=
+      \frac 1 {kD} \frac {2x+A} {(x^2+Ax+B)^k} 
+      + \frac {2(2k-1)} {kD} \int \frac 1 {x^2+Ax+B} dx\\
+    \int \frac x {(x^2+Ax+B)^{k+1}} dx &=
+      -\frac 1 {2k} \frac 1 {(x^2+Ax+B)^k} 
+      -\frac A 2 \int \frac 1 {x^2+Ax+B} dx
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $f\in\SetCont([a;b])$, $f^{-1}$ Umkehrfunktion von $f$=>{
+  Es gilt
+  \[\int_a^b f(x)dx+\int_{f(a)}^{f(b)} f^{-1} dx = bf(b)-af(a)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$g,h\in\SetBV([a;b])$=>{
+  Dann ist $\min/\max\{g,h\}\in\SetBV([a;b])$.
+  }

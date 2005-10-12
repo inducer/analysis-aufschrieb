@@ -1,0 +1,71 @@
+ifndef dist_add
+	dist_add=
+endif
+
+ifndef FIG_MAGNIFICATION
+	FIG_MAGNIFICATION=0.75
+endif
+
+ifndef FIGURES
+	FIGURES = $(wildcard *.fig)
+endif
+
+COMPILED_FIGURES=$(FIGURES:.fig=.pstex) $(FIGURES:.fig=.pstex_t)
+
+clean:
+	find -name '*.dvi' -exec rm '{}' \;
+	find -name '*.ps' -exec rm '{}' \;
+	find -name '*.gz' -exec rm '{}' \;
+	find -name '*.ilg' -exec rm '{}' \;
+	find -name '*.ind' -exec rm '{}' \;
+	find -name '*.toc' -exec rm '{}' \;
+	find -name '*.aux' -exec rm '{}' \;
+	find -name '*.idx' -exec rm '{}' \;
+	find -name '*.log' -exec rm '{}' \;
+	find -name '*.gz' -exec rm '{}' \;
+	find -name '*.tar' -exec rm '{}' \;
+	find -name '*.pstex_t' -exec rm '{}' \;
+	find -name '*.pstex' -exec rm '{}' \;
+
+mrproper: clean
+	find -name '*.bck' -exec rm '{}' \;
+	find -name '*.bak' -exec rm '{}' \;
+	find -name '*~' -exec rm '{}' \;
+
+%.ind: %.idx
+	makeindex $* -g -s ../german.sty
+
+%-source.tar.gz: $(COMPILED_FIGURES)
+	rm -Rf $*-source
+	mkdir $*-source
+	cp $*.tex $*_*.tex ../*.tex ../german.sty $(dist_add) $*-source/
+	cp ../README ../COPYING Makefile make.rules $*-source/
+	if cat $*_*.epic > /dev/null ; then \
+	  cp $*_*.epic $*-source/; \
+	  fi
+	if cat $*_*.pstex > /dev/null ; then \
+	  cp $*_*.pstex $*-source/; \
+	  cp $*_*.pstex_t $*-source/; \
+	  fi
+	if cat $*_*.fig > /dev/null ; then \
+	  cp $*_*.fig $*-source/; \
+	  fi
+	tar cvhfz $*-source.tar.gz $*-source
+	rm -Rf $*-source
+
+%.dist.tar: %.ps %-source.tar.gz 
+	rm -f $*.dvi.gz
+	rm -f $*.ps.gz
+	gzip $*.dvi
+	gzip $*.ps
+	tar cvhf $*.dist.tar $*-source.tar.gz $*.ps.gz $*.dvi.gz $(dist_add)
+
+%.pstex %.pstex_t: %.fig
+	fig2dev -L pstex -m $(FIG_MAGNIFICATION) $*.fig > $*.pstex
+	fig2dev -L pstex_t -p $*.pstex -m $(FIG_MAGNIFICATION) $*.fig > $*.pstex_t
+
+%.ps: %.dvi
+	dvips $*.dvi -o $*.ps
+
+%.bib: %.bbl
+	bibtex $*

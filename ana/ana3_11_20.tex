@@ -1,0 +1,1110 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\section{Lineare Systeme mit konstanten Koeffizienten}
+\label{sec:linear-const-system}
+% -----------------------------------------------------------------------------
+\definition Exponentialfunktion auf Matrizen:{
+  \index{Matrizen>Exponentialfunktion auf}
+  Sei $A\in\SetR^{p\times p}$. Dann wird definiert
+  \[e^A:=\sum_{k=0}^\infty \frac{A^k}{k!}
+    \]
+  Diese Reihe ist absolut konvergent.
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenschaften von $e^A$:{
+  Sei $A\in\SetR^{p\times p}$.
+  \begin{stmts}
+    \item $AB=BA$ $\implies$ $e^{A+B}=e^Ae^B=e^Be^A$ (im Allgemeinen sind
+      alle drei verschieden)
+    \item $e^A$ ist invertierbar und es gilt $(e^A)^{-1}=e^{-A}$
+    \item Sei $Y:\SetR\to\SetR^{p\times p}$ definiert durch $Y(x):=e^{xA}$ mit
+      $A\in\SetR^{p\times p}$ fest.  Dann ist 
+      $Y\in\SetCont^\infty(\SetR,\SetR^{p\times p})$ und es gilt
+      $Y^{(n)}(x)=A^ne^{xA}$. Insbesondere ist also $e^{xA}$ ein 
+      Fundamentalsystem von $Y'(x)=AY(x)$, und zwar genau dasjenige,
+      das bei $x=0$ die Einheitsmatrix $I$ liefert.
+    \item Mit jeder submultiplikativen Matrixnorm $\fnorm\cdot$ gilt
+      $\fnorm {e^{xA}}\leq e^{|x|\,\fnorm A}$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenvektoren:{
+  Ist nun $\lambda$ reeller Eigenwert zu $A\in\SetR^{p\times p}$, 
+  $v$ zugeh"origer reeller EV, so gilt:
+  \[e^{xA}v=\sum_{k=0}^\infty \frac {(xA)^kv}{k!}
+    =\sum_{k=0}^\infty \frac {x^k\lambda^k}{k!} v
+    =e^{\lambda x}v
+    \]
+  Dies bedeutet ohne Umwege, dass $y(x):=e^{\lambda x}v$ eine L"osung
+  des Dgl-Systems ist.
+  }
+% -----------------------------------------------------------------------------
+\deduction Berechnung eines Fundamentalsystems:{
+  Die explizite Berechnung von $e^{xA}$ ist in vielen F"allen nicht 
+  durchf"uhrbar. Hier soll deswegen ein anderes Verfahren vorgestellt werden, 
+  das mit Hilfe der Jordan'schen Normalform ebenfalls auf ein FS f"uhrt.
+  
+  Da i.A. EWe und EVen nicht reell sind, ist es naheliegend,
+  $y'(x)=Ay(x)$ im $\SetC^p$ statt im $\SetR^p$ zu betrachten.
+  Sei $y:=\xi+i\eta$.
+  F"ur die (weiterhin reelle) Matrix $A$ ist dann 
+  \[\Re \{Ay\}=A\xi\qquad \Im \{Ay\}=A\eta
+    \]
+  Fast alle Definitionen und S"atze aus Ana II "ubertragen sich w"ortlich,
+  wenn man den $\SetC^p$ mit der Euklidnorm
+  \[\norm y_C=\sqrt{\norm\xi^2+\norm\eta^2}
+    \]
+  versieht.
+  Falls ein EW $\lambda_1\not\real$ zum EV $v\not\real^p$ existiert,
+  so sind doch $\Re\{e^{\lambda_1x}v_1\}$ und $\Im\{e^{\lambda_1x}v_1\}$
+  reelle L"osungen. Allgemein gilt: Ist $y:I\to\SetC^p$ mit
+  $y(x)=\xi(x)+i\eta(x)$ eine L"osung von $y'(x)=A(x)y(x)$, so
+  gilt
+  \[\xi'(x)+i\eta'(x)=A\xi(x)+iA\eta(x)
+    \]
+  Zu $A$ existiert nun ein $T\in\SetC^{p\times p}$ 
+  so, dass gilt $J:=T^{-1}AT$ und $J$ Jordan-Normalform besitzt.
+  Dann ergibt sich $J^k=T^{-1}A^kT$ f"ur $k\natural$. und damit
+  \[e^{xJ}=T^{-1}e^{xA}T
+    \]
+  wobei man, um $e^{xJ}$ zu berechnen, lediglich $e^{xJ_i}$ f"ur jedes
+  Jordank"astchen $J_i$ (mit $j=1,\ldots,q$) einzeln berechnen muss,
+  dies geht relativ einfach folgenderma"sen: Habe $J_i$ die Gr"o"se
+  $r\times r$.
+  
+  Ist $r=1$, so haben wir kein Problem. Andernfalls betrachte die Matrix
+  \[\tilde J_i:=\begin{pmatrix}
+      0 & 0 & \cdots & 0 & 0 \\
+      1 & 0 & \cdots & 0 & 0 \\
+      0 & 1 & \cdots & 0 & 0 \\
+      \vdots & \vdots & \ddots & \vdots & \vdots \\
+      0 & 0 & \cdots & 1 & 0 \\
+      \end{pmatrix}
+    \]
+  Damit ist $J_i=\lambda I+\tilde J_i$. F"ur $\tilde J_i^k$ ist zu beachten,
+  dass die $1$er-Diagonale von $J_i^0=I$ aus gez"ahlt, um $k$ Schritte
+  nach links unten ``gewandert'' ist. Damit ergibt sich sofort
+  \[e^{x\tilde J_i}=\begin{pmatrix}
+      1 & 0 & 0 & \cdots & 0 \\
+      x & 1 & 0 & \cdots & 0 \\
+      \frac {x^2} 2 & x & 1 & \cdots & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      \frac {x^{r-1}}{(r-1)!} & \cdot & \cdot & \cdots & 1 
+      \end{pmatrix}
+    \]
+  und weiterhin $e^{xJ_i}=e^{\lambda x}e^{x\tilde J_i}$.
+  
+  Nun gilt: $T\cdot e^{xJ}=e^{xA}T$, und da nun $e^{xA}T$ ebenfalls
+  ein Fundamentalsystem (bestehend aus LK der Spalten von $e^{xA}$),
+  muss $Te^{xJ}$ ebenfalls eines sein. Wie oben gesehen, sind die
+  Spalten von $Te^{xJ}$ Polynome mit Koeffizienten $q_i\in\SetC^p$
+  vom Grad $\leq r-1$, wobei $r$ in diesem Fall die Dimension des
+  gr"o"sten zu einem EW $\lambda$ geh"origen Jordanblocks darstellen soll.
+  
+  Insgesamt ergibt sich also f"ur den Fall mehrfacher Eigenwerte das
+  folgende
+  }
+% -----------------------------------------------------------------------------
+\remark Rechenverfahren bei mehrfachen Eigenwerten:{
+  Treten mehrfache Eigenwerte auf, so f"uhrt das schlichte Ausrechnen
+  von Eigenwerten und -vektoren nicht mehr zwingend auf ein Fundamentalsystem.
+  Sei $\lambda$ nun mehrfacher Eigenwert, w"ahle EV $v_1$ zu $\lambda$.
+  Damit ist $y_1(x):=e^{\lambda x}v_1$ eine L"osung.
+  
+  N"achster Ansatz: $y_2(x):=e^{\lambda x}(xv_1+v_2)$, dies f"uhrt auf
+  ein LGS f"ur $v_2$, n"amlich $(A-\lambda I)v_2=v_1$. Induktiv 
+  fortgesetzt ergibt sich der Ansatz
+  \[y_i(x):=e^{\lambda x}\left(\sum_{j=0}^{i-1} \frac 1 {j!} v_{i-j} x^j\right)
+    =e^{\lambda x}\left(\frac{v_i}{0!}+\frac{v_{i-1}x}{1!}+\cdots+\frac{v_1x^{i-1}}{(i-1)!}\right)
+    \]
+  der wiederum auf das LGS $(A-\lambda I)v_i=v_{i-1}$ f"uhrt.
+  }
+% -----------------------------------------------------------------------------
+\section{Explizite Dgl'en h"oherer Ordnung}
+% -----------------------------------------------------------------------------
+\deduction "Ubertragung von Ergebnissen aus Ordnung 1:{
+  Sei $D\subseteq\SetR\times\SetR^{kp}$ und $f:D\to\SetR^p$. Wir 
+  betrachten die Dgl
+  \begin{equation*}
+    \tag{*} y^{(k)}=f(x,y(x),y^{(2)}(x),\ldots,y^{(k-1)}(x))
+    \end{equation*}
+  Viele Ergebnisse "uber Dgl'en 1. Ordnung lassen sich folgenderma"sen auf
+  $(*)$ "ubertragen: Betrachte $F:D\to\SetR^{kp}$ definiert durch
+  \[F(x,z):=(z_2,z_3,\ldots,z_k,f(x,z))
+    \]
+  Beachte $z=(z_1,\ldots,z_k)\in\SetR^{kp}$ mit $z_j\in\SetR^p$. 
+  Betrachte nun die zugeh"orige Dgl. 1. Ordnung
+  \begin{equation*}
+    \tag{**} z'(x)=F(x,z(x))
+    \end{equation*}
+  gleichbedeutend mit
+  \[\begin{pmatrix}
+      z_1'(x)\\ \vdots \\ z_{k-1}'(x) \\ z_k'(x)
+      \end{pmatrix}=
+    \begin{pmatrix}
+      z_2(x)\\ \vdots \\ z_k(x) \\ f(x,z_1(x),\ldots,z_k(x))
+      \end{pmatrix}
+    \]
+  Damit ist klar, wie sich eine L"osung einer Gleichung der Form $(*)$ 
+  in eine L"osung einer Gleichung der Form $(**)$ und umgekehrt verwandeln
+  l"asst. In diesem Sinne sind $(*)$ und $(**)$ "aquivalent.
+  }
+% -----------------------------------------------------------------------------
+\definition Lipschitz-Stetigkeit:{
+   \index{Stetigkeit>Lipschitz-}
+   Sei $D=[a,b]\times\SetR^{kp}$, $f:D\to\SetR^p$. 
+   Weiter existiere ein $L>0$ so, dass
+   \[(\forall (x,z),(x,\tilde z)\in D)(\norm{f(x,z)-f(x,\tilde z)}_1\leq L\norm{z-\tilde z}_2)
+     \]
+   Dann nennt man $f$ Lipschitz-stetig auf $D$ bzgl. der letzten 
+   $kp$ Perameter. 
+   (Achtung: $\norm\cdot_1$ ist Norm auf $\SetR^p$, $\norm\cdot_2$ dagegen
+   Norm auf $\SetR^{kp}$)
+   }
+% -----------------------------------------------------------------------------
+\theorem Satz von Picard-Lindel"of:
+  $f\in\SetCont([a,b]\times\SetR^{kp},\SetR^{p})$ Lipschitz-stetig bez"uglich
+  der letzten $kp$ Parameter=>{
+  \index{Picard-Lindel"of>Satz von}
+  Dann ist das AWP
+  \[y^{(k)}=f(x,y(x),y^{(2)}(x),\ldots,y^{(k-1)}(x))\qquad 
+    y^{(i)}(x_0)=y_i\;(0\leq i\leq i-1)
+    \]
+  (mit $x_0\in[a,b],y_i\in\SetR^p$ fest) eindeutig l"osbar auf $[a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Peano:
+  $D\subseteq\SetR^p$ offen, $f\in\SetCont(D,\SetR^p)$,
+  $(x_0,y_0,\ldots,y_{k-1})\in D$=>{
+  \index{Peano>Satz von}
+  Dann besitzt das AWP 
+  \[y^{(k)}=f(x,y(x),y^{(2)}(x),\ldots,y^{(k-1)}(x))\qquad 
+    y^{(i)}(x_0)=y_i\;(0\leq i\leq i-1)
+    \]
+  (mit $x_0\in[a,b],y_i\in\SetR^p$ fest) eine L"osung.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Lineare Differentialgleichungen $k$-ter Ordnung}
+% -----------------------------------------------------------------------------
+\definition Lineare Differentialgleichung (III):{
+\index{Differentialgleichung>lineare}%
+\index{Differentialgleichung>homogene}%
+\index{Differentialgleichung>inhomogene}%
+\index{Lineare Differentialgleichung}%
+\index{Homogene Differentialgleichung}%
+\index{Inhomogene Differentialgleichung}%
+  Eine Gleichung der Form
+  \begin{equation*}
+    \tag{*} y^{(k)}(x)+\sum_{i=0}^{k-1}a_iy^{(i)}(x)=r(x)
+    \end{equation*}
+  mit $a_i,r\in\SetCont([a,b],\SetR)$.
+  hei"st lineare Differentialgleichung $k$-ter Ordnung.
+  Bezeichnung: $(*)$ hei"st homogen $\equiv$ $r=0$, ansonsten
+  inhomogen.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Beachte:
+  \begin{itemize}
+    \item Hier ist $f:[a,b]\to\SetR$ die Funktion
+      \[f(x,z_1,\ldots,z_k)=r(x)-\sum_{i=0}^{k-1}a_i(x)z_{i+1}
+        \]
+    \item $f$ erf"ullt gerade die Voraussetzungen des Satzes von
+      Picard-Lindel"of. Damit ist $(*)$ eindeutig l"osbar auf $[a,b]$.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark Der homogene Fall $(r=0)$:{
+  Das zugeh"orige System 1. Ordnung ist $z'(x)=A(x)z(x)$ mit 
+  $A(x)\in\SetCont([a,b],\SetR^{p\times p}$ und
+  \[A(x):=\begin{pmatrix}
+      0 & 1 & 0 & \dots & 0 \\
+      0 & 0 & 1 & \dots & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      -a_0(x) & -a_1(x) & -a_2(x) & \dots & -a_{k-1}(x) 
+      \end{pmatrix}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $r=0$, $V=\{y\in\SetCont^k([a,b],\SetR)\mid y \text{ l"ost } (*)\}$=>{
+  Dann ist $V$ VR und es gilt $\dim V=k$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Auch hier hei"st jede Basis von $V$ \indexthis{Fundamentalsystem}.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Lineare Dgl'en $k$-ter Ordnung mit konstanten Koeffizienten}
+% -----------------------------------------------------------------------------
+\remark:{
+  Falls $a_0,\ldots,a_{k-1}\in\SetR$ nicht von $x$ abh"angen, ist
+  \[A:=\begin{pmatrix}
+      0 & 1 & 0 & \dots & 0 \\
+      0 & 0 & 1 & \dots & 0 \\
+      \vdots & \vdots & \vdots & \ddots & \vdots \\
+      0 & 0 & 0 & \dots & 1 \\
+      -a_0 & -a_1 & -a_2 & \dots & -a_{k-1}
+      \end{pmatrix}
+    \]
+  eine $k\times k$-Matrix mit dem charakteristischen Polynom
+  \[p(x):=\det(A-\lambda I)=(-1)^k(\lambda^k+a_{k-1}\lambda^{k-1}+\cdots+\lambda a_1+a_0)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\lambda$ $r$-fache Nullstelle von $p(x)$=>{
+  Dann entsprechen $\lambda$ die $r$ L"osungen
+  \[e^{\lambda x},xe^{\lambda x},\dots,x^{r-1}e^{\lambda x}\qquad (x\real)
+    \]
+  Ist dabei $\lambda=\xi+i\eta\not\real$, so erh"alt man $2r$ L"osungen
+  \[x^qe^{\xi x}\cos(\eta x),x^qe^{\xi x}\sin(\eta x)
+    \qquad (x\real,q=0,\ldots,r-1)
+    \]
+  Dabei streicht man diejenigen $r$ L"osungen, die zu $\conjug \lambda$
+  geh"oren. Auf diese Weise erh"alt man ein reelles FS f"ur die
+  homogene Dgl
+  \[y^{(k)}(x)+\sum_{i=0}^{k-1}a_iy^{(i)}(x)=0
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark Im Falle der Inhomogenit"at:{
+  Bei speziellen $r(x)$ (z.B. bei Kombinationen aus Polynomen,
+  Exponential- und trigonometrischen Funktionen)
+  kommt man evtl. mit besonderen Ans"atzen durch,
+  die in der Regel recht "ahnlich zu $r(x)$ aussehen, evtl. noch mit
+  einem Polynom/Faktor multipliziert.
+  }
+% -----------------------------------------------------------------------------
+\section{Potenzreihenentwicklung von L"osungen}
+% -----------------------------------------------------------------------------
+\definition Mehrdimensionale Potenzreihe:{
+  \index{Potenzreihe>mehrdimensionale}
+  Seien $a_{jk}\real$ ($j,k\nnatural$) und $(x_0,y_0)\in\SetR^2$. Dann hei"st
+  \[f(x,y):=\sum_{j,k=0}^\infty a_{jk}(x-x_0)^j(y-y_0)^k
+    \]
+  eine zweidimensionale Potenzreihe und weiterhin $f(x,y)$ in eine Potenzreihe
+  entwickelbar, falls die Reihe in einer $\epsilon$-Umgebung von $(x_0,y_0)$
+  absolut konvergiert.
+  
+  Definition f"ur mehr Dimensionen analog.
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  Seien $D\subseteq\SetR\times\SetR$ offen, $(x_0,y_0)\in D$ und
+  $f\in\SetCont^\infty(D,\SetR)$ eine Funktion, die in einer
+  Umgebung von $(x_0,y_0)$ in eine Potenzreihe entwickelbar ist,
+  sei also
+  \[f(x,y)=\sum_{j,k=0}^\infty a_{jk}(x-x_0)^j(y-y_0)^k
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ohne weitere Umst"ande erhalten wir, dass das AWP 
+  $y'(x)=f(x,y(x)),y(x_0)=y_0$ eindeutig l"osbar ist, denn
+  aus der $\SetCont^\infty$-Eigenschaft von $f$ folgen unmittelbar 
+  Stetigkeit und lokale Lipschitz-Stetigkeit.
+  }
+% -----------------------------------------------------------------------------
+\deduction Majorantenmethode:{
+  \index{Majorantenmethode}
+  Sei also nun $I:=(\omega_-,\omega_+)$ und $y:I\to\SetR$ die L"osung.
+  
+  Ist $y$ in der N"ahe von $x_0$ in eine PR entwickelbar? 
+  Ja, dies kann mit Hilfe des folgenden Verfahrens gezeigt werden.
+  
+  Zun"achst einmal kann das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ durch
+  $z(x):=y(x+x_0)-y_0$ so transformiert werden, dass gilt:
+  $z'(x)=f(x,z(x)),z(0)=0$. Daher betrachten wir im Folgenden
+  o.B.d.A. den Fall, dass $(x_0,y_0)=(0,0)$ ist.
+  \begin{align*}
+    y''(x)=&f_x(x,y(x))+f_y(x,y(x))f(x,y(x))\\
+    y'''(x)=&f_{xx}(x,y(x))+f_{xy}(x,y(x))f(x,y(x))+f_{yx}(x,y(x))f(x,y(x))+\\
+      &f_{yy}(x,y(x))(f(x,y(x)))^2+\\
+      &f_y(x,y(x))(f_x(x,y(x))+f_y(x,y(x)))f(x,y(x))
+    \end{align*}
+  Beobachtung: $y^{(k)}(x)$ kann f"ur jedes $k\natural$ dargestellt werden
+  als endliche Summe von nichtnegativen Vielfachen von Produkten der Art 
+  $f(x,y(x))\cdot g(x,y(x))$, wobei $g$ eine partielle Ableitung von $f$
+  ist.
+  
+  Beachte, dass unter den gegebenen Voraussetzungen gilt: ($a_{jk}$ waren
+  die Koeffizienten der Potenzreihe von $f$)
+  \[a_{jk}=\frac 1 {j!k!} \left( \frac{\partial^j}{\partial x^j}
+    \frac{\partial^k}{\partial y^k} f\right)(0,0)
+    \]
+  Somit erh"alt man speziell f"ur $x=x_0=0$ einige Abh"angigkeiten zwischen 
+  den $a_{jk}$ und den folgenderma"sen definierten
+  \[a_n:=\frac{y^{(n)}(0)}{n!}
+    \]
+  und zwar z.B. (Beachte: Die Fakult"aten dienen lediglich zur Korrektur
+  der entsprechenden Vorfaktoren der $a_{jk}$ und $a_n$)
+  \begin{align*}
+    a_0&=0,a_1=f(0,0)=a_{00}\\
+    a_2&=\frac 1 {2!} (a_{10}+a_{01}a_{00})\\
+    a_3&=\frac 1 {3!} (2!a_{20}+2!a_{00}a_{11}+2!a_{02}a_{00}^2+a_{10}a_{01}+a_{01}^2a_{00})
+    \end{align*}
+  Also sind die $a_n$ darstellbar als Summe von nichtnegativen
+  Vielfachen von Produkten der $a_jk$. 
+  
+  Wegen $\limes {j,k}->\infty |a_{jk}|\epsilon^j\epsilon^k=0$ existiert
+  ein $M>0$ so, dass $|a_{jk}|\epsilon^j\epsilon^k\leq M$ f"ur alle
+  $j,k\nnatural$. Man setzt nun
+  \[A_{jk}:=\frac M {\epsilon^j\epsilon^k}
+    \]
+  in einer Reihe 
+  \[F(x,y):=\sum_{j,k=0}^\infty A_{jk} x^jy^k
+    =\sum_{j,k=0}^\infty \frac M {\epsilon^j\epsilon^k} x^jy^k
+    \] 
+  Es gilt $|a_{jk}|\leq A_{jk}$. Sei au"serdem $\epsilon>0$ so, 
+  dass $F$ absolut konvergent f"ur alle $(x,y)\in(-\epsilon,\epsilon)^2$. 
+  F"ur $F$ l"asst sich ein expliziter Ausdruck angeben. Weil $F$ absolut
+  konvergiert, gilt folgende Umordnung:
+  \[F(x,y)=M \sum_{j=0}^\infty \left(\frac x \epsilon\right)^j\sum_{k=0}^\infty \left(\frac y \epsilon\right)^k
+    =\frac M {\left(1-\frac x \epsilon\right)\left(1-\frac y \epsilon\right)}
+    \]
+  Mit Hilfe des Verfahrens f"ur Differentialgleichungen mit getrennten 
+  Ver"anderlichen erhalten wir eine L"osung des AWP
+  $w'(x)=F(x,y(x)),w(0)=0$, n"amlich
+  \[w(x)=\epsilon-\epsilon\sqrt{1+2M\log\left(1-\frac x \epsilon\right)}
+    \]
+  Mit Hilfe der beiden Potenzreihenentwicklungen
+  \begin{align*}
+    \log(1-t)&=\sumn 1 -\frac {t^n}n\\
+    \sqrt{1+t}&=\sumn 0 \combover{\frac 1 2}n t^n
+    \end{align*}
+  "uberlegt man sich leicht, dass $w(x)$ um $0$ eine Potenzreihendarstellung 
+  mit Konvergenzradius $R<\epsilon$ besitzt. F"ur 
+  \[A_n:=\frac{w^{(n)}(0)}{n!}
+    \]
+  folgt aus obigen Formeln $|a_n|\leq A_n$ auf die folgende Art und Weise 
+  (hier als Beispiel f"ur $A_2$)
+  \begin{multline*}
+    |a_2|=\frac 1 2|a_{10}+a_{01}+a_{00}|
+    \leq \frac 1 2 (|a_10|+|a_{01}|+a_{00}|)\\
+    \leq \frac 1 2 (A_{10}+A_{01}+A_{00})
+    = A_2
+    \end{multline*}
+  (wesentlich: die Nichtnegativit"at der Vorfaktoren in den obigen Summen!)
+  Deswegen hat auch die Reihe
+  \[\tilde y(x)=\sumn 0 a_n x^n
+    \]
+  mindestens den Konvergenzradius $R$. 
+  (Bem: Es gilt $|w(x)|<\epsilon$ auf $U_R(0)$ wegen der 
+  L"osbarkeitseigenschaften von $w'(x)=F(x,w(x))$)
+  Es bleibt nun zu zeigen, dass gilt $y=\tilde y$ auf $U_R(0)$ gilt.
+  Da $\tilde y'(x)$ und $f(x,\tilde y)$ Potenzreihen mit Konvergenzradien
+  $\geq R$ sind und da die $a_n$ so bestimmt sind, dass
+  \[(\tilde y')^{(n)}(0)=\tilde y^{(n+1)}=\frac {d^n}{dx^n} f(x,\tilde y(x))|_{x=0}
+    \qquad (n\nnatural)
+    \]
+  folgt $\tilde y'(x)=f(x,\tilde y(x))$ ($x\in U_R(0)$), Weiter ist 
+  $\tilde y(0)=a_0=0$. Wegen der Eindeutigkeit der L"osung des AWPs folgt
+  nun $y(x)=\tilde y(x)$ auf $U_R(0)$.
+  
+  Beachte: diese Methode funktioniert in analoger Weise auch f"ur
+  Systeme und Dgl'en h"oherer Ordnung.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Generell ist der Potenzreihen-Ansatz (unabh"angig von obiger Theorie) ein
+  L"osungsverfahren f"ur AWPe, wenn man nachweisen kann, dass eine
+  formal berechnete PRe eine L"osung darstellt. 
+  
+  Solche formalen Potenzreihen erh"alt man wegen des Identit"atssatzes 
+  f"ur Potenzreihen induktiv durch Koeffizientenvergleich in der
+  durch das AWP $y'(x)=f(x,y(x))$ (implizit) gegebenen Rekursionsformel.
+  }
+% -----------------------------------------------------------------------------
+\section{Stetige Abh"angigkeit von L"osungen}
+% -----------------------------------------------------------------------------
+\theorem:
+  $f,f_k\in\SetCont([a,b]\times\SetR^p,\SetR^p)$ mit
+  $\norm{f_k(x,y)}\leq M$ ($k\natural,(x,y)\in[a,b]\times\SetR^p$),
+  $\limes k->\infty f_k(x,y)=f(x,y)$ glm auf $[a,b]\times \closure{U_{M(b-a+1)}(0)}$.
+  $(x_{0k})_{k=1}^\infty\subset [a,b]$, 
+  $(y_{0k})_{k=1}^\infty\subset\closure{U_M(0)}$,
+  $(y_k)_{k=1}^\infty\subset\SetCont([a,b],\SetR^p)$ Funktionenfolge mit
+  $y_k'(x)=f_k(x,y_k(x)),y_k(x_{0k})=y_{0k}$ f"ur $k\natural$=>{
+  Dann besitzt $(y_k)$ eine auf $[a,b]$ gleichm"a"sig konvergente Teilfolge,
+  deren Grenzfunktion $y:[a,b]\to\SetR^p$ L"osung der
+  Dgl $y'(x)=f(x,y(x))$ auf $[a,b]$ ist.
+  
+  Gilt zus"atzlich $x_{0k}\to x_0$, $y_{0k}\to y_0$ f"ur $k\to\infty$ und
+  ist das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ eindeutig l"osbar, so konv.
+  $(y_k)$ glm gegen die L"osung des AWP.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $R>0$, $y_0\in\SetR^p$, $f\in\SetCont([a,b]\times U_R(y_0),\SetR^p)$.
+  $y'(x)=f(x,y(x)),y(x_0)=y_0$ eindeutig l"osbar auf $[a,b]$, 
+  $y:[a,b]\to\SetR^p$ die L"osung=>{
+  Dann existiert zu jedem $\epsilon>0$ ein $\delta>0$ mit folgenden 
+  Eigenschaften:
+  
+  Sind $\tilde f\in\SetCont([a,b]\times U_R(y_0),\SetR^p)$, 
+  $\tilde y_0\in U_R(y_0),\tilde x_0\in[a,b]$ und gilt
+  \[\norm{f(x,y)-\tilde f(x,y)}\leq\delta \qquad (x,y)\in[a,b]\times U_R(y_0)
+    \]
+  weiterhin $\norm{y_0-\tilde y_0}<\delta$, $|x_0-\tilde x_0|<\delta$, so
+  gilt f"ur jede nicht fortsetzbare L"osung $\tilde y:J\to\SetR^p$
+  des AWPs $\tilde y'(x)=\tilde f(x,\tilde y(x)),\tilde y(\tilde x_0)=\tilde y_0$:
+  
+  $J=[a,b]$ und $\norm{y(x)-\tilde y(x)}<\epsilon$ f"ur $x\in[a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:
+  $D=[a,b]\times\SetR^p$, $f\in\SetCont(D,\SetR^p)$ und $f$ Lipschitz-stetig
+  bzgl. $y$ mit Konstante $L$=>{
+  Beachte: Obige Voraussetzungen entsprechen gerade denen des Satzes
+  von Picard-Lindel"of.
+  Betrachte die AWP'e
+  \begin{align*}
+    y_1'(x)&=f(x,y_1(x)),y_1(x_0)=y_{01}\\
+    y_2'(x)&=f(x,y_2(x)),y_2(x_0)=y_{02}
+    \end{align*}
+  Dann ergibt sich, dass 
+  \[\norm{y_1(x)-y_2(x)}\leq e^{L(b-a)}\norm{y_{01}-y_{02}}\qquad (x\in [a,b])
+    \]
+  (etwa ``Lipschitz-stetige Abh"angigkeit vom Anfangswert'')
+  Daher ergibt sich die stetige Abh"angigkeit der L"osung des AWP vom
+  Anfangswert in folgender Form:
+  \[\epsn(\exists \delta>0)(\norm{y_{01}-y_{02}}<\delta\implies
+    \norm{y_1-y_2}_\infty<\epsilon)
+    \]
+  (W"ahle $\delta:=\frac\epsilon{e^{L(b-a)}}$)
+  }
+% -----------------------------------------------------------------------------
+\section{Differentialungleichungen}
+% -----------------------------------------------------------------------------
+\convention{
+  Gelte stets $p=1$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^2$ beliebig, $f:D\to\SetR$,
+  $u,v\in\SetCont^1([a,b],\SetR)$ mit $(x,u(x)),(x,v(x))\in D$ f"ur
+  $x\in[a,b]$,$u(a)\leq v(a)$, $u'(x)-f(x,u(x))<v'(x)-f(x,v(x))$ auf $[a,b]$=>{
+  \label{the:diff-ineq}
+  Dann gilt $u(x)<v(x)$ f"ur $x\in(a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \ref{the:diff-ineq} gilt nicht f"ur ``$\leq$'' anstelle von $<$ in der
+  Voraussetzung. (Gegenbeispiel: $f(x,y)=2\sqrt{|y|}$ mit $u(x)=x^2,v(x)=0$
+  an der Stelle $0$)
+  }
+% -----------------------------------------------------------------------------
+\remark Gewinnung von Absch"atzungen der L"osungen:{
+  Insbesondere gilt unter der zus"atzlichen Voraussetzung, dass 
+  $D$ offen, $f\in\SetCont(D,\SetR)$,
+  $u,v\in\SetCont^1([x_0,b],\SetR)$ mit $u(x_0)\leq y_0\leq v(x_0)$ und
+  \[u'(x)-f(x,u(x))<0<v'(x)-f(x,v(x))
+    \]
+  dass f"ur eine L"osung $y:[x_0,b]\to\SetR$ des AWP's 
+  $y'(x)=f(x,y(x)),y(x_0)=y_0$ gilt $u(x)<y(x)<v(x)$ f"ur $x\in(x_0,b]$.
+  
+  Funktionen mit obigen Eigenschaften hei"sen \indexthis{Oberfunktionen}
+  bzw. \indexthis{Unterfunktionen}.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D=[a,b)\times\SetR$ ($b=\infty$ zugelassen),
+  $f\in\SetCont(D,\SetR)$, $(x_0,y_0)\in D$=>{
+  \label{the:ode-extremal}
+  Dann besitzt das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ 
+  eine gr"o"ste nach rechts nicht fortsetzbare L"osung 
+  $\overline y:[x_0,\overline\omega_+)\to\SetR$ 
+  und eine kleinste nach rechts nicht fortsetzbare L"osung 
+  $\underline y:[x_0,\underline\omega_+)\to\SetR$, so dass
+  f"ur jede nicht fortsetzbare L"osung
+  $y:[x_0,\omega_+)\to\SetR$ mit
+  $\eta^*:=\min\{\overline\omega_+,\underline\omega_+\}$ gilt
+  $\omega_+\geq\eta^*$ und $\underline y\leq y\leq\overline y$ auf
+  $[x_0,\eta^*)$.
+  
+  Die L"osungen $\overline y,\underline y$ sind dabei eindeutig bestimmt
+  und monoton wachsend vom Anfangswert abh"angig.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Dazu gibt es zu sagen:
+  \begin{stmts}
+    \item Ist das AWP $y'(x)=f(x,y(x)),y(x_0)=y_0$ f"ur jedes $y_0\in\SetR$
+      nach rechts eindeutig l"osbar, so h"angt die L"osung monoton wachsend
+      vom AW ab.
+    \item Eine entsprechende "Uberlegung ist nat"urlich auch ``nach links''
+      m"oglich.
+    \item Der anschlie"sende \ref{the:ode-extremal-weak} ist eine 
+      Abschw"achung von \ref{the:ode-extremal}.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b]\times\SetR,\SetR)$ und beschr"ankt, $y_0\in\SetR$=>{
+  \label{the:ode-extremal-weak}
+  Dann besitzt das AWP $y'(x)=f(x,y(x)),y(a)=y_0$ eine gr"o"ste und
+  eine kleinste L"osung $\overline y,\underline y:[a,b]\to\SetR$. Diese
+  sind eindeutig bestimmt und monoton wachsend vom Anfangswert abh"angig.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:
+  $f\in\SetCont([a,b],\SetR)$ lokal Lipschitz-stetig bzgl. $y$,
+  $u,v\in\SetCont^1([a,b],\SetR)$ mit $u'(x)-f(x,u(x))<0<v'(x)-f(x,v(x))$,
+  $u(a)\leq y_0\leq v(a)$=>{
+  Dann ist das AWP $y'(x)=f(x,y(x))$ eindeutig l"osbar und die L"osung 
+  $y:[a,b]\to\SetR$ dieses AWP's erf"ullt
+  \[u(x)\leq y(x)\leq v(x) \qquad (x\in[a,b])
+    \]
+  In diesem Fall hei"sen $u,v$ wieder Ober- bzw \indexthis{Unterfunktion}
+  \index{Oberfunktion} des AWP.
+  }
+% -----------------------------------------------------------------------------
+\section{Randwertprobleme}
+% -----------------------------------------------------------------------------
+\definition Randwertproblem 2. Ordnung:{
+  Sei $D\subseteq\SetR^{2p}$ und $f:[a,b]\to\SetR^p$ eine Funktion.
+  Das Randwertproblem/\indexthis{RWP} besteht darin, Funktionen 
+  $y:[a,b]\to\SetR^p$ zu finden mit
+  \[\left\{\begin{array}{l}
+      y''(x)=f(x,y(x))y'(x))\\
+      R_a(y)=0\qquad R_b(y)=0
+      \end{array}\right.
+    \]
+  Dabei sind $R_a(y)$ und $R_b(y)$ Bedingungen f"ur $x=a$ und $x=b$.
+  Typische Beispiele sind mit $\gamma\real$ etwa:
+  \begin{center}\begin{tabular}{lll}
+    $R_a(y)=y(a)-\gamma$ & Randbedingung 1. Art & Dirichlet'sche RB \\
+    $R_a(y)=y'(a)-\gamma$ & Randbedingung 2. Art & Neumann'sche RB \\
+    $R_a(y)=\alpha_1y(a)+\alpha_2y'(a)-\gamma$ & Randbedingung 3. Art 
+      & Gemischte RB
+    \end{tabular}\end{center}
+  Im folgenden betrachten wir meist den Fall $p=1$.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Es k"onnen jede Menge F"alle auftreten:
+  \begin{itemize}
+    \item $y''(x)-\pi^2y(x)$, $y(0)=0$, $y(1)=0$ 
+      $\implies$ $y(x)=c\sin(\pi x)$, $c\real$
+    \item $y''(x)-\pi^2y(x)+1$, $y(0)=0$, $y(1)=0$ 
+      $\implies$ keine L"osung
+    \item $y''(x)-\pi^2y(x)$, $y(0)=0$, $y'(1)=0$ 
+      $\implies$ $y(x)=0$ eindeutig
+    \end{itemize}
+  wobei in jedem Fall von den m"oglichen L"osungen der Dgl ausgegangen
+  wird.  
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der lineare Fall}
+% -----------------------------------------------------------------------------
+\deduction L"osbarkeit von linearen RWP:{
+  Seien $r,a_0,a_1\in\SetCont([a,b],\SetR)$. Wir betrachten das RWP
+  \[(*)\left\{\begin{array}{l}
+      y''(x)+a_1(x)y'(x)+a_0(x)y(x)=r(x)\\
+      \alpha_1y(a)+\alpha_2y'(a)=\gamma_a\\
+      \beta_1y(b)+\beta_2y'(b)=\gamma_b\\      
+    \end{array}\right.
+    \]
+  Seien dabei $\alpha_i,\beta_i\real,\alpha_1^2+\alpha_2^2>0,
+  \beta_1^2+\beta_2^2>0$. Nun sei $y_1,y_2:[a,b]\to\SetR$ ein 
+  Fundamentalsystem der homogenen Gleichung
+  \[y''(x)+a_1(x)y'(x)+a_0(x)y(x)=0
+    \]
+  und $y_s:[a,b]\to\SetR$ eine L"osung der Dgl in $(*)$. Die L"osung dieser
+  Dgl sind also Funktionen der Form $y=y_s+c_1y_1+c_2y_2$ mit $c_1,c_2\real$.
+  Die Randbedingungen sind genau dann erf"ullt, wenn 
+  $\begin{pmatrix}c_1\\c_2\end{pmatrix}$ L"osung des folgenden LGS ist:
+  \[\left(\begin{array}{ll|l}
+      \alpha_1y_1(a)+\alpha_2y_1'(a) & \alpha_1 y_2(a)+\alpha_2y_2'(a) &
+      \gamma_a-\alpha_1y_s(a)-\alpha_2y_s'(a)\\
+      \beta_1y_1(b)+\beta_2y_1'(b) & \beta_1 y_2(b)+\beta_2y_2'(b) &
+      \gamma_a-\beta_1y_s(b)-\beta_2y_s'(b)\\
+      \end{array}\right)
+    \]
+  Bezeichnet man die linke $2\times 2$-Matrix mit $R$, so folgt, dass $(*)$
+  genau dann eindeutig l"osbar ist, wenn $R$ regul"ar ist. Daher kann
+  die Regularit"at von $R$ nicht vom gew"ahlten Fundamentalsystem abh"angen.
+  $(*)$ ist insbesondere genau dann eindeutig l"osbar, wenn es f"ur das
+  folgende zugeh"orige, sogenannte ``homogene'' RWP nur die triviale 
+  L"osung gibt:
+  \index{homogenes Randwertproblem}
+  \index{Randwertproblem>homogenes}
+  \[(**)\left\{\begin{array}{l}
+      y''(x)+a_1(x)y'(x)+a_0(x)y(x)=0\\
+      \alpha_1y(a)+\alpha_2y'(a)=0\\
+      \beta_1y(b)+\beta_2y'(b)=0\\      
+    \end{array}\right.
+    \]
+  Hat man also ein Fundamentalsystem f"ur die Dgl in einem Randwertproblem
+  der Art $(*)$ gefunden, so ist die eindeutige L"osbarkeit gleichwertig mit 
+  der Frage nach der Regularit"at von $R$. 
+  
+  Falls $(**)$ mehrdeutig l"osbar ist, ist wegen $\alpha_1^2+\alpha_2^2>0,
+  \beta_1^2+\beta_2^2>0$ die L"osungsmenge ein Vektorraum der Dimension $1$.
+  In diesem Fall ist $(*)$ mehrdeutig oder nicht l"osbar.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Nichtlineare Randwertprobleme}
+% -----------------------------------------------------------------------------
+\deduction Das Dirichlet-Randwertproblem:{
+  Sei $f\in\SetCont([0,1]\times\SetR,\SetR)$ und
+  \[(*)\left\{\begin{array}{l}
+      y''(x)=f(x,y(x))\\
+      y(0)=0,y(1)=0
+      \end{array}\right.
+    \]
+  Man kann $(*)$ wie folgt in eine Integralgleichung umschreiben:
+  Wir betrachten die Funktion $G:[0,1]^2\to\SetR$ mit
+  \[G(x,\xi)=\begin{cases}
+      \xi(x-1)& 0\leq\xi\leq x\leq 1\\
+      x(\xi-1)& 0\leq x\leq\xi\leq 1\\
+      \end{cases}
+    \]
+  $G$ ist stetig. Weiterhin betrachten wir die Abbildung
+  $T:\SetCont([0,1],\SetR)\to\SetCont([0,1],\SetR)$ mit
+  \[T(u)(x):=\int_0^1G(x,\xi)f(\xi,u(\xi))d\xi
+    \]
+  Dann gilt: F"ur jedes $u\in\SetCont([0,1],\SetR)$ ist 
+  $T(u)\in\SetCont^2([0,1],\SetR)$, $T(u)(0)=T(u)(1)=0$ (wegen
+  $G(0,\xi)=G(1,\xi)=0$ f"ur $\xi\in[0,1]$) und
+  $T''(u)(x)=f(x,u(x))$ (nachrechnen). Damit gilt: 
+  \begin{displaytext}
+    $y\in\SetCont^2([0,1],\SetR)$ ist 
+    eine L"osung von $(*)$ $\equiv$ $y\in\SetCont([0,1],\SetR),T(y)=y$
+    \end{displaytext}
+  ``$\implies$'' wurde nur f"ur eindeutig l"osbare RWPe gerechtfertigt,
+  dort gilt f"ur die L"osung obige Gleichheit notwendigerweise.
+  
+  Allgemein hei"st ein solches $G$ eine \indexthis{Green'sche Funktion}.
+  \index{Funktion>Green'sche} Man kann auch andere RWP'e mit Hilfe
+  Green'scher Funktionen in Integralgleichungen umschreiben, z.B. obiges
+  Problem f"ur ein beliebiges Intervall $[a,b]$ mit:
+  \[G(x,\xi)=\begin{cases}
+      \frac 1a\xi(x-a)& 0\leq\xi\leq x\leq a\\
+      \frac 1ax(\xi-a)& 0\leq x\leq\xi\leq a\\
+      \end{cases}
+    \]
+  (Mehr zu Green'schen Funktion in Walter, Gew"ohnliche 
+  Differentialgleichungen, Kapitel 26)
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetCont([a,b]\times\SetR,\SetR)$, 
+  $f$ Lipschitz-stetig bzgl. $y$ mit Lipschitz-Konstante $L<\frac{\pi^2}{(b-a)^2}$=>{
+  Dann ist das RWP
+  \[\left\{\begin{array}{l}
+      y''(x)=f(x,y(x))\\
+      y(a)=0,y(b)=0
+      \end{array}\right.
+    \]
+  eindeutig l"osbar.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Am Beispiel am Anfang des Kapitels sieht man, dass die gegebene Schranke
+  wirklich optimal ist.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Scorza-Dragoni:
+  $f\in\SetCont([a,b]\times\SetR,\SetR)$ mit $\norm f_\infty\leq M>0$=>{
+  \label{the:scorza}
+  \index{Scorza-Dragoni>Satz von}
+  Dann besitzt das RWP
+  \[\left\{\begin{array}{l}
+      y''(x)=f(x,y(x))\\
+      y(a)=0,y(b)=0
+      \end{array}\right.
+    \]
+  eine L"osung.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Erg"anzend ist folgendes zu sagen:
+  \begin{itemize}
+    \item Die L"osung ist nicht notwendigerweise eindeutig. Beispiel:
+      Betrachte
+      \[f(y)=\begin{cases}
+        1 & y\leq -1\\
+        -y & -1<y<1\\
+        -1 & y\geq 1
+        \end{cases}
+        \]
+      Dann sind u.a. alle Funktionen $y:[0,\pi]\to\SetR$ mit 
+      $y(x)=\alpha\sin x$ mit $|\alpha|\leq 1$ L"osung des RWP.
+    \item Der Satz gilt auch dann, wenn man noch $y'(x)$ in den
+      Argumenten von $f$ zul"asst.
+    \item Eine Beweism"oglichkeit f"ur \ref{the:scorza} benutzt
+      den Fixpunktsatz von Brouwer, der im folgenden erw"ahnt werden soll.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Fixpunktsatz von Brouwer:
+  $\emptyset\neq K\subseteq\SetR^{n\times n}$ kompakt und konvex,
+  $f\in\SetCont(K,K)$=>{
+  \index{Brouwer>Fixpunktsatz von}
+  Dann hat $f$ einen Fixpunkt.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Fixpunktsatz von Schauder:
+  $(E,\norm\cdot)$ Banachraum,
+  $\emptyset\neq K\subseteq E$ kompakt und konvex,
+  $\closure{f(K)}$ kompakt=>{
+  \index{Brouwer>Fixpunktsatz von}
+  Dann hat $f$ einen Fixpunkt.
+  }
+% -----------------------------------------------------------------------------
+\remark Leichte Verallgemeinerung von \ref{the:scorza}:{
+  Aus \ref{the:scorza} erh"alt man auch die L"osbarkeit von RWPen der Form
+  \begin{equation}
+    \tag{*}y''(x)=f(x,y(x)),y(a)=\gamma_a,y(b)=\gamma_b
+    \end{equation}
+  mit stetigem und beschr"anktem $f$. Betrachte dazu 
+  \[\tilde f(x,z)=f(x,z+\gamma_b\frac{x-a}{b-a}+\gamma_a\frac{b-x}{b-a})
+    \]
+  Nach \ref{the:scorza} ist also 
+  \[z''(x)=f(x,z(x)),z(a)=0,z(b)=0
+    \]
+  l"osbar, sei $z$ diese L"osung. Betrachte dann $y:[a,b]\to\SetR$ mit
+  \[y(x):=z(x)+\gamma_b\frac{x-a}{b-a}+\gamma_a\frac{b-x}{b-a}
+    \]
+  Dann ist offenbar $y(x)$ L"osung von $(*)$.
+  }
+% -----------------------------------------------------------------------------
+\section{Autonome Differentialgleichungen und Stabilit"at}
+% -----------------------------------------------------------------------------
+\remark Gegenstand der Betrachtung:{
+  Sei $D\subseteq\SetR^p$, $f\in\SetCont(D,\SetR^p)$. Wir betrachten
+  \begin{equation*}
+    \tag{*} y'(x)=f(y(x)),y(x_0)=y_0
+    \end{equation*}
+  mit $x_0\real,y_0\in D$. Man beobachtet zun"achst folgendes:
+  \begin{itemize}
+    \item $f(y_0)=0$ $\implies$ $y\ident y_0$ ist L"osung.
+    \item Ist $y:[x_0,\infty)\to\SetR^p$ L"osung von $(*)$, so ist f"ur
+      jedes $\xi\real$ auch $z:[x_0-\xi,\infty)\to\SetR^p$ mit $z(x):=y(x+\xi)$
+      eine L"osung der Dgl. in $(*)$ (jedoch i.a. nicht des AWP)
+    \item Ist $y:[x_0,\infty)\to\SetR^p$ eine L"osung von $(*)$ und 
+      existiert $\limes x->\infty y(x)\in D$, so gilt 
+      $f(\limes x->\infty y(x))=0=\limes x->\infty y'(x)$.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\definition Gleichgewicht:{
+  Sei $D\subseteq\SetR^p$, $f\in\SetCont(D,\SetR^p)$ und
+  \begin{equation*}
+    \tag{*} y'(x)=f(y(x))
+    \end{equation*}
+  Eine Stelle $y_0\in D$ mit $f(y_0)=0$ hei"st
+  \indexthis{Gleichgewichtspunkt}, die dazugeh"orige L"osung
+  $y\ident y_0$ \indexthis{Gleichgewichtsl"osung} der Differentialgleichung.
+  }
+% -----------------------------------------------------------------------------
+\definition Stabilit"at:{
+  Sei $D\subseteq\SetR^p$ offen, $f\in\SetCont(D,\SetR^p)$ und $y_0\in D$
+  eine Nullstelle von $f$. Dann hei"st
+  \begin{stmts}
+    \item $y_0$ \indexthis{stabiler Gleichgewichtspunkt}
+      \index{Gleichgewichtspunkt>stabiler}
+      $:\equiv$ F"ur jedes $\epsilon>0$ existiert
+      ein $\delta>0$ so, dass falls f"ur $y_1\in D$ mit $\norm{y_1-y_0}<\delta$
+      und $y:[x_0,\omega_+)\to\SetR^p$ eine nach rechts nicht fortsetzbare
+      L"osung des AWPs $y'(x)=f(y(x)),y(x_0)=y_1$ folgt $\omega_+=\infty$
+      und $\norm{y(x)-y_0}<\epsilon$ f"ur $x\geq x_0$.
+    \item $y_0$ \indexthis{instabiler Gleichgewichtspunkt}
+      \index{Gleichgewichtspunkt>instabiler}
+      $:\equiv$ $y_0$ nicht stabil.
+    \item $y_0$ \indexthis{asymptotisch stabiler Gleichgewichtspunkt}
+      \index{Gleichgewichtspunkt>asymptotisch stabiler}
+      $:\equiv$ wie (1), lediglich folgt 
+      zus"atzlich, dass $\limes x->\infty y(x)=y_0$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Aha! Es ist folgendes zu beobachten:
+  \begin{itemize}
+    \item Die Definition ist unabh"angig von der 
+      gew"ahlten Norm und der Wahl der Anfangsstelle $x_0$.
+    \item Nach Definition gilt ``asymptotisch stabil $\implies$ stabil''.
+      Die Eigenschaft $\limes x->\infty y(x)=y_0$ gen"ugt jedoch
+      im Gegenzug nicht f"ur Stabilit"at.
+    \item $y_0$ stabil $\implies$ AWP $y'(x)=f(y(x)),y(x_0)=y_0$ eindeutig
+      l"osbar, weil jede tats"achlich verschiedene L"osung irgendwann
+      einmal die in der Def. erw"ahnte $\epsilon$-Umgebung verl"asst.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Ein Stabilit"atssatz}
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^p$ offen, $f\in\SetCont^1(D,\SetR^p)$, $y_0\in D$,
+  $f(y_0)=0$, f"ur jeden EW $\lambda\complex$ von $f'(y_0)\in\SetR^{p\times p}$
+  gelte $\Re\{\lambda\}<0$=>{
+  \label{the:stability}
+  Dann ist $y_0$ asymptotisch stabil.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $A\in\SetR^{p\times p}$ mit $\Re\{\lambda\}<0$ f"ur alle EWe 
+  $\lambda$ von $A$, so ist nach \ref{the:stability} $y_0=0$ 
+  asymptotisch stabiler Gleichgewichtspunkt von $y'(x)=Ay(x)$. Dies
+  folgt auch nach Paragraph \ref{sec:linear-const-system}.
+  
+  Beachte: Falls die EW-Bedingung gilt, ist $A$ regul"ar, also $0$ einziger
+  Gleichgewichtspunkt.
+  
+  Zum Beweis von \ref{the:stability} verwenden wir den folgenden Hilfssatz:
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $A\in\SetR^{p\times p}$ $c\real$ so, dass f"ur alle EWe $\lambda\complex$ 
+  von $A$ gilt: $\Re\{\lambda\}<c$=>{
+  Dann existiert ein Skalarprodukt mit
+  \[\iprod y {Ay} \leq c\norm{y}_0^2
+    \]
+  dabei sei $\norm{\cdot}_0$ die von $\iprod \cdot \cdot $ erzeugte Norm.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Ein Instabilit"atssatz}
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^p$ offen, $f\in\SetCont^1(D,\SetR^p)$, $y_0\in D$
+  mit $f(y_0)=0$. Es existiere ein EW $\lambda$ von $f'(y_0)$ mit
+  $\Re\{\lambda\}>0$=>{
+  Dann ist $y_0$ ein instabiler Gleichgewichtspunkt.
+  }
+% -----------------------------------------------------------------------------
+\remark Charakterisierung der Stabilit"at bei linearen Systemen:{
+  Im Falle $\Re\lambda\leq 0$ f"ur alle EWe der Matrix $A\in\SetR^{p\times p}$
+  k"onnen "uber die Stabilit"at der 0 als Gleichgewichtspunkt von $y'(x)=Ay(x)$
+  folgende Aussagen gemacht werden:
+  \begin{itemize}
+    \item Existiert zu einem EW $\lambda=0$ ein nichttrivialer
+      Jordanblock (also einer, der Einsen au"serhalb der Diagonalen hat),
+      so ist die $0$ instabil.
+    \item Sind alle Jordanbl"ocke zu EWen $\lambda$ mit $\Re\lambda=0$
+      trivial, so ist die $0$ stabil.
+    \end{itemize}
+  Diese Ergebnisse k"onnen leicht auch auf andere Gleichgewichtspunkte $x\neq 0$
+  "ubertragen werden, w"ahrend die "Ubertragung auf nichtlineare Systeme
+  in dieser Form nicht m"oglich ist. (Bsp. $y'(x)=\pm y^3(x)$ wird
+  im Fall ``$-$'' bei $0$ asympt. stabil, im Fall ``$+$'' allerdings instabil)
+  }
+% -----------------------------------------------------------------------------
+\subsection{Liapunov-Funktionen}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $D\subseteq\SetR^p$ offen, $f:D\to\SetR^p$ sei lokal Lipschitz-stetig.
+  Wir nehmen o.B.d.A. $0\in D$ und $f(0)=0$ an. (sonst Transformation)
+  }
+% -----------------------------------------------------------------------------
+\definition Liapunov-Funktion:{
+  \index{Funktion>Liapunov-}
+  Eine stetige Funktion $V:U_r(0)\to\SetR$ mit $U_r(0)\subseteq D$ hei"st 
+  Liapunov-Funktion (in $0$) $:\equiv$
+  \begin{stmts}
+    \item $V\in\SetCont^1(U_r(0),\SetR)$
+    \item $V(0)=0$, $V(y)>0$ f"ur alle $y\in U_r(0)\setminus\{0\}$
+    \item $\grad V(y)\cdot f(y)\leq 0$ f"ur alle $y\in U_r(0)$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $D$ offen, $0\in D$,
+  $y'(x)=f(x,y(x))$ mit $f:D\to\SetR^p$ lokal Lipschitz-stetig,
+  besitze eine Liapunov-Funktion $V:U_r(0)\to\SetR$=>{
+  Dann ist $0$ stabiler Gleichgewichtspunkt. Gilt zus"atzlich
+  $\grad V(y)\cdot f(y)<0$ f"ur alle $y\in U_r(0)\setminus\{y_0\}$, so
+  ist $0$ sogar asymptotisch stabil.
+  }
+% -----------------------------------------------------------------------------
+\trick Ansatz f"ur Liapunov-Funktionen:{
+  Bei einfach aufgebauten Funktionen (z.B. Polynomen) f"uhren oft
+  Polynomans"atze mit geraden Exponenten zum Erfolg.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Satz von Chetaev}
+% -----------------------------------------------------------------------------
+\theorem Satz von Chetaev:
+  $D\subseteq\SetR^p$ offen, $f:D\to\SetR^p$ lok. Lipschitzstetig und 
+  $f(0)=0$. Existiere ein $\epsilon_0>0$ und $G\subseteq D$ offen mit
+  $U_{\epsilon_0}(0)\subseteq D$, $0\in\rim G$ und 
+  $V\in\SetCont(\closure G,\SetR)\cap\SetCont^1(G,\SetR)$.
+  =>{
+  \label{the:chetaev}
+  \index{Chetaev>Satz von}
+  Gilt f"ur $V$, dass
+  \begin{itemize}
+    \item $V(y)>0$ f"ur alle $y\in G$, $V(y)\leq M$ f"ur alle $y\in\closure G$
+      und ein $M>0$
+    \item $\grad V(y)\cdot f(y)\geq h(V(y))$ f"ur eine Funktion 
+      $h:[0,M]\to\SetR$, die stetig, streng wachsend sein und $h(0)=0$ erf"ullen
+      muss.
+    \item $V(y)=0$ f"ur alle $y\in\rim G\cap U_{\epsilon_0(0)}$
+    \end{itemize}
+  so ist $0$ instabiler Gleichgewichtspunkt.
+  }
+% -----------------------------------------------------------------------------
+\remark Gleichgewichtspunkte au"ser $0$:{
+  \ref{the:chetaev} gilt analog, wenn $0$ durch eine beliebige andere 
+  Nullstelle $y_0$ von $f$ ersetzt wird.
+  }
+% -----------------------------------------------------------------------------
+\remark Wie findet man Differentialgleichungen?:{
+  Gegeben sei $\gamma\in\SetCont^1([0,\infty),\SetR^p)$. Betrachte dann
+  \[f:\left\{\begin{array}{l}
+      [0,\infty)\times\SetR^p\to\SetR^p\\
+      (x,y)\mapsto \norm{\gamma(x)-y}y+\gamma'(x)
+      \end{array}\right.
+    \]
+  Dann ist $y=\gamma$ genau die L"osung des AWPs $y'(x)=f(x,y(x)),y(0)=\gamma(0)$.
+  }
+% -----------------------------------------------------------------------------
+\section{Der Satz von Kneser}
+% -----------------------------------------------------------------------------
+\subsection{Zusammenh"angende Mengen}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $(V,\norm\cdot)$ ein NLR.
+  }
+% -----------------------------------------------------------------------------
+\definition Zusammenhang:{
+  Sei $M\subseteq V$.
+  \begin{itemize}
+    \item $M$ hei"st \indexthis{wegzusammenh"angend} $:\equiv$ 
+      Sind $y,\tilde y\in M$,
+      so existiert eine stetige Funktion $\gamma:[a,b]\to M$ mit
+      $\gamma(a)=y,\gamma(b)=\tilde y$.
+    \item $M$ hei"st \indexthis{unzusammenh"angend} $:\equiv$ 
+      Es gibt offene Mengen $O_1,O_2$ mit
+      \begin{itemize}
+        \item $M\subseteq O_1\cup O_2$
+        \item $O_1\cap O_2=\emptyset$
+        \item $M\cap O_j\neq\emptyset$ f"ur $j=1,2$
+        \end{itemize}
+    \item $M$ hei"st \indexthis{zusammenh"angend} $:\equiv$ 
+      $M$ ist nicht unzusammenh"angend.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\remark Verschiedenster Schnickschnack "uber zusammenh"angende Mengen:{
+  Man beobachtet:
+  \begin{itemize}
+    \item Jede endliche Teilmenge von $V$, die aus mehr als einem 
+      Punkt besteht, ist unzsuammenh"angend.
+    \item Jede konvexe Menge ist wegzusammenh"angend, daher auch 
+      zusammenh"angend.
+    \item Sind $M_1,M_2\subseteq V$ zusammenh"angend und nicht disjunkt,
+      so ist $M_1\cup M_2$ zusammenh"angend, aber $M_1\cap M_2$ im 
+      allgemeinen nicht. (z.B. ``zwei W"urstchen'')
+    \item Sei $V=\SetR$. Dann gilt $M\subseteq\SetR$ zusammenh"angend
+      $\equiv$ $M$ wegzusammenh"angend $\equiv$ $M$ Intervall.
+    \item $M\subseteq V$ wegzusammenh"angend $\implies$ $M$
+      zusammenh"angend.
+    \item $M\subseteq V$ zusammenh"angend $\implies$ $\closure M$ 
+      zusammenh"angend.
+    \item Ist $\dim V\geq 2$ (inklusive $\infty$), so ex. stets Mengen,
+      die zusammenh"angend, aber nicht wegzusammenh"angend sind.
+      
+      Beispiel: $B:=\{(x,\sin x)\mid x\in (0,1]\}$ ist zwar noch
+      beides, aber $\closure B$ nicht mehr. (Betr. z.B. Grenzwerte
+      der Folgen der Maxima und Minima des Sinus-Graphen)
+    \item Eine offene Teilmenge von $V$ ist zusammenh"angend $\equiv$
+      sie ist wegzusammenh"angend.
+    \item $(V,\norm\cdot_1),(W,\norm\cdot_2)$ NLRe, $D\subseteq V$ offen, 
+      $M\subseteq D$ zusammenh"angend und $f\in\SetCont(D,W)$. Dann
+      ist auch $f(M)$ zusammenh"angend.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\subsection{Der Satz von Kneser}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $f\in\SetCont([0,1]\times\SetR^p,\SetR^p)$ beschr"ankt 
+  (z.B. $\norm f_\infty\leq c$ mit $c>0$)
+  Wir betrachten das AWP
+  \begin{equation*}
+    \tag{*} y'(x)=f(x,y(x)),y(0)=0
+    \end{equation*}
+  (alle folgenden "Uberlegungen gelten nat"urlich auch f"ur allgemeine AWPe)
+  Nach \ref{the:peano} (Peano) existiert jede nicht fortsetzbare L"osung von
+  $(*)$ auf $[0,1]$.
+  
+  Sei
+  \[M:=\{y:[0,1]\to\SetR\mid y \text{ l"ost $(*)$}\}
+    \]
+  $M$ hei"st auch L"osungs- oder \indexthis{Knesertrichter}
+  \index{L"osungstrichter} zum AWP $(*)$. Wir betrachten den Banachraum
+  $\SetCont([0,1],\SetR^p)$ mit der Maximumnorm auf $[0,1]$. Offenbar ist
+  $M\subseteq\SetCont([0,1],\SetR^p)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Kneser:=>{
+  \label{the:kneser}
+  \index{Kneser>Satz von}
+  Unter obigen Bedingungen ist $M$ eine zusammenh"angende Teilmenge von 
+  $\SetCont([0,1],\SetR^p)$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Man stellt fest:
+  \begin{itemize}
+    \item Sei $x_0\in[0,1]$ fest. Die Abbildung
+      $P_{x_0}:\SetCont([0,1],\SetR^p)\to\SetR^p$ mit 
+      $P_{x_0}(u)\mapsto u(x_0)$ ist stetig. Mit $M$ ist daher
+      auch $P_{x_0}(M)$ zusammenh"angend.
+      
+      Im Fall $p=1$ ist $P_{x_0}(M)$ ein beschr"anktes und 
+      abgeschlossenes Intervall, denn nach 
+      \ref{the:ode-extremal-weak} existiert zu dem betrachteten AWP
+      eine gr"o"ste und eine kleinste L"osung 
+      $\overline y,\underline y:[0,1]\to\SetR$. Im Fall $p\geq 2$ ist $M$
+      i.a. kompliziert.
+    \item Wir beweisen den Satz f"ur $p=1$. ($p>1$ funktioniert
+      bis auf die Lipschitz-stetige Approximation von $f$ v"ollig
+      analog)
+    \item \ref{the:kneser} wird auch oft formuliert als
+      ``$M$ ist kompakt und zusammenh"angend.''
+    \item In Ana II wurde f"ur endlichdimensionale NLRe bewiesen:
+      (gilt auch f"ur $\infty$)
+      $(V,\norm \cdot)$ NLR, $M\subseteq V$ kompakt $\equiv$
+      Jede Folge $(y_n)\subseteq M$ besitzt eine konvergente TF, 
+      deren Grenzwert in $M$ liegt.
+      (``Folgenkompaktheit'')
+    \item Die L"osungsmenge des AWPs ist folgenkompakt. Aus 
+      \ref{the:ascoli} folgt allgemein:
+      $M\subseteq\SetCont([0,1],\SetR^p)$ folgenkompakt, wenn
+      $M$ gleichgradig stetig, abgeschlossen und beschr"ankt ist.
+    \item Im Beweis von \ref{the:kneser} wird u.a. benutzt:
+      $M\subseteq V$ folgenkompakt, $S\subseteq M$, $S$ abgeschlossen
+      $\implies$ $S$ folgenkompakt.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\definition Grenzmenge:{
+  Sei $y\in\SetCont([x_0,\infty),\SetR^p)$. Die Menge
+  \[\omega_+(y):=\{z\in\SetR^p\mid \exists (x_n)\subseteq[x_0,\infty)\text{ mit }
+      x_n\to\infty,y(x_n)\to z (n\to\infty)\}
+    \]
+  hei"st Grenzmenge der Funktion $y$. Analog definiert man $\omega_-(y)$.
+  }
+% -----------------------------------------------------------------------------
+\remark Eigenschaften der Grenzmenge:{
+  Ist $y$ beschr"ankt, so ist $\omega_+(y)$ beschr"ankt, abgeschlossen
+  (daher kompakt), nichtleer und zusammenh"angend.
+  }
+% -----------------------------------------------------------------------------
+\remark Grenzmengen und AWPe:{
+  Ist $f:\SetR^p\to\SetR^p$ lokal Lipschitz-stetig und das AWP
+  $y'(x)=f(y(x)),y(x_0)=y_0$ l"osbar, so kann man die Grenzmenge der
+  L"osung betrachten und schreibt dann kurz $\omega_+(y_0)$, da sie
+  aufgrund der Autonomie des AWPs nicht von $x_0$ abh"angt.
+  
+  Desweiteren gilt hier: Ist $y$ beschr"ankt, so ist $\omega_+(y_0)$ 
+  kompakt, zusammenh"angend und invariant, d.h. f"ur $z_0\in\omega_+(y_0)$
+  und $z:[x_0,\omega_+)\to\SetR^p$ die nach rechts nicht fortsetzbare 
+  L"osung von $z'(x)=f(z(x)),z(x_0)=z_0$, so gilt $\omega_+=\infty$ und
+  $z(x)\in\omega_+(y_0)$ f"ur alle $x\geq x_0$.
+  }
+% -----------------------------------------------------------------------------
+\framedmsg{ Das war's f"ur Analysis I-III. Tsch"us! :-) }

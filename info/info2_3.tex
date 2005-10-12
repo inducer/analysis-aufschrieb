@@ -1,0 +1,348 @@
+% -----------------------------------------------------------------------
+\para{Parallelit"at}
+% -----------------------------------------------------------------------
+\definition Zeitaufwand mit mehreren Prozessoren:{
+  Mit $T(n,p)$ ($p,n\natural)$ bezeichnet man den Aufwand zur L"osung eines 
+  gegebenen Problems mit der Eingabegr"o"se $n$, wenn $p$ Prozessoren zur
+  Verf"ugung stehen. (F"ur unterschiedliche $p$ kommen gegebenfalls 
+  unterschiedliche Algorithmen zum Einsatz.)
+}
+% -----------------------------------------------------------------------
+\definition Speedup:{
+  Den Speedup $S(n,p)$ (die Beschleunigung) durch die Verwendung von $p$
+  gegen"uber einem Prozessor definiert man durch folgende Gleichung:
+  \[
+    S(n,p):=\frac{T(n,1)}{T(n,p)}
+  \]
+  Den Speedup nennt man optimal \index{Speedup>optimaler} $:\equiv$ $S(n,p)=p$.
+}
+% -----------------------------------------------------------------------
+\definition Effizienz:{
+  Die Effizienz $E(n,p)$ eines parallelen Algorithmus gibt die durchschnittliche
+  Auslastung eines Prozessors an:
+  \[
+    E(n,p):=\frac {S(n,p)} p = \frac{T(n,1)}{pT(n,p)}
+  \]
+  Die Effizienz nennt man optimal \index{Effizienz>optimale} $:\equiv$ $E(n,p)=1$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  In der Regel gilt
+  \[
+    T(n,p)=X \equiv T(n,p/k)\approx k X
+  \]
+}
+% -----------------------------------------------------------------------
+\definition Parallelrechnerarchitekturen:{
+  Man unterteilt Parallelrechner nach verschieden Kriterien in Klassen, 
+  darunter:
+  \begin{description}
+    \item[SISD] Eine Anweisung wird auf ein Datenwort angewendet.
+    \item[MISD] Mehrere Anweisungen werden parallel auf ein Datenwort angewendet.
+    \item[SIMD] Eine Anweisung wird auf parallel auf mehrere Datenworte angewendet.
+    \item[MIMD] Mehrere Anweisungen werden parallel auf mehrere Datenworte angewendet.
+  \end{description}
+  Die bekanntesten Parallelarchitekturen sind:
+  \begin{itemize}
+    \item Mehrkopf-Turing-Maschine
+    \item Schaltkreis
+    \item systolischer/zellul"arer Automat (Transputer, Connection Machine)
+    \item Rechnernetzwerk
+    \item PRAM (parallel random access machine), shared memory machine
+  \end{itemize}
+  Hierunter bilden die PRAMs die wichtigste/h"aufigste Klasse. Hier 
+  unterscheidet man noch nach den F"ahigkeiten der 
+  Speicherzugriffsarchitektur:
+  \begin{description}
+    \item[EREW] exclusive read exclusive write 
+    \item[CREW] concurrent read exclusive write 
+    \item[ERCW] exclusive read concurrent write 
+    \item[CRCW] concurrent read concurrent write 
+  \end{description}
+  Im Falle von concurrent write wird ein Vereinheitlichung bez"uglich
+  des Schreibergebnisses ben"otigt, z.B.:
+  \begin{itemize}
+    \item Es z"ahlt das erste geschriebene Wort
+    \item Es z"ahlt das letzte geschriebene Wort
+    \item Es z"ahlt ein zuf"alliges geschriebenes Wort
+    \item Es z"ahlt das Wort vom Prozessor mit der kleinsten/gr"o"sten Nummer
+    \item Alle geschriebenen Worte m"ussen gleich sein
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\subsection{Algorithmen f"ur shared memory machines}
+% -----------------------------------------------------------------------
+\algorithm Parallele Addition:{
+  \given Zwei bin"are Zahlen mit $n$ Ziffern, $a=a_{n-1}\ldots a_0$,
+     $b=b_{n-1}\ldots b_0$,$u\in\{0,1\}$, $n=2^m$, $m\natural$,
+     eine EREW-Maschine mit $O(n)$ Prozessoren
+  
+  \aim $c=a+b+u=c_n\ldots c_0$
+  
+  \begin{proc}
+    \item Basisfall: $n\le\text{Maschinenwortl"ange}$ Berechne Ergebnis 
+      unmittelbar.
+    \item Sei $k:=n/2$. Berechne parallel rekursiv
+      \begin{align*}
+        l&=a_{n-1}\ldots a_k+b_{n-1}\ldots b_k \\
+        l'&=a_{n-1}\ldots a_k+b_{n-1}\ldots b_k+1 \\
+        r&=a_{k-1}\ldots a_0+b_{k-1}\ldots b_0+u 
+      \end{align*}
+    \item Setze $v:=$ "Ubertrag bei $r$.
+    \item W"ahle Ergebnis $r$
+      \[
+        r:=\begin{cases}
+          lr & v=0 \\
+          l'r & v=1 \\
+        \end{cases}
+     \]
+  \end{proc}
+  
+  \cpx $O(\log n)$ 
+}
+% -----------------------------------------------------------------------
+\definition Statischer Algorithmus:{
+  \index{Algorithmus>statischer}
+  Ein paralleler Algorithmus hei"st statisch genau dann, wenn die
+  Verteilung der Rechenschritte auf die Prozessoren im Voraus 
+  festgelegt ist.
+}
+% -----------------------------------------------------------------------
+\theorem Satz von Brent:
+  $A$ statischer EREW-Algorithmus, $T(n,p)=O(t)$, $s$ gesamte Anzahl der 
+  Rechenschritte
+  =>
+{
+  \label{the:brent}
+  Dann existiert auch ein EREW-Algorithmus $B$ mit einem Aufwand $T(n,s/t)=O(t)$.
+}
+% -----------------------------------------------------------------------
+\remark:{
+  \ref{the:brent} l"asst sich folgenderma"sen interpretieren:
+  Wenn der parallele Algorithmus nicht mehr Schritte als der sequentielle macht,
+  dann ist die optimale Effizienz erreichbar.
+}
+% -----------------------------------------------------------------------
+\algorithm Maximumsuche I:{
+  \given: $a_1,\ldots,a_n$ aus einer angeordneten Menge, $n\natural$, 
+    CRCW-Maschine mit $n(n-1)/2$ Prozessoren, $n=2^m$, $m\natural$
+  
+  \aim $\max\{a_1,\ldots,a_n\}$
+  
+  \begin{proc}
+    \item Belege Variablen $v_1,\ldots,v_n:=1$, $m$
+    \item Prozessor $(i,j)$: 
+      \begin{itemize}
+        \item Sei o.B.d.A $a_i<a_j$ $\rightarrow$ $v_i:=0$. 
+        \item Ist $v_j=1$, so setze $\max:=a_j$.
+      \end{itemize}
+    \item Ist $v_j=1$, so schreibe $m:=j$
+    \item Index des Maximums findet sich in $m$
+  \end{proc}
+  
+  \cpx $O(1)$, $E(n,n(n-1)/2)=O(1/n)$
+}
+% -----------------------------------------------------------------------
+\algorithm Maximumsuche II:{
+  \given: $a_1,\ldots,a_n$, $n\natural$, CRCW-Maschine mit $n$ Prozessoren,
+    $n=2^m$, $m\natural$
+  
+  \aim $\max\{a_1,\ldots,a_n\}$
+  
+  \begin{proc}
+    \item Setze $g:=2$ als Gr"o"se der zu bearbeitenden Gruppen, 
+      setze die Zahl der Kandidaten $k:=n$
+    \item Solange $k\ne 1$
+      \begin{itemize}
+        \item Finde mit Maximumsuche I das Maximum in jeder Gruppe der 
+          Gr"o"se $g$.
+        \item Nun sind noch $k/2$ Kandidaten "ubrig. Setze also $k:=k/2$.
+          Setze $g:=g^2$.
+          Dann ist 
+          \[
+            g\cdot\left(\frac k g\right)^2 <n
+          \]
+          Also gen"ugt die gegebene Anzahl der Prozessoren noch immer, um
+          in $O(1)$ die Maxima jeder Gruppe zu finden.
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O(\log\log n)$, $E(n,n)=O(1/\log\log n)$
+}
+% -----------------------------------------------------------------------
+\algorithm Parallel Prefix:{
+  \given $a_1,\ldots,a_n$, $\circ$ ein beliebiger assoziativer Operator,
+    eine EREW-Maschine mit $n$ Prozessoren, $n=2^m$, $m\natural$
+  
+  \aim $a_1$,$a_1\circ a_2$,$\ldots$,$a_1\circ\cdots\circ a_n$
+  
+  \begin{proc}
+    \item $n=2$ $\rightarrow$ trivial, ansonsten
+    \item Setze $a_{2i}:=a_{2i-1}\circ a_{2i}$, $i=1\ldots n/2$
+    \item Benutze Parallel Prefix mit $\{a_{2i}\mid i=1\ldots n/2 \}$
+    \item Setze $a_{2i-1}:=a_{2i-2}\circ a_{2i-1}$, $i=2\ldots n/2$
+  \end{proc}
+  
+  \cpx $O(\log n)$, $E(n,n)=O(1/\log n)$. Gesamtzahl der Schritte ist 
+    $O(n)$. Nach dem Satz von Brent kann nun ein Algorithmus gefunden 
+    werden, der ebenfalls in $O(\log n)$ Schritten und mit nur $O(n/\log n)$ 
+    Prozessoren zum Ziel kommt.
+}
+% -----------------------------------------------------------------------
+\algorithm Rang von Listenelementen:{
+  \given $a_1,\ldots,a_n$ verkettete Liste ($a_i$ sei Index des n"achsten
+    Elements), eine EREW-Maschine mit $n$ Prozessoren
+    
+  \aim $r_1,\ldots,r_n$, wobei $r_i=$Abstand vom Listenende
+  
+  \begin{proc}
+    \item Belege $n_1,\ldots,n_n$ als Index des am weitesten entfernten
+      bekannten Nachfolgers
+    \item Prozessor $i$ mit $i=1,\ldots,n$:
+      \begin{itemize}
+        \item $n_i:=a_i$, $r_i:=0$
+        \item Ist $n_i=NIL$, setze $r_i:=1$.
+        \item Setze $d:=1$ als Verdopplungsz"ahler
+        \item Solange $r_i=0$
+          \begin{itemize}
+            \item Ist $r_{n_i}=0$, so setze $n_i:=n_{n_i}$, $d:=2\cdot d$.
+              Ansonsten setze $r_i:=r_{n_i}+d$.
+          \end{itemize}
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O(\log n)$, $E(n,n)=O(1/\log n)$. Die von diesem Algorithmus 
+    verwandte Technik nennt sich die \indexthis{Verdoppelungsmethode}.
+}
+% -----------------------------------------------------------------------
+\trick Verfahren des Euler'schen Weges:{
+  Man kann den obigen Rang-Algorithmus leicht f"ur B"aume modifizieren, 
+  indem man eine DFS-artig verzeigerte Liste von Knoten bereith"alt.
+}
+% -----------------------------------------------------------------------
+\subsection{Algorithmen f"ur Netzwerke}
+% -----------------------------------------------------------------------
+\definition Netzwerk:{
+  Ein Rechnernetzwerk wird dargestellt als ein Graph $G=(V,E)$, wobei
+  die Knoten Prozessoren/Recheneinheiten und die Kanten 
+  Kommunikationsverbindungen darstellen.
+}
+% -----------------------------------------------------------------------
+\definition Durchmesser eines Netzwerks:{
+  Der Durchmesser eines Netzwerks ist das Maximum "uber die L"ange aller
+  k"urzesten Verbindungen zwischen zwei Knoten.
+}
+% -----------------------------------------------------------------------
+\remark Beliebte Netzwerk-Topologien:{
+  Folgende Topologien finden breitere Anwendung:
+  \begin{itemize}
+    \item Kette, Kreis
+    \item Raster (gro"ser Durchmesser), Torus
+    \item Baum (geringer Durchmesser, daf"ur mit Flaschenhals)
+    \item Hyperw"urfel
+  \end{itemize}
+}
+% -----------------------------------------------------------------------
+\algorithm Odd-even transposition sort:{
+  \given $a_1,\ldots,a_n$ aus einer geordneten Menge, Kette von $n$ Prozessoren
+  
+  \aim Sortierte Folge
+  
+  \begin{proc}
+    \item Verteile $a_i$ an Prozessor $i$ als $p_i$ ($i=1,\ldots,n$)
+    \item Mache $n$-mal mit Prozessor $i$ ($i=1,\ldots,n$)
+      \begin{itemize}
+        \item Vergleiche $p_i$ mit $p_{i-1}$, wenn falsche Reihenfolge, tausche
+        \item Vergleiche $p_i$ mit $p_{i+1}$, wenn falsche Reihenfolge, tausche
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O(n)$ 
+}
+% -----------------------------------------------------------------------
+\algorithm Paralleler Mergesort:{
+  Zu kompliziert, um nur verbal beschrieben zu werden. Grundidee:
+  Wenn man zwei aufsteigend sortierte Felder $a,b$ in gerade $e_a,e_b$
+  und ungerade indizierte H"alfte $o_a,o_b$ zerlegt, dann $e_a$ und $e_b$ 
+  zu $e$ sowie $o_a$ $o_b$ zu $o$ ``merget'', erh"alt man einen 
+  Gesamt-``Merge'' dadurch, dass man jeweils indizierte Elemente aus 
+  $o_{i+1}$ und $e_i$ miteinander vergleicht.
+  
+  \cpx $O(\log^2 n)$ bei $O(n \log^2 n)$ Prozessoren $\implies$ 
+    $E(\log^2 n,n\log^2 n)=O(1/\log^3 n)$
+}
+% -----------------------------------------------------------------------
+\algorithm $k$-kleinstes Element:{
+  \given $a_1,\ldots,a_n$ aus einer angeordneten Menge, $n$ Prozessoren
+    mit allen Verbindungen, die f"ur einen vollst"andigen bin"aren Baum 
+    erforderlich sind, $k\in\{1,\ldots,n\}$
+    
+  \aim $k$-kleinstes Element
+  
+  \begin{proc}
+    \item Ordne jedem Prozessor $p_i$ ein Datenelement $a_i$ fest zu
+      ($i=1,\ldots,n$)
+    \item W"ahle durch zuf"allige Aufw"artspropagation ein Pivotelement $p$,
+      ber"ucksichtige dabei Chancenverschiebung durch eliminierte Elemente
+    \item Propagiere das gew"ahlte Pivotelement abw"arts
+    \item Propagiere die Anzahl der Elemente, die kleiner sind, aufw"arts
+    \item Propagiere den Rang $r$ des Pivot abw"arts
+    \item Ist $r<k$, eliminiere alle Elemente $a_i\le p$, ansonsten alle $a_i>p$.
+  \end{proc}
+  
+  \cpx $O(\log n)$. Indem man in jedem Schritt eine neue Pivotwahl initiiert,
+    kann man die Laufzeit auf $O(\log^2 n/\log \log n)$ senken.
+}
+% -----------------------------------------------------------------------
+\algorithm Matrixmultiplikation:{
+  \given $A=((a_{ij}))$, $B=((b_{ij}))$, $A,B\in\SetR^{n\times n}$, ein
+    Gitter-Netzwerk mit Wrap-Around (Torus)
+  
+  \aim $C=AB=((c_{ij}))$
+  
+  \begin{proc}
+    \item Belege f"ur jeden Prozessor $P_{ij}$ ein $a'_{ij}:=a_{i,i+j}$ und
+      ein $b'_{ij}:=b_{i+j,j}$ sowie $c_{ij}=0$. ($i=1,\ldots,n$)
+    \item Mache $n$-mal:
+      \begin{itemize}
+        \item Setze f"ur jeden Prozessor $P_{ij}$:
+          $c_{ij}:=c_{ij}+a'_{i,j}\cdot b'_{ij}$ ($i=1,\ldots,n$)
+        \item Schiebe die $((a'_{ij}))$ eine Spalte nach links
+        \item Schiebe die $((b'_{ij}))$ eine Zeile nach oben
+      \end{itemize}
+  \end{proc}
+  
+  \cpx $O(n)$, $E(n,n^2)=O(1)$
+}
+% -----------------------------------------------------------------------
+\remark Matrix-Vektor-Produkt:{
+  Analog kann mit einer Zeile von $n$-Prozessoren ein Matrix-Vektor-Produkt
+  implementiert werden.
+}
+% -----------------------------------------------------------------------
+\algorithm Minimale Editierdistanz:{
+  \index{Editierdistanz>Minimale}
+  \given Zwei Zeichenketten $a_1,\ldots,a_n/b_1,\ldots,b_n$, $c_i,c_s,c_d$
+    Kosten der Editierschritte \textit{insert}, \textit{substitute},
+    \textit{delete}, eine Prozessorenkette mit $2n-1$ Prozessoren
+    
+  \aim Minimale Kostensumme einer Editiersequenz, die $(a_i)$ in $(b_i)$ umformt
+  
+  \begin{proc}
+    \item Bereite zum rechtsseitigen Einschieben vor:
+      $\leftarrow$ $a_1,c_d,a_2,2c_d,\ldots,a_n$
+    \item Bereite zum linksseitigen Einschieben vor: 
+      $b_n,\ldots,2c_i,b_2,c_i,b_1$ $\rightarrow$
+    \item Setze $c_i:=0$ und $d_i:=0$ f"ur jeden Prozessor ($i=1,\ldots,2n-1$)
+    \item F"ur jeden Prozessor $P_i$ f"uhre $4n$-mal folgenden Schritt durch:
+      \begin{itemize}
+        \item Kommen von links und rechts $a_j$,$b_{n+i-j}$, vergleiche diese,
+	  merke $d_i=0$ (gleich) bzw. $d_i=c_s$ (ungleich) und gib $a_j$ nach
+	  links, $b_{n+i-j}$ nach rechts weiter
+	\item Kommen von links Editierkosten $f,g$ , so setze 
+	  $c_i:=\min\{d_i,f,g\}$ und gib $c_i$ nach links und rechts weiter
+      \end{itemize}
+    \item Die Zahl, die auf beiden Seiten nach dem letzten Zeichen die Kette
+      verl"asst, gibt die minimalen Editierkosten an.      
+  \end{proc}
+}

@@ -1,0 +1,67 @@
+\setlength{\unitlength}{0.00041667in}
+%
+\begingroup\makeatletter\ifx\SetFigFont\undefined%
+\gdef\SetFigFont#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+{\renewcommand{\dashlinestretch}{30}
+\begin{picture}(7423,4089)(0,-10)
+\drawline(6612,462)(7062,462)
+\drawline(6612,912)(7062,912)
+\drawline(6612,1362)(7062,1362)
+\drawline(6612,1812)(7062,1812)
+\drawline(6612,2262)(7062,2262)
+\drawline(6612,2712)(7062,2712)
+\drawline(7062,3387)(6612,3387)(6612,12)
+	(7062,12)(7062,3387)
+\drawline(12,4062)(7062,4062)(7062,3612)
+	(12,3612)(12,4062)
+\drawline(462,3612)(462,4062)
+\drawline(912,3612)(912,4062)
+\drawline(1362,3612)(1362,4062)
+\drawline(1812,3612)(1812,4062)
+\drawline(2262,3612)(2262,4062)
+\drawline(2712,3612)(2712,4062)
+\drawline(3162,3612)(3162,4062)
+\drawline(3612,3612)(3612,4062)
+\drawline(4062,3612)(4062,4062)
+\drawline(4512,3612)(4512,4062)
+\drawline(4962,3612)(4962,4062)
+\drawline(5412,3612)(5412,4062)
+\drawline(5862,3612)(5862,4062)
+\drawline(12,1962)(3612,1962)(3612,12)
+	(12,12)(12,1962)
+\drawline(1362,3462)(1362,1962)
+\drawline(1212,3612)(1212,3462)(1512,3462)(1512,3612)
+\drawline(6612,2487)(4887,2487)(4887,1062)(3612,1062)
+\drawline(6612,2637)(6462,2637)(6462,2337)(6612,2337)
+\put(162,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}E}}}}}
+\put(612,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}i}}}}}
+\put(1062,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}n}}}}}
+\put(1512,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}g}}}}}
+\put(1962,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}a}}}}}
+\put(2412,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}b}}}}}
+\put(2862,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}e}}}}}
+\put(3312,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}E}}}}}
+\put(3762,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}i}}}}}
+\put(4212,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}g}}}}}
+\put(4662,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}a}}}}}
+\put(5112,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}b}}}}}
+\put(5562,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}e}}}}}
+\put(6012,3762){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}\dots}}}}}
+\put(6762,162){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}K}}}}}
+\put(6762,612){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}E}}}}}
+\put(6762,1062){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}L}}}}}
+\put(6762,1512){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}L}}}}}
+\put(6762,1962){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}E}}}}}
+\put(6762,2412){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}R}}}}}
+\put(1587,3237){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}Lesekopf}}}}}
+\put(6762,3087){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}$\vdots$}}}}}
+\put(162,1287){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}Push-Down-Automaton (PDA)}}}}}
+\put(162,1062){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}= Kellerautomat}}}}}
+\put(5487,1812){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}Lesekopf}}}}}
+\put(5487,2037){\makebox(0,0)[lb]{\smash{{{\SetFigFont{6}{7.2}{\rmdefault}{\mddefault}{\updefault}Schreib-/}}}}}
+\end{picture}
+}

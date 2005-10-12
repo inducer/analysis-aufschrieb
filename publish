@@ -1,0 +1,38 @@
+#! /bin/bash
+
+PUB_LOCATION="$HOME/own/dev/web/homepage/aufschrieb/"
+
+function dist() {
+  cd $1
+  echo -n publishing $1... 
+  echo -n "[setup]"
+  make setup &> /dev/null
+  echo -n "[distrib]"
+  make distribution &> /dev/null
+  echo "[copying]"
+  scp *.dist.tar $PUB_LOCATION
+  cd ..
+  }
+
+if test $# == 0; then
+  dist algebra
+  dist ana
+  dist info
+else
+  for dir in $*; do 
+    dist $dir
+    done
+  fi
+
+echo "unpacking and processing on server side..."
+(cd $PUB_LOCATION && 
+  for file in *.dist.tar; do 
+    tar xvf $file ; 
+    rm $file
+    done && 
+  chmod a+r . -R)
+echo "compiling index..."
+m4 --prefix-builtins < index.m4 > index.html
+echo "copying index..."
+cp index.html $PUB_LOCATION
+rm index.html

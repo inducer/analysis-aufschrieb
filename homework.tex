@@ -1,0 +1,56 @@
+\documentclass[oneside,fleqn]{article}
+
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{epsfig}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\textwidth 470pt
+\headwidth 470pt
+\textheight 9in
+\hoffset -0.8in
+\voffset-0.3in
+
+\include{math}
+
+\newenvironment{homework}[2]{
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[C]{Homework #2 for #1 $\cdot$ Andreas Kl{\"o}ckner $\cdot$ 999044514 }
+ 
+  \begin{minipage}{10cm}
+    {\Large\bfseries #1 }
+    
+    Homework #2
+    \end{minipage}\hfill
+  \begin{minipage}{5cm}
+    \begin{flushright}
+      \today \\
+      Andreas Kl{\"o}ckner \\
+      SID: 999044514 \\
+      \end{flushright}
+    \end{minipage}\par
+  \rule{\textwidth}{1pt}
+
+  }{
+  }
+\newenvironment{exercise*}[1]
+  {{\bfseries Exercise #1.}\par}
+  {\par\rule{\textwidth}{0.5pt}\par}
+\newcounter{exercise}
+\newenvironment{exercise}
+  {\begin{exercise*}{\arabic{exercise}}
+  \addtocounter{exercise}{1}}
+  {\end{exercise*}}
+\newcounter{partno}
+\newenvironment{parts}{
+  \begin{list}{\alph{partno})}{\usecounter{partno}}
+  }{
+  \end{list}
+  }
+\def\skipthisone{\addtocounter{exercise}{1}}

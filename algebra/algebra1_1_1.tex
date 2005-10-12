@@ -1,0 +1,163 @@
+% -----------------------------------------------------------------------------
+\section{Halbgruppen und Monoide (Grundbegriffe)}
+% -----------------------------------------------------------------------------
+\definition:{
+  \begin{enumerate}
+    \item Eine (innere) Verkn"upfung auf der Menge M ist eine Abbildung $v: M\times M\to M$
+	  Kurzschreibweise: Statt $v(x,y)$ schreibt man oft auch $xvy$, $x+y$, $x*y$ oder $xy$.
+	\item $(M,v)$ hei"st assoziativ: $\forall x,y,z\in M: (xy)z=x(yz)$
+	  (genauer: $v(v(x,y),z)=v(x,v(y,z))$)
+	\item $e$ hei"st neutrales Element $\Longleftrightarrow \forall x\in M: xe=x=ex, $genauer$ v(x,e)=x=v(e,x)$
+	\item $(M,v)$ hei"st kommutativ $\Longleftrightarrow \forall x,y\in M: xy=yx$
+  \end{enumerate}}
+% -----------------------------------------------------------------------------
+\convention{ $+$ schreibt man (fast) nur bei kommutativen Verkn"upfungen.}
+% -----------------------------------------------------------------------------
+\remark:{Das neutrale Element (falls vorhanden), ist durch $(M,v)$ eindeutig bestimmt.}
+% -----------------------------------------------------------------------------
+\proof:{$e,e'$ neutral $\Rightarrow$ $e=ee'=e'$
+  "Ubliche Zeichen statt $e$: $1$ oder $1_M$, bzw. $0$ oder $0_M$\qed}
+% -----------------------------------------------------------------------------
+\definition:{
+  \begin{enumerate}
+    \item Ein Paar $(M,v)$ , $M$ Menge, $v$ assoziative Verkn"upfung hei"st Halbgruppe (engl. Semigroup).
+	  Falls das neutrale Element in der Halbgruppe vorkommt, hei"st Sie Monoid.
+	\item Seien $(M,v), (N,w)$ Mengen mit Verkn"upfungen. Ein (Homo-)Morphismus ist eine Abbildung:
+	  $\varphi : M\to N$ mit $\forall x,y\in M: \varphi{xy}=\varphi{x}\varphi{y}$ , genauer 
+	  $\varphi{v(x,y)}=w(\varphi{x},\varphi{y})$
+	  Bei Monoiden wird zus"atzlich verlangt: $\varphi{e_M}=e_N$
+  \end{enumerate}}
+% -----------------------------------------------------------------------------	  	
+\convention{
+  \begin{enumerate}
+    \item Oft l"a"st man die Angabe der Verkn"upfung weg: Sei $M$ Monoid, besagt, da"s eine feste Verkn"upfung
+	mitgedacht wird.
+	  \begin{itemize}
+	    \item "Das Monoid $SetN$" ist mi"sverst"andlich.
+	      Standardverkn"upfungen $SetN_+=(SetN,+)$, $SetN_\cdot=(SetN,\cdot)$
+		\item $\varphi:SetN_+ \to SetN_\cdot, \varphi(m)=2^m$ ist Morphismus.
+	  \end{itemize}
+	\item "Ahnlich wie bei Vektorr"aumen werden gewisse Eigenschaften von Morphismen durch Vorsilben ausgedr"uckt:
+	  \begin{itemize}
+	    \item Ein injektiv Morphismus hei"st Monomorphismus.
+		\item Ein surjektiver Morphismus hei"st Epimorphismus.
+		\item Ein bijektiver Morphismus hei"st Isomorphismus.
+		\item Ein Morphismus mit $(M,v)\to(M,v)$ hei"st Endomorphismus.
+		\item Ein bijektiver Endomorphismus hei"st Automorphismus.
+	  \end{itemize}
+	\end{enumerate}}
+% -----------------------------------------------------------------------------	  	
+\remark:{
+  \begin{enumerate}
+    \item Sind $\varphi:M\to N, \psi:N\to U$ (Iso-)Morphismen von Halbgruppen und Verkn"upfungen, so
+	auch $\psi \circ \varphi$; $id_M$ ist Automorphismus.
+	\item $End(M)$ ost ein Monoid bei $\circ$
+	\item Ist $\varphi$ Isomorphismus so auch $\varphi^(-1)$
+  \end{enumerate}}
+% -----------------------------------------------------------------------------	  	
+\proof:{"Ubung und einfach} 
+% -----------------------------------------------------------------------------	  	
+\theorem Allgemeines Assoziativgesetz:=>{
+  Sei $(M,v)$ Halbgruppe, so gilt $\forall n\in SetN_{(>0)}, \forall (x_1,\ldots,x_n)\in M^n:$ Alle zul"assig geklammerten
+  Produkte "uber $(x_1,\ldots,x_n)$ sind gleich.}
+% -----------------------------------------------------------------------------	  	
+\proof:{
+  Leichte Induktion ("Ubung)
+  Schreibweise dann ohne Klammern}
+% -----------------------------------------------------------------------------	  	
+\example Beispiele von Monoiden:{
+  \begin{enumerate}
+    \item $A$ Menge, dann ist $(A^A,\circ)$ Monoid, neutrales Element ist $id_A$
+	\item Freie Halbgruppen bzw. Monoide "uber Alphabet $A$:
+	  $Fr(A) oder FrMon(A)$ besteht aus n-tupeln $(n\in SetN) (a_1,\ldots,a_n)\in A^n$.
+	  Verkn"upfung: $(a_1,\ldots,a_n)(b_1,\ldots,b_m)=(a_1,\ldots,a_n,b_1,\ldots,b_m)$
+	  Kurzbezeichnung $a_1\ldots a_n$ statt $(a_1,\ldots,a_n)$.
+  \end{enumerate}}
+% -----------------------------------------------------------------------------	  	
+\remark:{
+  \begin{itemize}
+    \item In Halbgruppen $a^n=\prod _{i=1}^n a$,
+  	  in Monoid $a^0=\prod_{i=1}^0 a=e_M; a^{n+m}=a^n\cdot a^m$
+  	  $\prod_{i\in I}, I$ Indexmenge hat nur Sinn in kommutativen, assoziativen Strukturen.
+  	  Es kann auch bei nichtassoziativen Strukturen $a(aa)\not= (aa)a$ sein. Dann hat die Schreibweise $a^3$ keinen Sinn.
+	\item Freie Halbgruppe $Fr(A)$: Eigenschaft:$a_1\ldots a_n=b_1\ldots b_m, a_i,b_j\in A \Longleftrightarrow n=m und a_i=b_i
+	  (i=1,\ldots ,n)$.
+	  bijektive Abbildung: $i: A \to Fr(A), a\mapsto (a)$ ``='' $a$
+	  Freies Monoid: $FrMon(A)=Fr(A)\cup (  ), 1=(  )$ leeres Wort
+  \end{itemize}}
+% -----------------------------------------------------------------------------	  	
+\theorem UAE=universelle Abbildungseigenschaft von Fr:=>{
+  Sei $(M,v)$ Halbgruppe, $f:A\to M$ eine Abb. Dann hat $f$ eine eindeutig bestimmte Fortsetzung zu einem
+  Morphismus $\tilde f:Fr(A)\to M$ 
+  %\insertfig{algebra1_1_1_name} *** FIXME
+  }
+% -----------------------------------------------------------------------------	  	
+\proof:{
+  Sei $\tilde f$ so eine Fortsetzung: $\tilde f(a_1,\ldots,a_n)=\tilde f(a_1)\tilde f(a_2)\ldots\tilde f(a_n)=f(a_1)\ldots f(a_n)$,
+  da $\tilde f$ ein Morphismus und Fortsetzung von $f$ ist.$\Rightarrow$ Eindeutigkeit \\
+  Existenz: Verwende als Definition von $\tilde f: f(a_1,\ldots,a_n)=f(a_1)\ldots f(a_n)$. Morphismuseigenschaften
+  sind leicht nachzupr"ufen.\qed}
+% -----------------------------------------------------------------------------	  	
+\remark:{
+  Jede Halbgruppe H (oder Monoid) ist surjektiv homomorphes Bild einer Freien Halbgruppe (oder Monoid).
+  $\tilde id(h_1\ldots h_n)=h_1\ast\ldots\ast h_n$, wenn das Urbild in H ist}
+% -----------------------------------------------------------------------------	  	
+\remark:{
+  UAE's legen Strukturen bis auf eindeutig bestimmte Homomorphismen fest. \\
+  Hier: Abb. $i_1:A\to F_1, i_2:A\to F_2$ seien gegeben, $F_1,F_2$ seien Halbgruppen. 
+  In beiden F"allen gelte die UAE der Freien Halbgruppen. Dann gibt es einen eindeutig bestimmten Isomorphismus 
+  $F_1\to F_2$ mit kommutativem Diagramm.}
+% -----------------------------------------------------------------------------	  	
+\deduction:{
+  Existenz und Eindeutigkeit nach UAE. es fehlt das Diagramm!!! \\
+  Warum Isomorphismus?
+  \begin{enumerate}
+    \item 
+      %\insertfig{****} *** FIXME
+       $\Rightarrow$ $\varphi=id_F$ (laut UAE)
+	\item fehlt diagramm
+	  Kaut (1) ist $\lambda \circ \varphi=\id_{F_1}$, ebenso $\psi\circ\lambda=\id_{F_2}$
+	  $\Rightarrow$ $\psi$ bijektiv, $\lambda=\psi^{-1}$
+  \end{enumerate}}
+% -----------------------------------------------------------------------------	  	
+\definition Unterhalbgruppen und -monoide:{
+  Sei $(M,v)$ Halbgruppe (bzw. Monoid). Eine Unterhalbgruppe $(U,w)$ ist eine Halbgruppe mit $U\subseteq M$, so da"s Inklusion 
+  $i:U\to M $ein Morphismus ist} 
+% -----------------------------------------------------------------------------
+\remark Kriterium:{
+  Eine Teilmenge von U von M ist genau dann eine Unterhalbgruppe, wenn $\forall x,y\in U: v(x,y)=xy\in U und 
+  w=v\Big|_{U\times U}$ (Bei Monoiden zus"atzlich n"otig: $e_M\in U, also e_M=e_U$)}
+% -----------------------------------------------------------------------------	  	
+\deduction:{
+  $v(x,y)=xy, w(x,y)=x\star y$ etwa $U\ni x\star y=i(x\star y)=i(x)i(y)=xy$, Rest trivial.}
+% -----------------------------------------------------------------------------	  	
+\example:{
+  \begin{enumerate}
+    \item $(SetR,\cdot)=M, U=\{ f\in SetR^{SetR}\vert f stetig\}$, U ist Unterhalbgruppe, sogar
+	  Untermonoid.
+	\item $\varphi:M\to N$ sei Morphismus von Monoiden. Dann ist $\varphi(M)$ Untermonoid von N.
+ 	  Ebenso ist $Kern\varphi:=\{ m\in M\vert\varphi(m)=1_N\}$ Untermonoid von M.
+  \end{enumerate}
+  Beweis einfach.}
+% -----------------------------------------------------------------------------	  	
+\lemma:=>{
+  Sei H Halbgruppe (oder Monoid analog), $A\subseteq H$
+  \begin{enumerate}
+    \item Dann ist $\product{A} _{HGr}=\bigcap_{U, U UnterHGr,A\subseteq U}U$ eine Unterhalbgruppe
+	  genannt (Halbgruppen-)Erzeugnis von A in H (Genauso f"ur Monoide)
+    \item $\product{A}_{Hgr}$ ist die Menge aller endlichen Produkte $x: n\in \SetN_{\> 0}, a_1,\ldots,a_n\in A,
+	x=a_1\ldots a_n$ (Bei Monoiden mu"s zus"atzlich das "leere Produkt" $e$ enthalten sein)
+  \end{enumerate}
+  (1) besagt $\product{ A}_{HGr}$ ist die kleinste Unterhalbgr., die A enth"alt.}
+% -----------------------------------------------------------------------------	  	
+\example:{$Fr(A)=\langle A \rangle _{HGr}$}
+% -----------------------------------------------------------------------------	  	
+\remark:{F"ur $A=\{ a_1,\ldots,a_n\}$ schreibt man $\langle A \rangle =:\langle a_1,\ldots,a_n\rangle$}
+% -----------------------------------------------------------------------------	  	
+\example:{
+  $A=\{ a \}, \langle a\rangle_{HGr}=\{ a^n\vert n \in \SetN {\>0}, 
+  \langle a \rangle_{Mon}=\{ a^n\vert n\in \SetN\}, a^0=e$}
+% -----------------------------------------------------------------------------	  	
+\remark:{
+  $M\cong N$ (M isomorph N) $\Leftrightarrow \exists$ Isomorphismus $\varphi:M\to N$ \\
+  $\cong$ ist "Aquivalenzrelation}    

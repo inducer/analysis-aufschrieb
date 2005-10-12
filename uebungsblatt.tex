@@ -1,0 +1,53 @@
+\documentclass[oneside,a4paper,fleqn]{article}
+
+\usepackage[german]{babel}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{makeidx}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\hoffset -1in
+\voffset -1in
+\textwidth 470pt
+\textheight 700pt
+\headwidth 470pt
+
+\include{macros}
+
+\newenvironment{blatt}[2]{
+  \fancyhead{}
+  \fancyfoot{}
+  \fancyfoot[C]{\"Ubungsblatt #2 im Fach #1 $\cdot$ Andreas Kl\"ockner $\cdot$ 992330 }
+ 
+  \begin{minipage}{8cm}
+    {\Large\bfseries #1 }
+    
+    \"Ubungsblatt Nr. #2
+    \end{minipage}\hfill
+  \begin{minipage}{5cm}
+    \begin{flushright}
+      \today \\
+      Andreas Kl\"ockner \\
+      Matr: 992330 \\
+      \end{flushright}
+    \end{minipage}\par
+  \rule{\textwidth}{1pt}
+
+  }{
+  }
+\newcounter{aufgabe}
+\newenvironment{aufgabe}{
+  {\bfseries Aufgabe \arabic{aufgabe}.}\par
+  \addtocounter{aufgabe}{1}
+  }{\par\rule{\textwidth}{0.5pt}\par}
+\newcounter{teilnr}
+\newenvironment{teile}{
+  \begin{list}{\alph{teilnr})}{\usecounter{teilnr}}
+  }{
+  \end{list}
+  }
+\def\dieskipich{\addtocounter{aufgabe}{1}}

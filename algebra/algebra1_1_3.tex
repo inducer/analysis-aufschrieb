@@ -1,0 +1,278 @@
+% -----------------------------------------------------------------------------
+% Simon: Verbesserungen:
+% - auch einzelne Buchstaben (``die Gruppe $G$'') in inline math einfassen.
+%   d.h. nicht nur ``die Gruppe G''.
+% - Mein Einr"uckungsschema verwenden (besser lesbar)
+% - Zeilen bei h"ochstens 79 Zeichen umbrechen
+% - \motivation {}:{bla} -> {} nicht erforderlich. Trotzdem lieber Titel 
+%   ausdenken
+% - Leerzeilen weghauen (ergeben "uberfl"ussige Umbrueche)
+% - Display Math verwenden, statt ewig langes inline
+% - := bei Definitionen verwenden
+% - \index nicht vergessen
+% - bei simplen Konstruktionen bleiben, \stack oder \parbox nur in 
+%   Ausnahmef"allen verwenden
+% - \thepara.\thenodefinition sind Implementierungsdetails meiner Makros.
+%   Sie sollten nicht au"serhalb verwendet werden. Statt dessen lieber
+%   \label und \ref verwenden.
+% - Nie \\ zum Absatz-Beenden verwenden. Statt dessen Leerzeile lassen.
+% - Insbesondere im Mathemodus hat \\ nichts zu suchen. Verwende statt
+%   dessen immer align*. eqnarray* ist auch schlecht.
+% - Den zu definierenden Term mit \emph hervorheben. St"ort den Lesefluss
+%   weniger als Fettdruck. (ausserdem sagt \emph nur ``Emphasis'' und 
+%   nichts "uber das endg"ultige Aussehen)
+% - Abs"atze mit Gro"sbuchstaben beginnen
+% - Zum Zwecke der Einheitlichkeit ``\iff'' statt \Leftrightarrow
+% - In Formeln so wenige Spaces wie m"oglich. (h"alt den Kram kurz)
+% - \setminus ist ``Ohne''-Zeichen f"ur Mengen. Verwende bei Bahnenmengen statt
+%   dessen \backslash.
+% - \indexthis{bla}, nicht \indexthisbla
+% - wo noch was fehlt, schreib bitte ``\missing''.
+% - (i),(ii) selbst zu schreiben ist doof. Nimm nur enumerate.
+% - Versuche, dich nicht um das Aussehen zu kuemmern. Verwende so wenige
+%   Formatierungsanweisungen wie moeglich. Versuche, nur Inhalt 
+%   aufzuschreiben. Ansprechendes Aussehen ist Aufgabe des Satzsystems,
+%   dein Job ist der Inhalt. (Insbesondere \hfill ist vom Teufel!)
+%   (auch wenn du von Word genau das Gegenteil gewohnt bist) [Ich kenn
+%   das zu gut von mir selbst!]
+% - Wenn du Tabulatorzeichen verwendest, stelle diese bitte auf eine
+%   Breite von 8 Zeichen ein.
+% - Kein \\ am Ende von align* oder sonstigen Environments
+% -----------------------------------------------------------------------------
+\para{Operierende Gruppen}
+
+\motivation{}:{Die meisten Gruppen in der Mathematik kommen nicht abstrakt vor, 
+                      sondern als Gruppen von Operatoren auf einer Menge M.}
+	
+% -----------------------------------------------------------------------------
+
+\example{}:{
+		    }	
+% -----------------------------------------------------------------------------
+
+\definition{Operation einer Gruppe}:
+  {\index{Gruppe>opposite}
+   
+   Sei $G$ eine Gruppe, 
+   $M$ eine Menge. Eine \emph{\indexthis{Operation}} von $G$ auf $M$ ist eine Abbildung $a$
+   (genannt ``"aussere`` Verkn"upfung) $a: G \times M \longrightarrow M $ mit
+   $(g,m) \mapsto a(g,m) := g*m $ so dass die folgenden Eigenschaften erf"ullt sind:
+   \begin{enumerate}
+   \item[(i)]  $ \forall  m \in M: 1_G * m = m$
+   \item[(ii)]  $ \forall  g, h \in G, m \in M: h*(g*m) = (hg)*m$
+   \end{enumerate}		
+ 
+   Operiert nun $G$ ebenso (von links) auf $M$, so heisse $M$ eine G-Gruppe.	
+								     }		    
+% -----------------------------------------------------------------------------
+\annotation{\thepara.\thenodefinition}:{
+  (ii) kann auch durch eine "aquivalente Bedingung f"ur Operation
+  von rechts ersetzt werden.\\
+  Oft wird $G$ multiplikativ geschrieben und `*` weggelassen.} 
+% -----------------------------------------------------------------------------
+\remark{opposite Gruppe}:{
+  zu (G,v) Gruppe erh"alt man die {\emph \indexthis{opposite Gruppe}} $G^{op} = (G,v^{op})$ folgender\-ma"sen: \\
+  $\forall g,h \in G: g*h = v^{op}(g,h) = v(h,g) = hg $\\
+  klar: G operiert von links auf M $\Leftrightarrow G^{op}$ operiert von rechts auf M. \\
+  D.h. f"uer die Theorie ist es ausreichend, die Operationen von links zu studieren. 
+  Es gilt dann immer eine analoge Aussage "uber die Operationen von rechts.}
+% -----------------------------------------------------------------------------
+\convention{ schreibe ab jetzt $G$ multiplikativ, die Operation als $gm$ \\
+  und O.B.d.A von links.}
+% -----------------------------------------------------------------------------
+\definition{Fixpunkt, Fixgruppe, Bahn, Quotient}:{
+  $G$ operiere auf $M$, es sei $g \in G, m \in M, H \leq G$
+  \begin{enumerate}
+  \item[(i)] $m$ heisst \emph{\indexthis {Fixpunkt}} von g $:\iff$ $gm = m $
+  \item[(ii)] m heisst \emph{\indexthis Fixpunkt} von H $:\iff $ $\forall h \in H: hm = m$
+  \item[(iii)] $G_m = \{g \in G \mid gm = m \}$ heisst {\emph \indexthis{Fixgruppe}} von m
+       (in manchen B"uchern auch \emph{\indexthis{Stabilisator}},$Stab(m)$ oder auch
+		\indexthis{Isotropiegruppe})
+  \item[(iv)] $Gm = \{ gm \mid g \in G\} \subseteq $ heisst {\emph \indexthis{Bahn}} von m (unter G)
+  \item[(v)] Die Menge der { Bahnen} heisst Quotient von M nach G und wird mit $G \backslash M$ 
+	         (bei Operation von rechts $M/G$) bezeichnet.
+  \end{enumerate}}
+
+% -----------------------------------------------------------------------------
+\theorem{}:{G operiere auf M. Dann gelten}=>
+  { \begin{enumerate}
+     \item[(i)] {\emph \indexthis{Bahnzerlegung}}: \[ M = { \biguplus_{\alpha \in G \setminus M}} \alpha \]  (disjunkt)  		 
+	 \item[(ii)] {\emph \indexthis{Bahnbeschreibung}}:\\
+     Man erh"alt die bijektive Abbildung \\
+     $ G/G_m \longrightarrow Gm$ \\
+     $g G_m \mapsto gm $\\
+	 insbesondere $ |Gm| = (G:G_m) $       
+     \item[(iii)] {\emph \indexthis {Bahnbilanz}}: \\
+	 sei $ \mathcal{V}$ ein Vertretersystem der Bahnen, dann gilt:\\
+	 $|M| = \sum_{v \in \mathcal{V}} (G:G_v)$
+	\end{enumerate}} 
+% -----------------------------------------------------------------------------
+\proof{}:{(i) betrachte die "Aquivalenzrelation $ m \sim n \Leftrightarrow Gm = Gn $. Die Klasse von m ist dann
+  $\overline{m} = Gm \Rightarrow $ disjunkter Zerfall.\\
+  (ii) wende den Homomorphiesatz f"ur Mengen an auf $f: G \longrightarrow M, g \mapsto f(g)=gm $ \\
+ \insertfig{algebra1_bahnbilanz}
+ bleibt zu zeigen: $ G/\sim_f = G/G_m. \\
+ g \sim_f h \Leftrightarrow f(g) = f(h)
+ \Leftrightarrow gm = hm \Leftrightarrow h^{-1}(gm) = m \Leftrightarrow (h^{-1}g)m = m 
+ \Leftrightarrow h^{-1}g \in G_m \Leftrightarrow hG_m =gG_m.$ Also: ${G/\sim_f} = G/G_m $ \\
+ (iii) nach (i) \[ M = \biguplus_{\alpha \in G\setminus M} \alpha = \biguplus_{v \in \mathcal{V}}G_v \]
+ \[\Rightarrow  |M| = \sum_{v\in\mathcal{V}}|G_v| \stackrel{(ii)}{=} \sum_{v\in\mathcal{V}}(G:G_v) \] 
+		   }
+% -----------------------------------------------------------------------------
+
+\example{}:{
+  \begin{enumerate}
+    \item[(a)]$H \leq G \Rightarrow $ H operiert (von links) auf G durch gruppentheoretische Translation. \\
+     $H \times G \longrightarrow G $,
+     $(h,g) \mapsto hg$  (Produkt in G)\\
+     Bahn: $Hg = \{ hg \mid h\in H \}$  (linke Nebenklasse)\\
+	 Quotient: $H \backslash G$ wie fr"uher\\
+     Bahnbilanz: $\mathcal{V}$ Vertretersystem, $|G| =\sum_{v\in\mathcal{V}} (H:H_v) = 
+     \sum_{v\in \mathcal{V}} |H| = |H| |H\backslash G|$, da\\
+     $H_v = \{h\in H \mid hv=v \} = \{ 1_G \}$ und somit $(H:H_v) =|H|$\\
+     Bahnbilanz liefert also den Satz von Lagrange.
+    \item[(b)] Operiert $G$ auf $M$ und ist $H\leq G$, so operiert $H$ auf $M$.
+	\item[(c)] Operiert $G$ auf $M$, so operiert $G$ auf der Potenzmenge $2^M$ von $M$ wie folgt: $ F \subseteq M$, so:\\
+	   $gF = \{ gu \mid u\in F \}$\\
+	   wichtig in der Geometrie: $M = \SetR^n$, G eine geometrisch interessante Gruppe, z.B. 
+	   Gruppe der Bewegungen ${\emph (Aut_{dist}(\SetR^n))}$.\\
+	   Ist F eine geometrische Figur,
+	   (d.h. $F\subseteq \SetR^n$), so heisst ${G_F =\{g\in G \mid g(F) = F \}}$ Symmetriegruppe von F.\\
+	  $Gl_n(K) = \{A\in K^{n \times n} \mid det(A) \neq 0 \}$ operiert auf $K^{n \times n}, 
+	  (U,A) \mapsto UA $\\
+	  Die Gaussnormalformen bilden ein Vertretersystem bei dieser Operation.
+    \item[(d)]  $S_M$ operiert auf M \\
+	  Operiert endlich zyklische Gruppe $Z=Z_d=\{1,g, \ldots, g^{d-1} \}$ auf M, d=ord(g)\\
+	  Bahn $Zm =\{ m, gm, g^2m, \ldots, g^{l_m - 1}m \}$, $|Z_m| = l_m \mid d$ \\
+	  $g^{l_m}m = m$, also
+	  $Z_m = \langle g^{l_m} \rangle $\\
+	  speziell: $Z = \langle \pi \rangle$	\\
+	  Bahn: $Z_{i_k} = \{i_k, \pi i_k, \ldots, \pi^{l_{\pi}}i_k \}, i_k \in \{1,
+	  \ldots, n\}, {k=1, \ldots, s}$ \\
+	  $\pi_k = \pi_{|Z_{i_k}}$  ist die folgende Abbildung: \\
+	  $i_k \stackrel{\pi}{\mapsto} \pi i_k \stackrel{\pi}{\mapsto} \ldots \stackrel{\pi}{\mapsto}
+	  \pi^{l_{\pi} - 1} i_k \stackrel{\pi}{\mapsto} i_k $, also gerade der Zyklus\\
+	  $(i_k, \pi i_k, \ldots, \pi^{l_{\pi} - 1}i_k)$\\
+	  $\pi = \pi_1 \cdot \ldots \cdot \pi_s$, au"serdem gilt $\pi_i \pi_j = \pi_j \pi_i$\\
+	  hier: ord($\pi$)=kgV(ord$\pi_k$		  
+ \end{enumerate}			  
+          }
+% -----------------------------------------------------------------------------
+\definition{p-Gruppe}:{
+  G heisst {\emph p-Gruppe} $\Leftrightarrow |G| = p^n$, wobei p Primzahl, n$\in \SetN_{>0}$}
+% -----------------------------------------------------------------------------
+\definition Fixpunktmenge:{ 
+  $M^G :=\{m\in M \mid \forall g\in G: gm = m \}$ \hfill Menge aller Fixpunkte
+  }
+
+% -----------------------------------------------------------------------------
+\theorem{p-Fixpunktsatz}:{
+  Die p-Gruppe G operiere auf einer endlichen Menge M}=>{
+  $p \mid (|M| - |M^G|)$ \\
+  insbes.: $p \nmid |M|$, so hat M mindestens einen Fixpunkt.
+							}
+% -----------------------------------------------------------------------------	   				 
+\proof{}:{ $ v \in M^G \Leftrightarrow \forall g \in G: gv = v \Leftrightarrow G = G_v \Leftrightarrow
+  |Gv| = (G:G_v) = 1$ insbes. $v \in \mathcal{V}$\\
+  Bahnbilanz: \\ 
+  \begin{eqnarray*}
+    |M| & = &  \sum_{v \in M^G} 1 +  \sum_{v \in \mathcal{V}, v \not\in M^G}
+	\underbrace{(G:G_v)}_{\operatorname{p-Potenz \enspace} \neq 1} \nonumber \\
+	& = & |M^G| +               p(\ldots) \\
+  \end{eqnarray*}
+  \hfill \qed		  
+	  }
+
+% -----------------------------------------------------------------------------
+% Operation durch Konjugation
+%------------------------------------------------------------------------------
+
+\subsection {Die Operation durch Konjugation}
+\convention{Sei $G$ Gruppe (O.B.d.A multiplikativ geschrieben)}
+
+\lemma{bzw Definition: Operation durch Konjugation}:{}=>{
+  \begin{enumerate}
+  \item[(i)] Man hat die folgende Operation (durch Konjugation bzw. 
+           durch innere Automorphismen) von $G$ auf $G=M$: \\
+		   $G\times G \longrightarrow G$, $(x,y) \mapsto x*y := xgx^{-1}=: in_x(g)$ (innerer
+		   Automorphismus) \\
+		   Grund: $(xy)*g=in_{xy}(g)=(in_x\circ in_y)(g)=in_x(in_y(g))=x*(y*g)$ \\
+		   demnach zerf"allt $G$ in Klassen konjugierter Elemente (Bahnen).
+ \item[(ii)]$G$ operiert auch auf der Potenzmenge $2^G$ von $G$	 und auf 
+           dem Untergruppenverband durch Konjugation (denn $U\in U(G) \implies x*U
+		   =xUx^{-1}=in_x(U) \leq G$). Bahn ist die Konjugiertenklasse der Untergruppe $U$.   
+ \item[(iii)]Die Fixgruppe von $g\in G$ bei Konjugation: \\
+           $C_G(g)=\{x\in G\mid xgx^{-1}=g\} =\{x\in G \mid xg=gx\}$ heisst {\indexthis{Zentralisator}} 
+		   von $g$ in $G$. \\
+		   F"ur $A \subseteq G$ heisst $C_G(g) = \{x\in G\mid \forall a\in A: xa=ax\}=$
+		   \[\bigcap_{g\in A} C_G(g) \] Zentralisator von $A$.	\\
+		   Die Fixgruppe von $U\in U(G)$ (bzw. $U\subseteq G$) \\ 
+		   $N_G(U)=\{x\in G\mid xUx^{-1}=U\}
+		   =\{x\in G\mid xU=Ux\}$ heisst {\emph \indexthis{Normalisator}} von $U$ in $G$.\\
+		   Bahnbeschreibung: Die Konjugierten $xgx^{-1}$ von $g$ entsprechen
+		   bijektiv den Elementen von $G/C_G(g)$, insbesondere
+		   \[|\{xgx^{-1}\mid x\in G\}|=|\operatorname{cl}(g)|=G:C_G(g) \mid \frac{|G|}{ord(g)} \] falls $G$ endlich. \\
+		   \insertfig{algebra1_konj1}
+		   ebenso f"ur $U\leq G$.
+		   \[|\{xUx^{-1}\mid x\in G\}\|=|\operatorname{cl}(U)|=G:NG(U) \mid (G:U)\]
+		   falls $G$ endlich.\\
+		   \insertfig{algebra1_konj2}
+\end{enumerate}
+  }
+%------------------------------------------------------------------------------------------------------
+\remark{}:{
+\begin{enumerate}
+  \item[(i)]$Z(G)=C_G(G)=\{g\in G\mid \forall x\in G: xg=gx\}$ heisst \indexthis{Zentrum} von G.
+       ($Z(G)$ ist ein abelscher Normalteiler von $G$.) Es gilt: $g\in Z(C_G(g))$ und
+	   $C_G(g)$ ist die gr"osste Untergruppe, in deren Zentrum $g$ liegt.
+  \item[(ii)]$N_G(U)=\{x\in G\mid xU=Ux\}$("$x$ normalisiert $U$") ist die gr"osste Untergruppe
+       von $G$, in der $U$ normal ist.
+\end{enumerate}
+  }  
+%------------------------------------------------------------------------------------------------------
+\theorem{p-Gruppe hat nichttriviales Zentrum}:{sei $G$ eine p-Gruppe}=>{Dann hat $G$ ein nichttriviales Zentrum}
+%------------------------------------------------------------------------------------------------------
+\proof{}:{$G$ operiere auf $G$ durch innere Automorphismen. Laut p-Fixpunktsatz: \\
+          $p\mid |G|-|G^G|$, wobei $G^G$ die Menge aller Fixpunkte in $G$ ist. \\
+		  (Also $\forall g\in G^G: \forall x\in G: xgx^{-1}=g$)\\
+		  D.h. $G^G=Z(G)$.\\
+		  $\Rightarrow p \mid (p^r-|Z(G)|)\Rightarrow p \mid |Z(G)|$ \\
+		  wegen $|Z(G)|\geq 1, p \mid |Z(G)|$ 
+		  folgt $|Z(G)|\geq p$ \qed
+         }
+%--------------------------------------------------------------------------------------------------------
+\subsection{Bestimmung aller p-Gruppen mit $|G|\leq p^2$}
+
+\begin{enumerate}
+\item $|G|=p \Rightarrow G=Z_p$ (zyklische Gruppe der Ordnung $p$)
+\item $|G|=p^2 \Rightarrow |Z(G)|\neq 1 \Rightarrow |G/Z(G)=1,p|
+      \Rightarrow$ $G/Z(G)$ zyklisch 
+	  $\stackrel{\operatorname{Blatt 3,Aufgabe 9}}{\Rightarrow} $ G abelsch. 
+	  Falls $Z(G)=G$, so ist dies klar, ansonsten:
+	  $G/Z(G)\cong Z(G)\cong Z_p$ \\
+	  $G/Z(G)=\product{g}$, $Z(G)=\product{u} \Rightarrow$
+	  $G=\product{g,u}$, aber $gu=ug \Rightarrow$ $G$ abelsch
+	  $\Rightarrow G=Z(G)$.
+  \begin{enumerate}
+	 \item[Fall 1:] $G$ zyklisch, $G\cong Z_{p^2}\Leftrightarrow$
+	  $\exists g\in G:\operatorname{ord}g>p$
+	 \item[Fall 2:] $G$ nicht zyklisch $\Rightarrow \forall$
+	  $g\neq 1, g\in G \operatorname{ord}g=p$ \\
+	  $U=\product{g}$, $h\in G\setminus U \Rightarrow$
+	  $V=\product{v}$ hat $|V|=p, V\neq U \Rightarrow$
+	  $V\cap U \stack(\neq;\leq) U$ also
+	  $|V\cap U|=1 \Rightarrow V\cap U =\{1\}$\\
+	  $\Rightarrow G\{g^ih^i\mid 0\leq i <p,0\leq j<p\}$ ("Ubung)\\
+	  Man hat $Z_p\times Z_p \longrightarrow G$,
+	  $\product{w}\times \product{w}\longrightarrow G$,\\
+	  $(w^i,w^j)\mapsto g^ih^j$. 
+  \end{enumerate}
+ \item Ergebnis: Die p-Gruppen mit Ordnung $\leq p^2$ sind bis auf
+       Isomorphie in der Liste $Z_p,Z_{p^2},Z_p\times Z_p$.
+\end{enumerate}		
+%--------------------------------------------------------------------------------
+\remark{}:{"Ahnliche Listen gibt es f"ur
+       $|G|=p^3$(Ph.Hall, Grouptheory).\\
+	   Eine sehr detaillierte Theorie der p-Gruppen ist vorhanden.
+	   Siehe z.B. B.Huppert, Endliche Gruppen I S.252-403}
+   

@@ -1,0 +1,604 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\section{Das Lebesgue-Integral}
+% -----------------------------------------------------------------------------
+\theorem:$f\in T_+$=>{
+  \label{the:stairs-indep}
+  Besitze $f$ die Darstellungen
+  \[f=\sum_{k=1}^m \alpha_k 1_{A_k}=\sum_{k=1}^l \beta_k 1_{B_k}
+    \]
+  mit $\alpha_k,\beta_k\ge 0$, $A_k,B_k\in\SetLMeas$. Dann gilt
+  \[\sum_{k=1}^m \alpha_k \lambda(A_k)=\sum_{k=1}^l \beta_k \lambda(B_k)
+    \]
+  (Bemerkung: $\infty$ ist als Wert der Summe zugelassen.)
+  }
+% -----------------------------------------------------------------------------
+\definition Lebesgue-Integral einer Treppenfunktion:{
+  Sei $f\in T_+$ mit der Darstellung
+  \[f=\sum_{k=1}^m \alpha_k 1_{A_k}
+    \]
+  Dann definiert man
+  \[\int_{\SetR^n} f(x) dx:=\sum_{k=1}^m \alpha_k \lambda(A_k)\ge 0
+    \]
+  Nach \ref{the:stairs-indep} ist diese Definition unabh"angig von der
+  Darstellung von $f$. Weiterhin ist als Wert des Integrals $\infty$ zugelassen.
+  \label{def:lebesgue-int-stairs}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  \begin{stmts}
+    \item Das oben erkl"arte Integral ist linear und monoton.
+    \item $(f_k)\subset T_+$ Folge, $f_1\le f_2 \le \ldots$ auf $\SetR^n$
+      und $(f_k)$ konvergiert punktweise gegen $f\in T_+$ auf $\SetR^n$
+      \[\int_{\SetR^n} f(x)dx=\limes k->\infty \int_{\SetR^n} f_k(x)dx
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Lebesgue-Integral (I):{
+  \label{def:lebesgue-pos}
+  Sei $f\in\SetFLMeas(\SetR^n)$ und $f\ge 0$ auf $\SetR^n$. Dann hei"st
+  \[\int_{\SetR^n} f(x)dx:=\sup\{\int_{\SetR^n} g(x) dx\mid g\in T_+,g\le f\}
+    \]
+  Lebesgue-Integral von $f$. (Bemerkung: Diese Definition stimmt mit 
+  \ref{def:lebesgue-int-stairs} auf deren G"ultigkeitsbereich "uberein)
+
+  Schreibweise: 
+  \[\SetLInt^+(\SetR^n):=
+    \{f\in\SetFLMeas(\SetR^n)\mid f\ge 0, \int_{\SetR^n} f(x) dx < \infty\}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem: $f\in\SetFLMeas(\SetR^n)$, $f\ge 0$, $(f_k)\subset T_+$ Folge
+  mit $f_1\le f_2\le \ldots$ und $\limes k->\infty f_k(x)=f(x)$ auf $\SetR^n$ 
+  =>{
+  Dann gilt
+  \[\int_{\SetR^n} f(x)dx=\limes k->\infty \int_{\SetR^n} f_k(x)dx
+    \]
+}
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Das in \ref{def:lebesgue-pos} erkl"arte Integral ist linear und monoton.
+  }
+% -----------------------------------------------------------------------------
+% Hier fehlt eine Definition--der zugeh"orige Text steht oben in der Def.
+% des Integrals
+% -----------------------------------------------------------------------------
+\definition Lebesgue-Integral (II):{
+  \index{Integral>Lebesgue-}
+  Sei $f\in\SetFLMeas(\SetR^n)$.
+  \begin{stmts}
+    \item Ist $f^+$ oder $f^-\in\SetLInt^+(\SetR^n)$, so hei"st
+      \[\int_{\SetR^n} f(x)dx:=\int_{\SetR^n} f^+(x)dx-\int_{\SetR^n} f^-(x)dx
+        \]
+      das Lebesgue-Integral von $f$ "uber $\SetR^n$.
+      In diesem Fall sagt man: Das Integral existiert. 
+      (Werte $\infty,-\infty$ m"oglich)
+    \item
+      Sind $f^+\in\SetLInt^+(\SetR^n)$, $f^-\in\SetLInt^+(\SetR^n)$, so ist
+      \[\int_{\SetR^n} f(x)dx\in\SetR
+        \]
+      und $f$ hei"st (Lebesgue-)integrierbar "uber $\SetR^n$
+    \item Sei $M\in\SetLMeas$, $f\in\SetFLMeas(M)$. Dann definiert man
+      \[f_M(x):=\begin{cases} f(x) & x\in M \\ 0 & x\not\in M \end{cases}
+        \]
+      Dann gilt $f_M\in\SetFLMeas(\SetR^n)$. Falls existent, definiert man
+      \[\int_M f(x) dx:=\int_{\SetR^n} f_M(x) dx
+        \]
+      $f$ hei"st (Lebesgue-)integrierbar "uber $M$ $:\equiv$
+      \[\int_M f(x)dx<\infty
+        \]
+      Schreibweise: $\SetLInt(M):=\{f\in\SetFLMeas(M)\mid 
+        f \text{ integrierbar "uber $M$} \}$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt:
+  \begin{stmts}
+    \item $\SetLInt(M)$ ist ein reeller Vektorraum, und das Lebesgue-Integral
+      ist linear und monoton.
+    \item $f\in\SetFLMeas(M)$ $\implies$ 
+      $f\in\SetLInt(M)\equiv|f|\in\SetLInt(M)$. In diesem Fall gilt
+      \[\left|\int_M f(x) dx\right|\le\int_M |f(x)| dx
+        \]
+    \item 
+      \[1_M\in\SetFLMeas(M) \equiv \lambda(M)=\int_{\SetR^n} 1_M(x) dx
+        \]
+    \item Sei $f\in\SetLInt(M)$, $\sup_{x\in M}|f(x)|<\infty$. Dann gilt
+      \[\int_M |f(x)| dx \le \sup_{x\in M} |f(x)|\cdot \lambda(M)
+        \]
+  \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M\in\SetLMeas$, $f,g\in\SetFLMeas(M)$=>{
+  Dann gilt:
+  \begin{stmts}
+    \item $M$ Nullmenge $\implies$ $f\in\SetLInt(M)$ und
+      \[\int_M f(x)dx=0
+        \]
+    \item Seien $A\subseteq M$, $A\in\SetLMeas$, $f\ge 0$. Dann gilt
+      \[\int_A f(x)dx\le \int_M f(x)dx
+        \]
+    \item Seien $A\subseteq M$, $A\in\SetLMeas$, $f\in\SetLInt(M)$. Dann ist
+      $f\in\SetLInt(A)$.
+    \item $f>0$ auf $M$ und $\int_M f(x)dx=0$. Dann ist $M$ Nullmenge.
+    \item Seien $M_1,M_2\in\SetLMeas$ mit $M=M_1\cup M_2$, 
+      $M_1\cap M_2=\emptyset$ und $f\in\SetLInt(M)$. Dann ist
+      $f\in\SetLInt(M_1)$ und $f\in\SetLInt(M_2)$ und
+      \[\int_M f(x) dx=\int_{M_1} f(x) dx+\int_{M_2} f(x) dx
+        \]
+    \item $f=g$ f."u. auf $M$ $\implies$
+      $f\in\SetLInt(M)\equiv g\in\SetLInt(M)$. Ist $f\in\SetLInt(M)$, 
+      so gilt auch
+      \[\int_M f(x)dx=\int_M g(x) dx
+        \]
+      Sind $f,g\ge 0$, $f=g$ f."u. auf $M$, so gilt 
+      \[\int_M f(x)dx=\int_M g(x) dx
+        \]
+      aber nicht notwendigerweise $f,g\in\SetLInt(M)$.
+    \item $f=0$ f."u. auf $M$ $\implies$ $f\in\SetLInt(M)$ und
+      \[\int_M f(x)dx=0
+        \]
+    \item Ist $f\in\SetLInt(M)$ und gilt
+      \[(\forall A\subseteq M)(A\in\SetLMeas\implies\int_A f(x)dx=0)
+        \]
+      so ist $f=0$ f."u. auf $M$.
+    \item $f\in\SetLInt(M)$, $f\ge 0$ und gilt
+      \[\int_M f(x)dx=0
+        \]
+      so ist $f=0$ f."u. auf $M$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M\in\SetLMeas$, $f,g\in\SetFLMeas(M)$=>{
+  Dann gilt:
+  \begin{stmts}
+    \item $g\in\SetLInt(M)$, $g\ge 0$ auf $M$ und $|f|\le g$ f."u. auf $M$ 
+      $\implies$ $f\in\SetLInt(M)$
+    \item $f$ beschr"ankt auf $M$ und $\lambda(M)<\infty$ $\implies$ 
+      $f\in\SetLInt(M)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem: $M$ kompakt, $f\in\SetCont(M,\SetR)$=>{ 
+  Dann ist $f\in\SetLInt(M)$. 
+  }
+% -----------------------------------------------------------------------------
+\section{Konvergenzs"atze}
+% -----------------------------------------------------------------------------
+\convention{
+  Es gelte stets $M\in\SetLMeas$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von der monotonen Konvergenz:
+  $f\in\SetFLMeas(M)$, $(f_k)\subseteq\SetFLMeas(M)$ Funktionenfolge mit
+  $0\le f_1\le f_2\le f_3\le ...$ und $\limes k->\infty f_k=f$ f."u. auf
+  $M$=>{
+  \index{Konvergenz>Satz von der monotonen}
+  \index{montone Konvergenz>Satz von der}
+  Dann gilt
+  \[\int_M f(x)dx=\limes k->\infty \int_M f_k(x)dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Beppo-Levi:
+  $(f_k)\subseteq\SetLInt(M)$ Funktionenfolge mit
+  $0\le f_1\le f_2\le f_3\le\ldots$ f."u. auf $M$=>{
+  \index{Beppo-Levi>Satz von}
+  Ist nun die Folge
+  \[\left(\int_M f_k(x) dx\right)_{k=1}^\infty
+    \]
+  beschr"ankt, so konvergiert $(f_k)$ f."u. auf $M$ gegen eine Funktion
+  $f\in\SetLInt(M)$ und es gilt
+  \[\limes k->\infty \int_Mf_k(x)dx=\int_M f(x) dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Lemma von Fatou:
+  $(f_k)\subseteq\SetFLMeas(M)$, 
+  $(\forall x\in M)(\exists \limesinf k->\infty f_k(x)\in\SetR)$, 
+  $f_k\ge 0$ auf $M$=>{
+  \index{Fatou>Lemma von}
+  Dann gilt
+  \[\int_M \limesinf k->\infty f_k(x) dx \le \limesinf k->\infty \int_M f_k(x) dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Lebesgue "uber die majorisierte Konvergenz:
+  $f\in\SetFLMeas(M)$, $g\in\SetLInt(M)$, $g\ge 0$ auf $M$ und 
+  $(f_k)\subseteq\SetFLMeas(M)$ Funktionenfolge mit $\limes k->\infty f_k=f$ 
+  und $|f_k|\le g$ f."u. auf $M$=>{
+  \index{Lebesgue>Satz von}
+  \index{Konvergenz>Satz von Lebesgue "uber die majorisierte}
+  \index{majorisierte Konvergenz>Satz von Lebesgue "uber die}
+  Dann gilt $f,f_1,f_2,f_3,\ldots\in\SetLInt(M)$ und
+  \[\int_M f(x)dx=\limes k->\infty \int_M f_k(x)dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $(M_k)\subseteq\SetLMeas$ Folge mit $M_1\subseteq M_2\subseteq M_3\subseteq\ldots$,
+  $M=\bigcup_k M_k$, $f\in\SetLMeas(M)\cap \bigcap_k \SetLInt(M_k)$=>{
+  Ist au"serdem die Folge
+  \[\left|\int_{M_k} f(x) dx\right|_{k=1}^\infty
+    \]
+  beschr"ankt, so ist $f\in\SetLInt(M)$ und 
+  \[\int_M f(x)dx=\limes k->\infty \int_{M_k} f(x) dx
+    \]   
+}
+% -----------------------------------------------------------------------------
+\section{Riemann- und Lebesgue-Integral}
+% -----------------------------------------------------------------------------
+\convention{
+  Es seien stets $n=1$, $I=[a,b]\subseteq\SetR^n=\SetR$ und
+  \[\int_a^b f(x)dx
+    \]
+  bezeichne das Riemann-Integral, w"ahrend
+  \[\int_I f(x)dx
+    \]
+  das Lebesgue-Integral meine. (jeweils falls existent) Es gilt $I\in\SetLMeas$
+  }
+% -----------------------------------------------------------------------------
+\subsection{Eigentliche Riemann-Integrale}
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ beschr"ankt, $z=\{x_0,\ldots,x_m\}$ Zerlegung von $[a,b]$,
+  $m_j,M_j$ wie in Ana I=>{
+  Dann definiert man
+  \begin{align*}
+    g_z(x)&:=\begin{cases} m_1 & x=a \\ m_j & x\in(x_{j-1},x_j] \end{cases} \\
+    h_z(x)&:=\begin{cases} M_1 & x=a \\ M_j & x\in(x_{j-1},x_j] \end{cases} 
+    \end{align*}
+  und es gilt $g_z,h_z\in\SetLInt(I)$ sowie
+  \begin{align*}
+    \int_I g_z(x) dx&=\lsum(z) \\
+    \int_I h_z(x) dx&=\usum(z)
+    \end{align*}
+  }  
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ beschr"ankt, $n\natural$, $z_n$ "aquidistante 
+  Zerlegung von $[a,b]$ mit $|z_n|=1/2^n$=>{
+  Sei weiterhin $g_n:=g_{z_n}$, $h_n:=h_{z_n}$. Dann gilt
+  \begin{stmts}
+    \item $\limn |z_n|=0$, $z_1\subseteq z_2\subseteq z_3\ldots$
+    \item $g_1\le g_2\le\ldots f \le \ldots\le h_2\le h_1$
+    \item F"ur $g(x):=\limn g_n(x)$, $h(x):=\limn h_n(x)$ gilt
+      $g\le f\le h$ auf $I$, $g,h\in\SetLInt(I)$ und
+      \[\int_I g(x)dx=\lint_a^b f(x) dx \text{ und }
+        \uint_a^b f(x) dx=\int_I h(x) dx
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ beschr"ankt=>{
+  Dann gilt:
+  \begin{stmts}
+    \item $f\in\SetRInt([a,b])$ $\equiv$ $f$ ist f."u. stetig auf $[a,b]$
+    \item $f\in\SetRInt([a,b])$ $\implies$ $f\in\SetLInt([a,b])$ und 
+      \[\int_a^b f(x)dx=\int_{[a,b]} f(x) dx
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\SetRInt([a,b])$ ist echte Teilmenge von $\SetLInt([a,b])$.
+  }
+% -----------------------------------------------------------------------------
+\subsection{Uneigentliche Riemann-Integrale}
+% -----------------------------------------------------------------------------
+\remark:{
+  O.B.d.A. behandeln wir den Fall $f:[a,\infty)\to\SetR$ mit $a\real$.
+  
+  Beachte: $[a,\infty)\in\SetLMeas$
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,\infty)\to\SetR$ Funktion, $f\in\SetRInt([a,t))$ $(\forall t>a)$=>{
+  Dann gilt
+  \[\int_a^\infty |f(x)| dx<\infty \equiv f\in\SetLInt([a,\infty))
+    \]
+  In diesem Fall gilt weiterhin
+  \[\int_a^\infty f(x) dx=\int_{[a,\infty)}f(x) dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Man beobachtet: $\int_0^1 \frac 1 {\sqrt x} dx$ konvergiert absolut, w"ahrend
+  $\int_0^1 \frac 1 x dx$ divergiert. Das bedeutet, dass 
+  $f,g\in\SetLInt(M)\not\implies f\cdot g\in\SetLInt(M)$.
+  }
+% -----------------------------------------------------------------------------
+\section{Der Satz von Fubini}
+% -----------------------------------------------------------------------------
+\convention{
+  Seien $k,m,p,q\natural$, $n=p+q$, $\SetR^{n}=\SetR^p\times\SetR^q$,
+  $M\subseteq\SetR^k$. Schreibe weiterhin 
+  $\SetLMeas_k$ statt $\SetLMeas$,
+  $\SetLMeas_k(M)$ statt $\SetLMeas(M)$,
+  $\SetLInt_k(M)$ statt $\SetLInt(M)$,
+  $\lambda_k(M)$ statt $\lambda(M)$,
+  $|Q|_k$ statt $|Q|$ f"ur $Q\in\SetQuad k$.
+  
+  Sei nun $M\subseteq\SetR^n$, $x_0\in\SetR^p$, $y_0\in\SetR^q$. Dann definiert
+  man
+  \begin{align*}
+    M_{x_0}:=\{y\in\SetR^q\mid (x_0,y)\in M \} \\
+    M_{y_0}:=\{x\in\SetR^p\mid (x,y_0)\in M \} 
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $M\in\SetLMeas_n$=>{
+  Dann sind
+  \begin{stmts}
+    \item $M_x\in\SetLMeas_q$ f"ur fast alle $x\in\SetR^p$
+    \item $M_y\in\SetLMeas_p$ f"ur fast alle $x\in\SetR^q$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Sei $M\in\SetLMeas_n$. Ist nun $f=1_M$, so ist f"ur $y\in\SetR^q$ auch
+  $1_{M_y}(x)=1_M(x,y)$. Wegen $M_y\in\SetLMeas_p$ f"ur fast alle $y\in\SetR^q$
+  ergibt sich $1_{M_y}\in\SetLMeas_p(\SetR^p)$ f"ur fast alle $y\in\SetR^q$ und
+  damit auch
+  \[\int_{\SetR^p} 1_M(x,y) dx = \int_{\SetR^p} 1_{M_y}(x) dx=\lambda_p(M_y)
+    \]
+  f"ur fast alle $y\in\SetR^q$.
+  }
+% -----------------------------------------------------------------------------
+\theorem Prinzip von Cavalieri:
+  $M\in\SetLMeas_n$, $\lambda_n(M)<\infty$=>
+  {
+  Dann existiert eine Nullmenge $N\subseteq\SetR^q$ und eine Funktion
+  \[F(y):=\begin{cases}
+      \lambda_p(M_y) & y\in\SetR^q\setminus N \\
+      0 & y\in N
+      \end{cases}
+    \]
+  so dass gilt $F\in\SetLInt_q(\SetR^q)$ und
+  \begin{align*}
+    \lambda_n(M)&=\int_{\SetR^q} F(y)dy \\
+    \intertext{Also auch:}
+    \lambda_n(M)&=\int_{\SetR^q}\lambda_p(M_y)dy \\
+                &=\int_{\SetR^q}\int_{\SetR^p} 1_M(x,y) dx dy \\
+                &=\int_{\SetR^p}\int_{\SetR^q} 1_M(x,y) dy dx 
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\example Inhaltsberechnung:{
+  Damit kann man einfach errechnen:
+  \begin{stmts}
+    \item $\lambda(\{(x,y)\in\SetR^2\mid x^2+y^2\le r \})=\pi r^2$
+    \item $\lambda(\{(x,y,z)\in\SetR^3\mid x^2+y^2+z^2\le r^2 \})=4/3 \pi r^3$
+    \item $\lambda(\{(x,y,z)\in\SetR^3\mid x^2+y^2\le e^{-z},z\ge 0\})=\pi$
+    \item Rotationsk"orper im $\SetR^3$: $f\in\SetCont([a,b],\SetR)$, $f\ge 0$ und
+      \break
+      $M:=\{(x,y,z)\mid x^2+y^2\le f^2(z)\}$ und damit
+      \[\lambda(M)=\pi\int_a^b f^2(x) dx
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Fubini:
+  $f\in\SetLInt_n(\SetR^n)$=>{
+  \index{Fubini>Satz von}
+  Dann ex. eine Nullmenge $N\subseteq\SetR^q$ mit
+  \begin{stmts}
+    \item F"ur alle $y\in\SetR^q$ ist die Funktion $x\mapsto f(x,y)$ 
+      in $\SetLInt_p(\SetR^p)$
+    \item Die Funktion
+      \[F(y):=\begin{cases}
+	  \int_{\SetR^p} f(x,y) dx & y\in\SetR^q\setminus N \\
+	  0 & y\in N
+	  \end{cases}
+        \]
+      ist in $\SetLInt_q(\SetR^q)$.
+    \item 
+      \[\int_{\SetR^n} f(x,y) d(x,y) =\int_{\SetR^q} F(y) dy
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Reihenfolge der Integration spielt keine Rolle.
+  }
+% -----------------------------------------------------------------------------
+\section{Die Substitutionsregel}
+% -----------------------------------------------------------------------------
+\theorem Substitutionsregel:
+  $A\subseteq V\subseteq\SetR^n$ mit $A\in\SetLMeas$ und $V$ offen,
+  $g\in\SetCont(V,\SetR^n)$ injektiv auf $A$ und db an jeder Stelle $x\in A$,
+  $\lambda(g(V\setminus A))=0$=>{
+  \label{the:int-subst}
+  Dann ist $g(A)\in\SetLMeas$ und f"ur jede Funktion $f\in\SetFLMeas(g(A))$ mit
+  $f\ge 0$ gilt:
+  \begin{stmts}
+    \item $f\circ g \cdot |\det g'|\in\SetFLMeas(A)$
+    \item Es gilt
+      \[\int_{g(A)} f(x) dx=\int_A f(g(x)) |\det g'(x)| dx
+        \]
+  \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Weiterhin gilt
+  \begin{stmts}
+    \item $f\ge 0$ auf $g(A)$ $\implies$ $f\circ g \cdot |\det g'|\ge0$
+    \item $A=V$ ist zugelassen
+    \item $f\in\SetLInt(g(A))$ $\implies$ $f\circ g |\det g'|\in\SetLInt(A)$ und
+      Teil (2) von oben gilt dann ebenfalls.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Einige wichtige/h"aufig verwendete Substitutionen sind:
+  \begin{stmts}
+    \item \indexthis{Polarkoordinaten}: \index{Koordinaten>Polar-}
+      $A=V=(0,r)\times (0,2\pi)$ und $g:V\to\SetR^2$
+      mit $g(t,\phi)=(t \cos \phi, t\sin \phi)$. Es gilt
+      \[g(V)=\{(x,y)\mid 0<x^2+y^2<r^2\}\setminus\{(x,0)\mid x\in[0,r)\}
+        \]
+      $g\in\SetCont^1(V,\SetR^2)$ und $g$ ist injektiv auf $V$, 
+      $\det g'(t,\phi)=t$.
+    \item \indexthis{Zylinderkoordinaten} \index{Koordinaten>Zylinder-}
+      $g:(0,r)\times(0,2\pi)\times(\alpha,\beta)\to\SetR^3$ $(r>0)$
+      \[g(t,\phi,z)=\begin{pmatrix}
+	  t\cos \phi \\
+	  t\sin \phi \\
+	  z
+	  \end{pmatrix}
+        \]
+      Sei $M:=\{(x,y,z)\mid x^2+y^2\le r^2, \alpha\le z \le\beta \}$.
+      Es ist $\det g'(t,\phi,z)=t$.
+      Ist $f\in\SetLInt(M)$, so ist
+      \[\int_M f(x,y,z) d(x,y,z)=
+	\int_\alpha^\beta \int_0^{2\pi} \int_0^r f(t\cos \phi, t\sin\phi,z) t 
+	  dt\, d\phi\, dz
+        \]
+    \item Kugelkoordinaten: $g:(0,r)\times(-\pi/2,\pi/2)\times(0,2\pi)\to\SetR^3$ 
+      $(r>0)$
+      \[g(t,\theta,\phi)=\begin{pmatrix}
+	  t\cos\theta \cos \phi \\
+	  t\cos\theta \sin \phi \\
+	  t\sin\theta
+	  \end{pmatrix}
+        \]
+      Sei $M:=\{(x,y,z)\mid x^2+y^2+z^2\le r^2 \}$.
+      
+      Es ist $\det g'(t,\theta,\phi)=-t^2 \cos \theta <0$.
+      Ist $f\in\SetLInt(M)$, so gilt die zu oben analoge Integralgleichung.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\section{Absolut stetige Funktionen}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei stets $n=1$, also betr. wir $\SetR$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ monoton=>{
+  $f$ ist db f."u. auf $[a,b]$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Hieraus ergibt sich:
+  \begin{stmts}
+    \item Ist $f\in\SetBV([a,b],\SetR)$, so ist $f$ f."u. db auf $[a,b]$.
+    \item Es gibt Funktionen in $\SetCont([a,b],\SetR)$, die an keiner Stelle
+      db sind. (z.B. Koch-Kurve (?))
+    \item Da monotone Funktionen messbar sind, gilt 
+      $\SetBV([a,b],\SetR)\subseteq\SetFLMeas([a,b])$. 
+      Da $f\in\SetBV([a,b],\SetR)$ auch beschr"ankt, gilt
+      $\SetBV([a,b],\SetR)\subseteq\SetLInt([a,b])$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Absolute Stetigkeit:{
+  \index{Stetigkeit>absolute}
+  Eine Funktion $f:[a,b]\to\SetR$ hei"st absolut stetig $:\equiv$
+  $\epsn (\exists \delta>0)$ mit 
+  
+  Sind $(c_1,d_1),\ldots,(c_m,d_m)\subseteq[a,b]$ paarweise disjunkt mit
+  \[\sum_{j=1}^m (d_j-c_j)<\delta
+    \]
+  so ist 
+  \[\sum_{j=1}^m (f(d_j)-f(c_j))<\epsilon
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark Geschmacksrichtungen von Stetigkeit:{
+  Es gilt folgende Implikationsreihenfolge:
+  
+  Lipschitz-Stetigkeit $\implies$ absolute Stetigkeit $\implies$ 
+  gleichm"a"sige Stetigkeit $\implies$ Stetigkeit
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ abs. stetig=>{
+  Dann ist $f\in\SetBV([a,b],\SetR)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetLInt([a,b])$=>{
+  \label{the:lint-abscont}
+  F"ur jedes $x\in[a,b]$ ist $f\in\SetLInt([a,x])$ und
+  \[F(x):=\int_a^x f(t) dt
+    \]
+  ist absolut stetig.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetLInt([a,b])$, $F$ wie in \ref{the:lint-abscont}=>{
+  Dann ist $F'(x)=f(x)$ f"ur fast alle $x\in[a,b]$
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Das bedeutet
+  \[\lambda(\{x\in[a,b]\mid f \text{ nicht db in $x$} \lor 
+    f \text{ db in $x$, aber } F'(x)\ne f(x) \})=0
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR\nearrow$=>{
+  Dann ex. eine Menge $N\subseteq[a,b]$ mit $\lambda(N)=0$ und $f$ ist db auf
+  $[a,b]\setminus N$, weiter gilt f"ur
+  \[g(x):=\begin{cases}
+      f'(x) & x\in [a,b]\setminus N \\
+      0 & x\in N
+      \end{cases}
+    \]
+  $g\in\SetRInt([a,b])$ und
+  \[\int_a^b g(x)dx\le f(b)-f(a)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es gibt wachsende (sogar stetige) Funktionen $f$ mit $f'=0$ f."u. auf $[a,b]$,
+  also auch
+  \[\int_a^b f'(x) dx=0
+    \]
+  aber $f(b)-f(a)>0$.
+  }
+% -----------------------------------------------------------------------------
+\theorem "Uberdeckungssatz von Vitali:
+  $M\subseteq \SetR$ beliebig=>{
+  \index{Vitali>"Uberdeckungssatz von}
+  Sei $\cal M$ eine Menge von kompakten Intervallen positiver L"ange mit 
+  folgender Eigenschaft:
+  \[\epsn(\forall x\in M)(\exists I\in\cal M)(x\in I \land |I|<\epsilon)
+    \]
+  Dann ex. h"ochstens abz"ahlbar viele paarweise disjunkte Intervalle 
+  $I_1,I_2,\ldots\in\cal M$ mit $\lambda(M\setminus \bigcup_m I_m)=0$.
+  
+  Ist zus"atzlich $\lambda(M)<\infty$, so gilt: Zu jedem $\epsilon>0$ ex.
+  endlich viele paarweise disjunkte $I_1,I_2,\ldots,I_p\in\cal M$ mit
+  $\lambda(M\setminus \bigcup_{m=1}^p I_m)<\epsilon$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ absolut stetig, $f'(x)=0$ f."u. auf $[a,b]$=>{
+  Dann ist $f$ konstant.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:[a,b]\to\SetR$ absolut stetig=>{
+  Dann ex. eine Nullmenge $N\subseteq [a,b]$ so, dass $f$ auf $[a,b]\setminus N$
+  db ist und f"ur die Funktion
+  \[g(x):=\begin{cases}
+      f'(x) & x\in[a,b]\setminus N \\
+      0 & x\in N
+      \end{cases}
+    \]
+  gilt
+  \begin{stmts}
+    \item $g\in\SetLInt([a,b])$
+    \item $f(x)=f(a)+\int_a^x g(t)dt$ ($x\in [a,b]$)
+    \end{stmts}
+  } 
+% -----------------------------------------------------------------------------
+\framedmsg{Das war's --- weiter geht's in Ana III :-)}

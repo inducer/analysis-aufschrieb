@@ -1,0 +1,74 @@
+% -----------------------------------------------------------------------------
+% Algebra 1 Aufschrieb
+% -----------------------------------------------------------------------------
+% Simon Gemmrich, Daniel Friedrich, Andreas Kloeckner / WS00
+% -----------------------------------------------------------------------------
+
+\input aufschrieb
+
+\include{macros}
+\usepackage{epsfig}
+
+
+
+
+% custom definitions ----------------------------------------------------------
+
+\def\missing{\framedmsg{HIER FEHLT NOCH WAS!}}
+\long\def\remind#1:#2{
+  \mathpar{Erinnerung}{#1}{#2}
+  }
+\long\def\names#1:#2{
+  \mathpar{Benennung}{#1}{#2}
+  }   
+
+
+
+
+% document body ---------------------------------------------------------------
+
+\begin{document}
+
+\mathtitle{Algebra I}{
+  Ein Aufschrieb der Vorlesung {\sl Algebra I} an der Uni Karlsruhe im 
+  Wintersemester 2000/01, gelesen von Priv.-Doz.~Dr.~H.-P. Rehm.
+  \vskip0.4cm
+  Ge\TeX t von 
+  Simon Gemmrich (gemmrich@gmx.de), 
+  Daniel Friedrich (friedrich@gmx.li) und
+  Andreas Kl{\"o}ckner (ak@ixion.net). Ein besonders dickes Dankesch"on
+  geb"uhrt "ubrigens Meline Seibold, die mehr als einmal mit ihrem
+  Qualit"ats-Aufschrieb herhalten musste. :-)
+  F{\"u}r Kommentare und
+  Berichtigungen sind wir jederzeit dankbar.
+  Neue Versionen gibt es unter \mbox{http://www.ixion.net/ak/aufschrieb}.
+  \vskip0.4cm
+  Copyright (c) 2000 Simon Gemmrich, Daniel Friedrich and Andreas Kl"ockner.
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.1
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections, with the
+  Front-Cover Texts being the first two paragraphs of this title page, 
+  and with no Back-Cover Texts.
+  A copy of the license is included in the section entitled ``GNU
+  Free Documentation License''.
+  \vskip0.4cm    
+  \LaTeX-Lauf am \today.
+  }
+\aufschriebbody{
+  \input algebra1_1_1 % Halbgruppen: Daniel OK
+  \input algebra1_1_2 % Gruppen: Kloecki OK
+  \input algebra1_1_3 % Operierende: Simon OK
+  \input algebra1_1_4 % Sylow: Daniel
+  \input algebra1_1_5 % Erzeugende: Kloecki OK
+  \input algebra1_2_1 % Kategorien: Simon OK
+  \input algebra1_3_1 % Ringe: Daniel
+  \input algebra1_3_2 % Ringhomomorphie: Kloecki OK
+  \input algebra1_3_3 % Monoidringe: Simon OK
+  \input algebra1_3_4 % Teilbarkeit: Daniel
+  \input algebra1_3_5 % CRS: Kloecki OK
+  \input algebra1_4_1 % Koerpertheorie: Simon OK
+  \input algebra1_4_2 % Koerpertheorie II: Simon OK
+  }{
+  }
+\end{document}

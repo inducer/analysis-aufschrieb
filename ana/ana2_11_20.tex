@@ -1,0 +1,1122 @@
+% -*- LaTeX -*-
+% -----------------------------------------------------------------------------
+\section{Der Satz von Taylor}
+% -----------------------------------------------------------------------------
+\lesserdefinition Multi-Index:{
+  Sei $p=(p_1,\ldots,p_n)\in\SetN_0^n$. Dann nennt man $p$ auch einen
+  Multiindex und definiert
+  \begin{align*}
+    |p|&:=p_1+\ldots+p_n \\
+    p!&:=p_1!\cdot\ldots\cdot p_n! \\
+  \intertext{und f"ur $x=(\ntuple\xi)$}
+    x^p&:=\xi_1^{p_1}\cdot\xi_2^{p_2}\cdots\xi_n^{p_n}
+    \end{align*}
+  
+  Sei $D\subseteq\SetR^n$, $f\in\SetCont^{|p|}(D,\SetR)$. Dann definiert man
+  \[D^pf:=D^{p_1}_1 \ldots D^{p_n}_n f:=
+      \frac{\partial^{|p|} f}{\partial x_1^{p_1} \ldots x_n^{p_n}}
+    \]
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^n$ offen, $k\in\SetN$, $f\in\SetCont^k(D,\SetR)$,
+  $x\in D$, $h\in\SetR^n$ mit $s(x,x+h)\subseteq D$,
+  $\Phi:[0,1]\to\SetR$, $\Phi(t)=f(x+th)$=>{
+  Dann ist $\Phi\in\SetCont^k([0,1],\SetR)$ und es gilt
+  \[\Phi^{(\nu)}(t)= \sum_{|p|=\nu} \frac{\nu!}{p!} (D^pf)(x+th)h^p
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Satz von Taylor:
+  $D\subseteq\SetR^n$ offen, $k\in\SetN$, $f\in\SetCont^{k+1}(D,\SetR)$,
+  $x\in D$, $h\in\SetR^n$ mit $s(x,x+h)\subseteq D$=>{
+  \index{Taylor>Satz von}
+  Dann existiert ein $\Theta\in[0,1]$ mit
+  \[f(x+h)=
+      \underbrace{
+        \sum_{|p|\leq k} \frac{(D^pf)(x)}{p!}h^p
+      }_{
+        k\text{-tes Taylorpolynom}
+      }
+      +
+      \underbrace{
+        \sum_{|p|=k+1} \frac{(D^pf)(x+\Theta h)}{p!}h^p
+      }_{
+        \text{Restglied}
+      }
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Hesse-Matrix:{
+  Sei $D\subseteq\SetR^n$ offen, $f\in\SetCont^2(D,\SetR)$ und 
+  $x\in D$. Dann hei"st
+  \[H_f(x):=\begin{pmatrix}
+      \grad f_{\xi_1}(x) \\
+      \vdots \\
+      \grad f_{\xi_n}(x) \\
+      \end{pmatrix}
+    \]
+  die Hesse-Matrix von $f$ an der Stelle $x$.
+  
+  F"ur $k=1$, $f\in\SetCont^2(D,\SetR)$ lautet der Satz von Taylor also:
+  Zu $x\in D$, $h\in\SetR^n$ mit $s(x,x+h)\subseteq D$ existiert
+  ein $\Theta\in[0,1]$ mit
+  \[f(x+h)=f(x)+(\grad f(x))\cdot h + \frac 1 2 h (H_f(x+\Theta h) h)
+    \]
+  
+  Wegen $f\in\SetCont^2(D,\SetR)$ ist nach dem Satz von Schwarz
+  $H_f(x)=H_f^T(x)$.
+  }
+% -----------------------------------------------------------------------------
+\section{Extremwerte}
+% -----------------------------------------------------------------------------
+\definition Extremum:{
+  Sei $M\subseteq\SetR^n$. Dann hat $f:M\to\SetR$ in $x_0\in M$ ein lokales
+  \tstack(Maximum;Minimum) $:\equiv$
+  \[(\exists\delta>0)(\forall x\in U_\delta(x_0))(f(x)\stack(\leq;\geq)f(x_0))
+    \]
+  $x_0$ hei"st lokales Extremum genau dann, wenn $x_0$ lokales Minimum oder
+  Maximum ist.
+  \index{Extremum>lokales}
+  \index{Minimum>lokales}
+  \index{Maximum>lokales}
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^n$ offen, $f:D\to\SetR$, $x_0$ lok. Extremum von
+  $f$, $f$ in $x_0$ partiell db=>{
+  Dann gilt
+  \[\grad f(x_0)=0
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Obiger Satz gibt nur ein \textit{notwendiges}, kein \textit{hinreichendes}
+  Kriterium f"ur ein Extremum an.
+  }
+% -----------------------------------------------------------------------------
+\definition Quadratische Form:{
+  Sei $A=((a_{ij}))\in\SetR^{n\times n}$ symmetrisch.
+  Dann hei"st die Abbildung $Q_A:\SetR^n\to\SetR$ definiert durch
+  \[Q_A(x):=x^T(Ax)
+    \]
+  die zu $A$ geh"orende quadratische Form. \index{Form>quadratische}
+  Sie hei"st
+  
+  \begin{tabular}{l@{$:\equiv$}l}
+    positiv definit (pd) & $(\forall x\in\SetR^n\setminus\{0\})(Q_A(x)>0)$ \\
+    negativ definit (nd) & $(\forall x\in\SetR^n\setminus\{0\})(Q_A(x)<0)$ \\
+    positiv semidefinit (psd) & $(\forall x\in\SetR^n\setminus\{0\})(Q_A(x)\geq 0)$ \\
+    negativ semidefinit (nsd) & $(\forall x\in\SetR^n\setminus\{0\})(Q_A(x)\leq 0)$ \\
+    indefinit (id) & $(\exists u,v\in\SetR^n\setminus\{0\})(Q_A(u)\cdot Q_A(v)<0)$ \\
+    \end{tabular}
+  \index{Definitheit>positive}
+  \index{Definitheit>negative}
+  \index{Definitheit>positive Semi-}
+  \index{Definitheit>negative Semi-}
+  \index{Semidefinitheit>positive}
+  \index{Semidefinitheit>negative}
+  \index{Indefinitheit}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \begin{stmts}
+    \item Sei $x=(\ntuple \xi)\in\SetR^n$. Dann gilt:
+      \[Q_A(x)=\sum_{i,j=1}^n \xi_j a_{ij} \xi_i
+        \]
+    \item Ist $n=2$, so gilt:
+      \begin{align*}
+        A \text{ pd} & \equiv a_{11}>0 \land \det A>0 \equiv \text{ Alle Eigenwerte von $A$ $>0$ } \\
+        A \text{ nd} & \equiv a_{11}<0 \land \det A>0 \equiv \text{ Alle Eigenwerte von $A$ $<0$ } \\
+        A \text{ id} & \equiv \det A<0 \equiv \text{ Es ex. EW $>0$ und $<0$ }
+        \end{align*}
+    \item $A$ ist pd $\equiv$ $-A$ ist nd.
+    \item $x\in\SetR^n,\alpha\in\SetR$ $\implies$ $Q_A(\alpha x)=\alpha^2Q_A(x)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $A\in\SetR^{n\times n}$ symmetrisch=>{
+  \begin{stmts}
+    \item $A$ ist \tstack(positiv;negativ) definit $\equiv$
+      \[(\exists c>0)(\forall x\in\SetR^n)(Q_A(x)\stack(\geq;\leq -) c\cdot \norm x^2)
+        \]
+    \item Sei $A$ pd (nd,id). Dann existiert ein $\epsilon>0$, so dass
+      \[(\forall B\in\SetR^{n\times n})(\fnorm{A-B}\leq\epsilon \implies 
+        B \text{ pd (nd,id)})
+        \]
+      
+      Zus"atzlich: Ist $A$ id, so existieren $u,v\in\SetR^n$ mit 
+      $Q_B(u)>0$, $Q_B(v)<0$ f"ur jede symmetrische Matrix $B$ mit
+      $\fnorm{A-B}\leq\epsilon$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^n$ offen, $f\in\SetCont^2(D,\SetR)$, $x_0\in D$ und
+  $\grad f(x_0)=0$=>{
+  \begin{stmts}
+    \item $H_f(x_0)$ ist pd $\implies$ $f$ hat in $x_0$ ein lokales Minimum
+    \item $H_f(x_0)$ ist nd $\implies$ $f$ hat in $x_0$ ein lokales Maximum
+    \item $H_f(x_0)$ ist id $\implies$ $f$ hat in $x_0$ kein lokales Extremum
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \begin{itemize}
+    \item In $\SetR$ tritt Fall (3) nicht ein.
+    \item Ist $H_f(x_0)$ positiv/negativ semidefinit, so folgt \textit{nichts}
+      "uber die Existenz von Extremstellen.
+    \end{itemize}
+  }
+% -----------------------------------------------------------------------------
+\section{Extremstellen unter Nebenbedingungen}
+% -----------------------------------------------------------------------------
+\convention{
+  Es sei stets $D\subseteq\SetR^n$ offen, $f:D\to\SetR$ eine Funktion,
+  $m,n\in\SetN$ mit $m<n$, $\phi:D\to\SetR^m$ eine Funktion und
+  $T:=\{ x\in D\mid \phi(x)=0 \}$
+  }
+% -----------------------------------------------------------------------------
+\definition Extremum unter Nebenbedingungen:{
+  \index{Nebenbedingungen>Extremum unter}
+  $f$ hat in $x_0\in D$ ein lokales \tstack(Maximum;Minimum) unter der
+  Nebenbedingung (Nb) $\phi(x_0)=0$ genau dann, wenn gilt
+  \[x_0\in T \land (\exists \delta>0)(U_\delta(x_0)\subseteq D) \land
+    (\forall x \in U_\delta(x_0)\cap T)(f(x)\stack(\leq;\geq)f(x_0))
+    \]
+  }
+% -----------------------------------------------------------------------------
+\convention{  
+  Man definiert sich zus"atzlich eine Hilfsfunktion 
+  $H:D\times\SetR^m\to\SetR$
+  \begin{align*}
+    H(x,\lambda):= & f(x)+\lambda \phi(x) \\
+    = & f(x) + \sum_{k=1}^m \lambda_k \phi_k(x)
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $D\times\SetR^m\subseteq\SetR^{n+m}$ ist offen.
+  Falls existent, gilt:
+  \[H'(x,\lambda)=\grad H(x,\lambda)=
+    \big(f'(x)+\lambda\phi'(x)\quad \phi(x)\big)\in\SetR^{1\times n+m}
+    \]
+  D.h. f"ur $x_0\in D$ mit $x_0=(\ntuple \xi)$ und 
+  $\lambda_0\in\SetR^m$ mit $\lambda_0=(\lambda^{(0)}_1,\ldots,\lambda^{(0)}_m)$ gilt:
+  \[H'(x_0,\lambda_0)=0 \equiv f'(x_0)+\lambda\phi'(x_0)=0 \land x_0\in T
+    \]
+  genau dann, wenn 
+  \begin{align*}
+    H_{\xi_1}(x_0,\lambda_0)&=
+      f_{\xi_1}(x_0)+
+      \lambda^{(0)}_1\frac{\partial}{\partial \xi_1} \phi_1(x_0)+\ldots+
+      \lambda^{(0)}_m\frac{\partial}{\partial \xi_1} \phi_m(x_0)
+      =0 \\
+    & \vdots \\
+    H_{\xi_n}(x_0,\lambda_0)&=
+      f_{\xi_n}(x_0)+
+      \lambda^{(0)}_1\frac{\partial}{\partial \xi_m} \phi_1(x_0)+\ldots+
+      \lambda^{(0)}_m\frac{\partial}{\partial \xi_m} \phi_m(x_0)
+      =0 \\
+    H_{\lambda_1}(x_0,\lambda_0)&=
+      \phi_1(x_0)=0 \\
+    & \vdots \\
+    H_{\lambda_m}(x_0,\lambda_0)&=
+      \phi_m(x_0)=0
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem Multiplikatorenregel von Lagrange:
+  $f\in\SetCont^1(D,\SetR)$, $\phi\in\SetCont^1(D,\SetR^m)$, 
+  $x_0\in D$ lokales Extremum von $f$ mit Nb $\phi(x_0)=0$ und
+  $\rank \phi'(x_0)=m$=>{
+  \index{Lagrange>Multiplikatorenregel von}
+  Dann existiert ein $\lambda_0\in\SetR^m$ mit $H'(x_0,\lambda_0)=0$ 
+  (s. auch obiges Gleichungssystem)
+  }
+% -----------------------------------------------------------------------------
+\annotation Fragen, die man sich zum Verfahren stellen kann:{
+  Warum bringen einen die lokalen Extrema von $f$ meist nicht weiter?
+
+  Dazu stelle man sich den Graphen der Funktion $f(x,y)=x^2+y^2$ als
+  Berglandschaft vor (das ist ein Tal bei $(0,0)$, mit nach jeder
+  Seite parabolischem Anstieg). $f$ hat genau ein (lokales und globales)
+  Extremum im Nullpunkt. Man suche aber Extrema z.B. unter der Bedinung
+  $|x|=1 \lor |y|=1$, d.h. z.B. $\phi(x,y)=(|x|-1)\cdot(|y|-1)$. Dann hat
+  die Funktion zwar Extrema unter Nebenbedingung, diese fallen aber
+  nicht mit dem Extremum von $f$ zusammen!
+
+  Wie funktioniert das Verfahren?
+
+  $H$ bestimmen, Ableitung nullsetzen f"uhrt auf eine Menge von
+  Kandidatenstellen. Man sichert dann die Existenz des gesuchten
+  Extremums (Z.B. mit Hilfe des weiter unten stehenden
+  Tricks) und sucht unter den (hoffentlich wenigen) verbleibenden
+  Kandidatenstellen das globale Minimum unter Nebenbedingung.
+
+  Was passiert mit $H$, wenn die Nebenbedingung nicht erf"ullt ist?
+
+  Dazu nehme man an, man habe ein (lokales) Extremum von $f$ in $x_1$
+  aufgesp"urt, das aber die Nebenbedingung nicht erf"ullt.  Dann
+  existiert mindestens ein $j$, so dass man mittels $\lambda_j$ die
+  Hilfsfunktion $H$ in einer beliebig kleinen Umegubng in beliebige
+  Richtung ver"andern kann. Dies bedeutet: $H$ hat keine lokalen
+  Minima dort, wo die Nebenbedingung nicht erf"ullt ist.  (Dies sieht
+  man auch leicht an der Ableitung $H'$: Notwendige Bedingung f"ur ein
+  lokales Extremum ist $\phi(x)=0$.)
+
+  Was passiert mit $H$, wenn die Nebenbedingung erf"ullt ist?
+
+  In diesem Moment stimmt $H$ vollst"andig mit $f$ "uberein, daran
+  "andert $\lambda$ nichts. Wenn es einem also gelingt, $H$ lokal zu minimieren,
+  dann erh"alt man eine Stelle, die (s.o.!) die Nebenbedingung erf"ullt
+  und auch $f$ (lokal) minimiert. Bleibt die entscheidende Frage:
+
+  Erwischt man so auch garantiert alle solchen Stellen, d.h. gilt f"ur jedes
+  lokale Extremum von $f$  unter Nebenbedingung auch $H'=0$?
+
+  Ja, in gewissen Grenzen. Das ist genau die Aussage des obigen
+  Satzes.  "Aquivalent formuliert: Wird die Ableitung von $H$ auch
+  einmal Null, wenn $f$ ein Extremum unter Nebenbedingung hat? 
+  D.h. findet man dann ein passendes $\lambda$, so dass auch $H'=0$ wird?
+  $\rank \phi'=m$ stellt sicher, dass man an dieser Stelle $\lambda_0$
+  geeignet w"ahlen kann, damit $-\grad f=(\phi'\lambda_0)^T\iff H'=0$ gilt (Theorie
+  der LGSe!)
+  }
+% -----------------------------------------------------------------------------
+\trick Beweis der Existenz eines Extremums:{
+  Sei $T:=\{x\in D\mid \phi(x)=0\}$. Dann definiert man sich eine 
+  kompakte Menge $K:=T\cap\{x\mid x_1\leq r,\ldots,x_n\leq r\}$ und zeigt,
+  dass auf $T\setminus K$ alle Funktionswerte gr"o"ser/kleiner als die am
+  betrachteten kritischen Punkt sind. ($r$ durch Ausprobieren w"ahlen)
+  Dann existiert ein Minimum/Maximum von $f$ auf $K$, und es gilt
+  \[\min f(T)=\min f(K)
+    \]
+  so dass die Existenz eines Extremums gesichert ist. (es sollte halt nur kein 
+  Randextremum von $K$ sein)
+  }
+% -----------------------------------------------------------------------------
+\section{Wege}
+% -----------------------------------------------------------------------------
+\definition Weg:{
+  Eine stetige Abbildung $\gamma:[a,b]\to\SetR^n$ ($[a,b]\subseteq\SetR$)
+  hei"st ein Weg.
+  
+  $\gamma(a)$ hei"st Anfangspunkt von $\gamma$.
+  
+  $\gamma(b)$ hei"st Endpunkt von $\gamma$.
+  
+  $[a,b]$ hei"st Parameterintervall von $\gamma$.
+  
+  $\gamma$ ist ``orientiert'', d.h. $\gamma(t_1)$ wird ``vor'' $\gamma(t_2)$
+  durchlaufen $\equiv$ $t_1<t_2$.
+  
+  $\gamma^-(t):=\gamma(a+b-t)$ mit $t\in[a,b]$ hei"st zu $\gamma$ inverser Weg.
+  \index{Weg>inverser}
+  }
+% -----------------------------------------------------------------------------
+\lesserdefinition Bogen:{
+  Sei $\gamma:[a,b]\to\SetR^n$ ein Weg. Dann hei"st 
+  \[\Gamma:=\Gamma_\gamma:=\gamma([a,b])
+    \]
+  der zum Weg $\gamma$ geh"orende Bogen.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\Gamma$ ist kompakt, da $[a,b]$ kompakt und $\gamma$ stetig.
+  }
+% -----------------------------------------------------------------------------
+\definition L"ange:{
+  \index{Weg>rektifizierbarer}
+  Sei $\gamma:[a,b]\to\SetR^n$ ein Weg und $z=\{t_0,\ldots,t_m\}$ eine 
+  Zerlegung von $[a,b]$.
+  \[L(\gamma,z):=\sum_{k=1}^m \norm{\gamma(t_k)-\gamma(t_{k-1})}
+    \]
+
+  $\gamma$ hei"st \indexthis{rektifizierbar}/rb $:\equiv$
+  \[(\exists M\geq 0)(\forall z \text{ Zerlegung von $[a,b]$})(L(\gamma,z)\leq M)
+    \]
+  
+  In diesem Fall hei"st 
+  \[L(\gamma):=\sup\{L(\gamma,z)\mid z\text{ Zerlegung von $[a,b]$}\}
+    \]
+  die L"ange des Weges $\gamma$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma:[a,b]\to\SetR^n$ Weg, $\gamma=(\ntuple \gamma)$=>{
+  Dann gilt $\gamma$ rektifizierbar $\equiv$
+  \[(\forall j\in\{1,\ldots,n\})(\gamma_j\in\SetBV([a,b],\SetR))
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist der Weg $\gamma:[a,b]\to\SetR^n$ rb, so ist $\gamma|_{[c,d]}$ ebenfalls rb.
+  ($[c,d]\subseteq [a,b]$)
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist der Weg $\gamma:[a,b]\to\SetR^n$ rb, so ist $\gamma^-$ auch rb und es
+  gilt
+  \[L(\gamma)=L(\gamma^-)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Wegl"angenfunktion:{
+  Sei $\gamma:[a,b]\to\SetR^n$ ein rektifizierbarer Weg. Dann hei"st
+  \[s(t):=\begin{cases}
+      L(\gamma|_{[a,t]}) & t\in (a,b] \\
+      0 & t=a
+      \end{cases}
+    \]
+  Wegl"angenfunktion von $\gamma$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es gilt $s(b)=L(\gamma)$.
+  
+  Analog wie bei Funktionen von beschr"ankter Variation zeigt man, dass $s$
+  auf $[a,b]$ monoton w"achst und es gilt
+  \[s(t_2)-s(t_1)=L(\gamma|_{[t_1,t_2]})
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Integral "uber einen Weg:{
+  Sei $\gamma:[a,b]\to\SetR^n$ ein Weg, $\gamma=(\ntuple \gamma)$. 
+  Dann definiert man
+  \[\int_a^b \gamma(t) dt:=
+      \begin{pmatrix}
+        \int_a^b \gamma_1(t) dt & \ldots & \int_a^b \gamma_n(t) dt
+        \end{pmatrix}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma:[a,b]\to\SetR^n$ Weg=>{
+  Dann gilt
+  \[\norm{\int_a^b \gamma(t) dt} \leq \int_a^b \norm{\gamma(t)} dt
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma\in\SetCont^1([a,b],\SetR^n)$, $\gamma=(\ntuple \gamma)$=>{
+  \begin{stmts}
+    \item $\gamma$ ist rb.
+    \item $s\in\SetCont^1([a,b],\SetR)$ und $s'(t)=\norm{\gamma'(t)}$.
+    \item $L(\gamma)=\int_a^b \norm{\gamma'(t)} dt $, also
+      $s(t)=\int_a^t \norm{\gamma'(\tau)} d\tau$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition St"uckweise stetige Differenzierbarkeit:{
+  \index{Differenzierbarkeit>stetige>st"uckweise}
+  Ein Weg $\gamma:[a,b]\to\SetR^n$ hei"st st"uckweise stetig db $:\equiv$
+  \begin{multline*}
+    (\exists z=\{t_0,\ldots,t_m\} \text{ Zerl. von $[a,b]$})
+    (\forall k\in\{1,\ldots,m\}) \\
+    (\gamma|_{[t_{k-1},t_k]}\in\SetCont^1([t_{k-1},t_k],\SetR))
+  \end{multline*}
+  Man definiert au"serdem dann  zu gegebener Zerlegung $z=\{t_0,\ldots,t_m\}$
+  \[\gamma_k:=\gamma|_{[t_{k-1},t_k]}
+    \] 
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  St"uckweise stetig differenzierbare Wege sind rb und es gilt
+  \[L(\gamma)=\sum_{k=1}^m L(\gamma_k)=
+    \sum_{k=1}^m \int_{t_{k-1}}^{t_k} \norm{\gamma'(t)} dt
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Parametertransformation:{
+  Seien $\gamma_1:[a,b]\to\SetR^n$, $\gamma_2:[\alpha,\beta]\to\SetR^n$ Wege.
+  Dann ist 
+  \[\gamma_1 \sim \gamma_2 :\equiv
+    (\exists h:[a,b]\to[\alpha,\beta] \text{ stetig, bijektiv, wachsend})
+    (\gamma_1=\gamma_2\circ h)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \begin{stmts}
+    \item Die Eigenschaften von $h$ implizieren, dass $h$ streng monoton ist
+      und $h(a)=\alpha$, $h(b)=\beta$.
+    \item Ist $\gamma_1\sim\gamma_2$, so ist $\Gamma_{\gamma_1}=\Gamma_{\gamma_2}$.
+    \item ``$\sim$'' ist "Aquivalenzrelation.
+    \item $\gamma_1$, $\gamma_2$ haben gleiche Orientierung, da $h$ wachsend.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Glattheit:{
+  Ein Weg $\gamma:[a,b]\to\SetR^n$ hei"st glatt $:\equiv$ 
+  $\gamma\in\SetCont^1([a,b],\SetR^n)$ und $\gamma'(t)\neq 0$. ($t\in[a,b]$)
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma_1:[a,b]\to\SetR^n$, $\gamma_2:[\alpha,\beta]\to\SetR^n$ Wege,
+  $\gamma_1\sim\gamma_2$ und $h$ Parametertransformation so, dass
+  $\gamma_1=\gamma_2\circ h$=>{
+  Dann gilt:
+  \begin{stmts}
+    \item $\gamma_1$ rb $\equiv$ $\gamma_2$ rb. 
+      In diesem Fall $L(\gamma_1)=L(\gamma_2)$.
+    \item $\gamma_1,\gamma_2$ glatt $\implies$ $h\in\SetCont^1(\SetR,\SetR)$ 
+      und $h'(t)>0$ ($t\in[a,b]$)
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma:[a:b]\to\SetR$ rb Weg, $s:[a,b]\to\SetR$ Wegl"angenfunktion=>{
+  $s$ ist wachsend und stetig.
+  }
+% -----------------------------------------------------------------------------
+\remark Wegl"ange als Parameter:{
+  Sei $\gamma:[a,b]\to\SetR^n$ rektifizierbarer Weg und $s:[a,b]\to\SetR$
+  die zugeh"orige Wegl"angenfunktion. Dann gilt: 
+  \begin{stmts}
+    \item $s\nearrow$, $s\in\SetCont([a,b]\to\SetR)$
+    \item $s(a)=0$, $s(b)=L(\gamma)$, $s([a,b])=[0,L(\gamma)]$
+    \end{stmts}
+  Sei nun $s$ streng wachsend auf $[a,b]$. (z.B. wenn $\gamma$ auf $[a,b]$ 
+  injektiv oder glatt ist) Dann ist $s$ bijektiv und man definiert
+  $\sigma:=s^{-1}$, $\sigma:[0,L(\gamma)]\to[a,b]$. Dann gilt:
+  \begin{stmts}
+    \item $\sigma\nearrow$, $\sigma\in\SetCont([0,L(\gamma)],[a,b])$
+    \item $\sigma(0)=a$, $\sigma(L(\gamma))=b$, $\sigma([0,L(\gamma)])=[a,b]$
+    \end{stmts}
+  Setze nun $\tilde\gamma:=\gamma\circ\sigma$ und es gilt 
+  $\gamma\sim\tilde\gamma$. $\tilde\gamma$ hei"st Parameterdarstellung von
+  $\Gamma:=\Gamma_\gamma$. Sei $\phi:[0,L(\gamma)]\to\SetR$ die
+  Wegl"angenfunktion von $\tilde\gamma$. Sei $\tau\in[0,L(\gamma)]$.
+  Dann existiert genau ein $t\in[a,b]$ mit $s(t)=\tau$ und es gilt
+  $\sigma([0,\tau])=[a,t]$. Also auch
+  \[\phi(\tau)=L(\tilde\gamma|_{[0,\tau]})=L(\gamma|_{[a,t]})=s(t)=\tau
+    \]
+  f"ur alle $t\in[0,L(\gamma)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma:[a:b]\to\SetR$ glatter Weg, 
+  $\tilde\gamma$ Parameterdarstellung von $\Gamma_\gamma$=>{
+  $\tilde\gamma$ ist glatt und $\norm{\tilde\gamma'(t)}=1$. ($t\in[0,L(\gamma)$)
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es gilt: $\gamma'(t)=h'(t)\cdot\tilde\gamma'(h(t))>0$.
+  
+  Im Falle $n=2$ hei"st $u:=(-\gamma_2(t),\gamma_1(t))$ positiver Normalenvektor
+  und es gilt $u\perp \gamma'(t)$.
+  }
+% -----------------------------------------------------------------------------
+\section{Wegintegrale}
+% -----------------------------------------------------------------------------
+\definition Wegintegral:{
+  Sei $\gamma:[a,b]\to\SetR^n$ ein rber Weg und 
+  $f\in\SetCont(\Gamma_\gamma,\SetR^n)$. Sei weiterhin
+  $\gamma=(\ntuple \gamma)$, $f=(\ntuple f)$. Dann hei"st
+  \[\int_\gamma f(x)dx:=\int_\gamma f(x)\cdot dx:=
+    \int_\gamma \sum_{j=1}^n f_j(x)dx_j:=
+    \sum_{j=1}^n \int_a^b f_j(\gamma(t)) d\gamma_j(t)
+    \]
+  Wegintegral von $f$ l"angs $\gamma$. Au"serdem definiert man
+  \[\int_\gamma f_j(x)dx_j:=\int_a^b f_j(\gamma(t)) d\gamma_j(t)
+    \]
+  f"ur alle $j=1\ldots n$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma:[a,b]\to\SetR^n$ rb Weg, $f,g\in\SetCont(\Gamma_\gamma,\SetR^n)$=>{
+  \begin{stmts}
+    \item \[ \int_\gamma \alpha f(x)+\beta g(x) dx = 
+      \alpha \int_\gamma f(x) dx+\beta \int_\gamma f(x) dx \]
+    \item F"ur jedes $c\in[a,b]$: \[ \int_\gamma f(x) dx=
+      \int_{\gamma|_{[a,c]}} f(x) dx+\int_{\gamma|_{[c,b]}} f(x) dx \]
+    \item \[ \int_{\gamma^-} f(x) dx=-\int_\gamma f(x) dx \]
+    \item \[ \left|\int_\gamma f(x) dx\right| \leq
+      L(\gamma) \max_{x\in\Gamma_\gamma} \{\norm{f(x)} \}\]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma\in\SetCont^1([a,b],\SetR^n)$, $f\in\SetCont(\Gamma_\gamma,\SetR^n)$=>{
+  Dann gilt
+  \[\int_\gamma f(x)dx=
+    \int_a^b \underbrace{f(\gamma(t))\cdot\gamma'(t)}_{\text{Skalarprodukt!}} dt
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $\gamma:[a,b]\to\SetR^n$ ein st"uckweise stetig db Weg und
+  $z=\{t_0,\ldots,t_m\}$ eine Zerlegung von $[a,b]$ mit 
+  $\gamma_k:=\gamma|_{[t_{k-1},t_k]}\in\SetCont^1([t_{k-1},t_k],\SetR^n)$, 
+  $k=1,\ldots,m$, so gilt
+  \[\int_\gamma f(x)dx=\sum_{k=1}^m \int_{\gamma_k} f(x)dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $\gamma:[a,b]\to\SetR^n$, $\tilde\gamma:[\alpha,\beta]\to\SetR^n$
+  rb Wege mit $\gamma\sim\tilde\gamma$, 
+  $\Gamma:=\Gamma_\gamma=\Gamma_{\tilde\gamma}$,
+  $f\in\SetCont(\Gamma,\SetR^n)$=>{
+  Dann gilt
+  \[\int_\gamma f(x)dx=\int_{\tilde\gamma} f(x)dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Wegintegral bzgl. Wegl"ange:{
+  Sei $\gamma:[a,b]\to\SetR^n$ ein rb Weg. Da $s:[a,b]\to\SetR$ mon.
+  wachsend ist, gilt $s\in\SetBV([a,b],\SetR)$. 
+  Sei weiter $f\in\SetCont(\Gamma_\gamma,\SetR)$. 
+  Dann ist $f\in\SetRInt_s([a,b],\SetR)$
+  und es hei"st
+  \[\int_\gamma f(x) ds:=\int_a^b f(\gamma(t))ds(t)
+    \]
+  Wegintegral von $f$ l"angs $\gamma$ bez"uglich der Wegl"ange.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  \begin{stmts}
+    \item Ist $\gamma\in\SetCont^1([a,b],\SetR^n)$, so ist 
+      $s\in\SetCont^1([a,b],\SetR)$ mit $s'(t)=\norm{\gamma'(t)}$ ($t\in[a,b]$)
+      (nach Satz 40). Somit ist
+      \[\int_\gamma f(x)ds=\int_a^b f(\gamma(t))\norm{\gamma'(t)} dt
+        \]
+    \item Ist $\gamma$ glatt, $\sigma:=s^{-1}$, so gilt:
+      \[\int_\gamma f(x) ds = \int_0^{L(\gamma)} f(\gamma(\sigma(\tau)))d\tau
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\section{Stammfunktionen}
+% -----------------------------------------------------------------------------
+\definition Gebiet:{
+  Eine Menge $\emptyset\neq G\subseteq\SetR^n$ hei"st Gebiet $:\equiv$
+  $G$ ist offen und f"ur alle Punkte $x_0,y_0\in G$ existiert ein Weg
+  $\gamma:[a,b]\to G$ mit $\gamma(a)=x_0$, $\gamma(b)=y_0$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Jede offene nicht-leere konvexe Menge ist ein Gebiet.
+  }
+% -----------------------------------------------------------------------------
+\definition Stammfunktion:{
+  Sei $G\subseteq\SetR^n$ ein Gebiet und $f:G\to\SetR^n$ eine Funktion.
+  $F:G\to\SetR$ hei"st Stammfunktion/SF von $f$ auf $G$ $:\equiv$
+  $F$ db auf $G$ und $F'(x)=\grad F(x)=f(x)$ ($x\in G$)
+  
+  Schreibweise:
+  \[F(x)=\int f(x) dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Im Fall $n=1$ gilt: $G$ Gebiet $\equiv$ $G$ offenes Intervall.
+  
+  In diesem Fall hat jede auf $G$ stetige Funktion eine Stammfunktion.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $f\in\SetCont(G,\SetR^n)$ und $F:G\to\SetR$ eine Stammfunktion von $f$
+  auf $G$, so ist $F\in\SetCont^1(G,\SetR)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G\subseteq\SetR^n$ Gebiet, $x_0,y_0\in G$, $\gamma:[a,b]\to G$ ein Weg
+  mit $\gamma(a)=x_0$, $\gamma(b)=y_0$=>{
+  Dann ex. eine Zerlegung $z=\{t_0,\ldots,t_m\}$ von $[a,b]$ so, dass
+  \[s(\gamma(t_{k-1}),\gamma(t_k))\subseteq G
+    \]
+  f"ur alle $k=1,\ldots,n$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Insbesondere erh"alt man damit einen st"uckweise stetig db Weg in $G$,
+  der $x_0$ mit $y_0$ verbindet.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G\subseteq\SetR^n$ Gebiet, $g:G\to\SetR$ auf $G$ db mit $g'(x)=0$=>{
+  Dann existiert ein $c\in\SetR$, so dass $g(G)=c$. (also $g$ konstant auf $G$)
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Dies bedeutet, dass Stammfunktionen, falls vorhanden, bis auf eine additive
+  Konstante eindeutig bestimmt sind.
+  }
+% -----------------------------------------------------------------------------
+\theorem Integrabilit"atsbedingung:
+  $G\subseteq\SetR^n$ Gebiet, $f\in\SetCont^1(G,\SetR^n)$=>{
+  Besitzt $f$ eine Stammfunktion $F$ auf $G$, so gilt ($f=(f_1,\ldots,f_n)$)
+  \[\frac{\partial f_j}{\partial \xi_k}=\frac{\partial f_k}{\partial \xi_j}
+    \]
+  f"ur alle $k,j\in\{1,\ldots,n\}$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Umkehrung dieses Satzes gilt im Allgemeinen nicht, f"ur 
+  $\SetCont^1$-Funktionen gibt er jedoch ein notwendiges Kriterium f"ur
+  Integrabilit"at an.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G\subseteq\SetR^n$ Gebiet, $f\in\SetCont(G,\SetR^n)$, 
+  $F:G\to\SetR$ SF von $f$, $\gamma:[a,b]\to G$ st"uckweise stetig db Weg=>{
+  \label{the:geb.sfausw}
+  Dann gilt
+  \[\int_\gamma f(x) dx = F(\gamma(b))-F(\gamma(a))
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Wegunabh"angigkeit:{
+  Sei $G\subseteq\SetR^n$ Gebiet, $f\in\SetCont^1(G,\SetR^n)$.
+  Dann hei"st $\int f(x)dx$ in $G$ wegunabh"angig $:\equiv$
+  Es existiert ein $\alpha\real$, so dass f"ur beliebige zwei Punkte 
+  $x,y\in G$ und jeden st"uckweise stetig db Weg $\gamma:[a,b]\to G$ mit 
+  $\Gamma_\gamma\subseteq G$, $\gamma(a)=x$, $\gamma(b)=y$ 
+  \[\int_\gamma f(x)dx=\alpha
+    \]
+  In diesem Fall schreibt man
+  \[\int_x^y f(x) dx\text{ statt }\int_\gamma f(x)dx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Die Aussage von \ref{the:geb.sfausw} bedeutet, dass die Stammfunktion einer
+  durch die Voraussetzungen des Satzes bestimmten Funktion wegunabh"angig ist.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G\subseteq\SetR^n$ Gebiet, $f\in\SetCont(G,\SetR^n)$, 
+  $\int f(x)dx$ wegunabh. in $G$=>
+  {
+  Dann besitzt $f$ eine Stammfunktion auf $G$. Eine solche ist z.B.
+  \[F(z):=\int_{x_0}^z f(x) dx\quad (x_0,z\in G, x_0 \text{ fest})
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $G\subseteq\SetR^n$ konvexes Gebiet, $f\in\SetCont^1(G,\SetR^n)$=>{
+  Dann sind die folgenden Aussagen "aquivalent:
+  \begin{stmts}
+    \item $f$ besitzt auf $G$ eine SF
+    \item $f$ erf"ullt die Integrabilit"atsbedingung
+    \item $\int f(x)dx$ ist wegunabh"angig in $G$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\section{Quader}
+% -----------------------------------------------------------------------------
+\definition Koordinatenvergleich:{
+  F"ur $a=(\alpha_1,\ldots,\alpha_n)\in\SetR^n$, 
+  $b=(\beta_1,\ldots,\beta_n)\in\SetR^n$
+  definiert man
+  \begin{align*}
+    a \leq b &:\equiv \alpha_j\leq \beta_j \quad (j=1,\ldots,n) \\
+    a \ll b &:\equiv \alpha_j<\beta_j \quad (j=1,\ldots,n)
+    \end{align*}
+  F"ur $\alpha\real$ seien
+  \[[\alpha,\alpha]=(\alpha,\alpha)=[\alpha,\alpha)=(\alpha,\alpha]=\emptyset
+    \]
+  Dann hei"sen
+  \begin{align*}
+    Q[a,b]&:=\{x\in\SetR^n\mid a\leq x\leq b\}
+       = [\alpha_1,\beta_1]\times\cdots\times[\alpha_n,\beta_n] \\
+    Q(a,b)&:=\{x\in\SetR^n\mid a\ll x\ll b\}
+       = (\alpha_1,\beta_1)\times\cdots\times(\alpha_n,\beta_n)
+    \end{align*}
+  Quader.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:=>{
+  Es gilt $Q[a,b]$ ist abgeschlossen, $Q(a,b)$ ist offen. Quader haben 
+  folgende Eigenschaften
+  \begin{stmts}
+    \item $Q[a,b]=\emptyset \equiv (\exists j\in\{1,\ldots,n\})(\alpha_j=\beta_j)$ 
+    \item $Q(a,b)=\inner{Q[a,b]}$ und $\rim{Q[a,b]}=Q[a,b]\setminus Q(a,b)$ ($a\leq b$)
+    \item $\closure{Q(a,b)}=Q[a,b]$ ($a\ll b$)
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Inhalt:{
+  Sei $Q[a,b]$ ein Quader und $a=(\alpha_1,\ldots,\alpha_n)\in\SetR^n$, 
+  $b=(\beta_1,\ldots,\beta_n)\in\SetR^n$. Dann hei"st
+  \[|Q[a,b]|:=\prod_{j=1}^n (\beta_j-\alpha_j)
+    \]
+  Inhalt von $Q$.
+  }
+% -----------------------------------------------------------------------------
+\definition Zerlegung:{
+ $z$ hei"st Zerlegung von $Q[a,b]$ $:\equiv$
+ \[z=z_1\times\cdots\times z_n
+   \]
+ mit $z_j=\{t_1^{(j)},\ldots,t_n^{(j)}\}$ Zerlegung von $[\alpha_j,\beta_j]$.
+}
+% -----------------------------------------------------------------------------
+\remark:{
+  Eine Zerlegung $z$ erzeugt Teilquader $Q_1,\ldots,Q_m$ der Form
+  \[Q_k=[t_{l_1}^{(1)},t_{l_1+1}^{(1)}]\times \ldots \times
+        [t_{l_n}^{(n)},t_{l_n+1}^{(n)}]
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $Q[a,b]$ Quader, $z$ Zerlegung von $Q[a,b]$, $Q_1,\ldots, Q_m$ die von
+  $z$ erzeugten Teilquader=>{
+  Dann gilt
+  \[|Q[a,b]| = \sum_{k=1}^n |Q_k|\text{ und } Q[a,b]=\bigcup_{k=1}^m Q_k
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Quadersumme:{
+  $S$ hei"st Quadersumme genau dann, wenn es abgeschlossene Quader 
+  $Q_1,\ldots,Q_m$ mit
+  \begin{stmts}
+    \item $S=\bigcup_{k=1}^m Q_k$
+    \item $\inner{Q_i}\cap \inner{Q_k}=\emptyset$ ($i,k=1,\ldots,n,i\neq k$)
+    \end{stmts}
+  gibt.
+  
+  Ist $S$ Quadersumme, so hei"st
+  \[|S|:=\sum_{k=1}^m |Q_k|
+    \]
+  Inhalt von $S$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $Q_1,\ldots,Q_m$ abgeschlossene Quader=>{
+  Dann gilt:
+  \begin{stmts}
+    \item Dann ist 
+      \[S:=\bigcup_{k=1}^m Q_k
+        \]
+      eine Quadersumme, und es gilt weiter
+      \[|S|\leq\sum_{k=1}^m |Q_k|
+        \]
+    \item Sind $T,S\subseteq\SetR^n$ Quadersummen mit $S\subseteq T$, so gilt
+      $|S|\leq|T|$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\convention{
+  Sei
+  \[\cal M:=\{(\alpha,\beta),(\alpha,\beta],[\alpha,\beta),[\alpha,\beta]
+      \mid \alpha,\beta\real,\alpha\leq\beta\}
+    \]
+  Mit $\SetQuad n$ bezeichnet man die Menge aller beschr. Quader in $\SetR^n$:
+  \[\SetQuad n:=\{I_1\times\ldots\times I_n\mid I_j\in \cal M\}\quad (j=1,\ldots,n)
+    \]
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $Q,\tilde Q\in \SetQuad n$=>{
+  Dann gilt
+  \begin{stmts}
+    \item $Q\cap\tilde Q\in \SetQuad n$
+    \item Es existieren $Q_1,\ldots,Q_n\in \SetQuad m$ mit 
+      $Q\setminus\tilde Q=\bigcup_{k=1}^m Q_k$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $Q_1,Q_2,\ldots\in \SetQuad n$ h"ochstens abz"ahlbar viele Quader mit 
+  $\cal M=\bigcup_k Q_k$=>{
+  Dann gibt es h"ochstens abz"ahlbar viele $\tilde Q_1,\tilde Q_2,\ldots\in \SetQuad n$
+  mit $\cal M=\bigcup_k \tilde Q_k$, wobei die $\tilde Q_k$ paarweise disjunkt
+  sind.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $D\subseteq\SetR^n$ offen=>{
+  Dann existiert eine Menge von h"ochstens abz"ahlbar vielen paarweise disjunkten 
+  $Q_1,Q_2,\ldots\in \SetQuad n$ mit $D=\bigcup_k Q_k$ und $\closure{Q_k}\subseteq D$
+  f"ur alle $k$.
+  }
+% -----------------------------------------------------------------------------
+\section{Das "au"sere Lebesgue-Ma"s}
+% -----------------------------------------------------------------------------
+\definition "Au"seres Lebesgue-Ma"s:{
+  Sei $A\subseteq\SetR^n$. Sei 
+  \[J_A:=\{
+      \{Q_1,Q_2,\ldots\}\subseteq\SetQuad n \mid 
+      A\subseteq\bigcup_k Q_k \land \text{ h"ochstens abz. unendl. }
+      \}
+    \]
+  Dann ist $J_A\neq\emptyset$ und es hei"st
+  \[\lambda(A):=\inf\{\sum_k |Q_k| \mid \{Q_1,Q_2,\ldots\}\in J_A\}
+    \]
+  "au"seres Lebesgue-Ma"s (L-Ma"s) von $A$. 
+  ($\infty$ ist als Wert von $\lambda(A)$ zugelassen)
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  \begin{stmts}
+    \item $\lambda(\{x\})=0$
+    \item $\lambda(\SetQ)=0$
+    \item Sei $H$ eine Hyperebene der Form $\xi_j=c$. Dann ist $\lambda(H)=0$
+    \item $\lambda(\emptyset)=0$, $\lambda(\SetR^n)=\infty$
+    \item Sei $Q\in\SetQuad n$ abgeschlossen. Dann gilt $\lambda(Q)=|Q|$.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt
+  \begin{stmts} 
+    \item $(\forall A\subseteq\SetR^n)(0\leq\lambda(A)\leq\infty)$
+    \item $(\forall A,B\subseteq\SetR^n)
+      (A\subset B\implies \lambda(A)\leq\lambda(B)$
+    \item $\sigma$-Subadditivit"at: Sei $(A_n)\subset\cal P(\SetR^n)$ 
+      endlich. Dann ist
+      \[\lambda(\bigcup_k A_k)\leq\sum_k\lambda(A_k)
+        \]
+    \end{stmts}
+  \label{the:lebesgue-prop}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Sei $Q\in\SetQuad n$ beliebig. Dann gilt $\lambda(Q)=|Q|$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Ist $A\subset\SetR^n$ beschr"ankt, so ist $\lambda(A)<\infty$.
+  }
+% -----------------------------------------------------------------------------
+\definition Nullmenge:{
+  $N\subset\SetR^n$ hei"st Nullmenge/NM $:\equiv$ $\lambda(N)=0$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es ergibt sich
+  \begin{stmts}
+    \item Die Vereinigung endlich vieler Nullmengen hat das Lebesgue-Ma"s $0$.
+    \item $N$ endlich/ abz. unendlich $\implies$ $N$ ist Nullmenge.
+    \item Jede Teilmenge einer NM ist NM.
+    \item Sei $H$ eine Hyperebene der Form $\xi_j=c$. Dann ist $H$ Nullmenge.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition fast "uberall:{
+  Es sei $A\subseteq\SetR^n$ und $(E)$ eine Eigenschaft von Punkten aus $A$.
+  Dann sagt man: $(E)$ gilt fast "uberall/f"u in A (bzw. f"ur fast alle 
+  $x\in A$) $:\equiv$ 
+  $\lambda(\{x\in A\mid \text{$(E)$ gilt nicht f"ur $x$} \})=0$
+  }
+% -----------------------------------------------------------------------------
+\section{Das Lebesgue'sche Ma"s}
+% -----------------------------------------------------------------------------
+\definition Lebesgue-Messbarkeit:{
+  $A\in\SetR^n$ hei"st Lebesgue-messbar genau dann, wenn
+  \[(\forall E\subseteq\SetR^n)(\lambda(E)=\lambda(E\cap A)+
+    \lambda(E\cap(\SetR^n\setminus A)))
+    \]
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Wegen \ref{the:lebesgue-prop} reicht in der obigen Definition die
+  Eigenschaft
+  \[(\forall E\subseteq\SetR^n)(\lambda(E)\geq\lambda(E\cap A)+
+    \lambda(E\cap(\SetR^n\setminus A)))
+    \]
+  Man definiert $\SetLMeas:=\{A\subseteq\SetR^n\mid A \text{ Lebesgue-messbar\}}$.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  \begin{stmts}
+    \item Ist $N$ eine Nullmenge, so gilt $N\in\SetLMeas$.
+    \item $\SetR^n\in\SetLMeas$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Volumen:{
+  F"ur $A\in\SetLMeas$ hei"st $\lambda(A)$ das Volumen von $A$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  $\SetLMeas$ hat folgende Eigenschaften:
+  \begin{stmts}
+    \item $A\in\SetLMeas$ $\implies$ $\SetR^n\setminus A\in\SetLMeas$
+    \item $\SetR^n,\emptyset$ und jede Nullmenge sind $\in\SetLMeas$
+    \item $A,B\in\SetLMeas$ $\implies$ $A\setminus B\in\SetLMeas$
+    \item $A_1,A_2,\ldots\in\SetLMeas$ $\implies$
+      $\bigcap_k A_k\in\SetLMeas$, $\bigcup_k A_k\in\SetLMeas$
+    \end{stmts}
+  $\lambda:\SetLMeas\to[0,\infty)\cup\{\infty\}$ hat folgende Eigenschaften:
+  \begin{stmts}
+    \item $\sigma$-Additivit"at: $A_1,A_2,\ldots\in\SetLMeas$ paarweise 
+      disjunkt $\implies$
+      \[\lambda(\bigcup_k A_k)=\sum_k \lambda(A_k)
+        \]
+    \item $A_1,A_2,\ldots\in\SetLMeas$, $A_1\subseteq A_2 \subseteq \ldots$ $\implies$
+      \[\lambda(\bigcup_k A_k)=\limes k->\infty \lambda(A_k)
+        \]
+    \item $A_1,A_2,\ldots\in\SetLMeas$, $A_1\supseteq A_2 \supseteq \ldots$ 
+      und $\lambda(A_1)<\infty$ $\implies$
+      \[\lambda(\bigcap_k A_k)=\limes k->\infty \lambda(A_k)
+        \]
+    \end{stmts}
+  } 
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt $\SetQuad n\subseteq\SetLMeas$.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Aus dem vorigen Satz geht direkt hervor:
+  \begin{stmts}
+    \item $A\subseteq\SetR^n \text{ offen} \implies A\in\SetLMeas$
+    \item $A\subseteq\SetR^n \text{ abgeschlossen} \implies A\in\SetLMeas$
+    \item $A_1,A_2,A_3,\ldots \subseteq\SetR^n \text{ offen} \implies 
+      \bigcup_k A_k\in\SetLMeas$ (``$G_\delta$-Menge'')
+    \item $A\subseteq\SetR^{n-1}$, $A\in\SetLMeas$, $[\alpha,\beta]\subset\SetR$.
+      Dann gilt
+      \[A\times[\alpha,\beta]\in\SetLMeas \text{ und } 
+        \lambda(A\times[\alpha,\beta])=\lambda(A)\cdot(\beta-\alpha)
+        \]
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\section{Messbare Funktionen}
+% -----------------------------------------------------------------------------
+\convention{
+  Sei $M\in\SetLMeas$. F"ur Funktionen $f,g:M\to\SetR$ sei vereinbart
+  \[\{f<g\}_M:=\{x\in M\mid f(x)<g(x)\}
+    \]
+  Analog f"ur $\leq$, $>$, $\geq$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f:M\to\SetR$, $t\real$=>{
+  Dann sind folgende Aussagen "aquivalent: 
+  \[\{f<t\}_M\in\SetLMeas \equiv 
+    \{f\leq t\}_M\in\SetLMeas \equiv 
+    \{f>t\}_M\in\SetLMeas \equiv 
+    \{f\geq t\}_M\in\SetLMeas 
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Lebesgue-Messbarkeit einer Funktion:{
+  \index{Funktion>Lebesgue-Messbarkeit einer}
+  Eine Funktion $f:M\to\SetR$ hei"st (Lebesgue-)messbar auf $M$ $:\equiv$
+  \[(\forall t\in\SetR)(\{f\leq t\}_M\in\SetLMeas)
+    \]
+  Schreibweise: $f\in\SetFLMeas(M)$
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $f,g:M\to\SetR$ Funktionen $s,t\real$=>{
+  Dann gilt:
+  \begin{stmts}
+    \item $f,g\in\SetFLMeas(M) \implies 
+      \{f < g\}_M,\{f > g\}_M,\{f \leq g\}_M,\{f \geq g\}_M \in\SetLMeas$ bzw.
+      $\{s\stack(<;\leq)f\stack(<;\leq) t\}\in\SetLMeas$
+    \item $B\in\SetLMeas,B\subseteq M,f\in\SetFLMeas(M)\implies f\in\SetFLMeas(B)$
+    \item $B_1,B_2,\ldots\in\SetLMeas$ endlich/abz"ahlbar viele Mengen, 
+      $M=\bigcup_k B_k$, $f\in\SetFLMeas(B_k)$ f"ur $k\natural$ $\implies$ 
+      $f\in\SetFLMeas(M)$
+    \item $N\subseteq M$ Nullmenge (also $N,M\setminus N\in\SetLMeas$) und 
+      $h\in\SetFLMeas(M\setminus N)$, $f|_{M\setminus N}=h\implies f\in\SetFLMeas(M)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f,g:M\to\SetR$, $f=g$ f."u. auf $M$=>{
+  Dann gilt $f\in\SetFLMeas(M)\equiv g\in\SetFLMeas(M)$.
+  }
+% -----------------------------------------------------------------------------
+\definition Maximum/Minimum-Verkn"upfung bei Funktionen:{
+  Seien $f,g:M\to\SetR$ Funktionen. Dann definiert man f"ur $x\in M$
+  \begin{align*}
+    (f\lor g)(x)&:=\max\{f(x),g(x)\} \\
+    (f\land g)(x)&:=\min\{f(x),g(x)\} \\
+    f^+&:=f\lor 0 \\
+    f^-&:=-(f\land 0)
+    \end{align*}
+  Es ergibt sich $f^+,f^-\geq 0,f=f^+-f^-,|f|=f^++f^-$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt:
+  \begin{stmts}
+    \item $f_1,f_2,\ldots:M\to\SetR$, $f_i\in\SetFLMeas(M)$ $(i\natural)$ 
+      endlich/abz. viele Funktionen. F"ur jedes $x\in M$ existiere 
+      $\underline H(x):=\inf\{f_k(x)\mid k\natural\}$ und
+      $\overline H(x):=\sup\{f_k(x)\mid k\natural\}$. Dann gilt
+      $\underline H,\overline H\in\SetFLMeas(M)$.
+    \item $(f_k)\subset\SetFLMeas(M)$ Folge und f"ur jedes $x\in M$ existiere 
+      $\underline h(x):=\limesinf k->\infty f_k(x)$ und
+      $\overline h(x):=\limessup k->\infty f_k(x)$. Dann gilt
+      $\underline h,\overline h\in\SetFLMeas(M)$.
+    \item $f,g\in\SetFLMeas(M)$. Dann sind $f\land g,f\lor g,f^+,f^-\in\SetFLMeas(M)$.
+    \item $(f_k)\subset\SetFLMeas(M)$ Folge, $(f_k)$ konvergiere f."u. auf $M$
+      gegen eine Funktion $f:M\to\SetR$ $\implies$ $f\in\SetFLMeas(M)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt:
+  \begin{stmts}
+    \item $f\in\SetLMeas(M)$ $\equiv$ F"ur alle offenen/abgeschlossenen
+      Teilmengen $U\subseteq\SetR$ gilt $f^{-1}(U)\in\SetLMeas$.
+    \item Seien $g\in\SetCont(\SetR,\SetR)$, $f\in\SetLMeas(M)$. Dann ist
+      $g\circ f\in\SetLMeas(M)$
+    \end{stmts}
+  }  
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es gilt:
+  \begin{stmts}
+    \item $\SetFLMeas(M)$ ist reeller Vektorraum
+    \item $f,g\in\SetFLMeas(M)$ $\implies$ $f\cdot g\in\SetFLMeas(M)$
+    \item $f,g\in\SetFLMeas(M)$, $g(x)\neq 0$ $\implies$ $f/g\in\SetFLMeas(M)$
+    \item $f\in\SetFLMeas(M)$, $p>0$ $\implies$ $|f|^p\in\SetFLMeas(M)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Treppenfunktion:{
+  Man definiert folgendes:
+  \begin{stmts}
+    \item \index{Funktion>charakteristische}
+      Sei $A\subseteq\SetR^n$. Dann nennt man
+      \[1_A(x):=\begin{cases} 1 & x\in A \\ 0 & x\not\in A \end{cases}
+        \]
+      \indexthis{charakteristische Funktion} von $A$. 
+      (Bemerkung: $1_A\in\SetFLMeas(\SetR^n)\equiv A\in\SetLMeas$)
+    \item Eine Funktion $f:\SetR^n\to\SetR$ hei"st Treppenfunktion/Tfkt $:\equiv$
+      $f(\SetR^n)$ ist endlich.
+      
+      Ist $f$ eine Treppenfunktion und $f(\SetR^n)=\{\alpha_1,\ldots,\alpha_m\}$,
+      so legt man fest $A_0:=\emptyset$ und 
+      \[A_j:=\{x\in\SetR^n\setminus \bigcup_{i=0}^{j-1} A_i \mid f(x)=\alpha_j\}
+        \]
+      f"ur $j=1,\ldots,m$. Dann hat $f$ folgende Darstellung
+      \[f=\sum_{j=1}^m \alpha_j 1_{A_j}
+        \]
+      und es gilt $\SetR^n=A_1\cup\ldots\cup A_m$, daher 
+      $f\in\SetFLMeas(M)\equiv A_1,\ldots,A_m\in\SetLMeas$
+      
+      Schreibweise: $T:=\{f:\SetR^n\to\SetR\mid f\in\SetFLMeas(M) 
+        \text{ Treppenfunktion}\}$, $T_+:=\{f\in T\mid\ f \geq 0\}$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Treppenfunktionen haben folgende Eigenschaften:
+  \begin{stmts}
+    \item $A\in\SetLMeas\implies 1_A\in\SetFLMeas(\SetR^n)$
+    \item $B_1,B_2\in\SetLMeas$, $B_1\cap B_2=\emptyset$, 
+      $B:=B_1\cup B_2\in\SetLMeas$ $\implies$ $1_B=1_{B_1}+1_{B_2}$
+      
+      Also ist die obige Darstellung einer Treppenfunktion nicht eindeutig.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $f\in\SetFLMeas(M)$, $f(x)\geq 0$ ($x\in M$)=>{
+  Dann existiert eine Folge $(f_m)\subset T_+$ mit
+  \begin{stmts}
+    \item $f_1(x)\leq f_2(x) \leq \ldots$
+    \item $\limes m->\infty f_m(x)=f(x)$
+    \end{stmts}
+  f"ur alle $x\in M$.
+  }

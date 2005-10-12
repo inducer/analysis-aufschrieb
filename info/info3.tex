@@ -1,0 +1,47 @@
+% -----------------------------------------------------------------------------
+% Informatik 3 Aufschrieb
+% -----------------------------------------------------------------------------
+% Tobias Dussa, Andreas Kloeckner / WS99
+% -----------------------------------------------------------------------------
+
+\input aufschrieb
+\input math
+
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{ecltree}
+\usepackage{tabularx}
+
+\def\cpx{\textit{Aufwand}: }
+\def\given{\textit{Gegeben}: }
+\def\aim{\textit{Gesucht}: }
+\newenvironment{proc}{\textit{Ablauf}:\begin{itemize}}{\end{itemize}}
+
+\newtheorem{defi}{Definition}[subsection]
+\newtheorem{satz}{Satz}[subsection]
+
+\begin{document}
+
+\mathtitle{Informatik III}{
+  Ein Aufschrieb der Vorlesung \emph{Informatik III} an der Uni Karlsruhe in
+  den Wintersemestern 1997/98 bzw. 1999/00, gelesen von Prof.~Dr.~H. Prautzsch.
+  \vskip0.4cm
+  Ge\TeX t von Tobias Dussa (s\_dussa@ira.uka.de), 
+  "uberarbeitet von Andreas Kl"ockner (ak@ixion.net). Kommentare und
+  Berichtigungen gehen an eine dieser Adressen.
+  \vskip0.4cm
+  Dieses Dokument untersteht der ``Weiss nicht''-Lizenz. 
+  Neue Versionen gibt es unter http://www.ixion.net/ak/aufschrieb.
+  \vskip0.4cm
+  \LaTeX-Lauf am \today.
+  }
+%\nocite{*}
+%\bibliographystyle{geralpha}
+%\bibliography{info3}
+
+\aufschriebbody{
+  \input info3_1
+  }{
+  }
+
+\end{document}

@@ -1,0 +1,298 @@
+\section{Monoidringe, Polynomringe}
+%---------------------------------------------------------------
+\subsection{Definitionen, weitere Erzeugungsbegriffe}
+  \begin{tabular}{l|l}
+  Durchschnitte von & sind wieder\\
+  \hline
+  (unit"aren) Unterringen von $R$ & (unit"aren) Unterringe von $R$\\
+  Linksidealen von $R$ & Linksideale von $R$\\ 
+  Rechtsidealen von $R$ & Rechtsideale von $R$\\
+  zweiseitigen Idealen von $R$ & zweiseitige Ideale von $R$\\
+  \end{tabular}
+  
+  Ist $R$ eine $A$-Algebra, so ist Durchschnitt von Unter-$A$-Algebren von 
+  $R$ eine Unter-$A$-Algebra.
+  
+  ($S$ Unteralgebra $\iff \forall \alpha \in A, s\in S$:$\alpha s=f(\alpha)s\in S$
+  und $S$ Teilring von $R$, $\Rightarrow f:A\longrightarrow S \subseteq R$,
+  $A$ $\stackrel{f}{\longrightarrow} R$)
+  
+%----------------------------------------------------------------
+\definition{}:{Sei $R$ ein Ring (bzw. $A$-Algebra), $B\subseteq R$
+ \begin{enumerate}
+ \item[(i)] Das (unit"are) \indexthis{Ringerzeugnis} von $B\subseteq R$ ist
+ \[ \product{B}_{\operatorname{Ring}} = \bigcap_{S \operatorname{unit"ar Teilring}, B \subseteq S} S\]
+ \item[(ii)] Das $A$-\indexthis{Algebra-Erzeugnis} von $B$ ist
+ \[ \product{B}_{A \operatorname{-Algebra}} = \bigcap_{S \operatorname{Unter}-A\operatorname{Algebra},
+ B \subseteq S} S\] 
+ \item[(iii)] Das \indexthis{Idealerzeugnis} von $B$ ist
+  \[ \product{B}_{\operatorname{Ideal}} = \bigcap_{I \operatorname{Ideal von R}, B \subseteq I} I\]
+  Analog f"ur Links- bzw. Rechtsideale.
+ \end{enumerate}}  
+%-----------------------------------------------------------------
+\remark{}:{
+ \label{rem_1}
+ \begin{enumerate}
+ \item[(i)] $\product{B}_{\operatorname{Ring}}$ besteht aus allen endlichen Summen (auch leere Summe)
+ der Form \[b_1 \cdot \ldots \cdot b_n \] \hfill$(n\in \SetN, n=0 \operatorname{gibt} 1,b_1, \ldots,b_n \in B)$
+ \item[(ii)] $\product{B}_{A \operatorname{-Algebra}}$ besteht aus allen endlichen Summen (auch leere Summe)
+ der Form 
+ \[\alpha b_1 \cdot \ldots \cdot b_n \] \hfill $(n\in \SetN, \alpha \in A, b_1, \ldots, b_n \in B)$
+ \item[(iii)] $\product{B}_{\operatorname{L-Ideal}}$ besteht aus allen endlichen Summen (auch leere Summe)
+ der Form 
+ \[ xb\] \hfill $ (x\in R, b\in B)$
+\end{enumerate}} 
+%-----------------------------------------------------------------
+\proof \ref{rem_1}:{Die Erzeugnisse enthalten diese Elemente.
+
+ Aber: Diese Elementmengen bilden (unit"aren) Teilring, Unteralgebra, Linksideal.
+
+ speziell: $B=\{b_1, \ldots, b_n \}$
+ \[\product{\{b_1,\ldots, b_n\}}_{\operatorname{Linksideal}}=:\product{b_1, \ldots, b_n}_{\operatorname{L-Ideal}}
+ =\{\sum_{i=1}^{n}x_ib_i\mid x_i \in R\} \stackrel{\operatorname{kurz}}{=} Rb_1 + \ldots + Rb_n \]
+ \[\product{b}_{\operatorname{L-Ideal}}= Rb = \{ xb\mid x\in R\}\] heisst das von $b$ erzeugte 
+ Links-\indexthis{Hauptideal}.
+
+ \[\product{b}_{A \operatorname{-Algebra}} = \{ \sum_{j=0}^{n}\alpha_j b^j \mid n\in \SetN, \alpha_j \in A\}\]
+
+ Bezeichnung: $A[B]=\product{B}_{A \operatorname{-Algebra}}$, vor allem wenn $R$ kommutativ ist.}
+%------------------------------------------------------------------------
+\subsection{Herleitung des Monoidrings}
+%------------------------------------------------------------------------
+\motivation{}:{Sei $A$ kommutativer Ring, $M$ Monoid (O.B.d.A multiplikativ geschrieben)
+
+ gesucht: $A$-Algebra $R$ mit Strukturpfeil $j:A\longrightarrow R$ mit
+ \begin{enumerate}
+ \item[(i)] Es gibt {\emph injektiven} Monoidhomomorphismus $i:M\longrightarrow (R,\cdot)$
+ \item[(ii)] $R=A[i(M)]$
+ \end{enumerate}
+ }
+%-------------------------------------------------------------------------- 
+\deduction{}:{
+ "Altere B"ucher: \\
+ $R$ besteht aus den formalen endlichen Summen
+ \[ \fsum_{m\in M}   \alpha_m[m] \] \hfill $':\alpha_m \neq 0$ nur f"ur endlich viele $m$.
+ 
+ Gleichheit: \[\fsum_{m\in M}\alpha[m] = \fsum_{m\in M}\beta[m] \iff \forall m\in M : \alpha_m =\beta_m\]
+ Summe: \[ \fsum_{m\in M}\alpha_m[m]+\fsum_{m\in M}\beta_m[m]:= \fsum_{m\in M}(\alpha_m+\beta_m)[m]\]
+ Strukturpfeil: \[j(\alpha)=\fsum_{m\in M}\alpha \delta_{e,m}[m] \] wobei
+ $\delta_{e,m}=\begin{cases}
+               1 & e=m\\
+			   0 & e\neq m
+			  \end{cases}$	
+\hfill $e$ Neutrales von $M$.
+
+Produkt: \[ \fsum_{m\in M}\alpha_m[m]\cdot \fsum_{l\in M}\beta_l[l]:=\fsum_{k\in M}\gamma_k[k]\]
+\[\gamma_k=\sum_{(m,l)\in M^2,ml=k}\alpha_m\beta_l\] \hfill 
+(wirkliche Summe in $A$, nur endlich viele $\gamma_k \neq 0$)
+
+Man pr"uft alle verlangten Eigenschaften leicht nach.
+\begin{enumerate}
+\item[zu (i)] $R$ ist Ring (Assoziativit"at leider etwas l"anglich)\\
+\[i(m)=\fsum_{k\in M} \delta_{k,m}[k]\]
+$i$ ist Monoidhomomorphismus.
+\[\fsum_{u}\alpha \delta_{u,m}[u]\cdot \fsum_{l}\beta \delta_{l,n}[l]=\fsum_{k} \underbrace{(\sum_{ul=k}
+\alpha \beta \delta_{u,m}\delta_{l,n})}_{\operatorname{nur}\neq 0 \operatorname{wenn} u=m,l=n}[k]
+\fsum_{k}\alpha \beta \delta_{k,mn}[k]\]
+$\Rightarrow i(m)i(n)=i(mn)$ f"ur $(\alpha,\beta =1)$
+
+pr"ufe noch nach $i(e)=1_R$
+\[[e][m]=[em]=[m]=[m][e]\]
+\item[zu(ii)] Strukturhomomorphismus $j(\alpha)=\alpha[e]:=\sum ' \alpha \delta_{e,k}[k]$\\
+klar: $j(\alpha + \beta)=j(\alpha)+j(\beta)$
+\[j(\alpha)j(\beta)=\alpha[e]\beta[e]=\alpha \beta[ee]= \alpha \beta[e]=j(\alpha \beta)\]
+
+$j$ injektiver Ringhomomorphismus:
+$\alpha[e]=\beta[e] \iff (\alpha-\beta)[e]=0 \Rightarrow (\alpha-\beta)=0$ (Gleichheitsdefinition)
+$\Rightarrow \alpha = \beta$
+
+$j(\alpha)\in Z(R)$ ist leicht nachzurechnen.
+
+klar: $R=\product{A,j(M)}_{A \operatorname{-Algebra}}=A[j(M)]$
+
+Ergebnis: Schreibt man kurz $\alpha[m]:=\sum_{m}\alpha_m \delta_{k,m}[k]$, so gilt:
+\[\fsum_{}\alpha[m] = \sum_{m}\alpha_m[m]\]
+(wirkliche Summe in $R$)
+\end{enumerate}			  
+}
+%------------------------------------------------------------------------------
+\problem{formale Summe}:{Was ist ''formale'' Summe?
+
+ Antwort: $\sum ' \alpha_m[m]$ ist phantasievolle Schreibweise f"ur $(\alpha_m)_{m\in M}\in A^M$,
+ wo nur endlich viele $\alpha_m \neq 0$ sind.
+}
+%------------------------------------------------------------------------------
+\example{}:{
+ \begin{enumerate}
+ \item $M=(\SetN,+), X:=i(1)=[1]$,$[n]=i(1+ \ldots +1)=i(1)\cdot \ldots \cdot i(1)=X^n$
+
+ Elemente von $A[(\SetN,+)]:= \sum_{n\in \SetN} \alpha_n[n]=\sum \alpha_n X^n$.
+
+ $A[(\SetN,+)]$ ist der Polynomring in einer Unbekannten.
+ \item $m\in \SetN_{>0}$, $M=(\SetN^m,+)$
+ 
+ $X_i:=[e_i]$, $e_i=(0,\ldots,0,1,0,\ldots,0)$
+ 
+ $k=(n_1,\ldots,n_m)\in \SetN^m$, $k=\sum n_ie_i$ in $(\SetN^m,+)$\\
+ $[k]=i(\sum n_ie_i)= \prod_{i=1}^{m}X_i^{n_i}=X_1^{n_1}\cdot \ldots \cdot X_m^{n_m}=:X$
+ 
+ Also $R=A[X_1,\ldots,X_m]$, 
+ \[f=\sum_{k\in \SetN^m} \alpha_k X^k\]
+ ''Polynom in m Unbestimmten''
+ \item $M$ freies Monoid "uber Alphabet $\{a_1,\ldots,a_n\}$, $X_i:=[a_i]$
+ 
+ $R$ besteht aus den formalen endlichen Summen $\sum \alpha_x X$, wo $X=[\operatorname{Wort}]=$
+ $X_{i_1}^{n_1}X_{i_2}^{n_2}\cdot \ldots \cdot X_{i_k}^{n_k}$, $k\in \SetN, X_{i_{\\nu}}\in \{X_1,\ldots,X_n\}$
+ $i_{\nu}\neq i_{\nu + 1} (\nu = 1, \ldots, k-1)$
+ 
+ F"ur $A=\SetZ$ heisst $R$ der freie Ring in n nicht-kommutierenden Unbestimmten $X_1, \ldots, X_n$
+ \item $G$ Gruppe, $A[G]$ heisst dann \indexthis{Gruppenring} von $G$ "uber $A$.
+ 
+ Vereinbarung: Falls $M\cap A=\emptyset$, so schreibe $m$ statt $[m]$. 
+ 
+ Sei z.B. $G=S_3$.
+ Dann sind die Elemente von $\SetZ[S_3]$ die Summen 
+ \[\alpha_1 1+\alpha_2\sigma+\alpha_3\sigma^2+\alpha_4 \tau_1 +\alpha_5 \tau_2+\alpha_6 \tau_3\]
+ mit $\sigma = (123)$,$\sigma^2=(132)$,$\tau_1=(23)$,$ \tau_2=(13)$,$ \tau_3=(12)$.\\
+ Beispielsweise:\\ 
+ $(\tau_1+\tau_2)(\tau_1+\tau_2+\tau_3)=\tau_1^2+\tau_1\tau_2+\tau_1\tau_3+\tau_2\tau_1$
+ $+\tau_2^2+\tau_2\tau_3=1+\sigma+\sigma^2+\sigma^2+1+\sigma=2\cdot 1+2\cdot\sigma^2+2\cdot\sigma$
+ \end{enumerate} 
+}
+%-----------------------------------------------------------------------------------------
+\subsection{Einige Fortsetzungss"atze, UAE der Freien Ringe}
+\theorem{''Einsetzen'' in Polynome}:{}=>{
+ \label{the_einsetzung1}
+ Der Monoidring "uber $A$ kann als Funktor
+ $\mathcal{F}$:\underline{Mon}$\longrightarrow \underline{A\operatorname{-Algebra}}$
+ mit $\mathcal{F}(M):=A[M]$ betrachtet werden.
+ 
+ Zu jedem $\phi: M\longrightarrow N$ 
+ (Pfeil in \underline{Mon}) existiert eine eindeutig bestimmte ''Fortsetzung'' $\hat\phi$
+ $:A[M]\longrightarrow A[N]$, ($\mathcal{F}(\phi)=\hat\phi$), \\
+ die man erh"alt, indem 
+ man f"ur $m\in M$ $\phi(m)$ einsetzt (und gleiche zusammenfasst)
+ \[\hat\phi(\sum_{m\in M,\alpha_m \neq 0} \alpha_m[m]):= 
+ \sum_{m\in M,\alpha_m \neq 0}\alpha_m[\phi(m)]\]
+ \insertfig{algebra1_3_3_einsetzen1}
+}
+%-----------------------------------------------------------------------------------------
+\proof \ref{the_einsetzung1}:{Rechne nach: $\hat\phi$ ist 
+ Algebrenhomomorphismus. Benutze dazu: $\hat\phi([m][n])=[\phi(m)\phi(n)]$
+
+ klar: $\hat\phi(f+g)=\hat\phi(f)+\hat\phi(g)$
+
+ Produkt: $f=\sum_{\alpha_m \neq 0} \alpha_m [m]$, $g=\sum_{\beta_m \neq 0}\beta_m [m]$
+
+ $fg=\sum \delta_m [m]$, $\delta_m=\sum_{(u,v),uv=k}\alpha_u\beta_v[k]$\\
+ $\hat\phi(fg)=\sum_{uv=k}\alpha_u\beta_v[\phi(k)]=\sum_{(u,v)\in M^2}\alpha_u\beta_v[\phi(u)\phi(v)]$
+ $=\sum \alpha_u\beta_v[\phi(u)][\phi(v)]=\sum_{u}\alpha_u[\phi(u)]\sum_v \beta_v[\phi(v)]$
+ $=\hat\phi(f)\hat\phi(g)$
+}
+%------------------------------------------------------------------------------------------
+\theorem{}:{$R$ sei $A$-Algebra, $\phi:M\longrightarrow (R,\cdot)$ ein
+Monoidhomomorphismus}=>{
+\label{the_einsetzung2}Dann gibt es eine eindeutig bestimmte Fortsetzung $\hat\phi$
+(Algebrenhomomorphismus)\\
+$\hat\phi:A[M]\longrightarrow R$, $\hat\phi(\fsum \alpha_m[m])=\sum_{m,\alpha_m \neq}\alpha_m \phi(m)$
+
+\insertfig{algebra1_3_3_einsetzen2}
+}
+%------------------------------------------------------------------------------------------
+\proof \ref{the_einsetzung2}:{Die Rechnug zu \ref{the_einsetzung1} zeigt etwas allgemeiner  
+auch diesen Sachverhalt.}
+%------------------------------------------------------------------------------------------
+\example{Anwendung auf den Polynomring in n Unbestimmten}:{
+$A[X_1,\ldots,X_n]=A[(\SetN^n,+)]$
+
+$(\SetN^n,+)$ ist die freie abelsche Gruppe mit Erzeugenden $e_i =(0,\ldots,0,1,0,\ldots,0)$,
+d.h. zu jeder Abbildung $g:\{e_1,\ldots,e_n\}\longrightarrow M$ (abelsches Monoid)
+gibt es genau einen Monoidhomomorphisums $\hat g:\SetN^n \longrightarrow M$, mit
+$\hat g_{|\{e_1,\ldots,e_n\}}=g$. 
+\[\hat g((k_1,\ldots,k_n))=g(e_1)^{k_1}\cdot \ldots \cdot g(e_n)^{k_n}\]
+Hiernach gibt es genau eine Fortsetzung $\tilde{g}: A[X_1,\ldots,X_n] \longrightarrow R$ (wobei
+$R$ kommutative $A$-Algebra) mit $\tilde{g}(X_i)=g(e_i)\in R$.
+
+Zu $f=\sum \alpha_k X_1^{k_1}\cdot \ldots \cdot X_n^{k_n}$ ist $\tilde{g}(f)$
+$=\sum \alpha_k g(e_1)^{k_1}\cdot \ldots \cdot g(e_n)^{k_n}=f(g(e_1), \ldots, g(e_n))$.
+Man erh"alt zu vorgeschriebenen Werten $X_i=g(e_i)\in R$ 
+\[\tilde{g}(f)=f(X_1,\ldots,X_n)\]
+$\tilde{g}$ heisst Einsetzabbildung oder Spezialisierung (von $X_i\in A[X_1,\ldots,X_n]$)
+zu $X_i\in R$
+
+Homomorphie von $\tilde{g}$ sagt: 
+\[\tilde{g}(f_1 \stack(+;\circ)f_2)=(f_1\stack(+;\circ)f_2)(x_1,\ldots,x_n)=f_1(x_1,\ldots,x_n)
+\stack(+;\circ)f_2(x_1,\ldots,x_n)=\tilde g(f_1)\stack(+;\circ)\tilde g(f_2) \] 
+}
+%--------------------------------------------------------------------------------
+\remark{}:{In LA werden in Polynome einer Variablen $n\times n$ Matrizen oder lineare
+ Endomorphismen eingesetzt ($R=K^{n\times n}$ bzw. End($V$), $A=K$ K"orper in LA)
+
+ F"ur $1\in K[X]$ ist \begin{displaymath} j(1)=\left(
+ \begin{array}{cccc}
+ 1 & 0 & \ldots & 0\\
+ 0 & 1 & \ddots & \vdots \\
+ \vdots & \ddots & \ddots & 0 \\
+ 0 & \ldots & 0 & 1 \\ 
+ \end{array} \right)
+ \end{displaymath} einzusetzen.
+ ($j$ Strukturpfeil $K\longrightarrow K^{n\times n}$)
+ 
+ $R$ ist zwar nicht kommutativ, wohl aber ist f"ur $C\in K^{n\times n}$  
+ $K[C]$ kommutativ.}
+%-----------------------------------------------------------------------------------
+\remark{}:{$A[X_1,\ldots,X_N]=(A[X_1,\ldots,X_{n-1}])[X_n]$
+
+ Grund:$\underbrace{(\alpha_m X_1^{m_1}\cdot \ldots \cdot X_{n-1}^{m_{n-1}})}_{\in A[X_1,\ldots,X_{n-1}]}
+ X_n^{m_n}$
+
+ Fasst man in $f=\sum \alpha X_1 \cdot \ldots \cdot X_n$ die mit $m_n=i$ zusammen, so wird
+
+ $f(X_1,\ldots,X_n)=f=\sum_{i=0}^{l} g_i X_n^i$ mit $g_i =g_i(X_i, \ldots, X_{n-1})
+ \in A[X_1,\ldots,X_{n-1}]$
+
+ Zweck: Induktion nach $n$, um Eigenschaften von $A[X_1,\ldots, X_n]$ zu zeigen.}
+%--------------------------------------------------------------------------------------
+\example{}:{$\mathcal{X}$ ''Alphabet'' (Menge), $R$ eine Ring (d.h. insbesondere eine $\SetZ$-Algebra)
+ $M=Fr_{\operatorname{Mon}}(\mathcal{X})$ UAE
+ \insertfig{algebra1_3_3_UAE1}
+ $\hat\phi$ Fortsetzung von $\phi$. ($\phi$ Abbildung $\mathcal{X}\longrightarrow R$,
+ $\tilde{\phi}$ Fortsetzung von $\hat\phi$)}
+%--------------------------------------------------------------------------------------
+\definition{Freie Ringe}:{$Fr_{\operatorname{Ring}}(\mathcal{X})=
+ \SetZ[Fr_{\operatorname{Mon}}(\mathcal{X})]$ heisst freier Ring "uber $\mathcal{X}$
+}
+%---------------------------------------------------------------------------------------
+\theorem{UAE der Freien Ringe}:{Sei $\phi:\mathcal{X}\longrightarrow R$ ($R$ Ring) Abbildung.}
+ =>{Es gibt genau eine Fortsetzung von $\phi$ zu (unit"arem) Ringhomomorphismus
+
+ $Fr_{\operatorname{Ring}}(\mathcal{X})\longrightarrow R$
+
+ ($\tilde{\phi}$: Einsetzen von $r_x=\phi(x)\in R$ f"ur $[x]$, wenn $x\in \mathcal{X}$)
+ \insertfig{algebra1_3_3_UAE2}
+}
+%---------------------------------------------------------------------------------------
+\remark{Theorie ''Erzeugende und Relationen''}:{In \underline{Ring} analog zu der in
+ \underline{Gp} machbar.
+
+ Mit \\
+ $Fr_{\operatorname{\underline{Ring}}}(\mathcal{X})$, 
+ $\product{B}_{\operatorname{Id}}$ und
+ $0$ \\ 
+ anstatt von \\ 
+ $Fr_{\operatorname{\underline{Gp}}}(\mathcal{X})$, 
+ $\product{B}_{\operatorname{Nor}}$ und
+ $1$       
+ }
+%----------------------------------------------------------------------------------------
+\remark{Verallgemeinerung von $A[M]$}:{
+ \begin{enumerate}
+ \item $A$ braucht nicht kommutativ zu sein. ($A[M]$ dann Ring,
+ ''A-Algebra'' ist daf"ur dann nicht definiert.)
+ \item Man kann die rechte Seite von $[m]\beta=\beta[m]$ durch komplizierte Bildungen ersetzen.
+ ($\Rightarrow$ schiefe Polynomringe)
+ \item Hat $M$ die Eigenschaft $\forall m\in M: \{(u,v)\in M^2 \mid uv=m\}$ endlich, so kann
+ auf die Endlichkeit der formalen Summe verzichtet werden. Man erh"alt dann Ring der formalen Reihen.
+ (Trifft zu auf $M=\SetN^n$, oder $Fr_{\operatorname{Mon}}(\mathcal{X})$.)
+ \end{enumerate}}
+%------------------------------------------------------------------------------- ---------

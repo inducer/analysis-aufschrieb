@@ -1,0 +1,340 @@
+\def\Ob#1{\operatorname{Ob}_{\mathcal{#1}}}
+\def\Mor(#1;#2;#3){\operatorname{Mor}_{\mathcal{#1}}(#2,#3)}
+%----------------------------------------------------------------
+\para{Zwischenspiel: Kategorien, eine Sprechweise}
+%----------------------------------------------------------------
+\subsection{Einf"uhrung und Definitionen}
+%----------------------------------------------------------------
+\motivation{}:{(Eventuell kommutative) Diagramme mit ``Pfeilen'' ist
+  man gewohnt in folgenden Situationen:\\
+  \begin{tabular}{c|c|c}
+  Objekte  & Pfeile & Name (in dieser Vorlesung) der Kategorie \\
+  \hline
+  Mengen  & Abbildungen  & \underline{Set} \\
+  Gruppen & Homomorphismen & \underline{Gp} \\
+  Monoide & Homomorphismen & \underline{Mon} \\
+  K-Vektror"aume & lineare Abbildungen & \underline{K-Mod} \\
+  Topologische R"aume & stetige Abbildungen & \underline{Top} \\
+  offene Teilmengen U  & stetige Abbildungen & C \\
+  in geeigneten $\SetR^n$ & & \\
+  ---''--- & $\infty$ oft db. Funktionen & $C^{\infty}$ \\
+  Elemente einer  & $a\geq b$, '$\geq$' als Pfeil & \\
+  geord. Menge & & \\  
+  \end{tabular}	
+ Gesucht ist nun eine algebraische Begriffsbildung, die alle diese
+ Beispiele als Spezialfall enth"alt.$\Rightarrow$ {\emph \indexthis{Kategorie}}.		
+			}
+%-----------------------------------------------------------------
+\definition{Kategorie}:{Eine Kategorie $\mathcal{K}$ ist gegeben durch
+ \begin{enumerate}
+ \item[(i)] Eine Klasse $\Ob{K}$ von ''Objekten''\\
+ ($A\in$ $\Ob{K}$ heisst Objekt von $\operatorname{Ob}_{\mathcal{K}}$)
+ \item[(ii)] $\forall A,B\in $$\Ob{K}$ eine \underline{Menge}
+ $\Mor(K;A;B)$ \\
+ ($f\in \Mor(K;A;B)$ heisst Pfeil oder Morphismus in $\mathcal{K}$
+ $f: A\longrightarrow B$ mit Ursprung A und Ziel B. Schreibe: $A= $ Ursprp(f), $B=$ Ziel(f).)
+ \item[(iii)] (Komposition von Pfeilen)\\
+ $\forall A,B,C \in \Ob{K}$ eine Verkn"upfung \\
+ \begin{tabular}{cccc}
+  $v_{A,B,C}:$ & $\Mor(K;B;C)\times \Mor(K;A;B)$ & $\longrightarrow$ & $ \Mor(K;A;C) $\\
+               & $(g,f)$                         & $\mapsto$         & $v_{A,B,C}(g,f):=g \circ f$
+ \end{tabular}
+ \end{enumerate}
+ derart, dass gelten: \\
+\begin{enumerate}
+\item[(KAT1)] (Disjunktheitsaxiom)\\
+Jeder Pfeil hat eindeutig bestimmten Ursprung und eindeutig bestimmtes Ziel.\\
+(d.h. $\emptyset \neq \Mor(K;A;B) \cap \Mor(K;A';B') \Rightarrow A=A' \land B=B'$)
+\item[(KAT2)] (Assoziativit"at der Komposition)\\
+Wo definiert, ist die Komposition assoziativ.\\
+$A\stackrel{f}{\longrightarrow} B\stackrel{g}{\longrightarrow} C\stackrel{h}{\longrightarrow}D$ \\
+$\forall A,B,C,D\in \Ob{K}$ $\forall f\in \Mor(K;A;B)$,$g\in \Mor(K;B;C)$,
+$h \in \Mor(K;C;D)$: $h(gf)=(hg)f$
+\item[(KAT3)](Existenz der neutralen Pfeile)\\
+$\forall A\in \Ob{K} \exists e_A\in \Mor(K;A;A):\forall B\in \Ob{K} $
+$\forall f\in \Mor(K;A;B):$ $fe_A=f$ \\
+\insertfig{algebra1_2_1_KAT3_1}
+$\forall B\in \Ob{K} \forall g\in \Mor(K;B;A)$
+$e_Ag=g$\\
+\insertfig{algebra1_2_1_KAT3_2}
+\end{enumerate}  
+   }
+%--------------------------------------------------------------------
+\remark{}:{In Kategorien geht es zu wie bei Mengen und Abbildungen (als Pfeilen), 
+ nur brauchen die Objekte keine Mengen und die Pfeile keine Abbildungen zu sein.\\
+ klar: In der Liste stehen Kategorien. Pfeile sind Abbildungen mit gewissen 
+ Eigenschaften.$e_A=id_A$ hat die gew"unschten Eigenschaften, die Komposition 
+ ist die Abbildungsschachtelung. (ben"otigt wird: Verschachtelt man zwei Abbildungen
+ mit einer bestimmten Eigenschaft, so entsteht wieder eine Abbildung 
+ mit derselben Eigenschaft. )\\
+ Zum letzten Eintrag: Sei $\mathcal{K}$ Kategorie mit $\Ob{K}=M$,
+ wobei $M$ eine Menge ist. $\forall a,b\in M$ sei $|\Mor(K;a;b)|\leq 1$. 
+ Schreibe $a\geq b\iff \Mor(K;a;b)=\{\geq\}$.
+ Komposition gilt, da ''$\geq$'' transitiv, d.h.
+ $a\stackrel{f}{\geq} b\stackrel{g}{\geq} c \Rightarrow a\stackrel{gf}{\geq}$.\\
+ $a\geq a$ gilt immer, da ''$\geq$'' reflexiv ist.
+ 
+ Gesehen: Kategorien dieser Art sind genau die Mengen mit transitiver und
+ reflexiver Relation.
+  }   
+%--------------------------------------------------------------------------
+\lemma{}:{}=>{\label{lem_KAT_1}
+$A\in \Ob{K}$ mit $e_A$ bestimmen sich gegenseitig eindeutig.}
+%---------------------------------------------------------------------------
+\proof \ref{lem_KAT_1}:{\begin{enumerate}
+  \item[(a)] Disjunktheitsaxiom
+  \item[(b)] Wie bei Monoiden zeigt man: $e_A,e_{A'}$ beide neutral
+  $\Rightarrow e_A=e_Ae_{A'}=e_{A'}$.
+  \insertfig{algebra1_2_1_lemma1}
+  \end{enumerate}
+  \qed  }	           
+%--------------------------------------------------------------------------
+\remark{}:{Man k"onnte also auf $\Ob{K}$ ganz verzichten und nur Axiome
+ f"ur die Klasse aller Pfeile ($\operatorname{Mor}_{\mathcal{K}}$)
+ formulieren.(Algebraische Struktur mit partieller Verkn"upfung (i.a.
+ nicht "uberall definiert) mit Axiomen.)}
+%---------------------------------------------------------------------------
+\remark{Kommentare zu den Axiomen}:{\begin{enumerate}
+\item Warum Klasse $\Ob{K}$ statt Menge? \\
+Grund:z.B. Der Begriff Menge aller Mengen ist unsinnig. Man sagt ''Klasse
+aller Mengen''. In der axiomatischen Mengenlehre nach G"odel/Bernaup sagt man
+''Klassen'' statt ''Mengen'' in der naiven Mengenlehre. Nicht alle Konstruktionen,
+die man f"ur Mengen hat, sind f"ur Klassen erlaubt, d.h. d"urfen Klassen, die nicht
+Mengen sind, nicht Elemente anderer Klassen sein. Eine Kategorie, bei der $\Ob{K}$
+eine Menge bildet, heisst klein.
+\item In jeder Kategorie kann man ''Diagramme'' und Kommutativit"at von Diagrammen
+wie in \underline{Set} erkl"aren.(Kommutieren wird durch Schraffur angedeutet.)\\
+\insertfig{algebra1_2_1_kommutieren}
+Regel: Setzt man mehrere kommutative Diagramme zusammen und ist dann das ganze
+Diagramm schraffiert, so ist auch dieses kommutativ.
+\end{enumerate}}                                    
+%---------------------------------------------------------------------------
+\example{$\underline{\operatorname{Set}}_*$, ''Kategorie der punktierten Mengen''}:{
+Die Objekte sind die Paare $(X,x)$, wobei $ X\in \Ob{\operatorname{Set}}, x\in X$ (ausgezeichneter Punkt).\\
+Pfeil: $f:(X,x)\longrightarrow (Y,y)$
+ist Abbildung $f:X\longrightarrow Y$ mit $f(x)=y$. Die zugeh"orige Komposition 
+ist die Schachtelung.}
+%---------------------------------------------------------------------
+\remark{}:{$\mathcal{K}$ \label{aequivalent_1}
+sei eine Kategorie. Dann sind "aquivalent:
+\begin{enumerate}
+\item[(i)] $|\Ob{K}|=1$, etwa $\Ob{K}=\{A\}$
+\item[(ii)] $\operatorname{Mor}_{\mathcal{K}}$=$\Mor(K;A;A)$
+\item[(iii)]$\operatorname{Mor}_{\mathcal{K}}$ ist ein Monoid
+\end{enumerate}}                          		
+%---------------------------------------------------------------------
+\proof \ref{aequivalent_1}:{
+  \begin{description}
+    \item{(i)$\longrightarrow$(ii)}  trivial
+    \item{(ii)$\longrightarrow$(iii)}
+	  klar, da in jeder Kategorie die $\Mor(K;A;A)$
+      ein Monoid bilden (neutrales Element ist $e_A$). Insbesondere hat man
+      man die Gruppe   $\operatorname{Aut}(A)=\Mor(K;A;A)$  
+    \item{(iii)$\longrightarrow$(i)}  $\forall f,g\in \operatorname{Mor}_{\mathcal{K}}$:
+    $\operatorname{Ziel}(f)=\operatorname{Ursp}(g)$
+    $\Rightarrow \exists^{1}$  Ursp $\land \Rightarrow \exists^{1}$ Ziel
+    $\Rightarrow$ genau ein Objekt. Ist z.B $M$ ein Monoid, so erfinde
+    Objekt (d.h. z.B Buchstabe $A$). Setze $\Ob{K}=\{A\}$,
+    $\Mor(K;A;A):=M$ dann ist $\mathcal{K}$ eine Kategorie.
+    \end{description}
+\qed	
+}
+%--------------------------------------------------------------------
+\subsection{Isomorphismus, Funktoren}
+%--------------------------------------------------------------------
+\remark{}:{Ein weiterer Vorzug des Begriffs ist zum Beispiel die 
+einheitliche Definition f"ur Isomorphismus (und Automorphismus)
+bei allen Klassen.}
+%--------------------------------------------------------------------
+\definition{Isomorphismus}:{\begin{enumerate}
+\item[(i)] $\mathcal{K}$ sei eine Kategorie. Ein \indexthis{Isomorphismus} $f:A\longrightarrow B$
+ist ein invertierbarer Pfeil. Genauer (wie be Monoiden):\\
+$f:A\longrightarrow B$ invertierbar $:\iff \exists g,h\in \Mor(K;B;A)$
+mit $gf=e_A$, $fh=e_B$
+\insertfig{algebra1_2_1_dreieck_iso}
+Wie bei Monoiden zeigt man: $g=h$  und eindeutig bestimmt. Bezeichnung ist
+$g=h=f^{-1}$.
+$\operatorname{Aut}(A)$ besteht aus den Isomorhismen $f:A\longrightarrow A$
+\item[(ii)] Zwei Objekte $A,B$ heissen isomorph $\iff \exists$
+Isomorphismus $f:A\longrightarrow B$. Bezeichnung: $A\cong B$.
+``$\cong$'' ist "Aquivalenzrelation auf $\Ob{K}$. (Transitivit"at gilt, da
+wie bei Monoiden $(gf)^{-1}=f^{-1}g^{-1}$)
+\end{enumerate}}
+%----------------------------------------------------------------------
+\definition{Unterkategorie}:{Sei $\mathcal{K}$ eine Kategorie.
+$\mathcal{L}$ (Kategorie) heisst Unterkategorie von $\mathcal{K}$, wenn gelten:
+\begin{enumerate}
+\item[(i)] $\Ob{L} \subseteq \Ob{K}$
+\item[(ii)] $\forall A,B\in \Ob{L}: \Mor(L;A;B)\subseteq \Mor(K;A;B)$
+\item[(iii)] Die Komposition in $\mathcal{L}$ ist die aus $\mathcal{K}$.
+\end{enumerate}
+$\mathcal{L}$ heisst {\emph volle} Unterkategorie
+$\iff \forall A,B \in \Ob{L}: \Mor(L;A;B)=\Mor(K;A;B)$.
+Zu jeder Teilklasse $\mathcal{M}$ kann man die volle Unterkategorie
+$\mathcal{L}$ um $\Ob{L}=\mathcal{M}$ bilden.
+}
+%------------------------------------------------------------------------
+\example{}:{\begin{enumerate}
+\item \underline{Ab} (Kategorie der abelschen Gruppen) bildet volle
+Unterkategorie von \underline{Gp}.
+\item Die endlichdimensionalen K-Vektorr"aume bilden volle Unterkategorie
+der K-Vektorr"aume \underline{K-Mod}
+\end{enumerate}}
+%------------------------------------------------------------------------
+\motivation{zur Begriffsbildung Funktor}:{Die ''Homomorphismen'' zwischen Kategorien 
+(sie werden Funktoren genannt) sind wie im Spezialfall der Monoide
+die Abbildungen\\
+$\mathcal{F}: \operatorname{Mor}_{\mathcal{A}}\longrightarrow \operatorname{Mor}_{\mathcal{B}}$, \\
+die die Komposition und die Neutralen respektieren. Zu $e_A$ soll
+$\mathcal{F}(e_A)$ neutrales Element in $\mathcal{B}$ sein, d.h.
+$\mathcal{F}(e_A)=e_{A'}$ mit $A' \in \Ob{B}$.}
+%-----------------------------------------------------------------------
+\definition{Funktor}:{Eine Abbildung $\mathcal{F}$ heisst kovarianter Funktor 
+\index{Funktor, kovarianter}
+von der Kategorie $\mathcal{A}$ in die Kategorie $\mathcal{B}$, wenn folgende
+Forderungen erf"ullt sind:
+\begin{enumerate}
+\item[(Fun1)] Man hat die Abblidung $\mathcal{F}: \Ob{A}\longrightarrow \Ob{B}$,
+$A\mapsto A'=: \mathcal{F}(A)$.
+\item[(Fun2)] Man hat die Abbildung $\mathcal{F}: \operatorname{Mor}_{A}
+\longrightarrow \operatorname{Mor}_{B}$, mit
+  \begin{enumerate}
+  \item[(a)] $\forall A,B \in \Ob{A}: \mathcal{F}(\Mor(A;A;B)) \subseteq$
+  $\Mor(B;\mathcal{F}(A);\mathcal{F}(B))$
+  \item[(b)] (Homomorphieregel)\\
+  $\forall A,B,C \in \Ob{A}$, $f\in \Mor(A;A;B)$, $g\in \Mor(A;B;C)$:
+  $\mathcal{F}(gf)=\mathcal{F}(g) \mathcal{F}(f)$
+  \item[(c)] $\forall A\in \Ob{A}$: $\mathcal{F}(e_A)=e_{\mathcal{F}(A)}$.
+  \end{enumerate} 
+\end{enumerate}
+Ein {\emph kontravarianter} Funktor \index{Funktor, kontravarianter}
+$\mathcal{G}$ ist definiert wie ein kovarianter
+Funktor, nur dass der Pfeil im Bild in die umgekehrte Richtung zeigt, d.h.\\
+$\mathcal{G}(\Mor(A;A;B)) \subseteq \Mor(B;\mathcal{G}(B);\mathcal{G}(A))$.\\
+Die Homomorphieregel lautet dann:\\
+$\mathcal{G}(gf)=\mathcal{G}(f)\mathcal{G}(g)$.
+}
+%---------------------------------------------------------
+\remark{zu Funktoren}:{
+\begin{enumerate}
+\item(Fun2) folgt aus dem Respektieren von Kompositionen, 
+d.h. $f,g\in \operatorname{Mor}_\mathcal{A}$, so dass $gf$ definiert ist,
+so soll $\mathcal{F}(g)\mathcal{F}(f)$ in $\mathcal{B}$ definiert sein und
+$\mathcal{F}(gf)= \mathcal{F}(g) \mathcal{F}(f)$.
+Weiter: $f\circ e_A=f \Leftrightarrow A$ Ursprung von $f$, $\mathcal{F}(f\circ e_A)$
+$=\mathcal{F}(f)\mathcal{F}(e_A)$, d.h. $\mathcal{F}(e_A)=e_{\mathcal{F}(A)}$
+$\Rightarrow e_{\mathcal{F}(A)}$ ist Ursprungsneutralelement von $\mathcal{F}(f)$.
+Analog f"ur Ziel. Insgesamt ergibt dies (Fun2).
+\item Ein Funktor bildet kommutative Diagramme in $\mathcal{A}$ auf
+kommutative Diagramme in $\mathcal{B}$ ab.
+
+in $\mathcal{A}$ 
+\insertfig{algebra1_2_1_diagramm1} 
+in $\mathcal{B}$ (kovarianter Funktor)
+\insertfig{algebra1_2_1_diagramm2}
+in $\mathcal{B}$ (kontavarianter Funktor) 
+\insertfig{algebra1_2_1_diagramm3} 
+
+\item gesehen: Ist $\Ob{A}=\{A\}$, $\Ob{B}=\{B\}$, dann:
+
+$\mathcal{F}: \mathcal{A}\longrightarrow$
+$\mathcal{B}$ ist Funktor 
+$\iff$ $\mathcal{F}: \Mor(A;A;A)\longrightarrow \Mor(B;B;B)$ 
+ist Monoidhomomorphismus.
+\item Wenn nicht ausdr"ucklich erw"ahnt, so sei nachfolgend ein Funktor stets kovariant.
+\end{enumerate}
+}
+
+%--------------------------------------------------------------
+\subsection{Beispiele zu Funktoren}
+%--------------------------------------------------------------
+Praxiserfahrung: Konstruiert man zu $A\in \Ob{A}$ ein $\mathcal{F}\in \Ob{B}$
+in vern"unftiger Weise, so dass die Konstruktion f"ur alle $A$ ''gleichartig''
+gemacht wird, so ist $\mathcal{F}$ fast immer ein Funktor.
+
+%--------------------------------------------------------------
+\example{1}:{
+$\mathcal{F}:$ \underline{Mon} $\longrightarrow$ \underline{Gp}, $\mathcal{F}(M)=M^{\times}$
+(Einheitengruppe) ergibt einen Funktor.
+
+Sei $\phi :M\longrightarrow N$ ein Pfeil in \underline{Mon}.
+Was soll dann $\mathcal{F}(\phi)=: \phi _{\times}$ sein?\\
+$\phi_{\times}=\phi _{| M^\times}:M^{\times}\longrightarrow N^{\times}$.
+Es gilt n"amlich $u\in M^{\times} \Rightarrow \phi(u)\in N^{\times}$, und zwar wegen:
+$\exists u^{-1}:uu^{-1}=e_{M^{\times}}=u^{-1}u$
+$\Rightarrow \phi(uu^{-1})=\phi(u)\phi(u^{-1})=e_{N^{\times}}=\phi(u^{-1})\phi(u)$,
+also $\phi(u^{-1})=\phi(u)^{-1}$. Ausserdem gilt: $\phi(id_M)=id_{\phi(M)}$, 
+$id_M$ neutraler Pfeil in \underline{Mon}. 
+}
+%-----------------------------------------------------------------
+\example{2}:{ $G$ Gruppe, $\mathcal{F}(G)=2^G$ das Teilmengenmomoid von $G$.
+$\phi: G\longrightarrow H$ ein Gruppenhomomorphismus, $A\subseteq G$, d.h.
+$A\in 2^G$, so $\phi _*(A)=\phi(A)$,
+$\phi _*: 2^G \longrightarrow 2^H$, $\phi _*(AB)=\phi(AB)=\phi(A)\phi(B)=\phi _*(A)\phi _*(B)$,
+also $\phi _*$ Pfeil in \underline{Mon}. $\mathcal{F}(\phi)=\phi_*$
+}
+%-----------------------------------------------------------------------
+\example{3 Der Dualraum}:{$V$ (ein K-Vektorraum) $\longrightarrow \mathcal{G}(V):=V^*$,
+wobei $V^*=\operatorname{Hom}(V,K)$ der Dualraum sei.
+
+$V\stackrel{f}{\longrightarrow} W$, $W^* \stackrel{f^*}{\longrightarrow} V^*$,
+$f^*$ die zu $f$ (K-linear) geh"orige adjungierte Abbildung (bzw. duale Abbildung).
+\insertfig{algebra1_2_1_dualraum1}
+Setze $\mathcal{G}(f)=f^*$. Aus der Linearen Algebra ist bekannt: $id_V^*=id_{V^*}$,
+$(g\circ f)^*=f^*g^*$.
+}
+%-----------------------------------------------------------------------
+\example{Verallgemeinerung der Beispiele}:{
+Sei $\mathcal{K}$ eine Kategorie und $A\in \Ob{K}$. Dann ist:
+
+\begin{tabular}{ccc}
+$\mathcal{F}$: & $X\mapsto \Mor(K;A;X)$ & kovarianter Funktor \\
+$\mathcal{G}$: & $X\mapsto \Mor(K;X;A)$ & kontravarianter Funktor \\
+\end{tabular}
+von $\mathcal{K}\longrightarrow$ \underline{Set}.\\
+"Ubertragung der Pfeile: zu $f\in \Mor(K;X;Y)$, $\alpha \in \Mor(K;Y;A)$ sei $f^*(\alpha)=\alpha f$
+\insertfig{algebra1_2_1_verall_beispiel1}
+$f^*=\mathcal{G}(f)$ ist Abbildung (also Pfeil in \underline{Set})
+
+$\Mor(K;Y;A) \longrightarrow \Mor(K;X;A)$, $\mathcal{G}(Y) \longrightarrow \mathcal{G}(X)$.
+
+Nachpr"ufen der Homomorphieregel: $f:X \longrightarrow Y$, $g:Y \longrightarrow Z$,
+$(gf)^*(\alpha)=\alpha(gf)=(\alpha g)f=g^*(\alpha)f=f^*(g^*(\alpha))$, also
+$(gf)^*=f^*g^*$
+\insertfig{algebra1_2_1_verall_beispiel2}
+$\mathcal{F}(f)=f_*$:$\Mor(K;A;X) \longrightarrow \Mor(K;A;Y)$
+
+trivial: kovarianter Funktor
+}
+%-----------------------------------------------------------------------
+\subsection{Der Vergiss-Funktor}
+%-----------------------------------------------------------------------
+Idee: Vergiss-Funktor ''vergisst'' Struktur.
+
+\example{}:{$\mathcal{V}$:$\underline{Gp} \longrightarrow$ \underline{Set},
+$(G,v)\mapsto \mathcal{V}((g,v)):= G \in$ \underline{Set},
+$\phi$:$G \longrightarrow H$, so $\mathcal{V}(\phi):=\phi$
+}
+\example{}:{\underline{Ring} $ \longrightarrow$\underline{Ab},
+$(R,+,\cdot) \longrightarrow (R,+)$
+}
+\remark{}:{Eine Abbildung $A \longrightarrow G$, wobei $A$ eine Menge und $G$ eine Gruppe
+sind, ist genau genommen ein Pfeil in \underline{Set} $A \longrightarrow \mathcal{V}(G)$
+ }
+%-----------------------------------------------------------------------
+\subsection{Beliebte Anwendungen von Funktoren}
+\lemma{Ein Funktor respektiert Isomorphismus}:{$\mathcal{F}:\mathcal{A}$
+$\longrightarrow \mathcal{B}$ sei ein Funktor}=>{\label{lem_KAT_2}
+$f$ ist ein Isomorphismus in $\mathcal{A}$
+$\Rightarrow \mathcal{F}(f)$ ist ein Isomorphismus in $\mathcal{B}$.
+
+Liefert {\emph Nichtisomorphiekriterium}: \\
+$\mathcal{F}(A)\not\cong \mathcal{F}(B)$
+in $\mathcal{B}\Rightarrow A\not\cong B$ in $\mathcal{A}$.}
+%-----------------------------------------------------------------------
+\proof \ref{lem_KAT_2}:{Sei $\mathcal{F}$ kovariant (kontravariant "ahnlich). 
+$f$ Isomorphismus $f:A\longrightarrow B \Rightarrow \exists f^{-1}:B\longrightarrow A:$
+$ff^{-1}=e_B$, $f^{-1}f=e_A \Rightarrow \mathcal{F}(f)\mathcal{F}(f^{-1})=e_{\mathcal{F}(B)}$,
+$\mathcal{F}(f^{-1})\mathcal{F}(f)=e_{\mathcal{F}(A)}\Rightarrow \mathcal{F}(f^{-1})=\mathcal{F}(f)^{-1}$
+\qed
+}

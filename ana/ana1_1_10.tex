@@ -1,0 +1,608 @@
+% -----------------------------------------------------------------------------
+\para{Reelle Zahlen}
+% -----------------------------------------------------------------------------
+\definition K"orper:{
+  Ein K"orper $({\mathbb K};+;\cdot)$ ist eine Menge $\mathbb K$ mit zwei
+  Verkn"upfungen $+$ und $\cdot$, f"ur die
+  die folgenden Axiome gelten:
+  {
+    \def\inK{ \in {\mathbb K} }
+    \def\inKNull{ \in {\mathbb K \setminus \{0\}}}
+    \begin{stmts}
+      \item $(\forall a,b,c \inK)((a+b)+c=a+(b+c))$ 
+        (\emph{Assoziativgesetz $+$})
+      \item $(\exists 0 \inK)(\forall a \inK) (a+0=a)$ 
+        (\emph{Neutralelement $+$})
+      \item $(\forall a \inK)(\exists (-a) \inK) (a+(-a)=0)$ 
+        (\emph{Inverses $+$})
+      \item $(\forall a,b,c, \inK)(a+b=b+a)$ 
+        (\emph{Kommutativgesetz $+$})
+      \item $(\forall a,b,c \inK)((a\cdot b)\cdot c = a \cdot (b \cdot c))$ 
+        (\emph{Assoziativgesetz $\cdot$})
+      \item $(\exists 1 \inKNull)(\forall a \inKNull)(1\cdot a=a)$ 
+        (\emph{Neutralelement $\cdot$})
+      \item $(\forall a \inKNull)(\exists a^{-1} \inKNull)(a \cdot a^{-1}=1)$ 
+        (\emph{Inverses $\cdot$})
+      \item $(\forall a,b \inKNull)(a\cdot b=b\cdot a)$ 
+        (\emph{Kommutativgesetz $\cdot$})
+      \item $(\forall a,b,c \inK)(a\cdot(b+c)=a\cdot b + a \cdot c)$ 
+        (\emph{Distributivgesetz})
+      \end{stmts}
+    }
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Insbesondere ist $(\SetR,+,\cdot)$ ein K"orper. Alle bekannten
+  Rechenregeln lassen sich aus den obigen Axiomen ableiten.
+  }
+% -----------------------------------------------------------------------------
+\definition Kurzschreibweisen:{
+  Der K"urze halber definiert man folgende Schreibweisen:
+  \begin{align*}
+    ab &:= a \cdot b\\
+    a-b &:= a+(-b)\\
+    \frac a b &:= a\cdot b^{-1}\qquad (b\ne 0)
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition Anordnung:{
+  Eine Menge $M$ hei"st angeordnet, wenn eine Relation ``$\le$'' gegeben
+  ist, die die folgenden Axiome erf"ullt:
+  \begin{stmts}
+    \item $(\forall a,b \in M)(a \le b \lor b \le a)$
+    \item $(\forall a,b \in M)((a \le b \land b \le a) \implies a=b)$ 
+    \item $(\forall a,b,c \in M)((a \le b \land b \le c) \implies a \le c)$ 
+      (\indexthis{Transititivit"at})
+    \item $(\forall a,b,c \in M)(a \le b \implies a+c \le b+c)$ 
+    \item $(\forall a,b,c \in M)((a \le b \land 0 \le c) \implies ac \le bc)$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Kurzschreibweisen:{
+  F"ur die Anordnung definiert man weiterhin:
+  \begin{align*}
+    b \ge a &:\equiv a \le b \\
+    a < b   &:\equiv \neg(a \ge b) \\
+    b > a   &:\equiv a < b
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  Es ist einfach zu zeigen, da"s s"amtliche obigen Axiome auch mit den
+  obigen Kurzschreibweisen gelten.
+  }
+% -----------------------------------------------------------------------------
+\definition Betrag:{
+  Sei $a \real$. Dann ist der Betrag von a:
+  \[ |a|:=
+    \begin{cases}
+      a  & \text{falls $a \ge 0$} \\ 
+      -a & \text{falls $a<0$}
+    \end{cases}
+  \]
+}
+% -----------------------------------------------------------------------------
+\lessertheorem:$a,b \real$=>{
+  Es gelten:
+  \begin{align*}
+    |a-b| &= |b-a| \\
+    |a|=0 &\equiv a=0 \\
+    |a|   &= |-a| \\
+    |a||b| &= |ab| \\
+    \pm a &\le |a| \\
+    |a+b| &\le |a| + |b| \tag{Dreiecksungleichung} \\
+    |a-b| &\ge \left| |a|-|b| \right|
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition Beschr"anktheit:{
+  Sei $M \subseteq \SetR$, $M \ne \emptyset$. Dann hei"st
+  M\ nach \tstack(oben;unten) beschr"ankt $:\equiv$
+  \[(\exists \gamma\real)(\forall x \real)(x\stack(\le;\ge)\gamma)
+    \]
+  Dann hei"st $\gamma$ \tstack(obere;untere) Schranke.
+  
+  M\ hei"st beschr"ankt $:\equiv$ M\ ist nach oben und unten
+  beschr"ankt.
+  }
+% -----------------------------------------------------------------------------
+\definition Infimum/ Supremum und Minimum/ Maximum:{
+  $\gamma$ hei"st \tstack(Supremum;Infimum) $:\equiv$
+  \[(\forall \tilde\gamma \real)(\tilde\gamma
+    \text{\tstack(OS;US)} \implies \tilde\gamma \stack(\ge;\le) \gamma)
+    \]
+  Kurzschreibweise: $\gamma=\stack(\sup;\inf)M$.
+  
+  Gilt $\stack(\sup;\inf)M \in M$, so nennt man $\stack(\sup;\inf)M$ auch
+  gleichzeitig \tstack(Minimum;Maximum) von M.
+  
+  Kurzschreibweise: $\gamma=\stack(\min;\max)M$.
+  }
+% -----------------------------------------------------------------------------
+\definition Intervall:{
+  Sei $a,b \real,a<b$.\\
+  $(a,b):=\left\{x\real\mid a<x<b\right\}$ hei"st offenes,\\
+  $(a,b]:=\left\{x\real\mid a<x\le b\right\}$ und\\
+  $[a,b):=\left\{x\real\mid a\le x< b\right\}$ halboffenes und\\
+  $[a,b]:=\left\{x\real\mid a\le x\le b\right\}$ geschlossenes Intervall von
+  $a$ bis $b$.
+  }
+% -----------------------------------------------------------------------------
+\definition Vollst"andigkeitsaxiom:{
+  Ein Axiom fehlt noch zur Bestimmung der reellen Zahlen,
+  das Vollst"andigkeitsaxiom:
+  \[(\forall M \subseteq \SetR,M \ne \emptyset)
+      (M \text{ nach oben beschr"ankt} \implies \exists \sup M)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem:$M \subseteq \SetR,M \ne \emptyset,M
+  \text{ nach unten beschr"ankt}$=>{
+  Dann existiert $\inf M$.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:$M \subseteq \SetR,M \ne \emptyset$=>{
+  $M$ ist beschr"ankt $:\equiv (\exists c>0)(\forall x \in M)(|x|<c)$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\emptyset\ne B\subseteq A\subseteq \SetR)$=>{
+  Dann gilt das folgende:
+  \begin{stmts}
+    \item $A$ ist beschr"ankt $\equiv\inf A\le\sup A$
+    \item $A$ ist nach \tstack(oben;unten) beschr"ankt $\implies$
+      $B$ ist nach \tstack(oben;unten) beschr"ankt und
+      $\stack(\sup B\le\sup A;\inf B \ge\inf A)$.
+    \item $A$ ist nach \tstack(oben;unten) beschr"ankt und
+      $\gamma$ eine \tstack(obere;untere) Schranke von $A$ $\implies$
+      $\gamma=\stack(\sup;\inf)A \equiv (\forall \varepsilon>0)
+      (\exists x\in A)(x\stack(>;<)\gamma-\epsilon)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{Nat"urliche Zahlen}
+% -----------------------------------------------------------------------------
+\definition Induktionsmenge:{
+  \index{Menge>induktive}
+  $A\subseteq\SetR$ hei"st Induktionsmenge/IM/induktiv, wenn die
+  folgenden Axiome gelten:
+  \begin{stmts}
+    \item $1 \in A$ 
+    \item $x\in A \implies x+1\in A$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Nat"urliche Zahlen:{
+  Die nat"urlichen Zahlen sind wie folgt festgelegt:\par
+  $\SetN:=\bigcap\limits_{A\text{IM}}A$.
+}
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Dann gelten
+  \begin{stmts}
+    \item $\SetN$ ist eine Induktionsmenge
+    \item $\SetN$ ist nicht nach oben beschr"ankt.
+    \item $x\real\implies(\exists n\natural)(n>x)$
+    \item $A \subseteq\SetN \land A\text{ Induktionsmenge}\implies A=\SetN $
+      (Prinzip der vollst. Induktion)
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark Beweisverfahren der vollst"andigen Induktion:{
+  \index{Induktion>vollst"andige}
+  \index{vollst"andige Induktion}
+  F"ur jedes $a\natural$ sei eine Aussage $A(n)$ definiert.
+  Sei $A:=\left\{n\natural\mid A(n)\right\}$. Kann man zeigen,
+  da"s $A(1)$ richtig ist und $A(n)\implies A(n+1)$, so ist $A$
+  Induktionsmenge. Weil $A\subseteq\SetN$ und A Induktionsmenge ist,
+  gilt $A=\SetN$. $A(n)$ gilt also f"ur jedes $n\natural$.
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem Wohlordnungsprinzip f"ur die nat. Zahlen:
+  $\emptyset\ne M\subseteq\SetN$=>{
+  Dann existiert $\min M$.
+  }
+% -----------------------------------------------------------------------------
+\definition Ganze Zahlen,Br"uche:{
+  Die folgenden Mengen bauen auf den nat"urlichen Zahlen auf:
+  \begin{align*}
+    \SetNN&:=\SetN \cup \{0\}\\
+    \SetZ&:=\{-n\mid n\natural\}\cup\SetNN\\
+    \SetQ&:=\{\frac p q\mid p\integer,q\natural\}
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem:$x,y\real,x<y$=>{
+  Dann existiert ein $r\rational$ mit $x<r<y$.
+  }
+% -----------------------------------------------------------------------------
+\para{Folgen/Abz"ahlbarkeit}
+% -----------------------------------------------------------------------------
+\definition In-/Sur-/Bijektivit"at:{
+  Seien $A,B$ beliebige Mengen, wobei $A\ne\emptyset\ne B$
+  und $f:A\rightarrow B$ eine Funktion. Dann ist
+  \[f(A):=\{f(x)\mid x\in A\} 
+    \] 
+  die Bildmenge von $f$. $f$ hei"st dann
+  \begin{stmts}
+    \item injektiv $:\equiv f(x_1)=f(x_2)\implies x_1=x_2$
+    \item surjektiv $:\equiv f(A)=B$
+    \item bijektiv $:\equiv$ $f$ injektiv und surjektiv
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Folge:{
+  Sei $A\ne\emptyset$ eine beliebige Menge. Eine Funktion
+  $a:\SetN\rightarrow A$ hei"st Folge in $A$.
+  Schreibweise: 
+  \begin{align*}
+    a_n&:=a(n) \tag{``n-tes Folgenglied''}\\
+    (a_n), {(a_n)}_{n=1}^{\infty}, (a_1,a_2,\ldots)&:=a\\
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\definition endlich,unendlich,abz"ahlbar:{
+  Sei $X\ne\emptyset$ beliebige Menge.
+  \begin{stmts}
+    \item $X$ hei"st endlich $:\equiv (\exists n\natural)
+      (\exists f:\{1,\ldots,n\}\to X)(f \text{ surjektiv})$
+    \item $X$ hei"st unendlich $:\equiv$ $X$ ist nicht endlich.
+    \item $X$ hei"st abz"ahlbar $:\equiv
+      (\exists f:\SetN\to X)(f \text{ surjektiv})$
+    \item $X$ hei"st abz"ahlbar unendlich $:\equiv$
+      $X$ ist abz"ahlbar und unendlich.
+    \item $X$ hei"st "uberabz"ahlbar $:\equiv$
+      $X$ ist nicht abz"ahlbar, aber unendlich.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $\SetN$, $\SetZ$ und $\SetQ$ sind abz"ahlbar unendlich. $\SetR$ ist
+  "uberabz"ahlbar. Die Menge aller Folgen in $\{0,1\}$ ist
+  "uberabz"ahlbar.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$\emptyset\ne B\supseteq A$ abz"ahlbar=>{
+  Dann ist auch $B$ abz"ahlbar.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$X_1,X_2,X_3\ldots$ abz. viele Mengen=>{
+  $\bigcup\limits_{n\natural} X_n$ abz"ahlbar
+  }
+% -----------------------------------------------------------------------------
+\para{Einige Formeln}
+% -----------------------------------------------------------------------------
+\theorem Summenformel:$n\natural$=>{
+  Dann gilt
+  \[\sum_{k=1}^n k=\frac{n(n+1)}2
+    \]
+  }
+% -----------------------------------------------------------------------------
+\definition Nat"urliche Potenzen:{
+  Sei $a\real,n\natural$.
+  Dann ist $a^n:=\overbrace{a\cdot a\cdot a\cdots}^{n\text{-mal}}$ und $a^0:=1$.
+}
+% -----------------------------------------------------------------------------
+\definition Fakult"at:{
+  Sei $n\natural$. Dann ist $n!:=1\cdot 2\cdot 3\cdots n$ und $0!:=1$.
+}
+% -----------------------------------------------------------------------------
+\definition Binomialkoeffizient:{
+  Sei $n\natural;k\nnatural;k\le n$. Dann ist 
+  \[\binom n k :=\frac{n!}{k!(n-k)!}
+    \]
+}
+% -----------------------------------------------------------------------------
+\theorem:$n\natural;k\nnatural;k\le n$=>{
+  Dann gilt
+  \[\binom n k +\binom n {k+1}=\binom{n+1} k
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Bernoulli'sche Ungleichung:$x\ge -1,n\natural$=>{
+  \index{Ungleichung>Bernoulli'sche}
+  Es gilt
+  \[(1+x)^n\ge 1+nx
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Allgemeine 3. binomische Formel:$a,b\real;n\natural$=>{
+  \index{Binomische Formel>allgemeine}
+  In Verallgemeinerung von $a^2-b^2=(a-b)(a+b)$ gilt
+  \[a^{n+1}-b^{n+1}=(a-b)\sum_{k=0}^{n}a^kb^{n-k}
+    \]
+  Insbesondere $a=1,t\ne 1$:
+  \[\sum_{k=0}^{n}t^k=\frac{1-t^{n+1}}{1-t}
+    \]
+}
+% -----------------------------------------------------------------------------
+\theorem Binomialformel:$a,b\real;n\natural$=>{
+  Es gilt
+  \[(a+b)^n=\sum_{k=0}^n{n\choose k}a^kb^{n-k}
+    \]
+}
+% -----------------------------------------------------------------------------
+\lessertheorem Monotonie nat"urlicher Potenzen:$x,y\ge 0;n\natural$=>{
+  Dann gilt 
+  \[x\le y\implies x^n\le y^n
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{Wurzeln}
+% -----------------------------------------------------------------------------
+\definition Wurzel:{
+  Sei $a\ge 0,n\natural$. Dann ex. ein $x\real$ mit $x^n=a$.
+  Schreibweise: $x=\root n \of a$.
+  }
+% -----------------------------------------------------------------------------
+\definition Rationale Potenzen:{
+  \index{Potenzen>rationale}
+  Sei $a\ge 0;r=\frac m n;m,n \natural$. Dann ist
+  \[a^r=a^\frac m n:=\left(\sqrt[n]a\right)^m
+    \]
+  Diese Darstellung ist unabh"angig davon, ob $\frac m n $ gek"urzt ist
+  oder nicht.
+  }
+% -----------------------------------------------------------------------------
+\definition Negative Potenzen:{
+  Sei $a>0;r\rational;r<0$. Dann ist
+  \[a^r:=\frac 1{a^{-r}}
+    \]
+  }
+% -----------------------------------------------------------------------------
+\para{Konvergente Folgen}
+% -----------------------------------------------------------------------------
+\definition Beschr"anktheit einer Folge:{
+  \index{Folge>Beschr"anktheit}
+  $(a_n)$ hei"st beschr"ankt (nach oben/unten)$:\equiv$ die Bildmenge
+  beschr"ankt ist (nach oben/unten).
+  
+  Analog "ubertragen sich die Definitionen von $\min,\max,\inf,\sup$.
+  }
+% -----------------------------------------------------------------------------
+\definition Epsilon-Umgebung:{
+  Sei $x_0\real,\epsilon>0$. Dann hei"st $U_\epsilon(x_0)$ die
+  $\epsilon$-Umgebung von $x_0$.
+  \[U_\epsilon(x_0):=(x_0-\epsilon;x_0+\epsilon)
+    \]
+}
+% -----------------------------------------------------------------------------
+\definition Konvergenz einer Folge:{
+  \index{Folge>Konvergenz einer}
+  Sei $(a_n)$ eine reelle Folge. $(a_n)$ hei"st konvergent $:\equiv$
+  \[(\exists a\real)(\forall \epsilon>0)(\exists n_0(\epsilon)\natural)
+    (\forall n\ge n_0\natural)(a_n\in U_\epsilon(a))
+    \]
+  Ist $(a_n)$ konvergent, so hei"st $a$ Grenzwert/GW von $(a_n)$.
+  Schreibweise: $a_n \to a$ f"ur $n\to\infty$ oder $\limn a_n=a$.
+  Eine nicht konvergente Folge hei"st divergent.
+}
+% -----------------------------------------------------------------------------
+\theorem:$(a_n)$ konvergente reelle Folge=>{
+  \begin{stmts}
+    \item $\limn a_n$ ist eindeutig bestimmt.
+    \item $(a_n)$ ist beschr"ankt.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  In Konvergenzfragen kommt es auf endlich viele Folgenglieder nicht an.
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  \begin{stmts}
+    \item $c\real\implies\limn c=c$ 
+    \item $\limn \frac 1 n=0$ 
+    \item $(n)$ ist divergent.
+    \item $((-1)^n)$ ist divergent.
+    \item $\limn \frac 1 {\sqrt{n}}=0$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition Folge (II):{
+  Sei $k\integer$ fest. Eine Fkt.
+  $a:\{n\integer\mid n\ge k\}\to X\ne\emptyset$ hei"st
+  ebenfalls Folge.
+  
+  Schreibweise: $(a_n)_{n\ge k}$ oder $(a_n)_{n\ge k}^{\infty}$
+}
+% -----------------------------------------------------------------------------
+\definition f"ur fast alle:{
+  Sei $k,n\integer$, $A(n)$ eine Aussage f"ur alle $n\ge k$.
+  Dann sagt man:\par
+
+  $A(n)$ gilt f"ur fast alle $n\ge k$ $:\equiv$
+  $(\exists n_0\ge k)(\forall n\ge n_0)(A(n) \text{gilt})$.
+}
+% -----------------------------------------------------------------------------
+\theorem: $(a_n),(b_n),(c_n)$ reelle Folgen=>{
+  Dann gilt
+  \begin{stmts}
+    \item $\limn a_n=a \implies \limn |a_n-a|=0$ 
+    \item $\limn b_n=0 \land |a_n-a|\le b_n \ffa n\natural
+           \implies \limn a_n=a$
+    \item $\limn a_n=a\implies \limn |a_n|=|a|$ $(\not\equiv)$
+    \end{stmts}
+  Sei nun $\limn a_n=a,\limn b_n=b$. Dann gilt weiter:
+  \begin{stmts}
+    \item $\limn (a_n+b_n)=a+b$
+    \item $\alpha\real$ $\implies$ $\limn \alpha a_n=\alpha a$ 
+    \item $\limn a_n b_n=ab$ 
+    \item $b\ne 0\implies(\exists n_0\natural)(\forall n\ge n_0)(b_n\ne 0,
+      \limn \frac{a_n}{b_n}=\frac a b$) 
+    \item $a_n\le b_n \ffa n\natural \implies a\le b$ 
+    \item $a=b \land a_n\le c_n \le b_n \ffa n\natural\implies
+      \limn c_n=a$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\example:{
+  Sei $p\natural$. Dann ist $\limn \frac 1 {n^p}=0$.
+  }
+% -----------------------------------------------------------------------------
+\definition Monotonie:{
+  $a_n$ sei reelle Folge.
+  \begin{stmts}
+    \item $(a_n)$ hei"st monoton wachsend $:\equiv (\forall n\natural)(a_{n+1}\ge a_n)$
+    \item $(a_n)$ hei"st monoton fallend $:\equiv (\forall n\natural)(a_{n+1}\le a_n)$
+    \item $(a_n)$ hei"st monoton $:\equiv$ $(a_n)$ monoton wachsend $\lor$ fallend
+    \item $(a_n)$ hei"st streng monoton wachsend $:\equiv (\forall n\natural)(a_{n+1}>a_n)$
+    \item $(a_n)$ hei"st streng monoton fallend $:\equiv (\forall n\natural)(a_{n+1}<a_n)$
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem Monotoniekriterium:
+  $(a_n)$ sei monoton \tstack(wachsend;fallend) und nach \tstack(oben;unten) 
+  beschr"ankt=>{
+  Dann gilt $\limn a_n=\stack(\sup a_n;\inf a_n)$.
+  }
+% -----------------------------------------------------------------------------
+\para{Wichtige Beispiele}
+% -----------------------------------------------------------------------------
+\theorem:$p\natural,(a_n)$ reelle Folge,
+  $(\forall n\natural)(a_n\ge0)$,$\limn a_n=a$=>{
+  Es ist $\limn \root p\of{a_n}=\sqrt[p]a$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$x\real,n\natural,a_n:=x^n$=>{
+  \begin{stmts}
+    \item $x=0$: $\limn a_n=0$ 
+    \item $x=1$: $\limn a_n=1$ 
+    \item $x=-1$: $(a_n)$ divergent 
+    \item $|x|>1$: $(a_n)$ divergent 
+    \item $|x|<1$: $\limn a_n=0$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:=>{
+  Es ist $\limn \sqrt[n]n=1$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$c>0$=>{
+  Es ist $\limn \sqrt[n]c=1$.
+  }
+% -----------------------------------------------------------------------------
+\theorem:$a_n=(1+\frac 1 n)^n,b_n=\sum_{k=0}^n \frac 1{k!}$=>{
+  Dann sind $\limn a_n=\limn b_n=e$.
+  }
+% -----------------------------------------------------------------------------
+\definition Eulersche Zahl e:{
+  Man legt fest $e:=\limn(1+\frac 1 n)^n$.
+  }
+% -----------------------------------------------------------------------------
+\para{Teilfolgen und H"aufungswerte}
+% -----------------------------------------------------------------------------
+\definition Teilfolge:{
+  Sei $(a_n)$ Folge und $\phi: \SetN\to\SetN$ streng monoton wachsend.
+  $b_n:=a_{\phi(n)}$ hei"st dann Teilfolge von $a_n$.
+}
+% -----------------------------------------------------------------------------
+\definition H"aufungswert:{
+  $\alpha\real$ ist H"aufungswert/HW von $(a_n)$ $:\equiv$
+  $\epsn(a_n\in U_\epsilon(\alpha))$ gilt f"ur unendlich viele Folgenglieder.
+}
+% -----------------------------------------------------------------------------
+\remark:{Jede reelle Zahl ist H"aufungswert der rationalen Zahlen.}
+% -----------------------------------------------------------------------------
+\theorem:$(a_n)$ reelle Folge=>{
+  \begin{stmts}
+    \item $\alpha$ ist HW von $(a_n)$ $\equiv$
+      $\exists$ Teilfolge von $(a_n)$ mit $\limes k->\infty a_{n_k}=\alpha$\\
+    \item $\limn a_n=a$ $\implies$
+      $\forall$ Teilfolgen $(a_{n_k})$ von $(a_n)$:
+      $\limes k->\infty a_{n_k}=a$\\
+    \item $(a_n)$ konvergent $\implies$ $(a_n)$ hat genau einen HW, n"amlich
+      den Grenzwert.
+    \end{stmts}  
+  }
+% -----------------------------------------------------------------------------
+\theorem:$(a_n)$ reelle Folge=>{
+  Es gibt eine monotone Teilfolge von $(a_n)$.
+}
+% -----------------------------------------------------------------------------
+\theorem Satz von Bolzano-Weierstra"s:
+  $(a_n)$ beschr"ankte reelle Folge=>{
+  \label{the:bolzano-weierstrass}
+  \index{Bolzano-Weierstra"s>Satz von}
+  $(a_n)$ hat mindestens einen H"aufungswert.
+  }
+% -----------------------------------------------------------------------------
+\para{Oberer und unterer Limes}
+% -----------------------------------------------------------------------------
+\definition:{
+  Sei $(a_n)$ eine reelle Folge.
+  $H(a_n):=\left\{\alpha\real\mid\alpha\text{ ist HW von $(a_n)$} \right\}$
+}
+% -----------------------------------------------------------------------------
+\theorem:
+  $(a_n)$ beschr"ankte reelle Folge=>{
+  \begin{stmts}
+    \item $H(a_n)$ ist beschr"ankt.
+    \item $\sup H(a_n),\inf H(a_n)\in H(a_n)\equiv\exists\min H(a_n),\max H(a_n)$.
+      (Wegen \ref{the:bolzano-weierstrass}: $H(a_n)\ne\emptyset$)
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\definition limsup / liminf:{
+  Sei $(a_n)$ beschr"ankte reelle Folge. Dann hei"st
+  \begin{stmts}
+    \item $\limsupn a_n := \max H(a_n)$ (\indexthis{limes superior}/oberer Limes)
+    \item $\liminfn a_n := \min H(a_n)$ (\indexthis{limes inferior}/unterer Limes)
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $(a_n)$ beschr"ankte reelle Folge, $\alpha\real$=>{
+  \begin{align*}
+    \alpha=\liminf a_n \equiv
+    & \epsn(\alpha-\epsilon<a_n) \ffa n\natural\land \\
+    & \epsn(a_n<\alpha+\epsilon) \text{ f"ur unendlich viele } n\natural \\
+    \alpha=\limsup a_n \equiv
+    & \epsn(\alpha-\epsilon<a_n) \text{ f"ur unendlich viele } n\natural\land \\
+    & \epsn(a_n<\alpha+\epsilon) \ffa n\natural 
+    \end{align*}
+  }
+% -----------------------------------------------------------------------------
+\theorem:
+  $(a_n)$ beschr"ankte reelle Folge, $\alpha\real$=>{
+  Die folgenden drei Aussagen sind "aquivalent:
+  \begin{stmts}
+    \item $\liminfn a_n = \limsupn a_n$
+    \item $(a_n)$ hat genau einen HW.
+    \item $(a_n)$ ist konvergent.
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\lessertheorem:$(a_n),(b_n)$ beschr"ankte reelle Folgen=>{
+  \begin{stmts}
+    \item $a_n\le b_n \ffa n\natural\implies
+      \stack(\limsupn;\liminfn) a_n \le
+      \stack(\limsupn;\liminfn) b_n$ 
+    \item $\limsupn (a_n+b_n) \le
+      \limsupn a_n+\limsupn b_n$ 
+      
+      $\liminfn (a_n+b_n) \le
+      \liminfn a_n+\liminfn b_n$ 
+    \item $\alpha\ge 0$ $\implies$ $\limsupn \alpha a_n = \alpha\limsupn a_n$
+    \item $\limsupn (-a_n)=-\liminfn a_n$ 
+    \item $\liminfn (-a_n)=-\limsupn a_n$ 
+    \end{stmts}
+  }
+% -----------------------------------------------------------------------------
+\para{Das Cauchy-Kriterium}
+% -----------------------------------------------------------------------------
+\definition Cauchy-Folge:{
+  Eine reelle Folge $(a_n)$ hei"st Cauchy-Folge $:\equiv$
+  \[\epsn(\exists n_0=n_0(\epsilon)\natural)(\forall n,m\ge n_0)(|a_n-a_m|<\epsilon)
+    \]
+  }
+% -----------------------------------------------------------------------------
+\theorem Cauchy-Kriterium:=>{
+  $(a_n)$ ist konvergent $\equiv$ $(a_n)$ ist Cauchy-Folge.
+  }
+% -----------------------------------------------------------------------------
+\remark:{
+  $(a_n)$ ist Cauchy-Folge $\equiv$
+  \[\epsn(\exists n_0(\epsilon)\natural)(\forall n\ge n_0)(\forall k\natural)
+    (|a_n-a_{n+k}|<\epsilon)
+    \]
+  }

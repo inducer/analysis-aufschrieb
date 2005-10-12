@@ -1,0 +1,38 @@
+\setlength{\unitlength}{1mm}
+\setlength{\GapWidth}{5mm}
+\begin{center}
+  \begin{picture}(40,50)
+    \put(0,40){
+      \begin{bundle}{$S$}
+        \chunk{%
+          \begin{bundle}{$A$}
+            \chunk{%
+              \begin{bundle}{$C$}
+                \chunk{%
+                  \begin{bundle}{$A$}
+                    \chunk{$a$}
+                  \end{bundle}
+                  }
+                \chunk{%
+                  \begin{bundle}{$A$}
+                    \chunk{$a$}
+                  \end{bundle}
+                  }
+              \end{bundle}
+              }
+            \chunk{%
+              \begin{bundle}{$C$}
+                \chunk{$b$}
+              \end{bundle}
+              }
+          \end{bundle}
+          }
+        \chunk{%
+          \begin{bundle}{$B$}
+            \chunk{$b$}
+          \end{bundle}
+          }
+      \end{bundle}
+      }
+  \end{picture}
+\end{center}

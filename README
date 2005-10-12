@@ -1,0 +1,51 @@
+(C) 2000 Andreas Kloeckner (ak@ixion.net)
+http://www.ixion.net/ak/aufschrieb
+
+-------------------------------------------------------------------------------
+Einkaufszettel
+-------------------------------------------------------------------------------
+
+Die folgenden Programme sind erforderlich:
+* LaTeX2e (mit AMSLaTeX, Babel und FancyHeaders)
+* makeindex>=2.13
+* dvips
+
+-------------------------------------------------------------------------------
+Installation auf Unix
+-------------------------------------------------------------------------------
+
+Alles in ein Verzeichnis untar'en, Make-Kommando eintippen, warten, 
+fertig. Das Makefile ist darauf eingerichtet, alle Teile (I/II/III...) in einem 
+Verzeichnis zu halten und gleichzeitig zu bauen. Es unterstuetzt die 
+folgenden Targets:
+
+(Ersetze <name> durch "info", "ana" etc.)
+
+make clean
+  Distributionsverzeichnis von abhaengigen Dateien saeubern
+make mrproper
+  _WIRKLICH_ sauber machen (loescht auch Editor-Backups)
+make setup
+  Distributionsverzeichnis vorbereiten (erforderlich nach Neuinstallation,
+  clean oder mrproper)
+make (all|<name>1.dvi|<name>2.dvi|...)
+  als DVI bauen
+make (allps|<name1>.ps|<name2>.dvi|...)
+  als Postscript bauen
+make distribution
+  Tarballs zur Ueberspielung auf den Server erzeugen
+
+-------------------------------------------------------------------------------
+Installation auf DOS/Windows
+-------------------------------------------------------------------------------
+
+C:\> latex <name>1/<name>2/...
+C:\> makeidx <name>1/<name>2/... -g -s german.sty
+C:\> latex <name>1/<name>2/...
+C:\> <previewer> <name>1/<name>2/...
+
+-------------------------------------------------------------------------------
+Lizenz
+-------------------------------------------------------------------------------
+
+GNU Free Documentation License. Siehe COPYING.
