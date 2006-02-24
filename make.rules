@@ -53,9 +53,6 @@ mrproper: clean
 	tar cvhfz $*-source.tar.gz $*-source
 	rm -Rf $*-source
 
-%.dist.tar: %.pdf %-source.tar.gz 
-	tar cvhf $*.dist.tar $*-source.tar.gz $*.pdf $(dist_add)
-
 %.pstex %.pstex_t: %.fig
 	fig2dev -L pstex -m $(FIG_MAGNIFICATION) $*.fig > $*.pstex
 	fig2dev -L pstex_t -p $*.pstex -m $(FIG_MAGNIFICATION) $*.fig > $*.pstex_t

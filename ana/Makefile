@@ -2,6 +2,8 @@
 
 all: ana1.pdf ana2.pdf ana3.pdf
 
+source: ana1-source.tar.gz ana2-source.tar.gz ana3-source.tar.gz 
+
 distribution: ana1.dist.tar ana2.dist.tar ana3.dist.tar
 
 setup:

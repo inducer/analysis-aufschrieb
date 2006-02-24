@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PUB_LOCATION="$HOME/work/tiker.net/webserver/site-codes/tiker.net/aufschrieb/"
+PUB_LOCATION="$HOME/work/tiker.net/webserver/site-codes/tiker.net/files/aufschrieb/"
 
 function dist() {
   cd $1
@@ -10,9 +10,9 @@ function dist() {
   echo -n "[distrib]"
   make all &> /dev/null
   make all &> /dev/null
-  make distribution &> /dev/null
+  make source &> /dev/null
   echo "[copying]"
-  scp *.dist.tar $PUB_LOCATION
+  cp $1*.pdf $1*-source.tar.gz $PUB_LOCATION
   cd ..
   }
 
@@ -25,15 +25,3 @@ else
     done
   fi
 
-echo "unpacking and processing on server side..."
-(cd $PUB_LOCATION && 
-  for file in *.dist.tar; do 
-    tar xvf $file ; 
-    rm $file
-    done && 
-  chmod a+r . -R)
-echo "compiling index..."
-m4 --prefix-builtins < index.m4 > index.html
-echo "copying index..."
-cp index.html $PUB_LOCATION
-rm index.html

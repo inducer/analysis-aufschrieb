@@ -4,6 +4,8 @@ all: info1.pdf info2.pdf info3.pdf
 
 distribution: info1.dist.tar info2.dist.tar info3.dist.tar
 
+source: info1-source.tar.gz info2-source.tar.gz info3-source.tar.gz
+
 setup:
 	if [ -f info1.tex ]; then latex info1; fi
 	if [ -f info2.tex ]; then latex info2; fi
